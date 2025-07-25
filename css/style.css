@@ -587,6 +587,7 @@ span {
     padding: 3rem 5rem;
     border-top: .8rem solid var(--main-color);
     border-bottom: .8rem solid var(--main-color);
+    margin-bottom: 3rem; /* Bisa kamu sesuaikan */
 }
 
 .testimonial-slide img {
