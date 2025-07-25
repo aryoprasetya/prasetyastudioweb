@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Prasetya Studio - Urusan Desain Menjadi Lebih Mudah</title>
+
+<!-- Perbaiki nama file favicon dan tipe -->
+<link rel="icon" href="images/logo duwa.png" type="image/png">
+
+    <!-- swiper css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    <!-- box icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/style copy.css">
+</head>
+
+<body>
+
+    <header class="header">
+  <a href="about.html" class="logo">
+    <img src="images/logo duwa.png" alt="Prasetya Studio Logo" class="logo-img" />
+    <span>Prasetya Studio</span>
+  </a>
+
+  <nav class="navbar">
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">Tentang</a>
+    <a href="services.html">Layanan</a>
+    <a href="https://www.instagram.com/prasetyastudio/" target="_blank">Portofolio</a>
+    <a href="contact.html">Hub. Kami</a>
+  </nav>
+
+  <div class="bx bx-moon" id="darkMode-icon"></div>
+  <div class="bx bx-menu" id="menu-icon"></div>
+</header>
+
+   <!-- about section design -->
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="images/about.pn" alt="">
+        </div>
+
+        <div class="about-content">
+            <h2 class="heading">Tentang <span>Kami</span></h2>
+            <h3>
+            Prasetya Studio adalah studio desain grafis freelance yang berfokus menyediakan layanan visual untuk individu, pelaku UMKM, komunitas, hingga brand yang sedang berkembang. Meskipun kami masih dalam tahap merintis, kami memiliki semangat tinggi dan komitmen untuk terus belajar dan berkembang dalam dunia desain.
+            </h3>
+            <p>
+            Kami menawarkan berbagai layanan desain seperti pembuatan logo, identitas visual, kemasan produk, materi promosi (digital dan cetak), konten media sosial, ilustrasi, serta desain undangan digital maupun cetak. Setiap proyek kami kerjakan dengan pendekatan personal, penuh perhatian terhadap detail, dan disesuaikan dengan kebutuhan serta karakter klien.
+            </p>
+            <p>
+            Kami percaya bahwa setiap desain memiliki makna, dan setiap ide layak diwujudkan secara visual. Prasetya Studio hadir untuk membantu Anda menuangkan ide menjadi desain yang sederhana, kuat, dan berkesan—seraya terus tumbuh bersama klien yang mempercayai proses kami.
+            <p><i>"Desain menciptakan budaya. Budaya membentuk nilai. Nilai menentukan masa depan."</i></p>
+            <p><i>— Robert L. Peters —</i></p>
+        </p>
+        <div class="about-content">
+            <h2 class="heading">Visi<span></span></h2>
+            <p>
+            Menjadi studio desain grafis terpercaya yang menghadirkan solusi kreatif, berkualitas, dan berdampak bagi personal brand maupun bisnis di seluruh Indonesia.
+            </p>
+            <div class="about-content">
+            <h2 class="heading"><span>Misi</span></h2>
+            <p>
+            1. Menyediakan layanan desain grafis yang profesional, tepat waktu, dan sesuai kebutuhan klien dengan standar estetika dan fungsionalitas tinggi.
+            </p>
+            <p>
+            2. Membangun hubungan jangka panjang dengan klien melalui komunikasi yang terbuka, pelayanan yang tulus, dan hasil kerja yang memuaskan.
+            </p>
+        </div>
+        </div>
+    </section>
+
+    <!-- google maps-->
+<div class="maps-container">
+  <h2 class="heading">Lokasi <span>Kami</span></h2>
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3014.3610549497407!2d109.6153941!3d-7.3184656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7001d30278d021%3A0x3b8be244040914e9!2sPrasetya%20Studio!5e1!3m2!1sid!2sid!4v1753429671346!5m2!1sid!2sid" 
+    width="100%" 
+    height="500" 
+    style="border:0;" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+<!-- contact section design -->
+    <section class="contact" id="contact">
+        <h2 class="heading">Hubungi <span>Kami!</span></h2>
+        <form action="https://formspree.io/f/xpwzvzza" method="POST" id="contactForm">
+            <div class="input-box">
+                <input type="text" name="nama" placeholder="Nama Lengkap" required>
+                <input type="email" name="email" placeholder="Alamat Email" required>
+            </div>
+            <div class="input-box">
+                <input type="text" name="nomor_telepon" placeholder="Nomor Telepon">
+                <input type="text" name="subjek" placeholder="Subjek Email">
+            </div>
+            <textarea name="pesan" cols="30" rows="10" placeholder="Tulis Pesan" required></textarea>
+            <input type="submit" value="Kirim Pesan" class="btn">
+        </form>
+        <p id="successMessage" style="display: none; color: green; font-weight: bold; margin-top: 20px;">
+            Terima kasih, pesan Anda sukses dikirimkan!
+        </p>
+    </section> 
+    
+    <script>
+        const form = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+    
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Cegah reload halaman
+    
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+            })
+            .then(response => {
+                if (response.ok) {
+                    successMessage.style.display = 'block'; // Tampilkan pesan sukses
+                    form.reset(); // Kosongkan formulir
+                } else {
+                    alert('Gagal mengirim pesan. Silakan coba lagi.');
+                }
+            })
+            .catch(error => {
+                alert('Terjadi kesalahan. Silakan coba lagi.');
+                console.error(error);
+            });
+        });
+    </script>    
+
+   <!-- footer design -->
+<footer class="footer">
+    <div class="footer-text">
+        <p>&copy; Copyright Prasetya Studio 2025 | All Rights Reserved.</p>
+    </div>
+
+    <div class="footer-iconTop">
+        <a href="about.html"><i class='bx bx-up-arrow-alt'></i></a>
+    </div>
+
+    <!-- Design credit 
+    <div class="footer-design">
+        <p>Design by:</p>
+        <img src="images/yo.design.png" alt="Prasetya Logo" class="design-logo">
+    </div> -->
+</footer>
+
+
+    <!-- scroll reveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!-- swiper js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- custom js -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
