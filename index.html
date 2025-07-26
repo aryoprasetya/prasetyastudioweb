@@ -495,5 +495,18 @@
     <!-- custom js -->
     <script src="js/script.js"></script>
 </body>
-
+<audio id="bg-music" autoplay>
+  <source src="images/lain-lain/musiq.mp3" type="audio/mp3">
+  Browser Anda tidak mendukung audio.
+  <audio id="bg-music" autoplay loop>
+</audio>
+    <script>
+  window.addEventListener('load', function () {
+    const audio = document.getElementById('bg-music');
+    // Paksa play
+    audio.play().catch(function (err) {
+      console.log('Autoplay ditolak. Tunggu interaksi pengguna.', err);
+    });
+  });
+</script>
 </html>
