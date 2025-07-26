@@ -696,7 +696,7 @@ span {
 
 .cooperation .heading {
     font-size: 36px;
-    margin-bottom: 10px;
+    margin-bottom: 1px;
     color: #333;
 }
 
@@ -717,7 +717,7 @@ span {
     display: inline-block;
     animation: slideLogo 20s linear infinite;
     white-space: nowrap; /* Untuk memastikan tidak ada pergeseran yang tidak diinginkan */
-    padding: 40px 0; /* Tambahkan padding di atas dan bawah container logo untuk ruang tambahan */
+    padding: 0px 0; /* Tambahkan padding di atas dan bawah container logo untuk ruang tambahan */
 }
 
 .logo-slider img {
