@@ -696,14 +696,13 @@ span {
 
 .cooperation .heading {
     font-size: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #333;
 }
 
 .cooperation .heading span {
-    color: ##3B82F6; /* Warna highlight yang sama */
+    color: #3B82F6; /* Warna highlight yang sama */
 }
-
 /* Container Logo */
 .logo-container {
     overflow: hidden;
