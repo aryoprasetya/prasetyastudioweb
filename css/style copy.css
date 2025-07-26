@@ -1180,3 +1180,9 @@ img {
   height: 100%;
   border: 0;
 }
+
+.maps-container p {
+    font-size: 1.6rem;
+    margin: 1rem 0 1rem;
+    text-align: center;
+}
