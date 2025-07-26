@@ -438,6 +438,20 @@ span {
     margin-bottom: 0rem;
 }
 
+.visi-misi p {
+    text-align: center;
+    font-size: 1.6rem;
+    margin: 2rem 0 3rem;
+    margin-bottom: 10rem;
+}
+
+.visi-misiku p {
+    text-align: center;
+    font-size: 1.6rem;
+    margin: 2rem 0 3rem;
+    margin-bottom: 1rem;
+}
+
 .services {
     min-height: auto;
     padding-bottom: 10rem;
@@ -660,12 +674,6 @@ span {
     margin-bottom: 3rem;
 }
 
-.contact p {
-    font-size: 1.6rem;
-    margin: 1rem 0 3rem;
-    text-align: center;
-}
-
 .contact form {
     max-width: 70rem;
     margin: 1rem auto;
@@ -722,7 +730,7 @@ span {
 }
 
 .cooperation .heading span {
-    color: #7e57c2; /* Warna highlight yang sama */
+    color: #3B82F6; /* Warna highlight yang sama */
 }
 
 /* Container Logo */
@@ -737,9 +745,9 @@ span {
 /* Slider Logo */
 .logo-slider {
     display: inline-block;
-    animation: slideLogo 20s linear infinite;
+    animation: slideLogo 50s linear infinite;
     white-space: nowrap; /* Untuk memastikan tidak ada pergeseran yang tidak diinginkan */
-    padding: 40px 0; /* Tambahkan padding di atas dan bawah container logo untuk ruang tambahan */
+    padding: 10px 0; /* Tambahkan padding di atas dan bawah container logo untuk ruang tambahan */
 }
 
 .logo-slider img {
@@ -748,7 +756,7 @@ span {
     max-height: 30px; /* Batas maksimum tinggi logo */
     margin: 0 40px; /* Jarak antar logo yang lebih longgar */
     object-fit: contain; /* Sesuaikan logo tanpa distorsi */
-    padding: 20px; /* Tambahkan sedikit ruang agar tidak mepet */
+    padding: 2px; /* Tambahkan sedikit ruang agar tidak mepet */
     box-sizing: content-box; /* Pastikan padding tidak mempengaruhi ukuran total elemen */
     filter: none; /* Hapus filter agar warna asli logo tampil */
 }
