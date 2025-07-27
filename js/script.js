@@ -103,3 +103,37 @@ ScrollReveal().reveal('.home-content h3, .home-content p, .about-content', { ori
     icon.className = "bx bx-pause";
   }
 }
+
+// Update jam digital (jam & menit)
+  function updateDigitalClock() {
+    const now = new Date();
+    document.getElementById('hourBlock').textContent = now.getHours().toString().padStart(2,'0');
+    document.getElementById('minuteBlock').textContent = now.getMinutes().toString().padStart(2,'0');
+  }
+  updateDigitalClock();
+  setInterval(updateDigitalClock, 1000);
+
+  // Update tanggal & lokasi (IP geolocation via ipapi.co)
+  function updateTanggalLokasi(city, country){
+    const hariList = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const bulanList = ['Januari','Februari','Maret','April','Mei','Juni',
+      'Juli','Agustus','September','Oktober','November','Desember'];
+    const now = new Date();
+    const hari = hariList[now.getDay()];
+    const tanggal = now.getDate();
+    const bulan = bulanList[now.getMonth()];
+    const tahun = now.getFullYear();
+    document.getElementById('tanggalLokasi').textContent =
+      `${city}, ${country}, ${hari}, ${tanggal} ${bulan} ${tahun}`;
+  }
+
+  // Panggil API ipapi.co untuk dapatkan lokasi dari IP
+  fetch('https://ipapi.co/json/')
+    .then(res => res.json())
+    .then(data => {
+      updateTanggalLokasi(data.city || 'Kota', data.country_name || 'Negara');
+    })
+    .catch(err => {
+      console.error('Gagal ambil lokasi:', err);
+      updateTanggalLokasi('Lokasi tidak tersedia', '');
+    });
