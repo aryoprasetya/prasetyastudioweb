@@ -587,7 +587,7 @@ span {
     padding: 3rem 5rem;
     border-top: .8rem solid var(--main-color);
     border-bottom: .8rem solid var(--main-color);
-    margin-bottom: 3rem; /* Bisa kamu sesuaikan */
+    gap: 2rem;
 }
 
 .testimonial-slide img {
@@ -703,6 +703,7 @@ span {
 .cooperation .heading span {
     color: #3B82F6; /* Warna highlight yang sama */
 }
+
 /* Container Logo */
 .logo-container {
     overflow: hidden;
@@ -1029,6 +1030,7 @@ span {
 
     .testimonial-content .testimonial-slide {
         padding: 3rem 2rem;
+        gap: 2rem;
     }
 
     .testimonial-box .swiper-button-next,
@@ -1103,8 +1105,8 @@ img {
 /* Footer styling */
 .footer {
     position: relative;
-    text-align: center;
-    padding: 5px;
+    text-align: left;
+    padding: 10px;
     background-color: #222;
     color: #fff;
 }
@@ -1114,7 +1116,7 @@ img {
 }
 
 .footer-iconTop {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .footer-iconTop a {
