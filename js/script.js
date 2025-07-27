@@ -137,3 +137,21 @@ ScrollReveal().reveal('.home-content h3, .home-content p, .about-content', { ori
       console.error('Gagal ambil lokasi:', err);
       updateTanggalLokasi('Lokasi tidak tersedia', '');
     });
+
+        const audio = document.getElementById('bgm');
+        const disk = document.getElementById('musicDisk');
+        const statusText = document.getElementById('musicStatus');
+        let isPlaying = false;
+
+        function toggleMusic() {
+          if (isPlaying) {
+            audio.pause();
+            statusText.textContent = '';
+            disk.style.animation = 'none';
+          } else {
+            audio.play();
+            statusText.textContent = '';
+            disk.style.animation = 'spin 3s linear infinite';
+          }
+          isPlaying = !isPlaying;
+        }
