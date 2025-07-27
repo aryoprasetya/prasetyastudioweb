@@ -501,30 +501,4 @@
 <audio id="musik" autoplay loop>
   <source src="images/lain-lain/musiq.mp3" type="audio/mpeg">
 </audio>
-
-<script>
-  const audio = document.getElementById("bg-music");
-  const toggleBtn = document.getElementById("music-toggle");
-
-  let isPlaying = false;
-
-  // Ganti ikon sesuai status
-  function updateIcon() {
-    toggleBtn.className = isPlaying ? "bx bx-volume-full" : "bx bx-volume-mute";
-  }
-
-  // Toggle musik saat diklik
-  function toggleAudio() {
-  const audio = document.getElementById("musik");
-  const icon = document.getElementById("music-icon");
-
-  if (audio.paused) {
-    audio.play();
-    icon.className = "bx bx-music";
-  } else {
-    audio.pause();
-    icon.className = "bx bx-pause";
-  }
-}
-</script>
 </html>
