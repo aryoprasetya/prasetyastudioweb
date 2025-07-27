@@ -1295,53 +1295,54 @@ img {
     text-align: center;
 }
 
-.marquee-wrapper {
-  overflow: hidden;
-  background-color: #E62129;
-  padding: 10px 0;
-  margin-top: 10px;
+.breadcrumb {
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.marquee {
-  display: inline-block;
-  white-space: nowrap;
-  animation: marquee 18s linear infinite;
+.breadcrumb-home {
+  color: #E62129;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.marquee span {
-  color: #fff;
-  font-size: 18px;
+.breadcrumb-home:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: #888;
+}
+
+.breadcrumb-current {
+  color: #000;
+  font-weight: 500;
+}
+
+.music-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 100000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+#musicDisk {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transition: transform 0.5s linear;
+}
+
+#musicStatus {
+  margin-left: 10px;
+  color: white;
+  font-size: 14px;
   font-weight: bold;
   font-family: sans-serif;
 }
-
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-    /* Fix Footer di bawah */
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-    .wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    main {
-      flex: 1;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
