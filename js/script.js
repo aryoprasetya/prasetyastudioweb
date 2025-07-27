@@ -79,3 +79,27 @@ ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
 ScrollReveal().reveal('.home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form', { origin: 'bottom' });
 ScrollReveal().reveal('.home-content h1, .about-img img', { origin: 'left' });
 ScrollReveal().reveal('.home-content h3, .home-content p, .about-content', { origin: 'right' });
+
+  const audio = document.getElementById("bg-music");
+  const toggleBtn = document.getElementById("music-toggle");
+
+  let isPlaying = false;
+
+  // Ganti ikon sesuai status
+  function updateIcon() {
+    toggleBtn.className = isPlaying ? "bx bx-volume-full" : "bx bx-volume-mute";
+  }
+
+  // Toggle musik saat diklik
+  function toggleAudio() {
+  const audio = document.getElementById("musik");
+  const icon = document.getElementById("music-icon");
+
+  if (audio.paused) {
+    audio.play();
+    icon.className = "bx bx-music";
+  } else {
+    audio.pause();
+    icon.className = "bx bx-pause";
+  }
+}
