@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prasetya Studio - Urusan Desain Menjadi Lebih Mudah</title>
+  <link rel="icon" href="images/logo duwa.png" type="image/png" />
+  
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <!-- Box Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/stylee.css" />
+
+  <style>
+    .marquee-wrapper {
+  overflow: hidden;
+  background-color: #E62129;
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+.marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 18s linear infinite;
+}
+
+.marquee span {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+    /* Fix Footer di bawah */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- HEADER -->
+    <header class="header">
+      <a href="about.html" class="logo">
+        <img src="images/newslogo.png" alt="Prasetya Studio Logo" class="logo-img" />
+        <span></span>
+      </a>
+
+      <nav class="navbar">
+        <a href="index.html" class="active">Home</a>
+        <a href="contact.html">Hub. Kami</a>
+      </nav>
+
+      <div class="bx bx-moon" id="darkMode-icon"></div>
+      <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <main>
+      <!-- Judul -->
+      <section class="artikel-section">
+        <h2 class="heading">Artikel <span>Terbaru</span></h2>
+        <p>Dengerin lagu dulu, klik ikon disk dibawah</p>
+        <div class="marquee-wrapper">
+  <div class="marquee">
+    <span>Website Artikel Coming Soon — Stay tuned! Website Artikel Coming Soon — Stay tuned! Website Artikel Coming Soon — Stay tuned!</span>
+  </div>
+</div>
+      </section>
+</div>
+
+      <!-- AUDIO -->
+      <audio id="bgm" src="images/lain-lain/audiyo.mp3" loop></audio>
+      <div onclick="toggleMusic()" style="
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          z-index: 100000;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        ">
+        <img id="musicDisk" src="images/disk.png" style="
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transition: transform 0.5s linear;
+          " />
+        <span id="musicStatus" style="
+            margin-left: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: sans-serif;
+          "></span>
+      </div>
+
+      <!-- SCRIPT AUDIO -->
+      <script>
+        const audio = document.getElementById('bgm');
+        const disk = document.getElementById('musicDisk');
+        const statusText = document.getElementById('musicStatus');
+        let isPlaying = false;
+
+        function toggleMusic() {
+          if (isPlaying) {
+            audio.pause();
+            statusText.textContent = '';
+            disk.style.animation = 'none';
+          } else {
+            audio.play();
+            statusText.textContent = '';
+            disk.style.animation = 'spin 3s linear infinite';
+          }
+          isPlaying = !isPlaying;
+        }
+      </script>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-text">
+        <p>&copy; Copyright Prasetya Studio 2025 | All Rights Reserved.</p>
+      </div>
+      <div class="footer-iconTop">
+        <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JS -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
