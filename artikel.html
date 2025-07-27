@@ -13,59 +13,6 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/stylee.css" />
-
-  <style>
-    .marquee-wrapper {
-  overflow: hidden;
-  background-color: #E62129;
-  padding: 10px 0;
-  margin-top: 10px;
-}
-
-.marquee {
-  display: inline-block;
-  white-space: nowrap;
-  animation: marquee 18s linear infinite;
-}
-
-.marquee span {
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  font-family: sans-serif;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-    /* Fix Footer di bawah */
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-    .wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    main {
-      flex: 1;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
 </head>
 
 <body>
@@ -125,28 +72,6 @@
             font-family: sans-serif;
           "></span>
       </div>
-
-      <!-- SCRIPT AUDIO -->
-      <script>
-        const audio = document.getElementById('bgm');
-        const disk = document.getElementById('musicDisk');
-        const statusText = document.getElementById('musicStatus');
-        let isPlaying = false;
-
-        function toggleMusic() {
-          if (isPlaying) {
-            audio.pause();
-            statusText.textContent = '';
-            disk.style.animation = 'none';
-          } else {
-            audio.play();
-            statusText.textContent = '';
-            disk.style.animation = 'spin 3s linear infinite';
-          }
-          isPlaying = !isPlaying;
-        }
-      </script>
-    </main>
 
     <!-- FOOTER -->
     <footer class="footer">
