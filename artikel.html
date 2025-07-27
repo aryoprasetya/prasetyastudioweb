@@ -13,6 +13,59 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/stylee.css" />
+
+  <style>
+    .marquee-wrapper {
+  overflow: hidden;
+  background-color: #E62129;
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+.marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 18s linear infinite;
+}
+
+.marquee span {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+    /* Fix Footer di bawah */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
@@ -29,7 +82,19 @@
         <a href="contact.html">Hub. Kami</a>
       </nav>
 
+      <div class="bx bx-moon" id="darkMode-icon"></div>
+      <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <main>
       <!-- Judul -->
+      <section class="artikel-section">
+        <nav class="breadcrumb">
+  <a href="index.html" class="breadcrumb-home">Home</a>
+  <span class="breadcrumb-separator">&gt;</span>
+  <span class="breadcrumb-current">Artikel</span>
+</nav>
         <h2 class="heading">Artikel <span>Terbaru</span></h2>
         <p>Dengerin lagu dulu, klik ikon disk dibawah</p>
         <div class="marquee-wrapper">
@@ -41,30 +106,12 @@
 </div>
 
       <!-- AUDIO -->
-      <audio id="bgm" src="images/lain-lain/audiyo.mp3" loop></audio>
-      <div onclick="toggleMusic()" style="
-          position: fixed;
-          bottom: 20px;
-          left: 20px;
-          z-index: 100000;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-        ">
-        <img id="musicDisk" src="images/disk.png" style="
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            transition: transform 0.5s linear;
-          " />
-        <span id="musicStatus" style="
-            margin-left: 10px;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            font-family: sans-serif;
-          "></span>
-      </div>
+<audio id="bgm" src="images/lain-lain/audiyo.mp3" loop></audio>
+
+<div class="music-toggle" onclick="toggleMusic()">
+  <img id="musicDisk" src="images/disk.png" />
+  <span id="musicStatus"></span>
+</div>
 
     <!-- FOOTER -->
     <footer class="footer">
