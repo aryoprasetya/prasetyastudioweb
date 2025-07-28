@@ -107,12 +107,32 @@
 
       <!-- AUDIO -->
 <audio id="bgm" src="images/lain-lain/audiyo.mp3" loop></audio>
-
 <div class="music-toggle" onclick="toggleMusic()">
   <img id="musicDisk" src="images/disk.png" />
   <span id="musicStatus"></span>
 </div>
 
+   <!-- SCRIPT AUDIO -->
+  <script>
+        const audio = document.getElementById('bgm');
+        const disk = document.getElementById('musicDisk');
+        const statusText = document.getElementById('musicStatus');
+        let isPlaying = false;
+
+        function toggleMusic() {
+          if (isPlaying) {
+            audio.pause();
+            statusText.textContent = '';
+            disk.style.animation = 'none';
+          } else {
+            audio.play();
+            statusText.textContent = '';
+            disk.style.animation = 'spin 3s linear infinite';
+          }
+          isPlaying = !isPlaying;
+        }
+      </script>
+  
     <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-text">
