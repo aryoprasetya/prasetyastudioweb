@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 * {
     margin: 0;
@@ -8,7 +8,7 @@
     border: none;
     outline: none;
     scroll-behavior: smooth;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Manrope', sans-serif;
 }
 
 :root {
@@ -386,7 +386,7 @@ span {
 }
 
 .about-img img {
-    width: 40vw;
+    width: 30vw;
 }
 
 .heading {
@@ -397,6 +397,7 @@ span {
 .about-content h2 {
     text-align: left;
     line-height: 1.2;
+    margin-bottom: 2rem;
 }
 
 .about-content h3 {
@@ -410,11 +411,11 @@ span {
 
 .services {
     min-height: auto;
-    padding-bottom: 10rem;
+    padding-bottom: 3rem;
 }
 
 .services h2 {
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
 
 .services .services-container {
@@ -467,7 +468,7 @@ span {
 }
 
 .portfolio h2 {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
 }
 
 .portfolio .portfolio-container {
@@ -624,7 +625,7 @@ span {
 
 .contact {
     min-height: auto;
-    padding-bottom: 7rem;
+    padding-bottom: 3rem;
 }
 
 .contact h2 {
@@ -1015,7 +1016,6 @@ span {
 
     .about-img img {
         width: 70vw;
-        margin-top: -2rem;
     }
 
     .testimonial-container .testimonial-wrapper {
