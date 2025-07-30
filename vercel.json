@@ -4,7 +4,8 @@
     { "source": "/tentang", "destination": "/about.html" },
     { "source": "/layanan", "destination": "/services.html" },
     { "source": "/artikel", "destination": "/artikel.html" },
-    { "source": "/hub-kami", "destination": "/contact.html" }
+    { "source": "/hub-kami", "destination": "/contact.html" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml.txt" }
   ],
   "headers": [
     {
