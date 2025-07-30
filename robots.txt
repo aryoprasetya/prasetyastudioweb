@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Allow: /
 
-Sitemap: https://www.prasetyastudio.my.id/prasetya-sitemap.xml
+Sitemap: https://raw.githubusercontent.com/aryoprasetya/prasetyastudioweb/main/sitemap.xml
