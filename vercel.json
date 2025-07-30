@@ -6,8 +6,6 @@
     { "source": "/artikel", "destination": "/artikel.html" },
     { "source": "/hub-kami", "destination": "/contact.html" }
   ],
-  
-{
   "headers": [
     {
       "source": "/sitemap.xml",
