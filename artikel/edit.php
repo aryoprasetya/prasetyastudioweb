@@ -1,1 +1,0 @@
-<?php echo 'Form edit artikel'; ?>

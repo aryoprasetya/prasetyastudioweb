@@ -1,1 +1,0 @@
-<?php echo 'Proses hapus artikel'; ?>

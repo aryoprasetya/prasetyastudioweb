@@ -1,1 +1,0 @@
-<?php echo 'Ini halaman utama Prasetyanews'; ?>
