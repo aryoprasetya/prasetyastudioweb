@@ -50,6 +50,11 @@
     <!-- home section design -->
     <section class="home" id="home">
         <div class="home-content">
+            <div class="running-text">
+            <marquee behavior="scroll" direction="left" scrollamount="5">
+                🎯 Promo Spesial Agustus Merdeka! Dapatkan diskon desain hingga 80% hanya di Prasetya Studio! 🎯
+            </marquee>
+        </div>
             <h3>Selamat Datang di Laman</h3>
             <h1>Prasetya Studio</h1>
             <p>
@@ -134,7 +139,7 @@
         </div>
     </section>
 
-<!-- Banner Sambutan dengan Lokasi IP & Jam Digital -->
+<!-- Banner Sambutan Berupa Gambar + Tombol Silang -->
 <div id="digitalClockBanner" style="
     position: fixed;
     top: 0; left: 0;
@@ -143,48 +148,36 @@
     display: flex; justify-content: center; align-items: center;
     z-index: 9999;
 ">
-  <div style="
-      position: relative;
-      background: #007bff;
-      padding: 30px 40px; border-radius: 20px;
+  <!-- Tombol Silang -->
+  <button onclick="document.getElementById('digitalClockBanner').style.display='none'" style="
+      position: absolute;
+      top: 20px; right: 20px;
+      background: #ff4d4d;
+      border: none; color: white;
+      font-size: 20px; border-radius: 50%;
+      width: 32px; height: 32px;
+      cursor: pointer; font-weight: bold;
+      line-height: 1;
+      z-index: 10000;
+  ">×</button>
+
+  <!-- Gambar Banner -->
+  <a href="about.html" style="
+      display: block;
+      width: 300px;
+      aspect-ratio: 1 / 1;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
       box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-      color: white; text-align: center;
-      font-family: 'Manrope', sans-serif;
-      max-width: 90%; width: 500px;
   ">
-    <button onclick="document.getElementById('digitalClockBanner').style.display='none'" style="
-        position: absolute; top: 8px; right: 8px;
-        background: #ff4d4d; border: none; color: white;
-        font-size: 14px; border-radius: 50%;
-        width: 22px; height: 22px;
-        cursor: pointer; font-weight: bold;
-        line-height: 0.8; padding: 0;
-    ">×</button>
-
-    <h2 style="margin-bottom: 10px;">Selamat Datang di Website Prasetya Studio</h2>
-    <p id="tanggalLokasi" style="margin-bottom: 25px; font-size: 16px; color: white;">
-      – Menunggu lokasi…
-    </p>
-
-    <div style="display: flex; justify-content: center; gap: 15px;">
-      <div id="hourBlock" style="
-          background: #007bff; color: white;
-          font-size: 64px; padding: 20px 30px;
-          border-radius: 12px; min-width: 100px;
-          text-align: center; font-family: 'Manrope', sans-serif;
-      ">00</div>
-      <div id="minuteBlock" style="
-          background: #007bff; color: white;
-          font-size: 64px; padding: 20px 30px;
-          border-radius: 12px; min-width: 100px;
-          text-align: center; font-family: 'Manrope', sans-serif;
-      ">00</div>
-    </div>
-
-    <p style="margin-top: 20px; font-size: 12px; color: #aaaaaa;">
-      *Lokasi menyesuaikan alamat IP, mohon maaf jika tidak sesuai
-    </p>
-  </div>
+    <img src="images/portfolio1.jpg" alt="Selamat Datang" style="
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    ">
+  </a>
 </div>
 
     <!-- about section design -->
