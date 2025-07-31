@@ -1,4 +1,11 @@
 {
+  "rewrites": [
+    { "source": "/home", "destination": "/index.html" },
+    { "source": "/tentang", "destination": "/about.html" },
+    { "source": "/layanan", "destination": "/services.html" },
+    { "source": "/artikel", "destination": "/artikel.html" },
+    { "source": "/hub-kami", "destination": "/contact.html" }
+  ],
   "headers": [
     {
       "source": "/sitemap.xml",
