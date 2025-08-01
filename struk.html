@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Prasetyanews - Artikel dan Informasi dari Prasetya Studio">
+    <title>Prasetyanews | Prasetya Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background: #0a0a0a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            font-size: 14px;
+            color: #777;
+        }
+        a.button {
+            display: inline-block;
+            margin-top: 20px;
+            background: #0a0a0a;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HALAMAN INVOICE</h1>
+        <p></p>
+    </header>
+    <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struk Pembayaran</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .struk-border {
+      border: 1px dashed #999;
+      padding: 16px;
+    }
+    .corner-mark::before,
+    .corner-mark::after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      border: 2px solid black;
+    }
+    .corner-top-left::before {
+      top: 0; left: 0; border-right: none; border-bottom: none;
+    }
+    .corner-top-right::before {
+      top: 0; right: 0; border-left: none; border-bottom: none;
+    }
+    .corner-bottom-left::after {
+      bottom: 0; left: 0; border-right: none; border-top: none;
+    }
+    .corner-bottom-right::after {
+      bottom: 0; right: 0; border-left: none; border-top: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-4">
+  <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-xl font-bold mb-4">Form Input Struk Pembayaran</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="text" id="namaClient" placeholder="Nama Client" class="border p-2 rounded" />
+<input type="text" id="teleponClient" placeholder="No. Telepon Client" class="border p-2 rounded" />
+<input type="text" id="npwpClient" placeholder="NPWP Client (opsional)" class="border p-2 rounded" />
+      <input type="text" id="noStruk" placeholder="No. Struk" class="border p-2 rounded" />
+      <input type="text" id="namaToko" placeholder="Nama PIC" class="border p-2 rounded" />
+      <input type="text" id="alamatToko" placeholder="Alamat Toko" class="border p-2 rounded" />
+      <input type="number" id="pajak" placeholder="Pajak (%)" class="border p-2 rounded" value="12" />
+      <input type="number" id="diskon" placeholder="Diskon (Rp)" class="border p-2 rounded" value="0" />
+      <select id="karyawan" class="border p-2 rounded">
+  <option value="aryo">Aryo</option>
+  <option value="yuto">Yuto</option>
+  <option value="bayu">Bayu</option>
+</select>
+
+      <select id="status" class="border p-2 rounded">
+        <option value="PAID">PAID</option>
+        <option value="PENDING">PENDING</option>
+      </select>
+      <input type="datetime-local" id="tanggalWaktu" class="border p-2 rounded" />
+    </div>
+
+    <h2 class="mt-6 font-semibold">Barang</h2>
+    <div id="barangContainer"></div>
+    <button onclick="tambahBarang()" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">+ Tambah Barang</button>
+    <button onclick="generateStruk()" class="mt-6 bg-green-500 text-white px-4 py-2 rounded">Preview Struk</button>
+  
+</div>
+
+  <div class="max-w-4xl mx-auto mt-6 bg-white p-6 rounded shadow">
+    <div id="preview" class="relative corner-mark corner-top-left corner-top-right corner-bottom-left corner-bottom-right text-sm">
+      <!-- Preview struk akan muncul di sini -->
+    </div>
+    <button onclick="downloadPDF()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Download PDF</button>
+  </div>
+  <div id="fakturPajak" class="mt-6 hidden bg-white p-6 rounded shadow">
+  <!-- Faktur akan digenerate otomatis -->
+</div>
+<button onclick="downloadFakturPDF()" id="downloadFakturBtn" class="mt-4 hidden bg-purple-600 text-white px-4 py-2 rounded">
+  Download Faktur Pajak PDF
+</button>
+
+  <script>
+    function tambahBarang() {
+      const container = document.getElementById("barangContainer");
+      const div = document.createElement("div");
+      div.className = "grid grid-cols-1 md:grid-cols-4 gap-2 mt-2";
+      div.innerHTML = `
+        <input type="text" placeholder="Nama Barang" class="border p-2 rounded" data-nama />
+        <input type="number" placeholder="Qty" class="border p-2 rounded" data-qty />
+        <input type="number" placeholder="Harga" class="border p-2 rounded" data-harga />
+        <button onclick="this.parentElement.remove()" class="bg-red-400 text-white px-2 py-1 rounded">Hapus</button>
+      `;
+      container.appendChild(div);
+    }
+
+    function generateStruk() {
+    const namaClient = document.getElementById("namaClient").value;
+const teleponClient = document.getElementById("teleponClient").value;
+const npwpClient = document.getElementById("npwpClient").value || "-";
+      const noStruk = document.getElementById("noStruk").value;
+      const namaToko = document.getElementById("namaToko").value;
+      const alamatToko = document.getElementById("alamatToko").value;
+      const pajak = parseFloat(document.getElementById("pajak").value) || 0;
+      const diskon = parseFloat(document.getElementById("diskon").value) || 0;
+      const status = document.getElementById("status").value;
+      const tanggalInput = document.getElementById("tanggalWaktu").value;
+const tanggal = new Date(tanggalInput).toLocaleDateString('id-ID', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+let items = "";
+      let subtotal = 0;
+
+      document.querySelectorAll("#barangContainer > div").forEach((row, idx) => {
+        const nama = row.querySelector("[data-nama]").value;
+        const qty = parseInt(row.querySelector("[data-qty]").value);
+        const harga = parseFloat(row.querySelector("[data-harga]").value);
+        const total = qty * harga;
+        subtotal += total;
+        items += `
+          <tr>
+            <td class='border px-2 py-1 text-center'>${idx + 1}</td>
+            <td class='border px-2 py-1'>${nama}</td>
+            <td class='border px-2 py-1 text-center'>${qty}</td>
+            <td class='border px-2 py-1 text-right'>Rp ${harga.toLocaleString()}</td>
+            <td class='border px-2 py-1 text-right'>Rp ${total.toLocaleString()}</td>
+          </tr>`;
+      });
+
+      const nilaiPajak = (subtotal * pajak) / 100;
+      const grandTotal = subtotal + nilaiPajak - diskon;
+      if (pajak > 0) {
+  document.getElementById("fakturPajak").classList.remove("hidden");
+
+  document.getElementById("fakturPajak").innerHTML = `
+    <div class="relative">
+      <!-- ✅ Watermark transparan -->
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-50">
+        <div class="text-red-500 opacity-20 text-4xl font-bold rotate-[-30deg] text-center leading-snug">
+          SPECIMEN<br/>BUKAN FAKTUR RESMI DJP
+        </div>
+      </div>
+
+      <!-- ✅ Isi Faktur -->
+      <div id="faktur" class="relative z-10 text-sm font-sans leading-relaxed border border-black p-4 bg-white">
+        <div class="text-center font-bold mb-2">FAKTUR PAJAK</div>
+        <p>Nama Pembeli: ${namaClient}</p>
+        <p>No. Telp: ${teleponClient}</p>
+        <p>NPWP: ${npwpClient || '-'}</p>
+        <p>Alamat: ${alamatToko}</p>
+        <p>Tanggal: ${tanggal}</p>
+        <p>No. Seri Faktur: 010.001-${noStruk}</p>
+
+        <table class="w-full border mt-2 text-xs">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="border px-2 py-1">No</th>
+              <th class="border px-2 py-1">Nama Barang</th>
+              <th class="border px-2 py-1">Qty</th>
+              <th class="border px-2 py-1">Harga</th>
+              <th class="border px-2 py-1">Jumlah</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${items}
+          </tbody>
+        </table>
+
+        <div class="text-right mt-2">
+          <p>DPP: Rp ${subtotal.toLocaleString()}</p>
+          <p>PPN (${pajak}%): Rp ${nilaiPajak.toLocaleString()}</p>
+          <p><strong>Total: Rp ${grandTotal.toLocaleString()}</strong></p>
+        </div>
+
+        <p class="mt-4">Faktur ini dicetak otomatis berdasarkan transaksi.</p>
+      </div>
+    </div>
+  `;
+}
+
+if (pajak > 0) {
+  const fakturNomor = `010.${new Date().getFullYear().toString().slice(-2)}-${Math.floor(Math.random() * 90000000 + 10000000)}`;
+  const itemsFaktur = Array.from(document.querySelectorAll("#barangContainer > div")).map(row => {
+    const nama = row.querySelector("[data-nama]").value;
+    const harga = parseFloat(row.querySelector("[data-harga]").value);
+    return `<tr>
+      <td class='border px-2 py-1'>${nama}</td>
+      <td class='border px-2 py-1 text-right'>Rp ${harga.toLocaleString()}</td>
+    </tr>`;
+  }).join("");
+
+  document.getElementById("fakturPajak").classList.remove("hidden");
+  document.getElementById("downloadFakturBtn").classList.remove("hidden");
+
+  document.getElementById("fakturPajak").innerHTML = `
+  <div class="relative">
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-500 opacity-20 text-4xl rotate-[-30deg] pointer-events-none select-none z-50">
+      SPECIMEN - BUKAN FAKTUR PAJAK RESMI DJP
+    </div>
+    <div id="faktur" class="relative z-10 text-sm font-sans leading-relaxed border border-black p-4">
+
+      <h2 class="text-center font-bold text-lg mb-2">FAKTUR PAJAK</h2>
+      <p><strong>Nomor Seri:</strong> ${fakturNomor}</p>
+      <hr class="my-2 border-black" />
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="font-semibold">PENJUAL:</p>
+          <p>Prasetya Studio Indonesia</p>
+          <p>${alamatToko}</p>
+          <p>NPWP: 01.234.567.8-999.000</p>
+        </div>
+        <div>
+          <p class="font-semibold">PEMBELI:</p>
+          <p>${namaClient}</p>
+          <p>No. Telp: ${teleponClient}</p>
+          <p>NPWP: ${npwpClient}</p>
+        </div>
+      </div>
+      <table class="w-full border mt-4 text-xs">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border px-2 py-1">Nama Barang / Jasa</th>
+            <th class="border px-2 py-1 text-right">Harga Jual</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemsFaktur}
+        </tbody>
+      </table>
+      <div class="text-right mt-2">
+        <p><strong>DPP:</strong> Rp ${subtotal.toLocaleString()}</p>
+        <p><strong>PPN (${pajak}%):</strong> Rp ${nilaiPajak.toLocaleString()}</p>
+        <p><strong>Total:</strong> Rp ${grandTotal.toLocaleString()}</p>
+      </div>
+      <p class="mt-4">Faktur ini dibuat secara elektronik dan merupakan bukti pungutan pajak sesuai peraturan yang berlaku.</p>
+    </div>
+  `;
+} else {
+  document.getElementById("fakturPajak").classList.add("hidden");
+  document.getElementById("downloadFakturBtn").classList.add("hidden");
+}
+
+      const statusImg = status === "PAID" ? "images/PAID.png" : "images/PENDING.png";
+
+      const karyawan = document.getElementById("karyawan").value;
+const ttdImg = `images/ttd-${karyawan}.png`;
+      document.getElementById("preview").innerHTML = `
+        <div id="struk" class="font-sans text-sm leading-relaxed struk-border">
+<div class="text-left">
+  <img src="images/YYYYY.png" alt="Logo" class="h-12 mb-2" />
+  <p class="text-xs font-semibold text-gray-700">GRAPHIC DESIGN AGENCY</p>
+  <p class="text-xs"><i class="fas fa-phone mr-1"></i>+62 851-4308-0554</p>
+  <p class="text-xs"><i class="fas fa-envelope mr-1"></i>prasetyastudioservicehub@gmail.com</p>
+  <p class="text-xs"><i class="fas fa-globe mr-1"></i>www.prasetyastudio.my.id</p>
+
+  <div class="mt-2 text-xs">
+    <p><span class="font-semibold">Kepada:</span> ${namaClient}</p>
+    <p><span class="font-semibold">No. Telp:</span> ${teleponClient}</p>
+  </div>
+
+  <hr class="my-2" />
+</div>
+
+<div class="text-center">
+  <h3 class="font-semibold">STRUK PEMBAYARAN</h3>
+  <p>No. ${noStruk}</p>
+</div>
+
+          <p class="mt-2">Terima kasih telah mempercayakan layanan kami. Berikut ini adalah transaksi yang harus diselesaikan:</p>
+          <table class="w-full border mt-4 text-xs">
+            <thead class="bg-gray-200">
+              <tr>
+                <th class="border px-2 py-1">NO</th>
+                <th class="border px-2 py-1">Nama Barang</th>
+                <th class="border px-2 py-1">Qty</th>
+                <th class="border px-2 py-1">Harga</th>
+                <th class="border px-2 py-1">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${items}
+            </tbody>
+          </table>
+          <div class="text-right mt-2">
+            <p>Pajak (${pajak}%): Rp ${nilaiPajak.toLocaleString()}</p>
+            <p>Diskon : Rp ${diskon.toLocaleString()}</p>
+            <p class="font-bold">Grand Total : Rp ${grandTotal.toLocaleString()}</p>
+          </div>
+          <p class="mt-4">Demikian struk ini kami sampaikan sebagai bukti transaksi. Terima kasih atas kepercayaan dan kerja sama Anda.</p>
+          <div class="flex justify-between mt-4">
+<div>
+  <p class="text-sm font-medium mb-1">Scan kode untuk melakukan pembayaran:</p>
+  <div class="border w-24 h-24 mt-1 flex items-center justify-center overflow-hidden">
+    <img src="/images/qr.png" alt="QR Code" class="max-w-full max-h-full object-contain" />
+  </div>
+</div>
+
+            <div class="text-right">
+              <p>${alamatToko}, ${tanggal}</p>
+<p class="mt-2">Hormat Kami,</p>
+<img src="${ttdImg}" alt="Tanda Tangan" class="h-20 my-2" />
+<p class="text-sm font-bold text-blue-700">${namaToko}</p>
+              <img src="${statusImg}" alt="Status" class="w-20 mt-1" />
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function downloadPDF() {
+  const element = document.getElementById("struk");
+  const opt = {
+    margin:       0.5,
+    filename:     'struk.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+  };
+
+  html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdf) {
+    pdf.setFont("helvetica"); // 👈 pakai Helvetica di PDF
+  }).save();
+}
+function downloadFakturPDF() {
+  const element = document.getElementById("faktur");
+  const opt = {
+    margin: 0.5,
+    filename: 'faktur-pajak.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+  };
+
+  html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
+    pdf.setFont("helvetica");
+  }).save();
+}
+
+  </script>
+</body>
+</html>
+
+        <a href="/" class="button">Kembali ke Beranda</a>
+    </main>
+    <footer>
+        &copy; 2025 Prasetya Studio. All rights reserved.
+    </footer>
+</body>
+</html>
