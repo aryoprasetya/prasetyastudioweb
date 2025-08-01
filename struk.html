@@ -135,12 +135,6 @@ let items = "";
 
   document.getElementById("fakturPajak").innerHTML = `
     <div class="relative">
-      <!-- ✅ Watermark transparan -->
-      <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-50">
-        <div class="text-red-500 opacity-20 text-4xl font-bold rotate-[-30deg] text-center leading-snug">
-          SPECIMEN<br/>BUKAN FAKTUR RESMI DJP
-        </div>
-      </div>
 
       <!-- ✅ Isi Faktur -->
       <div id="faktur" class="relative z-10 text-sm font-sans leading-relaxed border border-black p-4 bg-white">
@@ -195,9 +189,6 @@ if (pajak > 0) {
 
   document.getElementById("fakturPajak").innerHTML = `
   <div class="relative">
-    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-500 opacity-20 text-4xl rotate-[-30deg] pointer-events-none select-none z-50">
-      SPECIMEN - BUKAN FAKTUR PAJAK RESMI DJP
-    </div>
     <div id="faktur" class="relative z-10 text-sm font-sans leading-relaxed border border-black p-4">
 
       <h2 class="text-center font-bold text-lg mb-2">FAKTUR PAJAK</h2>
