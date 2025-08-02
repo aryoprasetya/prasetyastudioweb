@@ -30,15 +30,27 @@
     e.preventDefault();
 
     const form = e.target;
-    const data = Object.fromEntries(new FormData(form).entries());
+    const data = {
+  nama: document.getElementById("nama").value,
+  tanggal: document.getElementById("tanggal").value,
+  total: document.getElementById("total").value,
+  status: document.getElementById("status").value
+};
 
-    console.log("Data dikirim:", data);
+const query = new URLSearchParams({
+  sheet: "Transaksi",
+  ...data
+});
 
-    try {
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        body: new URLSearchParams(data),
-      });
+fetch("https://script.google.com/macros/s/AKfycbwEsj2uut_gcFv07YGQ57tIrlrS6KeLhwZxd6QCn_A8DlDkMYwdc7e-QRenGelME3WRRg/exec" + query.toString())
+  .then(res => res.text())
+  .then(result => {
+    alert("✅ " + result);
+  })
+  .catch(err => {
+    console.error("Gagal:", err);
+    alert("❌ Gagal mengirim data.");
+  });
 
       const result = await response.text();
       console.log("Respon dari server:", result);
