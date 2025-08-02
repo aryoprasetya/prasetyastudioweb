@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+
+  <!-- Cek login -->
+  <script>
+    if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <!-- Navbar -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-gray-800">📊 Dashboard Admin</h1>
+    <div class="flex items-center gap-4">
+      <span id="clock" class="text-gray-600 text-sm"></span>
+      <button onclick="logout()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Logout</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="p-6 space-y-6">
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- Data Pelanggan -->
+      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
+        <h2 class="text-lg font-semibold mb-2">📄 Data Pelanggan</h2>
+        <p class="text-sm text-gray-600 mb-4">Lihat atau edit data pelanggan.</p>
+        <a href="data-pelanggan.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Data</a>
+      </div>
+
+      <!-- Data Pelanggan -->
+      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
+        <h2 class="text-lg font-semibold mb-2">📄 Transaksi</h2>
+        <p class="text-sm text-gray-600 mb-4">Tambah Data Transaksi.</p>
+        <a href="transaksi.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Data</a>
+      </div>
+
+      <!-- Buat Struk -->
+      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
+        <h2 class="text-lg font-semibold mb-2">🧾 Buat Struk</h2>
+        <p class="text-sm text-gray-600 mb-4">Cetak struk baru untuk pelanggan.</p>
+        <a href="struk.html" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Buat Struk</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script Jam & Logout -->
+  <script>
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent = now.toLocaleTimeString();
+    }
+
+    function logout() {
+      const konfirmasi = confirm("Yakin ingin logout?");
+      if (konfirmasi) {
+        sessionStorage.removeItem("adminLoggedIn");
+        window.location.href = "login.html";
+      }
+    }
+
+    setInterval(updateClock, 1000);
+    window.onload = updateClock;
+  </script>
+
+</body>
+</html>

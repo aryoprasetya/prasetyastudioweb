@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tambah Data Pelanggan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-6 rounded shadow w-full max-w-lg">
+    <h2 class="text-xl font-bold mb-4">Tambah Data Pelanggan</h2>
+    <form id="formPelanggan">
+      <div class="grid grid-cols-1 gap-4">
+        <input type="text" name="nama_client" placeholder="Nama Client" required class="border p-2 rounded" />
+        <input type="text" name="alamat_client" placeholder="Alamat Client" required class="border p-2 rounded" />
+        <input type="text" name="nomor_telepon" placeholder="Nomor Telepon" required class="border p-2 rounded" />
+        <input type="date" name="tanggal_order" required class="border p-2 rounded" />
+        <input type="text" name="jenis_orderan" placeholder="Jenis Orderan" required class="border p-2 rounded" />
+        <input type="text" name="nama_orderan" placeholder="Nama Orderan" required class="border p-2 rounded" />
+        <input type="number" name="harga" placeholder="Harga" required class="border p-2 rounded" />
+        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Simpan</button>
+      </div>
+      <a href="dashboard.html" class="inline-block mt-4 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+  ← Kembali ke Dashboard
+</a>
+    </form>
+    <p id="result" class="mt-4 text-sm text-green-600"></p>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxEG42QMIeskH-kr0W_2rllQWuXqJrw33BTl9zIZ6fub6Yhe6OzPCzpA30QCJ4a6XJTeQ/exec";
+    const form = document.getElementById("formPelanggan");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+          result.innerHTML = "Data berhasil disimpan!";
+          form.reset();
+        })
+        .catch(error => {
+          console.error('Error!', error.message);
+          result.innerHTML = "Terjadi kesalahan saat menyimpan data.";
+        });
+    });
+  </script>
+</body>
+</html>
