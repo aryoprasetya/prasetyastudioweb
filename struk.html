@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Struk Pembayaran</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -69,9 +72,13 @@
   <div class="max-w-4xl mx-auto mt-6 bg-white p-6 rounded shadow">
     <div id="preview" class="relative corner-mark corner-top-left corner-top-right corner-bottom-left corner-bottom-right text-sm">
       <!-- Preview struk akan muncul di sini -->
+       <!-- Tambahkan ini dalam <div id="preview"> -->
+<div id="struk"></div>
     </div>
     <button onclick="downloadPDF()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Download PDF</button>
   </div>
+  <!-- Tempat penampung untuk render PDF -->
+<div id="printArea" class="hidden"></div>
   <div id="fakturPajak" class="mt-6 hidden bg-white p-6 rounded shadow">
   <!-- Faktur akan digenerate otomatis -->
 </div>
@@ -283,7 +290,7 @@ const ttdImg = `images/ttd-${karyawan}.png`;
 <div>
   <p class="text-sm font-medium mb-1">Scan kode untuk melakukan pembayaran:</p>
   <div class="border w-24 h-24 mt-1 flex items-center justify-center overflow-hidden">
-    <img src="/images/qr.png" alt="QR Code" class="max-w-full max-h-full object-contain" />
+    <img src="images/qr.png" alt="QR Code" class="max-w-full max-h-full object-contain" />
   </div>
 </div>
 
@@ -299,35 +306,71 @@ const ttdImg = `images/ttd-${karyawan}.png`;
       `;
     }
 
-    function downloadPDF() {
-  const element = document.getElementById("struk");
-  const opt = {
-    margin:       0.5,
-    filename:     'struk.pdf',
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2 },
-    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-  };
+async function downloadPDF() {
+  const element = document.getElementById("preview");
 
-  html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdf) {
-    pdf.setFont("helvetica"); // 👈 pakai Helvetica di PDF
-  }).save();
+  if (!element) {
+    alert("Element #preview tidak ditemukan!");
+    return;
+  }
+
+  // Ambil jsPDF dari window.jspdf
+  const { jsPDF } = window.jspdf;
+
+  // Pastikan semua gambar di dalam sudah selesai dimuat
+  await Promise.all(
+    Array.from(element.querySelectorAll("img")).map((img) => {
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    })
+  );
+
+  // Render ke canvas
+html2canvas(element, { scale: 2, useCORS: true }).then((canvas) => {
+  const imgData = canvas.toDataURL("image/png");
+
+  const pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "mm",
+    format: "a4",
+  });
+
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+
+  const imgWidth = pageWidth;
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+  pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+  pdf.save("struk.pdf");
+});
 }
 function downloadFakturPDF() {
   const element = document.getElementById("faktur");
+
+  if (!element) {
+    alert("Faktur belum dibuat. Silakan generate struk terlebih dahulu.");
+    return;
+  }
+
   const opt = {
     margin: 0.5,
     filename: 'faktur-pajak.pdf',
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+    html2canvas: { scale: 2, useCORS: true, allowTaint: true },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
-  html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
-    pdf.setFont("helvetica");
-  }).save();
+  html2pdf().set(opt).from(element).save();
 }
-
   </script>
+  <!-- html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- jsPDF with access to window.jspdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
