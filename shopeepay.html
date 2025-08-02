@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pembayaran via ShopeePay</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Manrope', sans-serif; }
+  </style>
+  <script>
+    function salin(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Disalin: " + text);
+      });
+    }
+  </script>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-md mx-auto bg-white p-6 rounded shadow space-y-4">
+    <div class="flex items-center space-x-2">
+      <svg onclick="history.back()" class="w-6 h-6 text-gray-600 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <h1 class="text-xl font-bold">Pembayaran via ShopeePay</h1>
+    </div>
+
+    <div>
+      <p class="text-gray-700">No. HP:</p>
+      <div class="flex items-center justify-between font-mono font-semibold text-lg">
+        <span>082136065407</span>
+        <button onclick="salin('082136065407')" class="text-sm text-blue-600 hover:underline">📋 Salin</button>
+      </div>
+      <p class="text-sm text-gray-500">a.n: ARYO YULIO PRASETYA</p>
+    </div>
+
+    <div>
+      <h2 class="font-semibold mb-1">Petunjuk Transfer:</h2>
+      <ol class="list-decimal list-inside text-sm text-gray-700 space-y-1">
+        <li>Buka aplikasi Shopee.</li><li>Pilih ShopeePay & transfer.</li><li>Masukkan nomor HP tujuan dan nominal.</li><li>Konfirmasi dan selesaikan transaksi.</li>
+      </ol>
+    </div>
+
+    <a href="payment.html" class="block mt-6 text-center bg-orange-500 text-white py-2 rounded">
+      Kembali ke Metode Pembayaran
+    </a>
+  </div>
+</body>
+</html>
