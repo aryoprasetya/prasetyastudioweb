@@ -3,48 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tambah Data Pelanggan</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Data Pelanggan</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    input, select {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: whitesmoke;
+    }
+    input:focus, select:focus {
+      outline: black;
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    th, td {
+      color: white;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-  <div class="bg-white p-6 rounded shadow w-full max-w-lg">
-    <h2 class="text-xl font-bold mb-4">Tambah Data Pelanggan</h2>
-    <form id="formPelanggan">
-      <div class="grid grid-cols-1 gap-4">
-        <input type="text" name="nama_client" placeholder="Nama Client" required class="border p-2 rounded" />
-        <input type="text" name="alamat_client" placeholder="Alamat Client" required class="border p-2 rounded" />
-        <input type="text" name="nomor_telepon" placeholder="Nomor Telepon" required class="border p-2 rounded" />
-        <input type="date" name="tanggal_order" required class="border p-2 rounded" />
-        <input type="text" name="jenis_orderan" placeholder="Jenis Orderan" required class="border p-2 rounded" />
-        <input type="text" name="nama_orderan" placeholder="Nama Orderan" required class="border p-2 rounded" />
-        <input type="number" name="harga" placeholder="Harga" required class="border p-2 rounded" />
-        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Simpan</button>
-      </div>
-      <a href="dashboard.html" class="inline-block mt-4 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+<body class="min-h-screen flex items-start justify-center p-10">
+
+  <div class="w-full max-w-6xl space-y-8">
+<a href="dashboard.html" class="inline-block mt-4 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
   ← Kembali ke Dashboard
 </a>
-    </form>
-    <p id="result" class="mt-4 text-sm text-green-600"></p>
+    <div class="glass p-6 shadow-xl">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Data Pelanggan</h1>
+        <button onclick="exportToExcel()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Export Excel</button>
+      </div>
+
+      <!-- Form Input -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <input type="date" id="tanggal" class="p-2 rounded">
+        <input type="text" id="nama" placeholder="Nama" class="p-2 rounded">
+        <input type="text" id="telepon" placeholder="No Telepon" class="p-2 rounded">
+        <input type="text" id="alamat" placeholder="Alamat" class="p-2 rounded">
+        <select id="jenisOrder" class="p-2 rounded">
+          <option disabled selected>Pilih Jenis Orderan</option>
+          <option>Desain Visual</option>
+          <option>Video Animasi</option>
+          <option>Curriculum Vitae</option>
+          <option>Layanan Lain</option>
+        </select>
+        <input type="text" id="namaOrder" placeholder="Nama Orderan" class="p-2 rounded">
+        <input type="text" id="harga" placeholder="Harga" class="p-2 rounded">
+      </div>
+      <button onclick="tambahData()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Tambah</button>
+    </div>
+
+    <!-- Tabel Data -->
+    <div class="glass overflow-x-auto shadow-xl">
+      <table id="tabelPelanggan" class="min-w-full divide-y divide-gray-700 text-sm">
+        <thead class="bg-gray-900 text-white">
+          <tr>
+            <th class="px-4 py-3">No</th>
+            <th class="px-4 py-3">Tanggal</th>
+            <th class="px-4 py-3">Nama</th>
+            <th class="px-4 py-3">No Telepon</th>
+            <th class="px-4 py-3">Alamat</th>
+            <th class="px-4 py-3">Jenis Orderan</th>
+            <th class="px-4 py-3">Nama Orderan</th>
+            <th class="px-4 py-3">Harga</th>
+            <th class="px-4 py-3">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="isiTabel" class="divide-y divide-gray-600">
+          <!-- Diisi JS -->
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxEG42QMIeskH-kr0W_2rllQWuXqJrw33BTl9zIZ6fub6Yhe6OzPCzpA30QCJ4a6XJTeQ/exec";
-    const form = document.getElementById("formPelanggan");
-    const result = document.getElementById("result");
+  let dataPelanggan = [];
 
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      fetch(scriptURL, { method: 'POST', body: formData })
-        .then(response => {
-          result.innerHTML = "Data berhasil disimpan!";
-          form.reset();
-        })
-        .catch(error => {
-          console.error('Error!', error.message);
-          result.innerHTML = "Terjadi kesalahan saat menyimpan data.";
-        });
+  // Ambil data dari localStorage saat halaman dimuat
+  window.onload = function () {
+    const dataTersimpan = localStorage.getItem("dataPelanggan");
+    if (dataTersimpan) {
+      dataPelanggan = JSON.parse(dataTersimpan);
+      renderTabel();
+    }
+  };
+
+  function simpanKeLocalStorage() {
+    localStorage.setItem("dataPelanggan", JSON.stringify(dataPelanggan));
+  }
+
+  function renderTabel() {
+    const tbody = document.getElementById("isiTabel");
+    tbody.innerHTML = "";
+    dataPelanggan.forEach((data, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="px-4 py-2">${index + 1}</td>
+        <td class="px-4 py-2" contenteditable oninput="editData(${index}, 'tanggal', this.innerText)">${data.tanggal}</td>
+        <td class="px-4 py-2" contenteditable oninput="editData(${index}, 'nama', this.innerText)">${data.nama}</td>
+        <td class="px-4 py-2" contenteditable oninput="editData(${index}, 'telepon', this.innerText)">${data.telepon}</td>
+        <td class="px-4 py-2" contenteditable oninput="editData(${index}, 'alamat', this.innerText)">${data.alamat}</td>
+        <td class="px-4 py-2" contenteditable oninput="editData(${index}, 'jenisOrder', this.innerText)">${data.jenisOrder}</td>
+        <td class="px-4 py-2" contenteditable oninput="editData(${index}, 'namaOrder', this.innerText)">${data.namaOrder}</td>
+        <td class="px-4 py-2" contenteditable oninput="editData(${index}, 'harga', this.innerText)">${data.harga}</td>
+        <td class="px-4 py-2"><button onclick="hapusData(${index})" class="bg-red-600 hover:bg-red-700 px-2 py-1 rounded text-white">Hapus</button></td>
+      `;
+      tbody.appendChild(tr);
     });
-  </script>
+  }
+
+  function tambahData() {
+    const tanggal = document.getElementById("tanggal").value;
+    const nama = document.getElementById("nama").value;
+    const telepon = document.getElementById("telepon").value;
+    const alamat = document.getElementById("alamat").value;
+    const jenisOrder = document.getElementById("jenisOrder").value;
+    const namaOrder = document.getElementById("namaOrder").value;
+    const harga = document.getElementById("harga").value;
+
+    if (!tanggal || !nama || !telepon) {
+      alert("Harap isi semua data penting.");
+      return;
+    }
+
+    dataPelanggan.push({ tanggal, nama, telepon, alamat, jenisOrder, namaOrder, harga });
+    simpanKeLocalStorage();
+    renderTabel();
+
+    // Kosongkan form
+    document.getElementById("tanggal").value = "";
+    document.getElementById("nama").value = "";
+    document.getElementById("telepon").value = "";
+    document.getElementById("alamat").value = "";
+    document.getElementById("jenisOrder").selectedIndex = 0;
+    document.getElementById("namaOrder").value = "";
+    document.getElementById("harga").value = "";
+  }
+
+  function editData(index, field, value) {
+    dataPelanggan[index][field] = value;
+    simpanKeLocalStorage();
+  }
+
+  function hapusData(index) {
+    if (confirm("Hapus data ini?")) {
+      dataPelanggan.splice(index, 1);
+      simpanKeLocalStorage();
+      renderTabel();
+    }
+  }
+
+  function exportToExcel() {
+    const worksheet = XLSX.utils.json_to_sheet(dataPelanggan.map((item, i) => ({
+      No: i + 1,
+      Tanggal: item.tanggal,
+      Nama: item.nama,
+      "No Telepon": item.telepon,
+      Alamat: item.alamat,
+      "Jenis Orderan": item.jenisOrder,
+      "Nama Orderan": item.namaOrder,
+      Harga: item.harga
+    })));
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data Pelanggan");
+    XLSX.writeFile(workbook, "data_pelanggan.xlsx");
+  }
+</script>
 </body>
 </html>
