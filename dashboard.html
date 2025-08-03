@@ -2,11 +2,104 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .dashboard {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      width: 100%;
+      max-width: 1000px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      color: #fff;
+    }
+    .dashboard h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .card h2 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .actions a {
+      background: rgba(0, 102, 255, 0.8);
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .actions a:hover {
+      background: rgba(0, 102, 255, 1);
+    }
+    .log-section {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    .log-section p {
+      margin: 8px 0;
+    }
+    .logout-btn {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .logout-btn:hover {
+      background: #cc0000;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans">
+<body>
 
   <!-- Cek login -->
   <script>
@@ -15,50 +108,59 @@
     }
   </script>
 
-  <!-- Navbar -->
-  <header class="bg-white shadow p-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold text-gray-800">📊 Dashboard Admin</h1>
-    <div class="flex items-center gap-4">
-      <span id="clock" class="text-gray-600 text-sm"></span>
-      <button onclick="logout()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Logout</button>
+  <div class="dashboard">
+    <h1>📊 Dashboard Admin</h1>
+
+    <!-- Statistik -->
+    <!-- <div class="stats">
+      <div class="card">
+        <h2>Total Transaksi</h2>
+        <p>Rp 12.500.000</p>
+      </div>
+      <div class="card">
+        <h2>Jumlah Pelanggan</h2>
+        <p>258</p>
+      </div>
+      <div class="card">
+        <h2>Transaksi Hari Ini</h2>
+        <p>Rp 1.250.000</p>
+      </div>
+    </div>-->
+
+    <!-- Navigasi -->
+    <div class="actions">
+      <a href="data-pelanggan.html">📄 Data Pelanggan</a>
+      <a href="transaksi.html">💼 Transaksi</a>
+      <a href="struk.html">🧾 Buat Struk</a>
     </div>
-  </header>
 
-  <!-- Main Content -->
-  <main class="p-6 space-y-6">
-    <div class="grid md:grid-cols-2 gap-6">
-
-      <!-- Data Pelanggan -->
-      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-        <h2 class="text-lg font-semibold mb-2">📄 Data Pelanggan</h2>
-        <p class="text-sm text-gray-600 mb-4">Lihat atau edit data pelanggan.</p>
-        <a href="data-pelanggan.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Data</a>
-      </div>
-
-      <!-- Data Pelanggan -->
-      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-        <h2 class="text-lg font-semibold mb-2">📄 Transaksi</h2>
-        <p class="text-sm text-gray-600 mb-4">Tambah Data Transaksi.</p>
-        <a href="transaksi.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Data</a>
-      </div>
-
-      <!-- Buat Struk -->
-      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-        <h2 class="text-lg font-semibold mb-2">🧾 Buat Struk</h2>
-        <p class="text-sm text-gray-600 mb-4">Cetak struk baru untuk pelanggan.</p>
-        <a href="struk.html" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Buat Struk</a>
-      </div>
-
+    <!-- Log Aktivitas -->
+    <div class="log-section">
+      <p> <span id="clock"></span></p>
+      <p><span id="duration">0 menit</span></p>
+      <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
-  </main>
+  </div>
 
-  <!-- Script Jam & Logout -->
   <script>
+    // Clock
     function updateClock() {
       const now = new Date();
       document.getElementById("clock").textContent = now.toLocaleTimeString();
     }
 
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Durasi Dashboard
+    const masukTime = Date.now();
+    setInterval(() => {
+      const now = Date.now();
+      const durasi = Math.floor((now - masukTime) / 60000); // Menit
+      document.getElementById("duration").textContent = durasi + " menit";
+    }, 60000); // update tiap menit
+
+    // Logout
     function logout() {
       const konfirmasi = confirm("Yakin ingin logout?");
       if (konfirmasi) {
@@ -66,10 +168,6 @@
         window.location.href = "login.html";
       }
     }
-
-    setInterval(updateClock, 1000);
-    window.onload = updateClock;
   </script>
-
 </body>
 </html>
