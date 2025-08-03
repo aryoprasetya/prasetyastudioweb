@@ -2,66 +2,114 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Form Transaksi</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
-<body class="bg-gray-100 p-6">
-  <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
-    <h1 class="text-2xl font-bold mb-4 text-center">Form Transaksi</h1>
-    <form id="formTransaksi" class="space-y-4">
-      <input type="text" name="nama" placeholder="Nama Client" class="w-full border p-2 rounded" required />
-      <input type="date" name="tanggal" class="w-full border p-2 rounded" required />
-      <input type="number" name="total" placeholder="Total" class="w-full border p-2 rounded" required />
-      <select name="status" class="w-full border p-2 rounded" required>
+<body class="bg-[#0F172A] text-white min-h-screen p-6 font-sans">
+  <div class="max-w-5xl mx-auto bg-white/5 backdrop-blur-md rounded-xl p-6 shadow-xl">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-white">Form Transaksi</h1>
+      <a href="dashboard.html" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded text-white">⬅ Kembali ke Dashboard</a>
+    </div>
+    
+    <form id="formTransaksi" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="text" name="nama" placeholder="Nama Client" required class="bg-white/10 p-2 rounded text-white placeholder-gray-300">
+      <input type="date" name="tanggal" required class="bg-white/10 p-2 rounded text-white placeholder-gray-300">
+      <input type="number" name="total" placeholder="Total" required class="bg-white/10 p-2 rounded text-white placeholder-gray-300">
+      <select name="status" required class="bg-white/10 p-2 rounded text-white">
         <option value="">Pilih Status</option>
         <option value="Lunas">Lunas</option>
         <option value="Pending">Pending</option>
       </select>
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Simpan</button>
+      <select name="jenis_order" required class="bg-white/10 p-2 rounded text-white">
+        <option value="">Pilih Jenis Order</option>
+        <option value="Desain Visual">Desain Visual</option>
+        <option value="Video Animasi">Video Animasi</option>
+        <option value="Curriculum Vitae">Curriculum Vitae</option>
+        <option value="Layanan Lain">Layanan Lain</option>
+      </select>
+      <div class="md:col-span-2">
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded text-white">Simpan</button>
+      </div>
     </form>
-    <p id="pesan" class="text-center mt-4 text-sm text-gray-700"></p>
+
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold mb-4">Data Transaksi</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-white border border-white/20">
+          <thead class="bg-white/10">
+            <tr>
+              <th class="px-2 py-1 border">Nama</th>
+              <th class="px-2 py-1 border">Tanggal</th>
+              <th class="px-2 py-1 border">Total</th>
+              <th class="px-2 py-1 border">Status</th>
+              <th class="px-2 py-1 border">Jenis Order</th>
+              <th class="px-2 py-1 border">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabelData" class="text-center"></tbody>
+        </table>
+      </div>
+      <button onclick="unduhExcel()" class="mt-4 bg-green-600 hover:bg-green-700 p-2 rounded text-white">Download Excel</button>
+    </div>
   </div>
 
   <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbyeOf5dRIgH0fpat1jM-nCY7aKeD8ffgCLdnM1vKoanVwThIwUy8zd1DCJd3z76Pe0M0Q/exec?sheet=Transaksi';
+    const form = document.getElementById("formTransaksi");
+    const tabelBody = document.getElementById("tabelData");
 
-  document.getElementById("formTransaksi").addEventListener("submit", async function(e) {
-    e.preventDefault();
+    let transaksiData = JSON.parse(localStorage.getItem("transaksiData")) || [];
 
-    const form = e.target;
-    const data = {
-  nama: document.getElementById("nama").value,
-  tanggal: document.getElementById("tanggal").value,
-  total: document.getElementById("total").value,
-  status: document.getElementById("status").value
-};
-
-const query = new URLSearchParams({
-  sheet: "Transaksi",
-  ...data
-});
-
-fetch("https://script.google.com/macros/s/AKfycbwEsj2uut_gcFv07YGQ57tIrlrS6KeLhwZxd6QCn_A8DlDkMYwdc7e-QRenGelME3WRRg/exec" + query.toString())
-  .then(res => res.text())
-  .then(result => {
-    alert("✅ " + result);
-  })
-  .catch(err => {
-    console.error("Gagal:", err);
-    alert("❌ Gagal mengirim data.");
-  });
-
-      const result = await response.text();
-      console.log("Respon dari server:", result);
-
-      document.getElementById("pesan").textContent = "Berhasil disimpan!";
-      form.reset();
-    } catch (error) {
-      console.error("Terjadi error saat fetch:", error);
-      document.getElementById("pesan").textContent = "Terjadi kesalahan saat menyimpan data.";
+    function simpanDataLokal() {
+      localStorage.setItem("transaksiData", JSON.stringify(transaksiData));
     }
-  });
-</script>
+
+    function renderTabel() {
+      tabelBody.innerHTML = "";
+      transaksiData.forEach((data, i) => {
+        const row = `
+          <tr class="border-b border-white/10">
+            <td class="px-2 py-1">${data.nama}</td>
+            <td class="px-2 py-1">${data.tanggal}</td>
+            <td class="px-2 py-1">Rp ${parseInt(data.total).toLocaleString()}</td>
+            <td class="px-2 py-1">${data.status}</td>
+            <td class="px-2 py-1">${data.jenis_order}</td>
+            <td class="px-2 py-1">
+              <button onclick="hapusData(${i})" class="bg-red-600 hover:bg-red-700 px-2 py-1 rounded text-sm">Hapus</button>
+            </td>
+          </tr>
+        `;
+        tabelBody.innerHTML += row;
+      });
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      transaksiData.push(data);
+      simpanDataLokal();
+      renderTabel();
+      form.reset();
+    });
+
+    function hapusData(index) {
+      if (confirm("Yakin ingin menghapus data ini?")) {
+        transaksiData.splice(index, 1);
+        simpanDataLokal();
+        renderTabel();
+      }
+    }
+
+    function unduhExcel() {
+      const worksheet = XLSX.utils.json_to_sheet(transaksiData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Transaksi");
+      XLSX.writeFile(workbook, "data_transaksi.xlsx");
+    }
+
+    renderTabel();
+  </script>
 </body>
 </html>
