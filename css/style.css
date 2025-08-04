@@ -114,17 +114,8 @@ body {
 }
 
 section {
-  padding: 4rem 9% 2rem;
-  min-height: auto;
-}
-
-.home {
-  padding: 6rem 9% 4rem; /* lebih ramping dari default */
-  min-height: auto; /* hilangkan 100vh */
-}
-
-.about {
-  padding-top: 4rem;
+    min-height: 100vh;
+    padding: 10rem 7% 2rem;
 }
 
 /* Logo yang berisi gambar + teks */
@@ -473,7 +464,7 @@ span {
 
 .portfolio {
     min-height: auto;
-    padding-bottom: rem;
+    padding-bottom: 10rem;
 }
 
 .portfolio h2 {
@@ -639,6 +630,7 @@ span {
 
 .contact h2 {
     margin-bottom: 1rem;
+    margin-top: -10rem;
 }
 
 .contact p {
@@ -926,7 +918,6 @@ span {
         margin: 3rem 0;
         color: var(--text-color);
     }
-    
 
     .navbar a:nth-child(1),
     .navbar a:nth-child(2) {
@@ -942,7 +933,7 @@ span {
     }
 
     .home {
-        padding: 0 3% 1rem;
+        padding: 0 3% 23rem;
         justify-content: center;
         text-align: center;
     }
@@ -1215,11 +1206,6 @@ img {
   margin-bottom: 40px; /* Jarak aman ke "Selamat Datang" */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-
-.running-text {
-  margin-top: 40px; /* atau sesuaikan 60px/100px */
-}
-
 
 .dropdown-container {
   position: fixed;
