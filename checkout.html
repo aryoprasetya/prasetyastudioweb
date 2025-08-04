@@ -35,12 +35,12 @@
       
       <div>
         <label class="block text-sm mb-1">Produk</label>
-        <input type="text" name="produk" value="CV ATS Profesional" readonly class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
+        <input type="text" name="produk" readonly class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white" />
       </div>
 
       <div>
         <label class="block text-sm mb-1">Harga</label>
-        <input type="text" name="harga" value="Rp10.000" readonly class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
+        <input type="text" name="harga" readonly class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white" />
       </div>
 
       <div>
@@ -69,6 +69,15 @@
           alert('Gagal mengirim pesanan. Silakan coba lagi.');
         });
     });
+    
+  // Ambil parameter dari URL
+  const params = new URLSearchParams(window.location.search);
+  const produk = params.get("produk");
+  const harga = params.get("harga");
+
+  // Isi input sesuai parameter
+  if (produk) document.querySelector('input[name="produk"]').value = produk;
+  if (harga) document.querySelector('input[name="harga"]').value = "Rp" + parseInt(harga).toLocaleString("id-ID");
   </script>
 
 </body>
