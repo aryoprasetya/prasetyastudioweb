@@ -49,6 +49,10 @@
           <option value="QRIS">QRIS</option>
         </select>
       </div>
+      <!-- HONEYPOT -->
+<input type="text" name="website" id="honeypot" style="display:none">
+<!-- HONEYPOT -->
+<input type="text" name="website" id="honeypot" style="display:none">
       <!-- <p class="text-xs text-left text-gray-300 mt-6">Pembayaran melalui website hanya bisa menggunakan QRIS</p> -->
       <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-md transition">Bayar Sekarang</button>
     </form>
@@ -78,9 +82,28 @@
   // Isi input sesuai parameter
   if (produk) document.querySelector('input[name="produk"]').value = produk;
   if (harga) document.querySelector('input[name="harga"]').value = "Rp" + parseInt(harga).toLocaleString("id-ID");
+    document.getElementById("checkout-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Deteksi BOT (honeypot keisi)
+  const honeypot = document.getElementById("honeypot").value;
+  if (honeypot) {
+    console.warn("Bot terdeteksi, form dibatalkan.");
+    return; // Stop pengiriman form
+  }
+
+  // Lanjut kirim form ke EmailJS atau lainnya
+  emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+    .then(function () {
+      alert("Pesanan berhasil dikirim!");
+    }, function (error) {
+      alert("Gagal mengirim: " + error.text);
+    });
+});
   </script>
 
 </body>
 </html>
+
 
 
