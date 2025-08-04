@@ -5,10 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Metode Pembayaran</title>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Manrope', sans-serif; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: linear-gradient(135deg, #c2d9ff, #e0eaff);
+    }
   </style>
   <script>
     function copyToClipboard(text) {
@@ -17,191 +20,197 @@
       });
     }
   </script>
-  <!-- HEADER -->
-  <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
-    <a href="index.html" class="flex items-center space-x-2">
-      <img src="images/logo duwa.png" alt="Logo" class="h-10">
-      <span class="text-lg font-bold text-gray-800">Prasetya Studio</span>
-    </a>
-  </header>
 </head>
-<body class="bg-blue-100 p-6">
-  <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
-    <h1 class="text-2xl font-bold mb-4">Metode <span>Pembayaran</span></h1>
 
-    <!-- Transfer Bank -->
-    <h2 class="text-xl font-semibold mt-6 mb-2">1. Transfer Bank</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/BRI_2020.svg" alt="BRI" class="h-8" />
-          <div>
-            <p class="font-semibold">Bank BRI</p>
-            <p>No. Rekening: 
-              <span class="font-mono">6622 0106 4230 532</span>
-              <button onclick="copyToClipboard('6622 0106 4230 532')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-            <p>a.n: ARYO YULIO PRASETYA</p>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="backdrop-blur-md bg-white/30 border-b border-white/20 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="images/logo duwa.png" alt="Logo" class="h-10">
+        <span class="text-xl font-bold text-gray-800">Prasetya Studio</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <div class="max-w-4xl mx-auto mt-10 p-6 bg-white/30 backdrop-blur-md rounded-2xl shadow-xl">
+      <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Metode Pembayaran</h1>
+
+      <!-- Section 1: Transfer Bank -->
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">1. Transfer Bank</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- BRI -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/BRI_2020.svg" alt="BRI" class="h-8" />
+            <div>
+              <p class="font-semibold">Bank BRI</p>
+              <p>No. Rek: <span class="font-mono">6622 0106 4230 532</span>
+                <button onclick="copyToClipboard('6622 0106 4230 532')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
+              </p>
+              <p>a.n: ARYO YULIO PRASETYA</p>
+            </div>
           </div>
+          <a href="bri.html" class="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via BRI</a>
         </div>
-        <a href="bri.html" class="bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via BRI</a>
+
+        <!-- SeaBank -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/SeaBank.svg.png" alt="SeaBank" class="h-8" />
+            <div>
+              <p class="font-semibold">SeaBank</p>
+              <p>No. Rek: <span class="font-mono">9016 1565 2166</span>
+                <button onclick="copyToClipboard('9016 1565 2166')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
+              </p>
+                <p>a.n: ARYO YULIO PRASETYA</p>
+            </div>
+          </div>
+          <a href="seabank.html" class="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via SeaBank</a>
+        </div>
+
+        <!-- Jago -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/Logo-jago.svg.png" alt="Bank Jago" class="h-8" />
+            <div>
+              <p class="font-semibold">Bank Jago</p>
+              <p>No. Rek: <span class="font-mono">COMING SOON</span></p>
+              <p>a.n: Prasetya Studio</p>
+            </div>
+          </div>
+          <a href="bankjago.html" class="mt-2 inline-block bg-orange-500 text-white px-3 py-1 rounded text-sm">Bayar via Jago</a>
+        </div>
+
+        <!-- Bank Lain -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/pngegg (1).png" alt="Bank Lain" class="h-8" />
+            <div>
+              <p class="font-semibold">Bank Lain</p>
+              <p>No. Rek: <span class="font-mono">COMING SOON</span></p>
+              <p>a.n: Prasetya Studio</p>
+            </div>
+          </div>
+          <a href="bankjago.html" class="mt-2 inline-block bg-gray-700 text-white px-3 py-1 rounded text-sm">Bayar via Bank Lain</a>
+        </div>
       </div>
 
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/SeaBank.svg.png" alt="SeaBank" class="h-8" />
-          <div>
-            <p class="font-semibold">SeaBank</p>
-            <p>No. Rekening: 
-              <span class="font-mono">9016 1565 2166</span>
-            </p>
-            <p>a.n: ARYO YULIO PRASETYA</p>
+      <!-- Section 2: e-Wallet -->
+      <h2 class="text-xl font-semibold text-gray-700 mt-8 mb-4">2. e-Wallet</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- DANA -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/dana.webp" alt="DANA" class="h-8" />
+            <div>
+              <p class="font-semibold">DANA</p>
+              <p>No. HP: <span class="font-mono">082136065407</span>
+                <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
+              </p>
+              <p>a.n: ARYO YULIO PRASETYA</p>
+            </div>
           </div>
+          <a href="dana.html" class="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via DANA</a>
         </div>
-        <a href="seabank.html" class="bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via SeaBank</a>
+
+        <!-- OVO -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/ovo.png" alt="OVO" class="h-8" />
+            <div>
+              <p class="font-semibold">OVO</p>
+              <p>No. HP: <span class="font-mono">082136065407</span>
+                <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
+              </p>
+              <p>a.n: ARYO YULIO PRASETYA</p>
+            </div>
+          </div>
+          <a href="ovo.html" class="mt-2 inline-block bg-purple-600 text-white px-3 py-1 rounded text-sm">Bayar via OVO</a>
+        </div>
+
+        <!-- GoPay -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/gopay.png" alt="GoPay" class="h-8" />
+            <div>
+              <p class="font-semibold">GoPay</p>
+              <p>No. HP: <span class="font-mono">082136065407</span>
+                <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
+              </p>
+              <p>a.n: ARYO YULIO PRASETYA</p>
+            </div>
+          </div>
+          <a href="gopay.html" class="mt-2 inline-block bg-teal-500 text-white px-3 py-1 rounded text-sm">Bayar via GoPay</a>
+        </div>
+
+        <!-- ShopeePay -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/shpay.png" alt="ShopeePay" class="h-8" />
+            <div>
+              <p class="font-semibold">ShopeePay</p>
+              <p>No. HP: <span class="font-mono">082136065407</span>
+                <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
+              </p>
+              <p>a.n: ARYO YULIO PRASETYA</p>
+            </div>
+          </div>
+          <a href="shopeepay.html" class="mt-2 inline-block bg-orange-500 text-white px-3 py-1 rounded text-sm">Bayar via ShopeePay</a>
+        </div>
       </div>
 
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/Logo-jago.svg.png" alt="Bank Jago" class="h-8" />
-          <div>
-            <p class="font-semibold">Bank Jago</p>
-            <p>No. Rekening: 
-              <span class="font-mono">COMING SOON</span>
-              <button onclick="copyToClipboard('')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-            <p>a.n: Prasetya Studio</p>
-          </div>
-        </div>
-        <a href="bankjago.html" class="bg-orange-500 text-white px-3 py-1 rounded text-sm">Bayar via Jago</a>
+      <!-- Section 3: QRIS -->
+      <h2 class="text-xl font-semibold text-gray-700 mt-8 mb-4">3. QRIS</h2>
+      <div class="flex flex-col items-center">
+        <img src="images/Kode QRIS Prasetya Qris Pay_1.png" alt="QRIS" class="w-64 border p-2 rounded-lg bg-white/50 shadow" />
+        <a href="images/Kode QRIS Prasetya Qris Pay.png" class="mt-3 bg-pink-500 text-white px-4 py-2 rounded text-sm shadow hover:bg-pink-600 transition">Scan dengan QRIS</a>
       </div>
 
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/pngegg (1).png" alt="Bank Lain" class="h-8" />
-          <div>
-            <p class="font-semibold">Bank Lain</p>
-            <p>No. Rekening: 
-              <span class="font-mono">COMING SOON</span>
-              <button onclick="copyToClipboard('')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-            <p>a.n: Prasetya Studio</p>
+      <!-- Section 4: USD Payment -->
+      <h2 class="text-xl font-semibold text-gray-700 mt-8 mb-4">4. USD (PayPal / Wallet)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- PayPal -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-8" />
+            <div>
+              <p class="font-semibold">PayPal</p>
+              <p>Email: <span class="font-mono">aryoyulio22@gmail.com</span>
+                <button onclick="copyToClipboard('aryoyulio22@gmail.com')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
+              </p>
+            </div>
           </div>
+          <a href="paypal.html" class="mt-2 inline-block bg-blue-600 text-white px-3 py-1 rounded text-sm">Bayar via PayPal</a>
         </div>
-        <a href="bankjago.html" class="bg-gray-700 text-white px-3 py-1 rounded text-sm">Bayar via Bank Lain</a>
+
+        <!-- Vai Wallet -->
+        <div class="bg-white/60 p-4 rounded-lg shadow">
+          <div class="flex items-center space-x-4">
+            <img src="images/vai.png" alt="Wallet" class="h-8" />
+            <div>
+              <p class="font-semibold">Vai Wallet</p>
+              <p>ID Wallet: <span class="font-mono">2795502272</span>
+                <button onclick="copyToClipboard('2795502272')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
+              </p>
+            </div>
+          </div>
+          <a href="vaiwallet.html" class="mt-2 inline-block bg-gray-800 text-white px-3 py-1 rounded text-sm">Bayar via Vai Wallet</a>
+        </div>
       </div>
     </div>
+  </main>
 
-    <!-- e-Wallet -->
-    <h2 class="text-xl font-semibold mt-6 mb-2">2. e-Wallet</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/dana.webp" alt="DANA" class="h-8" />
-          <div>
-            <p class="font-semibold">DANA</p>
-            <p>No. HP: 
-              <span class="font-mono">082136065407</span>
-              <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-            <p>a.n: ARYO YULIO PRASETYA</p>
-          </div>
-        </div>
-        <a href="dana.html" class="bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via DANA</a>
-      </div>
-
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/ovo.png" alt="OVO" class="h-8" />
-          <div>
-            <p class="font-semibold">OVO</p>
-            <p>No. HP: 
-              <span class="font-mono">082136065407</span>
-              <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-            <p>a.n: ARYO YULIO PRASETYA</p>
-          </div>
-        </div>
-        <a href="ovo.html" class="bg-purple-600 text-white px-3 py-1 rounded text-sm">Bayar via OVO</a>
-      </div>
-
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/gopay.png" alt="GoPay" class="h-8" />
-          <div>
-            <p class="font-semibold">GoPay</p>
-            <p>No. HP: 
-              <span class="font-mono">082136065407</span>
-              <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-            <p>a.n: ARYO YULIO PRASETYA</p>
-          </div>
-        </div>
-        <a href="gopay.html" class="bg-teal-500 text-white px-3 py-1 rounded text-sm">Bayar via GoPay</a>
-      </div>
-
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/shpay.png" alt="ShopeePay" class="h-8" />
-          <div>
-            <p class="font-semibold">ShopeePay</p>
-            <p>No. HP: 
-              <span class="font-mono">082136065407</span>
-              <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-            <p>a.n: ARYO YULIO PRASETYA</p>
-          </div>
-        </div>
-        <a href="shopeepay.html" class="bg-orange-500 text-white px-3 py-1 rounded text-sm">Bayar via ShopeePay</a>
-      </div>
-    </div>
-
-    <!-- QRIS -->
-    <h2 class="text-xl font-semibold mt-6 mb-2">3. QRIS</h2>
-    <div class="flex flex-col items-center">
-      <img src="images/Kode QRIS Prasetya Qris Pay_1.png" alt="QRIS" class="w-64 border p-2 rounded" />
-      <a href="images/Kode QRIS Prasetya Qris Pay.png" class="mt-2 bg-pink-500 text-white px-4 py-2 rounded text-sm">Scan dengan QRIS</a>
-    </div>
-
-    <!-- USD Payment -->
-    <h2 class="text-xl font-semibold mt-6 mb-2">4. USD (PayPal / Wallet)</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-8" />
-          <div>
-            <p class="font-semibold">PayPal</p>
-            <p>Email: 
-              <span class="font-mono"></span>
-              <button onclick="copyToClipboard('aryoyulio22@gmail.com')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-          </div>
-        </div>
-        <a href="paypal.html" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded text-sm">Bayar via PayPal</a>
-      </div>
-
-      <div class="flex flex-col items-start space-y-2">
-        <div class="flex items-center space-x-4">
-          <img src="images/vai.png" alt="Wallet" class="h-8" />
-          <div>
-            <p class="font-semibold">Vai Wallet</p>
-            <p>ID Wallet: 
-              <span class="font-mono">2795502272</span>
-              <button onclick="copyToClipboard('2795502272')" class="ml-2 text-sm text-blue-600 hover:underline"></button>
-            </p>
-          </div>
-        </div>
-        <a href="vaiwallet.html" class="bg-gray-800 text-white px-3 py-1 rounded text-sm">Bayar Vai Wallet</a>
-      </div>
-    </div>
-
-  </div>
-    <!-- FOOTER -->
-  <footer class="bg-white border-t mt-10">
+  <!-- Footer -->
+  <footer class="mt-12 backdrop-blur-md bg-white/30 border-t border-white/20">
     <div class="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center text-sm text-gray-600">
       <p>&copy; 2025 Prasetya Studio. All Rights Reserved.</p>
-      <a href="#" class="hover:text-blue-600">↑</a>
+      <a href="#" class="hover:text-blue-600 transition">↑ Kembali ke atas</a>
     </div>
   </footer>
+
 </body>
 </html>
