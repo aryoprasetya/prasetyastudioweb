@@ -1206,3 +1206,66 @@ img {
   margin-bottom: 40px; /* Jarak aman ke "Selamat Datang" */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+.dropdown-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 999;
+}
+
+.dropdown-btn {
+  width: 60px;
+  height: 60px;
+  background: #3B82F6;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  font-size: 24px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.dropdown-btn:hover {
+  background: #2563EB; /* warna biru lebih gelap saat hover */
+  transform: scale(1.05);
+}
+
+.dropdown-menu {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  overflow: hidden;
+  display: none;
+  min-width: 200px; /* lebar diperbesar */
+}
+
+.dropdown-menu a {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px; /* padding diperbesar */
+  font-size: 16px;     /* ukuran teks lebih besar */
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+}
+
+.dropdown-menu a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f2f2f2;
+}
+
+.dropdown-menu i {
+  margin-right: 12px;
+  font-size: 20px; /* ikon juga sedikit dibesarkan */
+}
