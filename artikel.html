@@ -1,67 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prasetya Studio News - Urusan Desain Jadi Lebih Mudah</title>
-  <link rel="icon" href="images/logotiga.png" type="image/png" />
-  
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-  <!-- Box Icons -->
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/stylee.css" />
+  <title>Prasetya Blog - Portal Artikel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Manrope', sans-serif; }
+    .article-card {
+      background-size: cover;
+      background-position: center;
+      height: 280px;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.5);
+    }
+  </style>
 </head>
+<body class="bg-white-900 text-white">
 
-<body>
-  <div class="wrapper">
-    <!-- HEADER -->
-    <header class="header">
-      <a href="about.html" class="logo">
-        <img src="images/newslogo.png" alt="Prasetya Studio Logo" class="logo-img" />
-        <span></span>
-      </a>
+<header class="bg-white-950 shadow-lg top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center space-x-2">
+    <img src="images/BIRD.png" alt="Logo Prasetya Studio" class="h-10 w-10 object-contain" />
+    <h1 class="text-2xl font-bold text-blue-500">Prasetya Studio Blog</h1>
+  </div>
+</header>
 
-      <nav class="navbar">
-  <a href="/home" class="active">Home</a>
-  <a href="/tentang">Tentang</a>
-  <a href="/layanan">Layanan</a>
-  <a href="/artikel" target="_blank">Artikel</a>
-  <a href="/hub-kami">Hub. Kami</a>
-</nav>
-
-      <!-- <div class="bx bx-moon" id="darkMode-icon"></div>
-      <div class="bx bx-menu" id="menu-icon"></div> -->
-    </header>
-
-    <!-- KONTEN UTAMA -->
-    <main>
-      <!-- Judul -->
-      <section class="artikel-section">
-        <nav class="breadcrumb">
-  <a href="index.html" class="breadcrumb-home">Home</a>
-  <span class="breadcrumb-separator">&gt;</span>
-  <span class="breadcrumb-current">Artikel</span>
-</nav>
-        <h2 class="heading">Artikel <span>Terbaru</span></h2>
-        <p>Dengerin lagu dulu, klik ikon disk dibawah</p>
-        <div class="marquee-wrapper">
-  <div class="marquee">
-    <span>Website Artikel Coming Soon — Stay tuned! Website Artikel Coming Soon — Stay tuned! Website Artikel Coming Soon — Stay tuned!</span>
-    <style>
+  <style>
     .marquee-wrapper {
   overflow: hidden;
-  background-color: #E62129;
+  background-color: #3B82F6;
   padding: 10px 0;
   margin-top: 10px;
+  margin-bottom: 2rem;
 }
 
 .marquee {
   display: inline-block;
   white-space: nowrap;
-  animation: marquee 18s linear infinite;
+  animation: marquee 35s linear infinite;
 }
 
 .marquee span {
@@ -102,53 +79,85 @@
       100% { transform: rotate(360deg); }
     }
   </style>
+</head>
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-3xl text-blue-500 text-center mb-6">Artikel <span>Terbaru</span></h2>
+            <div class="marquee-wrapper">
+  <div class="marquee">
+    <span>Selamat Datang di Halaman Blog! Halaman ini Sedang dalam Pengembangan 🕌 Jadwal Sholat Wilayah Banjarnegara Hari Ini: Subuh pukul 04.27 WIB | Dzuhur 11.49 WIB | Ashar 15.11 WIB | Maghrib 17.44 WIB | Isya 18.55 WIB | Semoga hari Anda penuh berkah | Website by Prasetya Studio 🌙
+</span>
   </div>
 </div>
       </section>
 </div>
 
-      <!-- AUDIO -->
-<audio id="bgm" src="images/lain-lain/audiyo.mp3" loop></audio>
-<div class="music-toggle" onclick="toggleMusic()">
-  <img id="musicDisk" src="images/disk.png" />
-  <span id="musicStatus"></span>
-</div>
+    <div id="artikel-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Artikel statis -->
+      <a href="artikel-detail.html?id=1" class="block rounded overflow-hidden relative article-card" style="background-image: url('images/artikel1.jpg');">
+        <div class="absolute inset-0 overlay flex items-end p-4">
+          <div>
+            <h3 class="text-lg font-bold">Revolusi Teknologi Digital: Mengubah Wajah Dunia Modern</h3>
+            <p class="text-sm text-gray-300">4 Agustus 2025 • Aryo Prasetya</p>
+          </div>
+        </div>
+      </a>
+      <a href="artikel-detail.html?id=2" class="block rounded overflow-hidden relative article-card" style="background-image: url('images/artikel2.webp');">
+        <div class="absolute inset-0 overlay flex items-end p-4">
+          <div>
+            <h3 class="text-lg font-bold">Kecerdasan Buatan: Antara Manfaat dan Ancaman</h3>
+            <p class="text-sm text-gray-300">4 Agustus 2025 • Prasetya Studio</p>
+          </div>
+        </div>
+      </a>
+      <a href="artikel-detail.html?id=3" class="block rounded overflow-hidden relative article-card" style="background-image: url('images/artikel3.jpg');">
+        <div class="absolute inset-0 overlay flex items-end p-4">
+          <div>
+            <h3 class="text-lg font-bold">Internet of Things (IoT): Menghubungkan Dunia dalam Genggama</h3>
+            <p class="text-sm text-gray-300">3 Agustus  2025 • Prasetya Studio</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </main>
 
-   <!-- SCRIPT AUDIO -->
+ <!-- Tombol Home Floating -->
+<a href="index.html" class="fixed bottom-20 right-5 z-50 flex items-center bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9.75L12 3l9 6.75v10.5A1.75 1.75 0 0119.25 22h-14.5A1.75 1.75 0 013 20.25V9.75z" />
+  </svg>
+  <span class="text-sm font-medium">Pulang</span>
+</a>
+
+<!-- Tombol WhatsApp Floating -->
+<a href="https://wa.me/6285143080554" target="_blank" class="fixed bottom-5 right-5 z-50 flex items-center bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 32 32" fill="currentColor">
+    <path d="M16 2.6A13.4 13.4 0 002.6 16c0 2.4.6 4.7 1.7 6.8L2 30l7.4-2a13.4 13.4 0 006.6 1.8A13.4 13.4 0 0016 2.6zm0 24.7a11.2 11.2 0 01-5.7-1.5l-.4-.2-4.2 1.2 1.1-4-.3-.4a11.1 11.1 0 0117.6-13.3A11.1 11.1 0 0116 27.3zm6.1-8c-.3-.2-1.7-.8-2-1s-.5-.1-.8.2-1 1.2-1.2 1.4-.4.2-.7 0-1.3-.5-2.4-1.6-1.6-2-1.7-2.3 0-.4.3-.6l.8-1c.1-.2.1-.4 0-.6s-.9-2.2-1.2-3c-.3-.7-.6-.6-.8-.6h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 3 .9 3.5 1 3.7 1.8 2.8 4.3 4 2.8.7 3.3.6 1.6-1.2 1.8-1.6.2-1.1 0-1.2z"/>
+  </svg>
+  <span class="text-sm font-medium">Hubungi Kami</span>
+</a>
+
+  <!-- Script Artikel Dinamis -->
   <script>
-        const audio = document.getElementById('bgm');
-        const disk = document.getElementById('musicDisk');
-        const statusText = document.getElementById('musicStatus');
-        let isPlaying = false;
+    const artikelList = JSON.parse(localStorage.getItem("artikelList")) || [];
+    const container = document.getElementById("artikel-container");
 
-        function toggleMusic() {
-          if (isPlaying) {
-            audio.pause();
-            statusText.textContent = '';
-            disk.style.animation = 'none';
-          } else {
-            audio.play();
-            statusText.textContent = '';
-            disk.style.animation = 'spin 3s linear infinite';
-          }
-          isPlaying = !isPlaying;
-        }
-      </script>
-  
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer-text">
-        <p>&copy; Copyright Prasetya Studio 2025 | All Rights Reserved.</p>
-      </div>
-      <div class="footer-iconTop">
-        <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
-      </div>
-    </footer>
-  </div>
+    artikelList.forEach((a, i) => {
+      const div = document.createElement("a");
+      div.href = `artikel-detail.html?index=${i}`;
+      div.className = "block rounded overflow-hidden relative article-card";
+      div.style.backgroundImage = `url('${a.gambar}')`;
+      div.innerHTML = `
+        <div class="absolute inset-0 overlay flex items-end p-4">
+          <div>
+            <h3 class="text-lg font-bold">${a.judul}</h3>
+            <p class="text-sm text-gray-300">5 menit baca • ${a.penulis}</p>
+          </div>
+        </div>
+      `;
+      container.prepend(div);
+    });
+  </script>
 
-  <!-- JS -->
-  <script src="https://unpkg.com/scrollreveal"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  <script src="js/script.js"></script>
 </body>
 </html>
