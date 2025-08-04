@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Artikel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 id="judul" class="text-3xl font-bold mb-4">Loading...</h1>
+    <p id="tanggal" class="text-gray-500 mb-4"></p>
+    <img id="gambar" class="w-full h-100 object-cover mb-6 rounded" src="" alt="Gambar Artikel" />
+    <div id="konten" class="prose lg:prose-lg"></div>
+    <a href="artikel.html" class="inline-block mt-6 text-blue-600 hover:underline">← Kembali ke Beranda</a>
+  </div>
+
+  <script>
+    const artikelData = [
+{
+  id: 1,
+  judul: "Revolusi Teknologi Digital: Mengubah Wajah Dunia Modern",
+  tanggal: "04 Agustus 2025 • Prasetya Studio",
+  gambar: "/images/artikel1.jpg",
+  konten: `
+    <p class="mb-4">Teknologi digital telah menjadi kekuatan transformasional dalam dua dekade terakhir. Dari komunikasi hingga transportasi, hampir semua aspek kehidupan manusia telah disentuh oleh perkembangan teknologi. Di era digital ini, kemajuan tidak hanya sekadar mempercepat aktivitas manusia, tetapi juga membuka peluang dan tantangan baru yang belum pernah dibayangkan sebelumnya.</p>
+
+    <p class="mb-4">Salah satu pengaruh terbesar teknologi digital terlihat dalam sektor komunikasi. Dahulu, komunikasi jarak jauh terbatas pada surat dan telepon kabel. Kini, dengan internet dan ponsel pintar, komunikasi lintas benua bisa terjadi dalam hitungan detik. Aplikasi seperti WhatsApp, Zoom, dan Google Meet telah memungkinkan kolaborasi global tanpa hambatan geografis.</p>
+
+    <p class="mb-4">Teknologi juga telah mengubah cara kita bekerja. Konsep kantor tradisional mulai tergeser dengan budaya kerja jarak jauh atau remote working. Pandemi COVID-19 mempercepat adopsi kerja jarak jauh, dan banyak perusahaan kini mempertimbangkan model hybrid secara permanen. Dengan adanya cloud computing, pekerja dapat mengakses data dan aplikasi dari mana saja.</p>
+
+    <p class="mb-4">Di sektor pendidikan, teknologi digital membuka akses belajar tanpa batas. Platform seperti Coursera, Khan Academy, dan Ruangguru memberikan kesempatan bagi siapa pun untuk belajar kapan saja dan di mana saja. Bahkan, kecerdasan buatan (AI) kini digunakan untuk mempersonalisasi pembelajaran berdasarkan kecepatan dan preferensi siswa.</p>
+
+    <p class="mb-4">Namun, revolusi digital tidak lepas dari tantangan. Salah satunya adalah kesenjangan digital antara kota dan desa. Banyak wilayah yang belum memiliki akses internet yang memadai, membuat transformasi digital belum merata. Selain itu, isu keamanan siber dan privasi data menjadi kekhawatiran serius.</p>
+
+    <p class="mb-4">Terlepas dari tantangannya, revolusi teknologi digital adalah peluang besar bagi umat manusia. Dengan pendekatan yang inklusif dan etis, teknologi dapat digunakan untuk menciptakan masa depan yang lebih baik bagi semua.</p>
+  `
+},
+      {
+        id: 2,
+        judul: "Kecerdasan Buatan: Antara Manfaat dan Ancaman",
+        tanggal: "04 Agustus 2025 • Prasetya Studio",
+        gambar: "/images/artikel2.webp",
+        konten: `
+        <p class="mb-4">Kecerdasan Buatan (Artificial Intelligence/AI) kini menjadi topik hangat di seluruh dunia. Teknologi ini menjanjikan efisiensi dan inovasi, tetapi juga memunculkan ketakutan akan hilangnya pekerjaan manusia dan potensi penyalahgunaan.</p>
+
+        <p class="mb-4">AI sudah merambah ke berbagai sektor. Di bidang kesehatan, AI digunakan untuk mendiagnosis penyakit, seperti kanker dan gangguan jantung, dengan akurasi tinggi. Di industri otomotif, kendaraan otonom mulai dikembangkan dengan bantuan AI. Di layanan pelanggan, chatbot seperti ChatGPT membantu menjawab pertanyaan tanpa keterlibatan manusia langsung.</p>
+
+        <p class="mb-4">Keuntungan AI sangat jelas. Ia mampu memproses data dalam jumlah besar dengan kecepatan luar biasa, membantu dalam pengambilan keputusan, dan mengotomatiskan pekerjaan berulang. Namun, otomatisasi ini juga mengancam pekerjaan yang sebelumnya dilakukan manusia, terutama pekerjaan di bidang manufaktur dan pelayanan dasar.</p>
+
+        <p class="mb-4">Lebih jauh, etika AI menjadi perdebatan. Siapa yang bertanggung jawab jika AI membuat keputusan yang salah? Bagaimana mencegah bias algoritma yang merugikan kelompok tertentu? Pertanyaan-pertanyaan ini membutuhkan regulasi dan kebijakan yang tepat.</p>
+
+        <p class="mb-4">AI bukanlah musuh manusia, tetapi alat yang harus digunakan dengan bijak. Dengan pengawasan dan regulasi yang tepat, kecerdasan buatan bisa menjadi mitra yang luar biasa dalam membangun masa depan.</p>
+        `
+      },
+      {
+        id: 3,
+        judul: "Cara Memaksimalkan QRIS untuk Bisnis Online",
+        tanggal: "03 Agustus 2025 • Prasetya Studio",
+        gambar: "/images/artikel3.jpg",
+        konten: `
+        <p class="mb-4">Internet of Things atau IoT adalah konsep di mana benda-benda fisik terhubung ke internet dan dapat saling bertukar data. Mulai dari lemari es, jam tangan, lampu rumah, hingga kendaraan kini bisa 'berbicara' satu sama lain berkat IoT.</p>
+
+        <p class="mb-4">IoT membawa kemudahan luar biasa. Di rumah pintar, penghuni dapat mengendalikan lampu, suhu ruangan, dan keamanan hanya lewat ponsel. Di sektor industri, IoT membantu dalam memantau mesin secara real-time, meningkatkan efisiensi dan mengurangi downtime.</p>
+
+        <p class="mb-4">Namun, IoT juga membawa tantangan besar dalam hal keamanan data. Semakin banyak perangkat terhubung, semakin besar pula celah untuk potensi peretasan. Oleh karena itu, pengamanan siber menjadi aspek krusial dalam pengembangan teknologi ini.</p>
+
+        <p class="mb-4">IoT juga menimbulkan kekhawatiran terkait privasi. Dengan begitu banyak data yang dikumpulkan, perlu ada kejelasan tentang siapa yang memiliki akses dan bagaimana data digunakan.</p>
+
+        <p class="mb-4">Meski begitu, potensi IoT dalam meningkatkan kualitas hidup manusia sangat besar. Dengan strategi yang tepat, IoT dapat mendorong efisiensi, kenyamanan, dan produktivitas di berbagai aspek kehidupan.</p>`
+      }
+    ];
+
+    // Ambil ID dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const artikelId = parseInt(urlParams.get('id'));
+
+    // Cari artikel berdasarkan id
+    const artikel = artikelData.find(item => item.id === artikelId);
+
+    // Tampilkan datanya
+    if (artikel) {
+      document.getElementById("judul").textContent = artikel.judul;
+      document.getElementById("tanggal").textContent = artikel.tanggal;
+      document.getElementById("gambar").src = artikel.gambar;
+      document.getElementById("gambar").alt = artikel.judul;
+      document.getElementById("konten").innerHTML = `<p>${artikel.konten}</p>`;
+    } else {
+      document.getElementById("judul").textContent = "Artikel tidak ditemukan.";
+      document.getElementById("konten").innerHTML = `<p>Maaf, artikel dengan ID tersebut tidak tersedia.</p>`;
+    }
+  </script>
+</body>
+</html>
