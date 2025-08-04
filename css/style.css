@@ -1169,7 +1169,7 @@ img {
 
 #audio-control {
   position: fixed;
-  bottom: 90px; /* agar muncul di atas tombol WA */
+  bottom: 20px; /* agar muncul di atas tombol WA */
   right: 20px;
   width: 60px;
   height: 60px;
