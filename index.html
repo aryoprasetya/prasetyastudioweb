@@ -40,10 +40,31 @@
   <div class="bx bx-moon" id="darkMode-icon"></div>
   <div class="bx bx-menu" id="menu-icon"></div>
 
-  <!-- Tombol WhatsApp Mengambangg -->
-<a href="https://wa.me/6285143080554" class="wa-float" target="_blank" rel="noopener noreferrer">
-  <i class='bx bx-support'></i>
-</a>
+  <!-- Dropdown Tombol Mengambang -->
+<div class="dropdown-container">
+  <button class="dropdown-btn" onclick="toggleDropdownFloating()">
+    <i class='bx bx-menu'></i>
+  </button>
+  <div class="dropdown-menu" id="dropdownMenuFloating">
+    <a href="https://wa.me/6285143080554" target="_blank"><i class='bx bx-support'></i> WhatsApp</a>
+    <a href="/e-commerce.html"><i class='bx bx-cart'></i> E-Commerce</a>
+    <a href="/payment.html"><i class='bx bx-credit-card'></i> Pembayaran</a>
+  </div>
+</div>
+<script>
+  function toggleDropdownFloating() {
+    const menu = document.getElementById("dropdownMenuFloating");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
+
+  window.addEventListener('click', function(e) {
+    const btn = document.querySelector('.dropdown-btn');
+    const menu = document.getElementById('dropdownMenuFloating');
+    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+    }
+  });
+</script>
 
 </header>
 
