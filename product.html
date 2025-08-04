@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prasetya Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      color: white;
+      font-family: 'Manrope', sans-serif;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .carousel-container {
+      overflow-x: auto;
+      display: flex;
+      gap: 1rem;
+      scroll-snap-type: x mandatory;
+    }
+    .carousel-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      width: 200px;
+      height: 200px;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <main class="max-w-4xl mx-auto mt-10 glass p-6 rounded-xl shadow-md">
+    <!-- Carousel -->
+    <h2 class="text-xl font-semibold mb-4">Portofolio</h2>
+    <div id="carousel" class="carousel-container mb-10">
+      <!-- Isi portofolio akan diisi lewat JS -->
+    </div>
+
+    <!-- Detail Produk -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <img id="produk-gambar" src="" alt="Produk" class="rounded-lg shadow w-full h-auto" />
+      <div>
+        <h1 id="produk-nama" class="text-2xl font-bold text-white mb-2"></h1>
+        <p id="produk-deskripsi" class="mb-4 text-gray-200"></p>
+        <p id="produk-harga" class="text-xl text-blue-500 font-semibold mb-4"></p>
+
+        <form action="checkout.html" method="GET" class="space-y-4">
+          <input type="hidden" name="produk" value="" />
+          <input type="hidden" name="harga" value="" />
+
+          <label class="block text-white">Nama Anda:</label>
+          <input name="nama" type="text" required class="w-full p-2 rounded bg-white text-black" />
+
+          <label class="block text-white">Email / WhatsApp:</label>
+          <input name="kontak" type="text" required class="w-full p-2 rounded bg-white text-black" />
+
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Pesan Sekarang</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const produkList = {
+      katalog1: {
+        nama: "Desain Logo",
+        deskripsi: "Buat identitas merek yang kuat dan profesional dengan jasa desain logo eksklusif. Desain unik, berkelas, dan revisi tanpa batas hingga puas.",
+        harga: 50000,
+        gambar: "/images/katalog1.png",
+        portofolio: ["/images/katalog1-2.png", "/images/katalog1-3.png", "/images/katalog1-4.png", "/images/katalog1-5.webp", "/images/katalog1-6.webp", "/images/katalog1-7.webp"]
+      },
+      katalog2: {
+        nama: "Desain CV ATS",
+        deskripsi: "Tingkatkan peluangmu dilirik HRD dengan CV ATS yang disesuaikan sistem rekrutmen digital. Format rapi, profesional, dan revisi sepuasnya.",
+        harga: 20000,
+        gambar: "/images/katalog2.png",
+        portofolio: ["/images/katalog2-1.webp", "/images/katalog2-2.webp", "/images/katalog2-3.webp", "/images/katalog2-4.webp"]
+      },
+      katalog3: {
+        nama: "Desain CV Kreatif",
+        deskripsi: "Tampil beda dan menonjol di antara pelamar lain dengan CV visual kreatif. Desain menarik, estetis, dan bebas revisi berkali-kali.",
+        harga: 15000,
+        gambar: "/images/katalog3.png",
+        portofolio: ["/images/katalog3-1.webp", "/images/katalog3-2.webp", "/images/katalog3-3.webp", "/images/katalog3-4.webp", "/images/katalog3-5.webp"]
+      },
+      katalog4: {
+        nama: "Desain Flyer",
+        deskripsi: "Promosikan produk, jasa, atau acara dengan flyer desain modern dan informatif. Dapat diedit sesuai kebutuhan, revisi unlimited dijamin.",
+        harga: 40000,
+        gambar: "/images/katalog4.png",
+        portofolio: ["/images/katalog4-1.png", "/images/katalog4-2.png", "/images/katalog4-3.png"]
+      },
+      katalog5: {
+        nama: "Surat Lamaran Kerja",
+        deskripsi: "Surat lamaran kerja yang dirancang formal, tepat sasaran, dan menarik perhatian perekrut. Bisa disesuaikan dan direvisi sampai kamu puas.",
+        harga: 5000,
+        gambar: "/images/katalog5.png",
+        // portofolio: ["surat1.jpg", "surat2.jpg"]
+      },
+      katalog6: {
+        nama: "Video Animasi",
+        deskripsi: "Konten animasi menarik untuk tugas, presentasi, atau edukasi. Desain profesional, storytelling kuat, dan revisi tanpa batas.",
+        harga: 35000,
+        gambar: "/images/katalog6.png",
+        // portofolio: ["animasi1.jpg", "animasi2.jpg", "animasi3.jpg"]
+      }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    const produk = produkList[id] || produkList.katalog1;
+
+    // Set konten produk
+    document.getElementById("produk-nama").textContent = produk.nama;
+    document.getElementById("produk-deskripsi").textContent = produk.deskripsi;
+    document.getElementById("produk-harga").textContent = "Rp " + produk.harga.toLocaleString();
+    document.getElementById("produk-gambar").src = produk.gambar;
+    document.querySelector('input[name="produk"]').value = produk.nama;
+    document.querySelector('input[name="harga"]').value = produk.harga;
+
+    // Tampilkan gambar portofolio di carousel
+    const carousel = document.getElementById("carousel");
+    produk.portofolio.forEach((imgSrc) => {
+      const div = document.createElement("div");
+      div.className = "carousel-item";
+      div.innerHTML = `<img src="${imgSrc}" alt="Portofolio">`;
+      carousel.appendChild(div);
+    });
+  </script>
+</body>
+</html>

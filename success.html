@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pesanan Berhasil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-blue-700 min-h-screen flex items-center justify-center text-white">
+  <div class="bg-white bg-opacity-10 p-8 rounded-2xl shadow-xl max-w-md w-full backdrop-blur-md text-center">
+    <h1 class="text-3xl font-bold mb-4">Terima Kasih!</h1>
+    <p class="mb-6">Pesanan kamu sudah kami terima. Silakan selesaikan pembayaran melalui metode yang dipilih.</p>
+
+    <div id="metodeBayar" class="text-left mb-6">
+      <!-- Metode pembayaran akan muncul di sini -->
+    </div>
+
+    <a href="e-commerce.html" class="inline-block bg-white bg-opacity-20 px-6 py-2 rounded-full hover:bg-opacity-30 transition">Kembali ke Beranda</a>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('checkoutData')) || {};
+    const metodeBayar = data.metode || 'QRIS';
+
+    const instruksi = {
+      "QRIS": `
+        <h2 class="text-xl font-semibold mb-2">Pembayaran via QRIS</h2>
+        <img src="/images/Kode QRIS Prasetya Qris Pay_1.png" alt="QRIS" class="mx-auto mb-2 rounded-lg border border-white shadow">
+        <p>- Silakan scan QR Code di atas menggunakan aplikasi e-wallet kamu (Gopay, Dana, ShopeePay, dll).</p>
+        <p>- Bayar sesuai dengan harga yang tertera dihalaman sebelumnya.</p>
+        <p>- Jika dalam 10 menit tidak ada konfirmasi yang masuk melalui WhatsApp/ Email, silahkan menghubungi admin.</p>
+      `,
+      "Bank Jago": `
+        <h2 class="text-xl font-semibold mb-2">Transfer ke Bank Jago</h2>
+        <p>No. Rekening: <strong>1034 567 8910</strong><br>Nama: Prasetya Studio</p>
+        <p class="mt-2">Setelah transfer, konfirmasi via WhatsApp.</p>
+      `,
+      "SeaBank": `
+        <h2 class="text-xl font-semibold mb-2">Transfer ke SeaBank</h2>
+        <p>No. Rekening: <strong>9999 8888 7777</strong><br>Nama: Prasetya Studio</p>
+        <p class="mt-2">Setelah transfer, konfirmasi via WhatsApp.</p>
+      `
+    };
+
+    document.getElementById('metodeBayar').innerHTML = instruksi[metodeBayar] || instruksi["QRIS"];
+  </script>
+</body>
+</html>
