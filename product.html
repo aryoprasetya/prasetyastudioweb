@@ -53,18 +53,30 @@
         <p id="produk-deskripsi" class="mb-4 text-gray-200"></p>
         <p id="produk-harga" class="text-xl text-blue-500 font-semibold mb-4"></p>
 
-        <form action="checkout.html" method="GET" class="space-y-4">
-          <input type="hidden" name="produk" value="" />
-          <input type="hidden" name="harga" value="" />
+       <form id="productForm" action="checkout.html" method="GET" class="space-y-4">
+  <input type="hidden" name="produk" />
+  <input type="hidden" name="harga" />
 
-          <label class="block text-white">Nama Anda:</label>
-          <input name="nama" type="text" required class="w-full p-2 rounded bg-white text-black" />
+  <label class="block text-white">Nama Anda:</label>
+  <input name="nama" type="text" required class="w-full p-2 rounded bg-white text-black" />
 
-          <label class="block text-white">Email / WhatsApp:</label>
-          <input name="kontak" type="text" required class="w-full p-2 rounded bg-white text-black" />
+  <label class="block text-white">Email / WhatsApp:</label>
+  <input name="email" type="email" required class="w-full p-2 rounded bg-white text-black" />
 
-          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Pesan Sekarang</button>
-        </form>
+  <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+    Pesan Sekarang
+  </button>
+</form>
+
+<script>
+  const form = document.getElementById('productForm');
+
+  form.addEventListener('submit', function () {
+    // Set produk & harga sebelum submit
+    document.querySelector('input[name="produk"]').value = produk.nama;
+    document.querySelector('input[name="harga"]').value = produk.harga;
+  });
+</script>
       </div>
     </div>
   </main>
