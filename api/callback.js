@@ -1,53 +1,16 @@
-// api/duitku.js
-import crypto from "crypto";
-
+// api/callback.js
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).send("Method Not Allowed");
   }
 
-  const { orderId, amount, nama, email, produk } = req.body;
+  const { merchantOrderId, resultCode } = req.body;
 
-  const merchantCode = process.env.DUITKU_MERCHANT_CODE;
-  const apiKey = process.env.DUITKU_API_KEY;
+  // Simpan status pembayaran ke variabel global sementara
+  global.payments = global.payments || {};
+  global.payments[merchantOrderId] = resultCode === "00" ? "Lunas" : "Pending";
 
-  if (!merchantCode || !apiKey) {
-    return res.status(500).json({ message: "Missing Duitku environment variables" });
-  }
+  console.log(`Callback diterima: ${merchantOrderId} - ${global.payments[merchantOrderId]}`);
 
-  const signature = crypto
-    .createHash("sha256")
-    .update(merchantCode + orderId + amount + apiKey)
-    .digest("hex");
-
-  const payload = {
-    merchantCode: merchantCode,
-    paymentAmount: amount,
-    paymentMethod: "SP", // QRIS
-    merchantOrderId: orderId,
-    productDetails: produk,
-    customerVaName: nama,
-    email: email,
-    callbackUrl: "https://prasetya-studio.vercel.app/api/callback",
-    returnUrl: "https://prasetya-studio.vercel.app/success.html",
-    signature: signature,
-    expiryPeriod: 60
-  };
-
-  try {
-    const response = await fetch(
-      "https://passport.duitku.com/webapi/api/merchant/v2/inquiry", // ✅ PRODUCTION
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }
-    );
-
-    const data = await response.json();
-    res.status(200).json(data);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Gagal menghubungi Duitku" });
-  }
+  res.status(200).send("OK");
 }
