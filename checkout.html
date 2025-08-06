@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
     (function(){
-      emailjs.init("YriGj6ltxmKl1SXqg"); // GANTI dengan PUBLIC KEY EmailJS kamu
+      emailjs.init("YriGj6ltxmKl1SXqg"); // Public key EmailJS
     })();
   </script>
 </head>
@@ -20,90 +20,111 @@
     <form id="checkoutForm" class="space-y-4">
       <div>
         <label class="block text-sm mb-1">Nama Lengkap</label>
-        <input type="text" name="nama" required class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white placeholder:text-gray-300"/>
+        <input type="text" name="nama" required class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
       </div>
       
       <div>
         <label class="block text-sm mb-1">Email</label>
-        <input type="email" name="email" required class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white placeholder:text-gray-300"/>
+        <input type="email" name="email" required class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
       </div>
       
       <div>
         <label class="block text-sm mb-1">Nomor WhatsApp</label>
-        <input type="tel" name="telepon" required class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white placeholder:text-gray-300"/>
+        <input type="tel" name="telepon" required class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
       </div>
       
       <div>
         <label class="block text-sm mb-1">Produk</label>
-        <input type="text" name="produk" readonly class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white" />
+        <input type="text" name="produk" readonly class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
       </div>
 
       <div>
         <label class="block text-sm mb-1">Harga</label>
-        <input type="text" name="harga" readonly class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white" />
+        <input type="text" name="harga" readonly class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
       </div>
 
       <div>
-        <label class="block text-sm mb-1">Metode Pembayaran</label>
-        <select name="metode" required class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white">
-          <option value="QRIS">QRIS</option>
-        </select>
+        <label class="block text-sm mb-1">Kode Voucher</label>
+        <input type="text" id="voucher" placeholder="Masukkan kode" class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
+        <p id="voucherMsg" class="text-sm mt-1"></p>
       </div>
-      <!-- HONEYPOT -->
-<input type="text" name="website" id="honeypot" style="display:none">
-<!-- HONEYPOT -->
-<input type="text" name="website" id="honeypot" style="display:none">
-      <!-- <p class="text-xs text-left text-gray-300 mt-6">Pembayaran melalui website hanya bisa menggunakan QRIS</p> -->
+
       <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-md transition">Bayar Sekarang</button>
     </form>
-
-    <p class="text-xs text-center text-gray-300 mt-6">Kami akan mengirimkan invoice pembayaran ke email/ WhatsApp Anda.</p>
   </div>
 
   <script>
-    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      emailjs.sendForm('service_6hr6jio', 'template_zfa3873', this)
-        .then(function() {
-          alert('Pesanan berhasil dikirim! Silakan cek email Anda.');
-          window.location.href = 'success.html'; // ganti jika perlu
-        }, function(error) {
-          console.error('Gagal mengirim', error);
-          alert('Gagal mengirim pesanan. Silakan coba lagi.');
-        });
-    });
-    
-  // Ambil parameter dari URL
+  // Ambil data dari URL
   const params = new URLSearchParams(window.location.search);
-  const produk = params.get("produk");
-  const harga = params.get("harga");
+  const produk = params.get("produk") || "";
+  const harga = params.get("harga") || "";
+  const nama = params.get("nama") || "";
+  const email = params.get("email") || "";
 
-  // Isi input sesuai parameter
-  if (produk) document.querySelector('input[name="produk"]').value = produk;
-  if (harga) document.querySelector('input[name="harga"]').value = "Rp" + parseInt(harga).toLocaleString("id-ID");
-    document.getElementById("checkout-form").addEventListener("submit", function (e) {
-  e.preventDefault();
+  // Set nilai awal field
+  document.querySelector('input[name="produk"]').value = produk;
+  if (harga) {
+    document.querySelector('input[name="harga"]').value = "Rp" + parseInt(harga).toLocaleString();
+  }
+  document.querySelector('input[name="nama"]').value = nama;
+  document.querySelector('input[name="email"]').value = email;
 
-  // Deteksi BOT (honeypot keisi)
-  const honeypot = document.getElementById("honeypot").value;
-  if (honeypot) {
-    console.warn("Bot terdeteksi, form dibatalkan.");
-    return; // Stop pengiriman form
+  // Fitur voucher
+  document.getElementById("voucher").addEventListener("input", function(){
+  const hargaField = document.querySelector('input[name="harga"]');
+  let originalHarga = parseInt(harga) || 0;
+  const msg = document.getElementById("voucherMsg");
+
+  if(this.value.trim() === "") {
+    // Kalau kolom kosong, kembalikan harga asli & hapus pesan
+    hargaField.value = "Rp" + originalHarga.toLocaleString();
+    msg.textContent = "";
+    msg.className = "text-sm mt-1";
+    return;
   }
 
-  // Lanjut kirim form ke EmailJS atau lainnya
-  emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
-    .then(function () {
-      alert("Pesanan berhasil dikirim!");
-    }, function (error) {
-      alert("Gagal mengirim: " + error.text);
+  if(this.value.trim().toUpperCase() === "DISKON10"){
+    const potongan = originalHarga * 0.1;
+    hargaField.value = "Rp" + (originalHarga - potongan).toLocaleString();
+    msg.textContent = "Voucher valid! Diskon 10% diterapkan.";
+    msg.className = "text-green-400 text-sm mt-1";
+  } else {
+    hargaField.value = "Rp" + originalHarga.toLocaleString();
+    msg.textContent = "Voucher tidak valid.";
+    msg.className = "text-red-400 text-sm mt-1";
+  }
+});
+
+  // Submit EmailJS
+document.getElementById("checkoutForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const hargaFinal = document.querySelector('input[name="harga"]').value.replace(/\D/g,'');
+
+  emailjs.sendForm('service_6hr6jio', 'template_zfa3873', this)
+    .then(() => {
+      // Buat orderId unik setiap checkout
+      const orderId = "ORDER" + Date.now();
+
+      const checkoutData = {
+        orderId: orderId,
+        nama: formData.get("nama"),
+        email: formData.get("email"),
+        whatsapp: formData.get("telepon"),
+        produk: formData.get("produk"),
+        harga: hargaFinal
+      };
+
+      localStorage.setItem("checkoutData", JSON.stringify(checkoutData));
+      window.location.href = "success.html";
+    })
+    .catch(err => {
+      alert("Gagal mengirim pesanan.");
+      console.error(err);
     });
 });
-  </script>
+</script>
 
 </body>
 </html>
-
-
-
