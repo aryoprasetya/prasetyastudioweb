@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     const signature = CryptoJS.MD5(merchantCode + orderId + paymentAmount + apiKey).toString();
 
     // Request QRIS ke Duitku
-    const response = await fetch("https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry", {
+    const response = await fetch("https://passport.duitku.com/webapi/api/merchant/v2/inquiry", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
