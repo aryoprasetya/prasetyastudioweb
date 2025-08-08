@@ -44,6 +44,28 @@
       </div>
 
       <div>
+  <label class="block text-sm mb-1">Metode Pembayaran</label>
+  <select name="paymentMethod" required class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white">
+    <option value="" disabled selected>Pilih Metode</option>
+    <option value="VA_AGI">Transfer AGI</option>
+    <option value="VA_NOBU">Bank NEO</option>
+    <option value="VA_BNI">BNI</option>
+    <option value="BRIVA">BRI VA</option>
+    <option value="VA_BSI">BSI</option>
+    <option value="VA_CIMB">CIMB Niaga</option>
+    <option value="VA_DANAMON">Danamon</option>
+    <option value="VA_MANDIRI">Mandiri</option>
+    <option value="VA_MAYBANK">Maybank</option>
+    <option value="VA_PERMATA">Permata</option>
+    <option value="VA_SA">Bank Sampoerna</option>
+    <option value="ALFAMART">Alfamart</option>
+    <option value="POS_INDONESIA">POS Indonesia</option>
+    <option value="PEGADAIAN">Pegadaian</option>
+    <option value="QRIS">QRIS</option>
+  </select>
+</div>
+
+      <div>
         <label class="block text-sm mb-1">Kode Voucher</label>
         <input type="text" id="voucher" placeholder="Masukkan kode" class="w-full p-2 rounded-md bg-white/10 border border-white/30 text-white"/>
         <p id="voucherMsg" class="text-sm mt-1"></p>
@@ -108,13 +130,14 @@ document.getElementById("checkoutForm").addEventListener("submit", function(e){
       const orderId = "ORDER" + Date.now();
 
       const checkoutData = {
-        orderId: orderId,
-        nama: formData.get("nama"),
-        email: formData.get("email"),
-        whatsapp: formData.get("telepon"),
-        produk: formData.get("produk"),
-        harga: hargaFinal
-      };
+  orderId: orderId,
+  nama: formData.get("nama"),
+  email: formData.get("email"),
+  whatsapp: formData.get("telepon"),
+  produk: formData.get("produk"),
+  harga: hargaFinal,
+  paymentMethod: formData.get("paymentMethod")
+};
 
       localStorage.setItem("checkoutData", JSON.stringify(checkoutData));
       window.location.href = "success.html";
