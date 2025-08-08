@@ -37,33 +37,40 @@
     if (!orderId) {
       document.getElementById("qrisContainer").innerHTML = "<p class='text-red-400'>Order ID tidak ditemukan.</p>";
     } else {
-      // Minta QRIS dari API Duitku
-      fetch("/api/duitku", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-  orderId,
-  amount: checkoutData.harga,
-  nama: checkoutData.nama,
-  email: checkoutData.email,
-  produk: checkoutData.produk,
-  paymentMethod: checkoutData.paymentMethod
-})
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.qrString) {
-          document.getElementById("qrisContainer").innerHTML = `
-            <img src="data:image/png;base64,${data.qrString}" alt="QRIS" class="mx-auto mb-2 rounded-lg border border-white shadow">
-            <p>Nominal: Rp${parseInt(checkoutData.harga).toLocaleString()}</p>
-          `;
-        } else {
-          document.getElementById("qrisContainer").innerHTML = "<p class='text-red-400'>Gagal memuat QRIS.</p>";
-        }
-      })
-      .catch(() => {
-        document.getElementById("qrisContainer").innerHTML = "<p class='text-red-400'>Error koneksi ke server.</p>";
-      });
+if (checkoutData.paymentMethod === "QRIS") {
+  // Jika metode QRIS, maka minta QR code
+  fetch("/api/duitku", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      orderId,
+      amount: checkoutData.harga,
+      nama: checkoutData.nama,
+      email: checkoutData.email,
+      produk: checkoutData.produk,
+      paymentMethod: checkoutData.paymentMethod
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.qrString) {
+      document.getElementById("qrisContainer").innerHTML = `
+        <img src="data:image/png;base64,${data.qrString}" alt="QRIS" class="mx-auto mb-2 rounded-lg border border-white shadow">
+        <p>Nominal: Rp${parseInt(checkoutData.harga).toLocaleString()}</p>
+      `;
+    } else {
+      document.getElementById("qrisContainer").innerHTML = "<p class='text-red-400'>Gagal memuat QRIS.</p>";
+    }
+  })
+  .catch(() => {
+    document.getElementById("qrisContainer").innerHTML = "<p class='text-red-400'>Error koneksi ke server.</p>";
+  });
+} else {
+  // Jika bukan QRIS, tampilkan info bahwa tidak perlu QR
+  document.getElementById("qrisContainer").innerHTML = `
+    <p class="text-sm text-white">Tidak perlu QRIS untuk metode pembayaran ini.</p>
+  `;
+}
 
       // Cek status real-time setiap 5 detik
       setInterval(() => {
