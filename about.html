@@ -165,49 +165,10 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
     <!-- custom js -->
-    <script src="js/script.js">
-  // Cegah klik kanan & munculkan banner sementara
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-
-    // Jika banner belum ada, buat dan tampilkan
-    if (!document.getElementById('protectBanner')) {
-      const banner = document.createElement('div');
-      banner.id = 'protectBanner';
-      banner.textContent = "🔒 Akses dibatasi. Konten dilindungi.";
-      banner.style = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #8b0000;
-        color: white;
-        text-align: center;
-        padding: 10px;
-        font-size: 14px;
-        z-index: 9999;
-        font-family: sans-serif;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      `;
-      document.body.prepend(banner);
-
-      // Hilangkan setelah 3 detik
-      setTimeout(() => {
-        banner.remove();
-      }, 3000);
-    }
-  });
-
-  // Cegah shortcut inspect (F12, Ctrl+Shift+I/U/J)
-  document.onkeydown = function(e) {
-    if (e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && ['I','J','C','U'].includes(e.key.toUpperCase()))) {
-      return false;
-    }
-  };
-</script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
+
 
 
