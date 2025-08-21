@@ -140,7 +140,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function(e){
 };
 
       localStorage.setItem("checkoutData", JSON.stringify(checkoutData));
-      window.location.href = "success.html";
+      window.location.href = "success";
     })
     .catch(err => {
       alert("Gagal mengirim pesanan.");
@@ -151,4 +151,5 @@ document.getElementById("checkoutForm").addEventListener("submit", function(e){
 
 </body>
 </html>
+
 
