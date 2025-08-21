@@ -1,76 +1,353 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dibaca BelumJadi</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 — Halaman Tidak Ditemukan</title>
+  <meta name="description" content="Maaf, halaman yang kamu cari tidak ditemukan." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #0f172a;
-      overflow: hidden;
-      font-family: sans-serif;
+    :root{
+      --bg1:#f8f5ff;
+      --bg2:#ffeef6;
+      --ink:#1a1a1a;
+      --muted:#6b7280;
+      --accent:#e26ba9; /* pink-sakura */
+      --accent2:#b76db3; /* lilac */
+      --btn:#111827;
+      --btn-ink:#ffffff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol", sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 900px at 80% -10%, #fff 0%, var(--bg1) 35%, #fff0 60%) ,
+                  radial-gradient(900px 700px at -10% 20%, #fff 0%, var(--bg2) 40%, #fff0 65%),
+                  linear-gradient(180deg, #ffffff 0%, #fff8fc 40%, #fff 100%);
+      overflow:hidden;
+    }
+    .wrap{
+      position:relative;
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      isolation:isolate;
+    }
+    /* Canvas layer behind content */
+    #petals{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+    }
+    .card{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      width:min(880px, 96vw);
+      background:rgba(255,255,255,0.75);
+      backdrop-filter:saturate(140%) blur(10px);
+      border:1px solid rgba(231, 216, 232, 0.7);
+      border-radius:24px;
+      padding:36px 28px;
+      box-shadow:
+        0 10px 30px rgba(183,109,179,0.12),
+        0 2px 8px rgba(0,0,0,0.04);
+    }
+    .badge{
+      align-self:flex-start;
+      font-weight:600;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#9d4c86;
+      background:linear-gradient(90deg, #ffe3f1, #efe1ff);
+      border:1px solid rgba(183,109,179,.25);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .title{
+      display:flex;
+      align-items:baseline;
+      flex-wrap:wrap;
+      gap:16px 20px;
+    }
+    .num{
+      font-family: Marcellus, Georgia, "Times New Roman", serif;
+      font-size: clamp(64px, 14vw, 160px);
+      line-height: .9;
+      letter-spacing:.02em;
+      background: linear-gradient(180deg, #2f2933 0%, #6d3c5f 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow: 0 2px 0 rgba(255,255,255,0.6);
+    }
+    .heading{
+      font-family: Marcellus, Georgia, "Times New Roman", serif;
+      font-size: clamp(20px, 4vw, 40px);
+      line-height:1.1;
+      color:#2f2933;
+    }
+    .desc{
+      color:var(--muted);
+      font-size:clamp(14px, 2.2vw, 18px);
+      max-width:70ch;
+    }
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:6px;
+    }
+    .btn{
+      appearance:none;
+      border:0;
+      border-radius:14px;
+      padding:12px 16px;
+      font-weight:600;
+      cursor:pointer;
+      transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      will-change:transform;
+    }
+    .btn.primary{
+      background:var(--btn);
+      color:var(--btn-ink);
+      box-shadow:0 8px 20px rgba(17,24,39,.25), inset 0 -2px 0 #00000030;
+    }
+    .btn.primary:hover{ transform: translateY(-1px); box-shadow:0 10px 24px rgba(17,24,39,.28); }
+    .btn.ghost{
+      background:linear-gradient(90deg,#ffe9f4,#efe6ff);
+      color:#642d58;
+      border:1px solid rgba(183,109,179,.35);
+    }
+    .btn.ghost:hover{ transform: translateY(-1px); }
+    .hint{
+      margin-top:4px;
+      font-size:12px;
+      color:#9ca3af;
+    }
+    footer{
+      position:fixed;
+      inset-inline:0;
+      bottom:10px;
+      text-align:center;
+      z-index:1;
+      font-size:12px;
+      color:#a78bfa;
+      opacity:.8;
+      pointer-events:none;
     }
 
-    .btn {
-      position: absolute;
-      background-color: #3B82F6;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 4px 10px;
-      font-size: 12px;
-      cursor: pointer;
+    /* Decorative blossoms at corners */
+    .corner{
+      position:absolute; z-index:1; pointer-events:none; opacity:.5; filter:blur(.2px);
     }
+    .c-top{ top:-10px; right:-2px; width:min(24vw,220px); transform:rotate(10deg) }
+    .c-bot{ bottom:-14px; left:-6px; width:min(28vw,260px); transform:rotate(-6deg) }
 
-    .canvas {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
+    /* Reduced motion: freeze animation */
+    @media (prefers-reduced-motion: reduce) {
+      #petals{ display:none; }
     }
   </style>
 </head>
 <body>
-  <div class="canvas" id="canvas"></div>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <div class="wrap" role="main">
+    <!-- subtle corner blossoms -->
+    <svg class="corner c-top" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <g opacity=".9">
+        <path d="M96 12c14 22 9 42-9 57-12 10-26 16-36 31-14 20-9 43 7 55 20 15 52 9 69-13 18-24 13-57-6-86-6-9-13-18-25-44Z" fill="#f7b7d1"/>
+        <circle cx="150" cy="70" r="10" fill="#ffd1e3"/>
+        <circle cx="130" cy="40" r="6" fill="#ffd1e3"/>
+      </g>
+    </svg>
+    <svg class="corner c-bot" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <g opacity=".9">
+        <path d="M104 188c-14-22-9-42 9-57 12-10 26-16 36-31 14-20 9-43-7-55-20-15-52-9-69 13-18 24-13 57 6 86 6 9 13 18 25 44Z" fill="#f6c2dd"/>
+        <circle cx="50" cy="130" r="9" fill="#ffe0ee"/>
+        <circle cx="70" cy="160" r="6" fill="#ffe0ee"/>
+      </g>
+    </svg>
+
+    <section class="card" aria-labelledby="t-404">
+      <span class="badge" aria-hidden="true">Oops… bunga tersesat</span>
+      <div class="title">
+        <div class="num" aria-hidden="true">404</div>
+        <h1 id="t-404" class="heading">Halaman tidak ditemukan</h1>
+      </div>
+      <p class="desc">
+        Seperti kelopak yang terbawa angin, tautan ini sepertinya melayang entah ke mana.
+        Periksa kembali alamat URL-nya atau kembali ke halaman utama.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="/" aria-label="Kembali ke beranda">
+          <!-- home icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          Kembali ke Beranda
+        </a>
+        <button class="btn ghost" type="button" onclick="history.back()" aria-label="Kembali ke halaman sebelumnya">
+          <!-- back icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m10 19-7-7 7-7M3 12h13a5 5 0 0 1 0 10h-3" stroke="#642d58" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Halaman Sebelumnya
+        </button>
+      </div>
+      <div class="hint">Kode: 404_NOT_FOUND • Prasetya Studio</div>
+    </section>
+  </div>
+
+  <footer>© <span id="y"></span> Prasetya Studio • Est. 2023</footer>
 
   <script>
-    const canvas = document.getElementById("canvas");
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Posisi dasar untuk setiap huruf (grid: x, y)
-    const grid = {
-      B: [[0,0],[0,1],[0,2],[1,0],[1,2],[2,1],[3,0],[3,2],[4,0],[4,1],[4,2]],
-      E: [[0,0],[0,1],[0,2],[1,0],[2,0],[2,1],[3,0],[4,0],[4,1],[4,2]],
-      L: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2]],
-      U: [[0,0],[0,2],[1,0],[1,2],[2,0],[2,2],[3,0],[3,2],[4,0],[4,1],[4,2]],
-      M: [[0,0],[0,2],[1,0],[1,1],[1,2],[2,0],[2,2],[3,0],[3,2],[4,0],[4,2]],
-      J: [[0,0],[1,1],[2,1],[3,1],[4,0],[4,1]],
-      A: [[0,1],[1,0],[1,2],[2,0],[2,1],[2,2],[3,0],[3,2],[4,0],[4,2]],
-      D: [[0,0],[0,1],[1,0],[1,2],[2,0],[2,2],[3,0],[3,2],[4,0],[4,1]],
-      I: [[0,1],[1,1],[2,1],[3,1],[4,1]]
-    };
+    // Sakura Petals Canvas
+    (() => {
+      const canvas = document.getElementById('petals');
+      const ctx = canvas.getContext('2d', { alpha:true });
+      let w, h, petals;
+      const P = [];
+      const MAX = 90; // jumlah kelopak
+      const DPR = Math.min(2, window.devicePixelRatio || 1);
 
-    const word = ["B","E","L","U","M","J","A","D","I"];
+      function rand(a,b){ return a + Math.random()*(b-a) }
+      function resize(){
+        w = canvas.width  = Math.floor(innerWidth * DPR);
+        h = canvas.height = Math.floor(innerHeight * DPR);
+        canvas.style.width  = innerWidth + 'px';
+        canvas.style.height = innerHeight + 'px';
+      }
 
-    const cellSize = 28;
-    const letterSpacing = 10;
-    const startX = 20;
-    const startY = 20;
+      class Petal{
+        constructor(){
+          this.reset(true);
+        }
+        reset(initial=false){
+          const side = Math.random()<0.5 ? -1 : 1;
+          this.x = initial ? rand(0, w) : (side<0 ? -rand(0, w*0.15) : w + rand(0, w*0.15));
+          this.y = initial ? rand(-h*0.2, -20) : rand(-h*0.3, -40);
+          this.z = rand(0.2, 1.0); // depth/parallax
+          this.s = rand(8, 22) * this.z; // size
+          this.vx = (side * rand(0.2, 0.7)) * this.z; // drift horizontal
+          this.vy = rand(0.5, 1.6) * (1.2 - this.z*0.3); // fall speed
+          this.ang = rand(0, Math.PI*2);
+          this.spin = rand(-0.02, 0.02);
+          this.tilt = rand(-0.6, 0.6);
+          // soft color variation
+          const pink = [
+            [234, 115, 167], // accent
+            [247, 183, 209],
+            [255, 217, 234],
+            [246, 194, 221],
+            [242, 164, 200]
+          ][(Math.random()*5)|0];
+          this.col = `rgba(${pink[0]},${pink[1]},${pink[2]},${rand(0.65, 0.95)})`;
+          this.shadow = `rgba(183,109,179,${rand(0.05,0.12)})`;
+        }
+        step(){
+          this.x += this.vx + Math.sin(this.ang) * 0.2 * this.z;
+          this.y += this.vy;
+          this.ang += this.spin;
+          if(this.y > h + 40) this.reset();
+        }
+        draw(){
+          const x = this.x, y = this.y, s = this.s;
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(this.ang + Math.sin(this.ang*2)*0.2 + this.tilt);
+          // shadow
+          ctx.shadowColor = this.shadow;
+          ctx.shadowBlur = 12 * this.z;
+          // petal shape (heart-like curve)
+          ctx.beginPath();
+          const r = s;
+          ctx.moveTo(0, -r*0.2);
+          ctx.bezierCurveTo(r*0.8, -r*1.4, r*1.4, r*0.2, 0, r*1.2);
+          ctx.bezierCurveTo(-r*1.4, r*0.2, -r*0.8, -r*1.4, 0, -r*0.2);
+          ctx.closePath();
+          // gradient fill for subtle depth
+          const g = ctx.createLinearGradient(-r, -r, r, r);
+          g.addColorStop(0, this.col);
+          g.addColorStop(1, 'rgba(255,255,255,0.85)');
+          ctx.fillStyle = g;
+          ctx.fill();
+          // subtle mid vein
+          ctx.lineWidth = Math.max(0.6, 1.2*this.z);
+          ctx.strokeStyle = 'rgba(255, 240, 247, 0.7)';
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
 
-    word.forEach((letter, i) => {
-      const coords = grid[letter];
-      const offsetX = i * (cellSize * 4 + letterSpacing);
+      function init(){
+        resize();
+        P.length = 0;
+        const count = Math.max(40, Math.min(MAX, Math.round((w*h)/(1200*1200)*MAX) + 30));
+        for(let i=0;i<count;i++) P.push(new Petal());
+        petals = count;
+      }
 
-      coords.forEach(([row, col]) => {
-        const btn = document.createElement("button");
-        btn.className = "btn";
-        btn.innerText = "Kembali";
-        btn.style.left = `${startX + offsetX + col * cellSize}px`;
-        btn.style.top = `${startY + row * cellSize}px`;
-        btn.onclick = () => window.history.back();
-        canvas.appendChild(btn);
+      let rafId=0, last=0;
+      function loop(t){
+        rafId = requestAnimationFrame(loop);
+        const dt = Math.min(32, t - last); last = t;
+        ctx.clearRect(0,0,w,h);
+        // soft vignette
+        const vg = ctx.createRadialGradient(w*0.5, h*0.1, 0, w*0.5, h*0.5, Math.max(w,h)*0.8);
+        vg.addColorStop(0,'rgba(255,255,255,0)');
+        vg.addColorStop(1,'rgba(255,230,244,0.25)');
+        ctx.fillStyle = vg;
+        ctx.fillRect(0,0,w,h);
+
+        for(let i=0;i<P.length;i++){
+          P[i].step(dt);
+          P[i].draw();
+        }
+      }
+
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      function start(){
+        cancelAnimationFrame(rafId);
+        if(mq.matches) return; // respect reduced motion
+        rafId = requestAnimationFrame(loop);
+      }
+
+      window.addEventListener('resize', () => { init(); });
+      window.addEventListener('visibilitychange', () => {
+        if(document.hidden) cancelAnimationFrame(rafId); else start();
       });
-    });
+      mq.addEventListener ? mq.addEventListener('change', start) : mq.addListener(start);
+
+      init(); start();
+
+      // Gentle wind on mouse move
+      let wind = 0, targetWind = 0;
+      window.addEventListener('mousemove', (e)=>{
+        const center = innerWidth/2;
+        targetWind = (e.clientX - center) / center; // -1..1
+      });
+      setInterval(()=>{
+        wind += (targetWind - wind) * 0.06;
+        for(const p of P){ p.vx += wind * 0.002; p.vx = Math.max(-1.3, Math.min(1.3, p.vx)); }
+      }, 50);
+    })();
   </script>
 </body>
 </html>
