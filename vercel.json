@@ -4,7 +4,23 @@
     { "source": "/tentang", "destination": "/about.html" },
     { "source": "/layanan", "destination": "/services.html" },
     { "source": "/artikel", "destination": "/artikel.html" },
-    { "source": "/hub-kami", "destination": "/contact.html" }
+    { "source": "/hub-kami", "destination": "/contact.html" },
+    { "source": "/e-commerce", "destination": "/e-commerce.html" },
+    { "source": "/payment", "destination": "/payment.html" },
+    { "source": "/maintenance", "destination": "/maintenance.html" },
+    { "source": "/katalog", "destination": "/katalog.html" },
+    { "source": "/artikel-detail", "destination": "/artikel-detail.html" },
+    { "source": "/product", "destination": "/product.html" },
+    { "source": "/bri", "destination": "/bri.html" },
+    { "source": "/seabank", "destination": "/seabank.html" },
+    { "source": "/bankjago", "destination": "/bankjago.html" },
+    { "source": "/dana", "destination": "/dana.html" },
+    { "source": "/ovo", "destination": "/ovo.html" },
+    { "source": "/gopay", "destination": "/gopay.html" },
+    { "source": "/shopeepay", "destination": "/shopeepay.html" },
+    { "source": "/paypal", "destination": "/paypal.html" },
+    { "source": "/vaiwallet", "destination": "/vaiwallet.html" },
+    { "source": "/faq", "destination": "/faq.html" }
   ],
   "headers": [
     {
