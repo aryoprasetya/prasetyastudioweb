@@ -20,7 +20,7 @@
     { "source": "/shopeepay", "destination": "/shopeepay.html" },
     { "source": "/paypal", "destination": "/paypal.html" },
     { "source": "/vaiwallet", "destination": "/vaiwallet.html" },
-    { "source": "/faq", "destination": "/faq.html" }
+    { "source": "/faq", "destination": "/faq.html" },
     { "source": "/kebijakan", "destination": "/kebijakan.html" }
   ],
   "headers": [
