@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricelist — Prasetya Studio</title>
+  <link rel="icon" href="images/logo duwa.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{--brand:#3B82F6}
+    html,body{font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+    .gov-card{border-left:4px solid var(--brand)}
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+  <header class="bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12">
+          <img src="images/logo duwa.png" alt="Prasetya Studio" class="w-full h-full object-contain" />
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold">Prasetya Studio</h1>
+          <p class="text-sm text-gray-600">Pricelist Layanan Jasa — #UrusanDesainJadiLebihMudah</p>
+        </div>
+      </div>
+      <nav>
+        <a href="hub-kami" class="ml-2 text-sm px-4 py-2 rounded-md bg-[var(--brand)] text-white">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-10">
+    <section class="mb-8">
+      <div class="gov-card bg-white p-6 rounded-md shadow-sm">
+        <h2 class="text-2xl font-bold mb-2">Daftar Harga Layanan</h2>
+        <p class="text-sm text-gray-600">Semua harga final. Pembayaran manual — silakan cek berkala / tanyakan admin setelah order. Revisi hingga 10x. Untuk pertanyaan tambahan hubungi admin.</p>
+      </div>
+    </section>
+
+    <section id="pricelist" class="mb-12">
+      <div class="overflow-x-auto rounded-lg border border-gray-200">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Kode</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Layanan</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600">Deskripsi Singkat</th>
+              <th class="px-6 py-3 text-right text-xs font-semibold text-gray-600">Harga (Rp)</th>
+              <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-100" id="service-table">
+            <!-- Rows will be inserted by JS for maintainability -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="order" class="mb-12">
+      <div class="bg-white p-6 rounded-md shadow-sm">
+        <h3 class="text-lg font-bold mb-3">Form Pemesanan</h3>
+        <p class="text-sm text-gray-600 mb-4">Isi data di bawah lalu klik "Kirim ke WhatsApp" — sistem akan membuka WhatsApp dengan pesan terisi otomatis. Atau gunakan tombol "Quick Order via WhatsApp" di baris layanan untuk langsung membuka chat.</p>
+
+        <form id="order-form" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label class="text-sm font-medium">Nama</label>
+            <input id="input-name" required class="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-3" placeholder="Nama lengkap" />
+          </div>
+          <div>
+            <label class="text-sm font-medium">Email</label>
+            <input id="input-email" type="email" required class="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-3" placeholder="email@domain.com" />
+          </div>
+          <div>
+            <label class="text-sm font-medium">No. Telepon (WhatsApp)</label>
+            <input id="input-phone" required class="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-3" placeholder="62812xxxx" />
+          </div>
+          <div>
+            <label class="text-sm font-medium">Kode Layanan</label>
+            <input id="input-code" readonly class="mt-1 block w-full rounded-md border-gray-200 bg-gray-50 p-3" />
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="text-sm font-medium">Nama Layanan</label>
+            <input id="input-service" readonly class="mt-1 block w-full rounded-md border-gray-200 bg-gray-50 p-3" />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium">Harga (Rp)</label>
+            <input id="input-price" readonly class="mt-1 block w-full rounded-md border-gray-200 bg-gray-50 p-3" />
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="text-sm font-medium">Catatan untuk Admin (opsional)</label>
+            <textarea id="input-note" class="mt-1 block w-full rounded-md border-gray-200 p-3" placeholder="Contoh: deadline, referensi, catatan... (opsional)"></textarea>
+          </div>
+
+          <div class="md:col-span-2 flex gap-2 justify-end">
+            <button type="button" id="btn-clear" class="px-4 py-2 rounded-md border border-gray-200">Bersihkan</button>
+            <button type="submit" id="btn-submit" class="px-4 py-2 rounded-md bg-[var(--brand)] text-white">Kirim ke WhatsApp</button>
+          </div>
+        </form>
+
+      </div>
+    </section>
+
+    <section class="text-sm text-gray-600">
+      <p><strong>Catatan Pembayaran:</strong> Pembayaran manual — setelah mengirim pesan/konfirmasi, admin akan memberikan instruksi pembayaran. Harap lakukan cek berkala / tanyakan kepada admin. Mohon maaf atas ketidaknyamanan.</p>
+    </section>
+  </main>
+
+  <footer class="border-t mt-12">
+    <div class="max-w-6xl mx-auto px-6 py-6 text-xs text-gray-600 flex justify-between">
+      <div>© Prasetya Studio — 2025</div>
+      <div>#UrusanDesainJadiLebihMudah</div>
+    </div>
+  </footer>
+
+  <script>
+    // Data layanan — semua harga <= 500000
+    const services = [
+      {code:'VD001', service:'Desain Logo', desc:'Logo profesional + file PNG, SVG, JPG, Brand Guidelines', price:'Kesepakatan'},
+      {code:'VI001', service:'Desain Poster/A4', desc:'Poster siap cetak + file editable', price:25000},
+      {code:'VI002', service:'Poster Infografis', desc:'Poster Infografis file PDF editable', price:35000},
+      {code:'GD001', service:'Desain Brosur/A4', desc:'Brosur A4 siap cetak', price:35000},
+      {code:'AD001', service:'Desain Banner', desc:'Desain banner file PDF, AI, PSD', price:35000},
+      {code:'AD002', service:'Desain Undangan', desc:'Desain undangan file PDF, AI, PSD', price:25000},
+      {code:'IS001', service:'Desain Invoice', desc:'Desain invoice file PDF, AI, PSD', price:10000},
+      {code:'CV001', service:'CV ATS Friendly', desc:'CV ATS-friendly file PDF, Doc editable', price:15000},
+      {code:'CV002', service:'CV Kreatif', desc:'CV Kreatif file PDF, Doc editable', price:10000},
+      {code:'SL001', service:'Surat Lamaran', desc:'Surat lamaran kerja file PDF, Doc editable', price:5000},
+      {code:'CP001', service:'Desain Company Profile', desc:'Desain company profile profesional file PDF', price:450000},
+      {code:'CD001', service:'Custom Desain', desc:'Desain custom file PDF, AI, PSD', price:'Menyesuaikan'},
+      {code:'VI002', service:'Desain Feed Instagram', desc:'File PNG/ JPG editable', price:10000},
+      {code:'SOC01', service:'Paket Feed 15 Konten', desc:'15 desain feed Instagram', price:135000},
+      {code:'SOC02', service:'Paket Feed 25 Konten', desc:'25 desain feed Instagram', price:200000},
+      {code:'SOC03', service:'Paket Feed 30 Konten', desc:'30 desain feed Instagram', price:230000},
+      {code:'VA001', service:'Video Animasi', desc:'Video animasi/ menit', price:35000}
+    ];
+
+    const table = document.getElementById('service-table');
+    services.forEach(s => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">${s.code}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm">${s.service}</td>
+        <td class="px-6 py-4 text-sm text-gray-600">${s.desc}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-semibold">${s.price.toLocaleString('id-ID')}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-center">
+          <div class="flex items-center justify-center gap-2">
+            <button class="order-btn px-3 py-2 text-sm rounded-md border border-gray-200" data-code="${s.code}" data-service="${encodeURIComponent(s.service)}" data-price="${s.price}">Order & Isi Form</button>
+            <button class="quickwa-btn px-3 py-2 text-sm rounded-md bg-[var(--brand)] text-white" data-service="${encodeURIComponent(s.service)}" data-price="${s.price}">Quick WhatsApp</button>
+          </div>
+        </td>
+      `;
+      table.appendChild(tr);
+    });
+
+    // Helpers
+    function qs(id){return document.getElementById(id)}
+
+    // Order button — isi form dan scroll
+    document.addEventListener('click', (e)=>{
+      const ob = e.target.closest('.order-btn');
+      if(ob){
+        const code = ob.dataset.code || '';
+        const service = decodeURIComponent(ob.dataset.service || '');
+        const price = ob.dataset.price || '';
+        qs('input-code').value = code;
+        qs('input-service').value = service;
+        qs('input-price').value = Number(price).toLocaleString('id-ID');
+        qs('input-note').value = '';
+        qs('input-name').focus();
+        document.querySelector('#order').scrollIntoView({behavior:'smooth', block:'center'});
+      }
+
+      const qw = e.target.closest('.quickwa-btn');
+      if(qw){
+        const service = decodeURIComponent(qw.dataset.service || '');
+        const price = qw.dataset.price || '';
+        const phone = '6285143080554'; // GANTI: admin WhatsApp number
+        const text = `Halo%20Admin%20Prasetya%20Studio%0ASaya%20ingin%20order%20layanan:%20${encodeURIComponent(service)}%20(%20Rp${price}%20)%0A%0AMohon%20infokan%20langkah%20selanjutnya.`;
+        const url = `https://wa.me/${phone}?text=${text}`;
+        window.open(url, '_blank');
+      }
+    });
+
+    // Form submit -> open WA with filled data
+    document.getElementById('order-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = qs('input-name').value.trim();
+      const email = qs('input-email').value.trim();
+      const phone = qs('input-phone').value.trim();
+      const code = qs('input-code').value.trim() || '-';
+      const service = qs('input-service').value.trim() || '-';
+      const price = qs('input-price').value.trim() || '-';
+      const note = qs('input-note').value.trim() || '-';
+      if(!name || !email || !phone){
+        alert('Mohon lengkapi Nama, Email, dan No. Telepon.');
+        return;
+      }
+      const adminPhone = '6285143080554'; // GANTI: admin WhatsApp number
+      const message = `Halo Admin Prasetya Studio\nSaya ingin order layanan:\n- Kode: ${code}\n- Layanan: ${service}\n- Harga: Rp${price}\n\nData Pemesan:\n- Nama: ${name}\n- Email: ${email}\n- No. Telepon: ${phone}\n\nCatatan: ${note}\n\nMohon infokan langkah pembayaran (manual). Terima kasih.`;
+      const waLink = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
+      window.open(waLink, '_blank');
+    });
+
+    qs('btn-clear').addEventListener('click', ()=>{
+      qs('input-name').value=''; qs('input-email').value=''; qs('input-phone').value=''; qs('input-code').value=''; qs('input-service').value=''; qs('input-price').value=''; qs('input-note').value='';
+    });
+
+    (function(){
+      const params = new URLSearchParams(location.search);
+      const code = params.get('code');
+      if(code){
+        const found = services.find(s=>s.code.toLowerCase()===code.toLowerCase());
+        if(found){
+          qs('input-code').value = found.code;
+          qs('input-service').value = found.service;
+          qs('input-price').value = found.price.toLocaleString('id-ID');
+          document.querySelector('#order').scrollIntoView({behavior:'smooth', block:'center'});
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
