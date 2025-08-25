@@ -1,244 +1,457 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FAQ – Prasetya Studio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - Prasetya Studio</title>
   <link rel="icon" href="images/logo duwa.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Manrope', sans-serif; }
+    .accessibility-btn { 
+      position: fixed; 
+      right: 20px; 
+      bottom: 20px; 
+      z-index: 50; 
+    }
+    .contrast { filter: invert(1) hue-rotate(180deg); }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col bg-gradient-to-b from-white to-white text-gray-800">
+<body class="bg-gray-50 text-gray-800">
 
-  <!-- Header sederhana -->
-  <!--<header class="bg-white/80 backdrop-blur border-b">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2 font-bold text-blue-700">
-        <a href="https://wa.me/6285143080554" target="_blank" rel="noopener" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
-          WhatsApp
-        </a>
-      </nav>
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-6 shadow">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">FAQ - Prasetya Studio</h1>
+      <a href="home" class="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition flex items-center gap-1">
+        <i class="bx bx-arrow-back"></i> Kembali
+      </a>
     </div>
-  </header> -->
+  </header>
 
-  <!-- Konten -->
-  <main class="flex-1">
-    <section class="max-w-3xl mx-auto px-6 pt-10 pb-16">
-      <h1 class="text-3xl font-bold text-center text-blue-700">Frequently Asked Questions</h1>
-      <p class="text-center text-gray-600 mt-3 mb-8">
-        Pertanyaan seputar layanan dan proses kerja di <strong>Prasetya Studio</strong>.
-      </p>
+  <!-- Kolom Pencarian -->
+  <section class="container mx-auto px-4 my-6">
+    <input id="searchInput" type="text" placeholder="Cari pertanyaan..." 
+      class="w-full p-3 border rounded-lg shadow focus:outline-none focus:ring focus:ring-blue-400">
+  </section>
 
-      <div id="faqList" class="space-y-4">
-        <!-- Item 1 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Apakah Prasetya Studio sebuah perusahaan?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              Prasetya Studio adalah <strong>freelance</strong> yang fokus pada layanan kreatif: desain CV, desain logo, desain visual, dan kebutuhan branding lainnya.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Layanan apa saja yang tersedia?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              CV ATS, CV kreatif, surat lamaran, desain logo (menyesuaikan budget), desain visual/branding, konten promosi, dan request custom sesuai kebutuhan.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Berapa harganya?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              <ul class="list-disc pl-5 space-y-1">
-                <li>CV ATS: <strong>Rp15.000</strong></li>
-                <li>CV Kreatif: <strong>Rp10.000</strong></li>
-                <li>Surat Lamaran: <strong>Rp5.000</strong></li>
-                <li>Desain Logo: <strong>menyesuaikan budget</strong></li>
-                <li>Layanan lain: sesuai kebutuhan (nego)</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Bagaimana cara order?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              Pilih layanan di halaman produk/pricelist, klik <strong>Order</strong>, isi data, lalu lakukan pembayaran (QRIS/transfer).
-              Kamu juga bisa chat langsung via WhatsApp untuk brief.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 5 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Metode pembayarannya apa saja?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              <strong>QRIS</strong>, transfer <strong>Bank Jago</strong>, dan <strong>SeaBank</strong>. E-wallet (Dana/OVO/GoPay) bisa melalui QRIS.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 6 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Berapa lama waktu pengerjaan?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              CV & surat lamaran: <strong>1–2 hari</strong>. Desain logo: <strong>2–5 hari</strong>. Bisa lebih cepat sesuai antrean & kompleksitas.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 7 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Apakah ada revisi?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              Termasuk <strong>10 kali revisi</strong>. Revisi tambahan bisa dikenakan biaya sesuai perubahan.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 8 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">File apa yang saya terima?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              CV/Surat: <strong>PDF & DOCX (editable)</strong>. Logo/Desain: <strong>PNG/JPG</strong> dan file sumber <strong>AI/PSD/SVG</strong> sesuai kebutuhan.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 9 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Apakah CV benar-benar ramah ATS?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              Ya. Struktur CV mengikuti praktik ramah ATS: hierarki heading jelas, font standar, dan tanpa elemen yang menghambat parsing.
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 10 -->
-        <div class="bg-white rounded-xl border shadow-sm overflow-hidden">
-          <button class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-            <span class="font-semibold">Bagaimana menghubungi Prasetya Studio?</span>
-            <svg class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-            <div class="px-5 pb-5 text-gray-700 leading-relaxed">
-              Klik tombol WhatsApp di navigasi, atau kirim pesan melalui halaman Kontak. Tim akan merespons sesegera mungkin.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tombol kembali -->
-      <div class="mt-10 flex items-center justify-center gap-3">
-        <a href="javascript:history.back()" class="inline-flex items-center px-5 py-2.5 rounded-full bg-blue-600 text-white hover:bg-blue-700 shadow">
-          Kembali
-        </a>
-        <a href="/maintenance" class="inline-flex items-center px-5 py-2.5 rounded-full bg-white border hover:bg-blue-50 shadow">
-          Pricelist
-        </a>
-        <a href="https://wa.me/6285143080554" class="inline-flex items-center px-5 py-2.5 rounded-full bg-blue-600 text-white hover:bg-blue-700 shadow">
-          WhatsApp
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="border-t bg-white/80 backdrop-blur">
-    <div class="max-w-6xl mx-auto px-6 py-6 text-center text-sm text-gray-600">
-      © 2025 Prasetya Studio. All rights reserved.
+  <!-- FAQ -->
+  <section class="container mx-auto px-4 space-y-4" id="faqList">
+    
+    <!-- Profil -->
+    <h2 class="text-xl font-bold text-blue-600 mt-8"><i class="bx bx-user"></i> Profil Prasetya Studio</h2>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Siapa itu Prasetya Studio?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Prasetya Studio adalah studio freelance kreatif yang menyediakan layanan desain grafis, CV profesional, video animasi, dan layanan digital lainnya.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+        
+    <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">2k</span> kali dilihat
     </div>
-  </footer>
 
-  <!-- Accordion script: buka/tutup + rotasi panah, satu terbuka sekaligus -->
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Apakah Prasetya Studio resmi?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Ya, kami beroperasi secara legal sebagai freelancer dan memiliki brand resmi bernama Prasetya Studio.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">1.8k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>  
+    </div>
+    </div>
+
+    <!-- Pembayaran -->
+    <h2 class="text-xl font-bold text-blue-600 mt-8"><i class="bx bx-credit-card"></i> Pembayaran</h2>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Metode pembayaran apa saja yang tersedia?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Kami mendukung pembayaran melalui QRIS, Bank Jago, SeaBank, Dana, OVO, GoPay, ShopeePay, dan PayPal.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">2k</span> kali dilihat
+    </div>
+
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Apakah ada garansi uang kembali?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Kami menyediakan revisi hingga sesuai. Refund hanya berlaku jika layanan tidak dapat kami kerjakan sesuai kesepakatan awal.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">3k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>  
+    </div>
+    </div>
+
+    <!-- Layanan -->
+    <h2 class="text-xl font-bold text-blue-600 mt-8"><i class="bx bx-briefcase"></i> Layanan</h2>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Layanan apa saja yang tersedia?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Kami menyediakan: <br> - Desain Visual <br> - Video Animasi <br> - Curriculum Vitae ATS Friendly <br> - Branding & Desain Logo <br> - Editing Konten Sosial Media <br> - Layanan kreatif digital lainnya.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">2.1k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Apakah bisa custom order?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Ya, kami menerima pesanan khusus sesuai kebutuhan Anda, baik desain unik maupun proyek digital tertentu.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">1.9k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Order -->
+    <h2 class="text-xl font-bold text-blue-600 mt-8"><i class="bx bx-cart"></i> Cara Order</h2>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Bagaimana cara order layanan di Prasetya Studio?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Cara order: pilih layanan → isi form pemesanan → lakukan pembayaran → konfirmasi → pesanan diproses.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">2k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Estimasi -->
+    <h2 class="text-xl font-bold text-blue-600 mt-8"><i class="bx bx-time"></i> Estimasi & Waktu</h2>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Berapa lama estimasi pengerjaan?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Estimasi tergantung jenis layanan. CV 1–2 hari, desain visual 2–3 hari, video animasi 3–7 hari. Estimasi dapat berubah sesuai kerumitan order.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">2k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Garansi -->
+    <h2 class="text-xl font-bold text-blue-600 mt-8"><i class="bx bx-shield-quarter"></i> Garansi & Revisi</h2>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Apakah saya mendapatkan revisi?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Ya, setiap pesanan mendapat revisi gratis sesuai kebijakan layanan. Jumlah revisi bervariasi sesuai paket yang dipilih.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">1.5k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+        <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Apakah tersedia garansi?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Ya, setiap layanan tersedia garansi sampai dengan satu bulan sesuai layanan yang dipesan.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">1.6k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Dukungan -->
+    <h2 class="text-xl font-bold text-blue-600 mt-8"><i class="bx bx-headphone"></i> Dukungan & Kontak</h2>
+    <div class="faq-item bg-white p-4 rounded-xl shadow">
+      <button class="faq-question w-full flex justify-between items-center text-left font-semibold">
+        Bagaimana cara menghubungi Prasetya Studio?
+        <i class="bx bx-plus"></i>
+      </button>
+      <div class="faq-answer hidden mt-2 text-gray-700">
+        <p>Anda dapat menghubungi kami melalui WhatsApp, email resmi, atau chat di media sosial.</p>
+        <button onclick="speakText(this)" class="mt-2 flex items-center gap-1 text-sm bg-blue-100 px-3 py-1 rounded"><i class="bx bx-play-circle"></i> Dengarkan</button>
+      
+      <!-- Statistik -->
+    <div class="mt-3 text-xs text-gray-500 flex items-center gap-1">
+      <i class="bx bx-show"></i> <span class="view-count">1.5k</span> kali dilihat
+    </div>
+      
+        <!-- Feedback -->
+        <div class="mt-3 text-sm">
+          <p class="mb-1">Apakah jawaban ini membantu?</p>
+          <div class="flex gap-3">
+            <button onclick="feedback(this, true)" class="flex items-center gap-1 text-green-600 hover:text-green-800"><i class="bx bx-like"></i> Ya</button>
+            <button onclick="feedback(this, false)" class="flex items-center gap-1 text-red-600 hover:text-red-800"><i class="bx bx-dislike"></i> Tidak</button>
+          </div>
+        </div>
+    </div>
+    </div>
+
+  </section>
+
+<!-- Accessibility Floating Button -->
+<div class="accessibility-btn flex flex-col items-center">
+  <button id="toggleContrast" class="bg-blue-600 text-white w-12 h-12 flex items-center justify-center rounded-full shadow mb-2">
+    <i class="bx bx-adjust text-xl"></i>
+  </button>
+  <button id="increaseFont" class="bg-blue-600 text-white w-12 h-12 flex items-center justify-center rounded-full shadow mb-2">
+    <i class="bx bx-zoom-in text-xl"></i>
+  </button>
+  <button id="decreaseFont" class="bg-blue-600 text-white w-12 h-12 flex items-center justify-center rounded-full shadow">
+    <i class="bx bx-zoom-out text-xl"></i>
+  </button>
+</div>
+
+
+  <!-- Script -->
   <script>
-    const toggles = document.querySelectorAll('.faq-toggle');
-
-    toggles.forEach(btn => {
+    // Accordion Eksklusif
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const btn = item.querySelector('.faq-question');
       btn.addEventListener('click', () => {
-        const content = btn.nextElementSibling;
-        const icon = btn.querySelector('svg');
-
-        // Tutup semua dulu (biar satu-satu)
-        document.querySelectorAll('.faq-content').forEach(c => {
-          if (c !== content) c.style.maxHeight = null;
+        faqItems.forEach(i => {
+          if (i !== item) {
+            i.querySelector('.faq-answer').classList.add('hidden');
+            i.querySelector('.bx').classList.replace('bx-minus','bx-plus');
+          }
         });
-        document.querySelectorAll('.faq-toggle svg').forEach(i => {
-          if (i !== icon) i.classList.remove('rotate-180');
-        });
-
-        // Toggle aktif
-        if (content.style.maxHeight) {
-          content.style.maxHeight = null;
-          icon.classList.remove('rotate-180');
+        const answer = item.querySelector('.faq-answer');
+        const icon = item.querySelector('.bx');
+        answer.classList.toggle('hidden');
+        if(answer.classList.contains('hidden')){
+          icon.classList.replace('bx-minus','bx-plus');
         } else {
-          content.style.maxHeight = content.scrollHeight + 'px';
-          icon.classList.add('rotate-180');
+          icon.classList.replace('bx-plus','bx-minus');
         }
       });
     });
 
-    // Opsional: buka item pertama saat load
-    // toggles[0].click();
+    // Search
+    document.getElementById("searchInput").addEventListener("input", function() {
+      const value = this.value.toLowerCase();
+      document.querySelectorAll(".faq-item").forEach(item => {
+        const question = item.querySelector(".faq-question").innerText.toLowerCase();
+        const answer = item.querySelector(".faq-answer").innerText.toLowerCase();
+        item.style.display = (question.includes(value) || answer.includes(value)) ? "block" : "none";
+      });
+    });
+
+    // Speech
+    function speakText(btn) {
+      const text = btn.parentElement.querySelector("p").innerText;
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = "id-ID";
+      speechSynthesis.cancel();
+      speechSynthesis.speak(msg);
+    }
+
+    // Feedback
+    function feedback(btn, isLike) {
+      const parent = btn.parentElement;
+      parent.innerHTML = isLike 
+        ? "<p class='text-green-600 flex items-center gap-1'><i class='bx bx-like'></i> Terima kasih atas feedback Anda!</p>" 
+        : "<p class='text-red-600 flex items-center gap-1'><i class='bx bx-dislike'></i> Terima kasih, kami akan meningkatkan kualitas jawaban.</p>";
+    }
+
+    // Accessibility
+    const body = document.body;
+    document.getElementById('toggleContrast').addEventListener('click', () => {
+      body.classList.toggle('contrast');
+    });
+    document.getElementById('increaseFont').addEventListener('click', () => {
+      body.style.fontSize = (parseInt(window.getComputedStyle(body).fontSize) + 2) + "px";
+    });
+    document.getElementById('decreaseFont').addEventListener('click', () => {
+      body.style.fontSize = (parseInt(window.getComputedStyle(body).fontSize) - 2) + "px";
+    });
   </script>
 </body>
+  <!-- Pertanyaan Lain -->
+  <section class="container mx-auto px-4 my-12">
+    <h2 class="text-xl font-bold text-blue-600 mb-4"><i class="bx bx-message-square-detail"></i> Pertanyaan Lain</h2>
+    <form id="whatsappForm" class="bg-white p-6 rounded-xl shadow space-y-4">
+      <div>
+        <label class="block font-semibold mb-1">Nama</label>
+        <input type="text" id="name" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">Email</label>
+        <input type="email" id="email" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">No. Telepon</label>
+        <input type="tel" id="phone" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">Pertanyaan</label>
+        <textarea id="question" rows="4" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400"></textarea>
+      </div>
+      <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition flex items-center gap-2">
+        <i class="bx bxl-whatsapp text-xl"></i> Kirim via WhatsApp
+      </button>
+    </form>
+  </section>
+
+  <script>
+    // WhatsApp Direct
+    document.getElementById("whatsappForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const question = document.getElementById("question").value;
+
+      const message = `Halo, saya ${name}%0AEmail: ${email}%0ATelepon: ${phone}%0APertanyaan: ${question}`;
+      const whatsappNumber = "6281234567890"; // Ganti dengan nomor WhatsApp tujuan (format internasional tanpa +)
+      const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+      window.open(url, "_blank");
+    });
+
+  </script>
+
+  <!-- Footer -->
+  <footer class="bg-blue-600 text-white text-center py-4 mt-12">
+    <p>© 2025 Prasetya Studio. Semua Hak Dilindungi.</p>
+  </footer>
+
 </html>
