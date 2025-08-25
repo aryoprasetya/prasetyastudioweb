@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Museum Desain Grafis — Prasetya Studio</title>
+  <link rel="icon" href="images/logo duwa.png" type="image/png">
+  <meta name="description" content="Museum online desain grafis: sejarah, karya ikonik, kurasi unik. Tersedia Bahasa Indonesia, English, العربية." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --radius: 16px; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, 'Noto Naskh Arabic', sans-serif; }
+    /* High contrast mode */
+    .hc * { color: #000 !important; background-color: #fff !important; border-color: #000 !important; }
+    /* RTL helper for Arabic */
+    .rtl { direction: rtl; }
+    .rtl .ltr-only { display: none; }
+    .not-rtl { direction: ltr; }
+    /* Focus styles */
+    :focus-visible{ outline: 3px solid #60a5fa; outline-offset: 3px; border-radius: 10px; }
+    /* Simple card hover */
+    .card { border-radius: var(--radius); transition: transform .2s ease, box-shadow .2s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(2,6,23,.1); }
+    /* Hide elements helper */
+    .hidden-by-lang{ display: none; }
+    /* Reduced motion respect */
+    @media (prefers-reduced-motion: reduce){
+      *{ transition-duration: .001ms !important; animation-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-white px-3 py-2 rounded-lg shadow">Skip to content</a>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div class="flex items-center gap-3">
+        <div class="logo">
+  <img src="images/logo duwa.png" alt="Logo Duwa" class="h-10 w-auto">
+</div>
+        <div>
+   <p class="text-sm text-slate-500 flex items-center gap-2">
+  <span>Prasetya Studio</span>
+  <span style="
+    background-color:#22c55e;
+    color:#fff;
+    font-size:10px;
+    font-weight:bold;
+    padding:2px 6px;
+    border-radius:4px;
+    text-transform:uppercase;
+  ">
+    Education
+  </span>
+</p>
+
+          <h1 class="text-xl font-extrabold tracking-tight" data-i18n="museum_title">Museum Desain Grafis</h1>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-6" aria-label="Primary">
+        <a href="#about" class="hover:text-blue-600" data-i18n="nav_about">Tentang</a>
+        <a href="#timeline" class="hover:text-blue-600" data-i18n="nav_timeline">Linimasa</a>
+        <a href="#collection" class="hover:text-blue-600" data-i18n="nav_collection">Koleksi</a>
+        <a href="#designers" class="hover:text-blue-600" data-i18n="nav_designers">Desainer</a>
+        <a href="#visit" class="hover:text-blue-600" data-i18n="nav_visit">Kunjungi</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="contrastBtn" class="px-3 py-1.5 rounded-xl border text-sm" aria-pressed="false" data-i18n="btn_contrast">Kontras</button>
+        <div class="relative">
+          <button id="langBtn" class="px-3 py-1.5 rounded-xl border text-sm">🌐 <span id="langLabel">ID</span></button>
+          <div id="langMenu" class="absolute right-0 mt-2 w-40 bg-white shadow rounded-xl border hidden" role="menu" aria-labelledby="langBtn">
+            <button data-lang="en" class="block w-full text-left px-4 py-2 hover:bg-slate-100">English</button>
+            <button data-lang="id" class="block w-full text-left px-4 py-2 hover:bg-slate-100">Indonesia</button>
+            <button data-lang="ar" class="block w-full text-left px-4 py-2 hover:bg-slate-100">العربية</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-blue-50 to-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-4xl md:text-5xl font-extrabold leading-tight" data-i18n="hero_title">Sejarah visual yang membentuk dunia modern.</h2>
+        <p class="mt-4 text-slate-700 text-lg" data-i18n="hero_sub">Jelajahi karya-karya ikonik dan cerita di baliknya—dari Bauhaus hingga desain digital.</p>
+        <div class="mt-6 flex gap-3">
+          <a href="#collection" class="px-5 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700" data-i18n="cta_explore">Jelajahi Koleksi</a>
+          <a href="#timeline" class="px-5 py-3 bg-white border rounded-xl font-semibold hover:bg-slate-50" data-i18n="cta_timeline">Lihat Linimasa</a>
+        </div>
+        <p class="mt-6 text-xs text-slate-500" data-i18n="hero_note">Catatan kuratorial: informasi pada halaman ini dikurasi dari arsip dan publikasi tepercaya; tanggal & nama sesuai catatan sejarah.</p>
+      </div>
+      <figure class="relative">
+        <img src="https://mirmagz.com/wp-content/uploads/2021/04/ilustrasi-dkv-1-1536x1086.jpeg" alt="Kolase poster desain grafis klasik dan modern" class="w-full rounded-2xl shadow-lg object-cover h-80 md:h-[28rem]" />
+        <figcaption class="absolute bottom-3 right-3 text-[11px] bg-white/80 backdrop-blur px-2 py-1 rounded" data-i18n="hero_credit">Ilustrasi: Kolase poster untuk keperluan edukasi.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <main id="main" class="">
+    <!-- About -->
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid md:grid-cols-5 gap-10 items-start">
+        <div class="md:col-span-3">
+          <h3 class="text-2xl font-bold" data-i18n="about_title">Apa itu desain grafis?</h3>
+          <p class="mt-3 text-slate-700" data-i18n="about_p1">Desain grafis adalah praktik mengatur tipografi, gambar, dan warna untuk berkomunikasi secara visual. Bidang ini mencakup identitas merek, tipografi, poster, antarmuka, hingga sistem informasi.</p>
+          <p class="mt-3 text-slate-700" data-i18n="about_p2">Sejak awal abad ke-20, gerakan seperti Bauhaus (Jerman, 1919–1933) menekankan fungsionalitas dan bentuk sederhana; era pascaperang melahirkan Swiss/International Style dengan grid yang ketat; sementara era digital membawa desain interaktif dan variabel.</p>
+        </div>
+        <aside class="md:col-span-2 bg-white border rounded-2xl p-5 shadow-sm">
+          <h4 class="font-semibold" data-i18n="factbox_title">Fakta cepat</h4>
+          <ul class="mt-3 space-y-2 text-slate-700 text-sm">
+            <li>• <span data-i18n="fact1">Poster pameran Bauhaus karya Joost Schmidt (1923) menjadi ikon era modernis awal.</span></li>
+            <li>• <span data-i18n="fact2">Piktogram Olimpiade München 1972 oleh Otl Aicher menetapkan standar simbol internasional.</span></li>
+            <li>• <span data-i18n="fact3">Peta Subway NYC 1972 oleh Massimo Vignelli & Bob Noorda menyederhanakan kompleksitas jaringan.</span></li>
+            <li>• <span data-i18n="fact4">Poster film Vertigo (1958) oleh Saul Bass mempopulerkan narasi visual minimalis.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section id="timeline" class="bg-white border-y">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex items-center justify-between">
+          <h3 class="text-2xl font-bold" data-i18n="timeline_title">Linimasa Singkat</h3>
+          <div class="flex items-center gap-2 text-sm">
+            <label for="eraFilter" class="text-slate-600" data-i18n="filter_label">Saring era</label>
+            <select id="eraFilter" class="border rounded-xl px-3 py-2">
+              <option value="all" data-i18n="filter_all">Semua</option>
+              <option value="early" data-i18n="filter_early">1900–1939</option>
+              <option value="mid" data-i18n="filter_mid">1940–1979</option>
+              <option value="late" data-i18n="filter_late">1980–sekarang</option>
+            </select>
+          </div>
+        </div>
+        <ol id="timelineList" class="mt-8 relative border-s border-slate-200 pl-6 space-y-8">
+          <!-- Items injected by JS below for maintainability -->
+        </ol>
+      </div>
+    </section>
+
+    <!-- Collection Gallery -->
+    <section id="collection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-bold" data-i18n="collection_title">Koleksi Unggulan</h3>
+          <p class="text-slate-600 mt-2" data-i18n="collection_sub">Klik kartu untuk melihat detail, tahun, dan konteks sejarah.</p>
+        </div>
+        <div class="flex gap-2 items-center">
+          <input id="searchInput" type="search" class="border rounded-xl px-3 py-2 w-56" placeholder="Cari…" aria-label="Search" />
+          <select id="typeFilter" class="border rounded-xl px-3 py-2">
+            <option value="all" data-i18n="type_all">Semua Jenis</option>
+            <option value="poster" data-i18n="type_poster">Poster</option>
+            <option value="identity" data-i18n="type_identity">Identitas</option>
+            <option value="wayfinding" data-i18n="type_wayfinding">Pemandu Arah</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="cards" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+      <!-- Modal -->
+      <div id="modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="bg-white rounded-2xl max-w-2xl w-full shadow-xl overflow-hidden">
+          <div class="flex items-center justify-between p-4 border-b">
+            <h4 id="modalTitle" class="text-lg font-bold">Title</h4>
+            <button id="modalClose" class="p-2 rounded-lg hover:bg-slate-100" aria-label="Close">✕</button>
+          </div>
+          <div class="p-4 space-y-3">
+            <img id="modalImg" alt="" class="w-full rounded-xl object-cover max-h-96" />
+            <p id="modalDesc" class="text-slate-700"></p>
+            <p id="modalMeta" class="text-sm text-slate-500"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Designers -->
+    <section id="designers" class="bg-white border-y">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h3 class="text-2xl font-bold" data-i18n="designers_title">Ruang Desainer</h3>
+        <p class="text-slate-600 mt-2" data-i18n="designers_sub">Nama-nama yang membentuk praktik desain grafis modern.</p>
+        <div class="mt-6 overflow-x-auto">
+          <div class="flex gap-4 min-w-max">
+            <!-- Simple designer chips -->
+            <div class="card bg-white border p-4 w-64">
+              <h4 class="font-semibold">Saul Bass</h4>
+              <p class="text-sm text-slate-600" data-i18n="d_bass">Poster & credit title film (AS). Karya ikonik: Vertigo (1958), The Man with the Golden Arm (1955).</p>
+            </div>
+            <div class="card bg-white border p-4 w-64">
+              <h4 class="font-semibold">Paula Scher</h4>
+              <p class="text-sm text-slate-600" data-i18n="d_scher">Tipografi berani & identitas merek. Pentagram partner (AS). Poster "Bring in 'da Noise" (1995).</p>
+            </div>
+            <div class="card bg-white border p-4 w-64">
+              <h4 class="font-semibold">Otl Aicher</h4>
+              <p class="text-sm text-slate-600" data-i18n="d_aicher">Sistem piktogram & identitas. Olimpiade München 1972; Lufthansa.</p>
+            </div>
+            <div class="card bg-white border p-4 w-64">
+              <h4 class="font-semibold">Massimo Vignelli</h4>
+              <p class="text-sm text-slate-600" data-i18n="d_vignelli">Modernisme rasional: peta Subway NYC (1972), identitas American Airlines.</p>
+            </div>
+            <div class="card bg-white border p-4 w-64">
+              <h4 class="font-semibold">April Greiman</h4>
+              <p class="text-sm text-slate-600" data-i18n="d_greiman">Pelopor desain digital & layout eksperimental sejak 1980-an.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visit / Footer -->
+    <section id="visit" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <div>
+          <h3 class="text-2xl font-bold" data-i18n="visit_title">Kunjungi dari mana saja</h3>
+          <p class="mt-3 text-slate-700" data-i18n="visit_p1">Museum online ini dirancang untuk akses publik global. Gunakan tombol bahasa untuk pengalaman yang nyaman. Seluruh konten dapat digunakan untuk edukasi non-komersial dengan atribusi.</p>
+          <p class="mt-3 text-slate-700" data-i18n="visit_p2">Untuk lembaga pendidikan, hubungi kami untuk tur kuratorial virtual dan materi pengajaran.</p>
+          <div class="mt-6 flex gap-3">
+            <a href="#collection" class="px-5 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700" data-i18n="visit_cta1">Lihat Koleksi</a>
+            <a href="#about" class="px-5 py-3 bg-white border rounded-xl font-semibold hover:bg-slate-50" data-i18n="visit_cta2">Pelajari Dasar</a>
+          </div>
+        </div>
+        <form class="bg-white border rounded-2xl p-6 shadow-sm">
+          <h4 class="font-semibold" data-i18n="contact_title">Kontak Kurator</h4>
+          <label class="block mt-4 text-sm" data-i18n="contact_name">Nama</label>
+          <input type="text" class="mt-1 w-full border rounded-xl px-3 py-2" placeholder="Nama Anda" />
+          <label class="block mt-4 text-sm" data-i18n="contact_email">Email</label>
+          <input type="email" class="mt-1 w-full border rounded-xl px-3 py-2" placeholder="email@contoh.com" />
+          <label class="block mt-4 text-sm" data-i18n="contact_msg">Pesan</label>
+          <textarea class="mt-1 w-full border rounded-xl px-3 py-2" rows="4" placeholder="Tulis pesan…"></textarea>
+          <button type="button" class="mt-4 px-4 py-2 bg-slate-900 text-white rounded-xl" data-i18n="contact_send">Kirim</button>
+          <p class="mt-3 text-xs text-slate-500" data-i18n="contact_note">Form ini adalah demo. Integrasikan EmailJS/Formspree untuk produksi.</p>
+        </form>
+      </div>
+
+     <!-- Referensi -->
+<section class="mt-12">
+  <hr class="border-t border-gray-300 w-full mb-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Reference</h2>
+    <ul class="list-disc pl-6 text-gray-600 space-y-2">
+      <li>
+        <a href="https://bauhauskooperation.com/fileadmin/_processed_/a/0/csm_Schmidt_Joost_Plakat_Bauhausaustellung_Weimar_1923_2b44962907.jpg" target="_blank" class="text-blue-600 hover:underline">
+          Bauhaus Kooperation
+        </a>
+      </li>
+      <li>
+        <a href="https://cdn.posteritati.com/posters/000/000/074/864/vertigo-sm-web.jpg" target="_blank" class="text-blue-600 hover:underline">
+          Posteritati Movie Poster Gallery
+        </a>
+      </li>
+      <li>
+        <a href="http://page-spread.com/wp-content/uploads/02-1182.jpg" target="_blank" class="text-blue-600 hover:underline">
+          Page Spread
+        </a>
+      </li>
+      <li>
+        <a href="https://seeklogo.com/vector-logo/445641/1972-munich-summer-olympics-pictograms" target="_blank" class="text-blue-600 hover:underline">
+          Seeklogo
+        </a>
+      </li>
+      <li>
+        <a href="https://images.cf.nycsubway.org/images/maps/system_1972.jpg" target="_blank" class="text-blue-600 hover:underline">
+          nycsubway.org
+        </a>
+      </li>
+      <li>
+        <a href="https://www.pinterest.com/pin/20899585759336611/" target="_blank" class="text-blue-600 hover:underline">
+          Pinterest
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+      <footer class="mt-16 pt-8 border-t text-sm text-slate-600 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p>© <span id="year"></span> Graphic Design Museum Online by <b>Prasetya Studio</b></p>
+        <div class="flex items-center gap-4">
+          <a href="#about" class="hover:text-blue-600" data-i18n="foot_about">Tentang</a>
+          <a href="#collection" class="hover:text-blue-600" data-i18n="foot_collection">Koleksi</a>
+          <a href="#designers" class="hover:text-blue-600" data-i18n="foot_people">Desainer</a>
+          <button id="toTop" class="px-3 py-1.5 border rounded-xl">↑</button>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <style>    /* Supaya gambar koleksi dinamis */
+  .collection-card img {
+    width: 100%;        /* isi lebar kartu */
+    height: auto;       /* tinggi otomatis ikut aspect ratio */
+    display: block;
+    object-fit: contain; /* jangan terpotong */
+  }
+
+  /* Untuk gambar di modal */
+  #modalImg {
+    width: 100%;
+    height: auto;
+    max-height: 26rem;   /* batas biar nggak kepanjangan */
+    object-fit: contain;
+  }</style>
+
+  <script>
+    // ======= Simple i18n dictionary (EN, ID, AR) =======
+    const i18n = {
+      en: {
+        museum_tag: 'Online Museum',
+        museum_title: 'Graphic Design Museum',
+        nav_about: 'About', nav_timeline: 'Timeline', nav_collection: 'Collection', nav_designers: 'Designers', nav_visit: 'Visit',
+        btn_contrast: 'Contrast',
+        hero_title: 'The visual history that shaped the modern world.',
+        hero_sub: 'Explore iconic works and their stories—from Bauhaus to digital design.',
+        cta_explore: 'Explore Collection', cta_timeline: 'View Timeline',
+        hero_note: 'Curatorial note: information here is drawn from trusted archives and publications; dates & names follow historical records.',
+        hero_credit: 'Illustration: Collage for educational use.',
+        about_title: 'What is graphic design?',
+        about_p1: 'Graphic design organizes type, image, and color to communicate visually. It spans brand identity, typography, posters, interfaces, and information systems.',
+        about_p2: 'Since the early 20th century, movements like Bauhaus (Germany, 1919–1933) emphasized function and simple form; the postwar era saw Swiss/International Style with strict grids; the digital era brought interactive and variable design.',
+        factbox_title: 'Quick facts',
+        fact1: 'Bauhaus exhibition poster by Joost Schmidt (1923) is an icon of early modernism.',
+        fact2: 'Munich 1972 Olympic pictograms by Otl Aicher set standards for international symbols.',
+        fact3: 'The 1972 NYC Subway map by Massimo Vignelli & Bob Noorda simplified a complex network.',
+        fact4: 'Saul Bass’s Vertigo (1958) poster popularized minimalist visual narration.',
+        timeline_title: 'Short Timeline',
+        filter_label: 'Filter era', filter_all: 'All', filter_early: '1900–1939', filter_mid: '1940–1979', filter_late: '1980–today',
+        collection_title: 'Featured Collection', collection_sub: 'Click a card to see details, year, and historical context.',
+        type_all: 'All Types', type_poster: 'Poster', type_identity: 'Identity', type_wayfinding: 'Wayfinding',
+        designers_title: 'Designers Room', designers_sub: 'Names that shaped modern practice.',
+        d_bass: 'Film posters & title sequences (US). Iconic works: Vertigo (1958), The Man with the Golden Arm (1955).',
+        d_scher: 'Bold typography & brand identities. Pentagram partner (US). Poster “Bring in ’da Noise” (1995).',
+        d_aicher: 'Pictogram systems & identity. Munich Olympics 1972; Lufthansa.',
+        d_vignelli: 'Rational modernism: NYC Subway map (1972), American Airlines identity.',
+        d_greiman: 'Pioneer of digital design & experimental layouts since the 1980s.',
+        visit_title: 'Visit from anywhere', visit_p1: 'This online museum is designed for global public access. Use the language button for comfort. Content is available for non-commercial education with attribution.', visit_p2: 'For schools, contact us for a virtual curatorial tour and teaching materials.', visit_cta1: 'Browse Collection', visit_cta2: 'Learn the Basics',
+        contact_title: 'Contact Curator', contact_name: 'Name', contact_email: 'Email', contact_msg: 'Message', contact_send: 'Send', contact_note: 'This form is a demo. Integrate EmailJS/Formspree for production.',
+        foot_about: 'About', foot_collection: 'Collection', foot_people: 'Designers',
+      },
+      id: {
+        museum_tag: 'Museum Online',
+        museum_title: 'Museum Desain Grafis',
+        nav_about: 'Tentang', nav_timeline: 'Linimasa', nav_collection: 'Koleksi', nav_designers: 'Desainer', nav_visit: 'Kunjungi',
+        btn_contrast: 'Kontras',
+        hero_title: 'Sejarah visual yang membentuk dunia modern.',
+        hero_sub: 'Jelajahi karya-karya ikonik dan cerita di baliknya—dari Bauhaus hingga desain digital.',
+        cta_explore: 'Jelajahi Koleksi', cta_timeline: 'Lihat Linimasa',
+        hero_note: 'Catatan kuratorial: informasi pada halaman ini dikurasi dari arsip dan publikasi tepercaya; tanggal & nama sesuai catatan sejarah.',
+        hero_credit: 'Ilustrasi: Kolase untuk edukasi.',
+        about_title: 'Apa itu desain grafis?',
+        about_p1: 'Desain grafis mengatur tipografi, gambar, dan warna untuk berkomunikasi visual. Bidangnya mencakup identitas merek, tipografi, poster, antarmuka, dan sistem informasi.',
+        about_p2: 'Sejak awal abad ke-20, gerakan seperti Bauhaus (Jerman, 1919–1933) menekankan fungsi dan bentuk sederhana; era pascaperang melahirkan Swiss/International Style dengan grid ketat; era digital menghadirkan desain interaktif dan variabel.',
+        factbox_title: 'Fakta cepat',
+        fact1: 'Poster pameran Bauhaus oleh Joost Schmidt (1923) menjadi ikon modernisme awal.',
+        fact2: 'Piktogram Olimpiade München 1972 oleh Otl Aicher menetapkan standar simbol internasional.',
+        fact3: 'Peta Subway NYC 1972 oleh Massimo Vignelli & Bob Noorda menyederhanakan jaringan yang kompleks.',
+        fact4: 'Poster Vertigo (1958) oleh Saul Bass mempopulerkan narasi visual minimalis.',
+        timeline_title: 'Linimasa Singkat',
+        filter_label: 'Saring era', filter_all: 'Semua', filter_early: '1900–1939', filter_mid: '1940–1979', filter_late: '1980–sekarang',
+        collection_title: 'Koleksi Unggulan', collection_sub: 'Klik kartu untuk melihat detail, tahun, dan konteks sejarah.',
+        type_all: 'Semua Jenis', type_poster: 'Poster', type_identity: 'Identitas', type_wayfinding: 'Pemandu Arah',
+        designers_title: 'Ruang Desainer', designers_sub: 'Nama-nama yang membentuk praktik modern.',
+        d_bass: 'Poster & credit title film (AS). Karya ikonik: Vertigo (1958), The Man with the Golden Arm (1955).',
+        d_scher: 'Tipografi berani & identitas merek. Partner di Pentagram (AS). Poster “Bring in ’da Noise” (1995).',
+        d_aicher: 'Sistem piktogram & identitas. Olimpiade München 1972; Lufthansa.',
+        d_vignelli: 'Modernisme rasional: peta Subway NYC (1972), identitas American Airlines.',
+        d_greiman: 'Pelopor desain digital & tata letak eksperimental sejak 1980-an.',
+        visit_title: 'Kunjungi dari mana saja', visit_p1: 'Museum online ini dirancang untuk akses publik global. Gunakan tombol bahasa. Konten tersedia untuk edukasi non-komersial dengan atribusi.', visit_p2: 'Untuk sekolah, hubungi kami untuk tur kuratorial virtual dan materi ajar.', visit_cta1: 'Lihat Koleksi', visit_cta2: 'Pelajari Dasar',
+        contact_title: 'Kontak Kurator', contact_name: 'Nama', contact_email: 'Email', contact_msg: 'Pesan', contact_send: 'Kirim', contact_note: 'Form demo. Integrasikan EmailJS/Formspree untuk produksi.',
+        foot_about: 'Tentang', foot_collection: 'Koleksi', foot_people: 'Desainer',
+      },
+      ar: {
+        museum_tag: 'متحف إلكتروني',
+        museum_title: 'متحف التصميم الجرافيكي',
+        nav_about: 'نبذة', nav_timeline: 'الخط الزمني', nav_collection: 'المجموعة', nav_designers: 'المصممون', nav_visit: 'الزيارة',
+        btn_contrast: 'تباين',
+        hero_title: 'التاريخ البصري الذي شكّل العالم الحديث.',
+        hero_sub: 'اكتشف الأعمال الأيقونية وقصصها — من باوهاوس إلى التصميم الرقمي.',
+        cta_explore: 'تصفح المجموعة', cta_timeline: 'عرض الخط الزمني',
+        hero_note: 'ملاحظة قيّمة: المعلومات هنا من أرشيفات ومنشورات موثوقة؛ التواريخ والأسماء وفق السجلات التاريخية.',
+        hero_credit: 'صورة توضيحية لأغراض تعليمية.',
+        about_title: 'ما هو التصميم الجرافيكي؟',
+        about_p1: 'ينظّم التصميم الجرافيكي الحروف والصور والألوان للتواصل بصرياً. يشمل الهوية البصرية والطباعة والملصقات والواجهات وأنظمة المعلومات.',
+        about_p2: 'منذ أوائل القرن العشرين، أكّد تيار باوهاوس (ألمانيا، 1919–1933) على الوظيفة والبساطة؛ وبعد الحرب ظهر الأسلوب السويسري/الدولي بشبكات صارمة؛ ثم جاء العصر الرقمي بالتصميم التفاعلي والمتغير.',
+        factbox_title: 'حقائق سريعة',
+        fact1: 'ملصق معرض باوهاوس ليوست شميت (1923) أيقونة للحداثة المبكرة.',
+        fact2: 'أيقونات أولمبياد ميونخ 1972 لأوتل آيخر وضعت معايير للرموز الدولية.',
+        fact3: 'خريطة مترو نيويورك 1972 لماسّيمو فينييلّي وبوب نوردا بسّطت شبكة معقدة.',
+        fact4: 'ملصق فيلم Vertigo (1958) لسول باس شاعت به السردية البصرية البسيطة.',
+        timeline_title: 'خط زمني موجز',
+        filter_label: 'تصفية العصر', filter_all: 'الكل', filter_early: '1900–1939', filter_mid: '1940–1979', filter_late: '1980–الآن',
+        collection_title: 'مختارات مميزة', collection_sub: 'انقر البطاقة لعرض التفاصيل والسنة والسياق التاريخي.',
+        type_all: 'كل الأنواع', type_poster: 'ملصق', type_identity: 'هوية', type_wayfinding: 'إرشاد',
+        designers_title: 'قاعة المصممين', designers_sub: 'أسماء شكّلت الممارسة الحديثة.',
+        d_bass: 'ملصقات وأشرطة عناوين الأفلام (الولايات المتحدة). أعمال أيقونية: Vertigo (1958) و The Man with the Golden Arm (1955).',
+        d_scher: 'طباعة جريئة وهويات علامات. شريكة في Pentagram (الولايات المتحدة). ملصق “Bring in ’da Noise” (1995).',
+        d_aicher: 'أنظمة أيقونات وهوية. أولمبياد ميونخ 1972؛ لوفتهانزا.',
+        d_vignelli: 'حداثة عقلانية: خريطة مترو نيويورك (1972)، هوية American Airlines.',
+        d_greiman: 'رائدة في التصميم الرقمي وتراكيب تجريبية منذ الثمانينيات.',
+        visit_title: 'زرنا من أي مكان', visit_p1: 'هذا المتحف الإلكتروني متاح للجمهور عالمياً. استعمل زر اللغة. المحتوى متاح للتعليم غير التجاري مع الإسناد.', visit_p2: 'للمدارس، تواصل معنا لجولة قيمّة افتراضية ومواد تعليمية.', visit_cta1: 'عرض المجموعة', visit_cta2: 'تعلّم الأساسيات',
+        contact_title: 'اتصل بالقيّم', contact_name: 'الاسم', contact_email: 'البريد الإلكتروني', contact_msg: 'الرسالة', contact_send: 'إرسال', contact_note: 'النموذج تجريبي. قم بدمج EmailJS أو Formspree للإنتاج.',
+        foot_about: 'نبذة', foot_collection: 'المجموعة', foot_people: 'المصممون',
+      }
+    };
+
+    // ======= Timeline data (factual highlights) =======
+    const timelineData = [
+      { era:'early', year: 1919, title: 'Bauhaus founded', desc: 'School of art & design established in Weimar, Germany (1919–1933).', ar:'تأسيس باوهاوس في فايمار بألمانيا (1919–1933).', id:'Bauhaus didirikan di Weimar, Jerman (1919–1933).' },
+      { era:'early', year: 1923, title: 'Joost Schmidt poster', desc: 'Bauhaus exhibition poster becomes a modernist icon.', ar:'ملصق معرض باوهاوس ليوست شميت يصبح أيقونة حداثية.', id:'Poster pameran Bauhaus karya Joost Schmidt menjadi ikon modernisme.' },
+      { era:'mid', year: 1958, title: 'Saul Bass – Vertigo', desc: 'Film poster and titles redefine cinematic graphic language.', ar:'ملصق وعناوين فيلم Vertigo يعيدان تعريف لغة السينما البصرية.', id:'Poster & credit title Vertigo mendefinisikan ulang bahasa visual film.' },
+      { era:'mid', year: 1960, title: 'Swiss/International Style', desc: 'Grid systems and Helvetica spread globally.', ar:'انتشار الشبكات الطباعية وخط Helvetica عالمياً.', id:'Sistem grid dan Helvetica menyebar global.' },
+      { era:'mid', year: 1972, title: 'Munich pictograms', desc: 'Otl Aicher’s Olympic pictograms set new standards.', ar:'أيقونات أولمبياد آيخر تضع معايير جديدة.', id:'Piktogram Olimpiade Aicher menetapkan standar baru.' },
+      { era:'mid', year: 1972, title: 'NYC Subway map', desc: 'Vignelli & Noorda publish schematic subway map.', ar:'نشر فينييلّي ونوردا خريطة مترو تخطيطية.', id:'Vignelli & Noorda merilis peta skematik Subway.' },
+      { era:'late', year: 1984, title: 'Apple Macintosh', desc: 'Desktop publishing revolution begins.', ar:'بداية ثورة النشر المكتبي.', id:'Revolusi desktop publishing dimulai.' },
+      { era:'late', year: 1995, title: 'Paula Scher poster', desc: 'Expressive typography for theater posters.', ar:'طباعة تعبيرية لملصقات المسرح.', id:'Tipografi ekspresif untuk poster teater.' },
+      { era:'late', year: 2010, title: 'Wayfinding boom', desc: 'Unified signage systems in airports & cities.', ar:'ازدهار أنظمة الإرشاد في المطارات والمدن.', id:'Sistem pemandu arah terpadu di bandara & kota.' },
+    ];
+
+    // ======= Collection cards (fact-based items) =======
+const collection = [
+  {
+    id:'bauhaus-1923', type:'poster', year:1923,
+    title:{en:'Bauhaus Exhibition Poster', id:'Poster Pameran Bauhaus', ar:'ملصق معرض باوهاوس'},
+    credit:'Joost Schmidt, Weimar',
+    img:'https://bauhauskooperation.com/fileadmin/_processed_/a/0/csm_Schmidt_Joost_Plakat_Bauhausaustellung_Weimar_1923_2b44962907.jpg',
+    desc:{
+      en:'A modernist poster designed for the 1923 Bauhaus exhibition, notable for geometric composition and experimental type.',
+      id:'Poster modernis untuk pameran Bauhaus 1923, menonjol karena komposisi geometrik dan tipografi eksperimental.',
+      ar:'ملصق حداثي لمعرض باوهاوس 1923، يتميز بتكوين هندسي وخطوط تجريبية.'
+    }
+  },
+  {
+    id:'vertigo-1958', type:'poster', year:1958,
+    title:{en:'Vertigo Film Poster', id:'Poster Film Vertigo', ar:'ملصق فيلم فيرتيغو'},
+    credit:'Saul Bass, Hollywood',
+    img:'https://cdn.posteritati.com/posters/000/000/074/864/vertigo-sm-web.jpg',
+    desc:{
+      en:'Poster for Alfred Hitchcock’s Vertigo, famed for spiraling motif and stark color.',
+      id:'Poster untuk Vertigo karya Alfred Hitchcock, terkenal dengan motif spiral dan warna kontras.',
+      ar:'ملصق لفيلم ألفريد هيتشكوك «Vertigo» اشتهر بالحلزون اللوني والتباين الحاد.'
+    }
+  },
+  {
+    id:'munich-1972', type:'wayfinding', year:1972,
+    title:{en:'Munich Olympic Pictograms', id:'Piktogram Olimpiade München', ar:'أيقونات أولمبياد ميونخ'},
+    credit:'Otl Aicher, Munich',
+    img:'https://images.seeklogo.com/logo-png/44/1/1972-munich-summer-olympics-pictograms-logo-png_seeklogo-445641.png',
+    desc:{
+      en:'Standardized sports pictograms created for the 1972 Olympics, influencing signage worldwide.',
+      id:'Piktogram olahraga terstandar untuk Olimpiade 1972, memengaruhi sistem tanda di seluruh dunia.',
+      ar:'أيقونات رياضية معيارية لأولمبياد 1972 أثرت على أنظمة الإرشاد عالمياً.'
+    }
+  },
+  {
+    id:'nycmap-1972', type:'wayfinding', year:1972,
+    title:{en:'NYC Subway Map (schematic)', id:'Peta Subway NYC (skematik)', ar:'خريطة مترو نيويورك (مخططية)'},
+    credit:'Massimo Vignelli & Bob Noorda, New York',
+    img:'https://images.cf.nycsubway.org/images/maps/system_1972.jpg',
+    desc:{
+      en:'A schematic map prioritizing clarity over geography, published in 1972.',
+      id:'Peta skematik yang memprioritaskan kejelasan ketimbang geografi, diterbitkan 1972.',
+      ar:'خريطة مخططية تُفضّل الوضوح على الجغرافيا، صدرت عام 1972.'
+    }
+  },
+  {
+    id:'noise-1995', type:'poster', year:1995,
+    title:{en:"‘Bring in ’da Noise’ Poster", id:"Poster ‘Bring in ’da Noise’", ar:'ملصق «برينغ إن ذا نويز»'},
+    credit:'Paula Scher, New York',
+    img:'https://i.pinimg.com/736x/25/52/72/25527272148917fb2501742d207fdbb2.jpg',
+    desc:{
+      en:'Expressive typographic poster for a Broadway production, 1995.',
+      id:'Poster tipografis ekspresif untuk produksi Broadway, 1995.',
+      ar:'ملصق طباعي تعبيري لإنتاج برودواي، 1995.'
+    }
+  },
+  {
+    id:'lufthansa', type:'identity', year:1963,
+    title:{en:'Lufthansa Corporate Identity', id:'Identitas Korporat Lufthansa', ar:'الهوية البصرية للوفتهانزا'},
+    credit:'Otl Aicher, Ulm',
+    img:'http://page-spread.com/wp-content/uploads/02-1182.jpg',
+    desc:{
+      en:'A coherent corporate identity program with grids, type, and pictograms.',
+      id:'Program identitas korporat koheren dengan grid, tipografi, dan piktogram.',
+      ar:'برنامج هوية متماسك يضم الشبكات والطباعة والأيقونات.'
+    }
+  }
+];
+
+    // ======= State =======
+    const state = { lang: 'id', contrast: false };
+
+    // ======= Utilities =======
+    function qs(sel, el=document){ return el.querySelector(sel); }
+    function qsa(sel, el=document){ return [...el.querySelectorAll(sel)]; }
+
+    function applyLanguage(lang){
+      state.lang = lang;
+      document.getElementById('langLabel').textContent = lang.toUpperCase();
+      // rtl toggle
+      document.body.classList.toggle('rtl', lang==='ar');
+      document.body.classList.toggle('not-rtl', lang!=='ar');
+
+      // swap text
+      qsa('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        const pack = i18n[lang] || i18n.id;
+        if(pack[key]) el.textContent = pack[key];
+      });
+
+      // Update dynamic timeline labels
+      renderTimeline();
+      renderCards();
+
+      // placeholders
+      const search = document.getElementById('searchInput');
+      if(search){ search.placeholder = lang==='ar' ? 'ابحث…' : (lang==='en' ? 'Search…' : 'Cari…'); }
+    }
+
+    function renderTimeline(){
+      const list = document.getElementById('timelineList');
+      const era = document.getElementById('eraFilter').value;
+      list.innerHTML = '';
+      const lang = state.lang;
+      timelineData
+        .filter(item => era==='all' || item.era===era)
+        .sort((a,b)=>a.year-b.year)
+        .forEach(item=>{
+          const li = document.createElement('li');
+          li.className = 'relative pl-6';
+          li.innerHTML = `
+            <span class="absolute -left-2 top-1 w-3 h-3 bg-blue-600 rounded-full"></span>
+            <div class="card bg-white border p-4">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">${item.year} — ${item.title}</h4>
+                <span class="text-xs text-slate-500">${item.era.toUpperCase()}</span>
+              </div>
+              <p class="text-slate-700 mt-1">${lang==='ar'?item.ar: lang==='en'?item.desc: item.id}</p>
+            </div>`;
+          list.appendChild(li);
+        });
+    }
+
+    function renderCards(){
+      const wrap = document.getElementById('cards');
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const type = document.getElementById('typeFilter').value;
+      const lang = state.lang;
+      wrap.innerHTML = '';
+      collection
+        .filter(it => (type==='all' || it.type===type))
+        .filter(it => !q || (
+          it.title.en.toLowerCase().includes(q) || it.title.id.toLowerCase().includes(q) || it.title.ar.includes(q)
+        ))
+        .sort((a,b)=>a.year-b.year)
+        .forEach(it=>{
+          const card = document.createElement('article');
+          card.className = 'card bg-white border overflow-hidden cursor-pointer';
+          card.tabIndex = 0; // keyboard focusable
+          card.setAttribute('role','button');
+          card.setAttribute('aria-label', `${it.title[lang]} (${it.year})`);
+          card.innerHTML = `
+            <img src="${it.img}" alt="${it.title[lang]}" class="w-full h-48 object-cover"/>
+            <div class="p-4">
+              <div class="text-xs text-slate-500 flex items-center gap-2">
+                <span>${it.year}</span>
+                <span>•</span>
+                <span>${it.type}</span>
+              </div>
+              <h4 class="font-semibold mt-1">${it.title[lang]}</h4>
+              <p class="text-sm text-slate-600">${it.credit}</p>
+            </div>`;
+          card.addEventListener('click', ()=>openModal(it));
+          card.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openModal(it);} });
+          wrap.appendChild(card);
+        });
+    }
+
+    function openModal(item){
+      qs('#modalTitle').textContent = `${item.title[state.lang]} — ${item.year}`;
+      qs('#modalImg').src = item.img; qs('#modalImg').alt = item.title[state.lang];
+      qs('#modalDesc').textContent = item.desc[state.lang];
+      qs('#modalMeta').textContent = item.credit;
+      const m = qs('#modal'); m.classList.remove('hidden'); m.classList.add('flex');
+      // trap focus to close button
+      qs('#modalClose').focus();
+    }
+
+    function closeModal(){ const m = qs('#modal'); m.classList.add('hidden'); m.classList.remove('flex'); }
+
+    // ======= Events =======
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // language menu
+    const langBtn = document.getElementById('langBtn');
+    const langMenu = document.getElementById('langMenu');
+    langBtn.addEventListener('click', ()=>{ langMenu.classList.toggle('hidden'); });
+    langMenu.addEventListener('click', (e)=>{
+      if(e.target.dataset.lang){ applyLanguage(e.target.dataset.lang); langMenu.classList.add('hidden'); }
+    });
+
+    // contrast button
+    const contrastBtn = document.getElementById('contrastBtn');
+    contrastBtn.addEventListener('click', ()=>{
+      state.contrast = !state.contrast; contrastBtn.setAttribute('aria-pressed', String(state.contrast));
+      document.body.classList.toggle('hc', state.contrast);
+    });
+
+    // filters
+    document.getElementById('eraFilter').addEventListener('change', renderTimeline);
+    document.getElementById('typeFilter').addEventListener('change', renderCards);
+    document.getElementById('searchInput').addEventListener('input', renderCards);
+
+    // modal close
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target.id==='modal') closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+    // back to top
+    document.getElementById('toTop').addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Initial render
+    applyLanguage('id');
+
+    function renderCollection(lang = 'id') {
+  const cards = document.getElementById('cards');
+  cards.innerHTML = '';
+
+  collection.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'collection-card card bg-white border p-4 cursor-pointer';
+
+    card.innerHTML = `
+      <img src="${item.img}" alt="${item.title[lang]}" class="rounded mb-3" />
+      <h4 class="font-semibold">${item.title[lang]}</h4>
+      <p class="text-sm text-slate-600">${item.credit}</p>
+      <p class="mt-2 text-slate-700 text-sm">${item.desc[lang]}</p>
+    `;
+
+    card.addEventListener('click', () => openModal(item, lang));
+    cards.appendChild(card);
+  });
+}
+
+function openModal(item, lang) {
+  document.getElementById('modalTitle').textContent = item.title[lang];
+  document.getElementById('modalImg').src = item.img;
+  document.getElementById('modalImg').alt = item.title[lang];
+  document.getElementById('modalDesc').textContent = item.desc[lang];
+  document.getElementById('modalMeta').textContent = `${item.credit} — ${item.year}`;
+  document.getElementById('modal').classList.remove('hidden');
+}
+
+  </script>
+</body>
+</html>
