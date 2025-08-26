@@ -23,6 +23,7 @@
     { "source": "/faq", "destination": "/faq.html" },
     { "source": "/pricelist", "destination": "/pricelist.html" },
     { "source": "/museum", "destination": "/museum.html" },
+    { "source": "/cookies", "destination": "/cookies.html" },
     { "source": "/kebijakan", "destination": "/kebijakan.html" }
   ],
   "headers": [
