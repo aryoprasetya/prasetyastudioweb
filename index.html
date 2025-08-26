@@ -586,6 +586,127 @@
     }
   };
 </script>
+    <!-- Banner Cookie Modern Futuristik -->
+<div id="cookieBanner" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 translate-y-full w-full max-w-3xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 bg-blue-600 text-white rounded-xl shadow-lg transition-transform duration-500 z-50">
+  <div class="flex items-center gap-3">
+    <!-- Ikon cookie/logo kecil -->
+    <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2C6.486 2 2 6.486 2 12c0 5.514 4.486 10 10 10s10-4.486 10-10c0-5.514-4.486-10-10-10zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+    </svg>
+    <p class="text-sm md:text-base">
+      Prasetya Studio menggunakan cookies untuk meningkatkan pengalaman Anda. Pilih preferensi atau setujui semua.
+    </p>
+  </div>
+<div class="flex gap-2">
+  <button id="acceptAll" class="bg-white text-blue-600 font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition">
+    Terima Semua
+  </button>
+  <button id="customizeCookie" class="bg-white text-blue-600 font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition">
+    Sesuaikan
+  </button>
+  <a href="/cookies.html" class="bg-white text-blue-600 font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition">
+    Baca Kebijakan
+  </a>
+</div>
+</div>
+
+<!-- Popup Sesuaikan Cookie Futuristik -->
+<div id="cookiePopup" class="fixed inset-0 bg-black/50 hidden justify-center items-center z-50 transition-opacity duration-300">
+  <div class="bg-white rounded-xl shadow-lg p-6 w-11/12 max-w-md animate-fade-in">
+    <h2 class="text-lg font-bold mb-4 text-blue-600">Pengaturan Cookie</h2>
+    <form id="cookieForm" class="flex flex-col gap-4">
+      
+      <!-- Toggle Modern -->
+      <div class="flex justify-between items-center">
+        <span>Cookie Fungsional (Wajib)</span>
+        <label class="relative inline-flex items-center cursor-not-allowed">
+          <input type="checkbox" checked disabled class="sr-only peer">
+          <div class="w-12 h-6 bg-gray-300 rounded-full peer-disabled:bg-gray-400 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-400 transition-all"></div>
+          <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full transition-all peer-checked:translate-x-6"></div>
+        </label>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <span>Cookie Analitik</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" name="analytics" class="sr-only peer">
+          <div class="w-12 h-6 bg-gray-300 rounded-full peer-checked:bg-blue-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-400 transition-all"></div>
+          <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full transition-all peer-checked:translate-x-6"></div>
+        </label>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <span>Cookie Marketing</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" name="marketing" class="sr-only peer">
+          <div class="w-12 h-6 bg-gray-300 rounded-full peer-checked:bg-blue-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-400 transition-all"></div>
+          <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full transition-all peer-checked:translate-x-6"></div>
+        </label>
+      </div>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <button type="button" id="saveCookieSettings" class="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition">Simpan</button>
+        <button type="button" id="cancelCookieSettings" class="bg-gray-300 text-black font-semibold px-4 py-2 rounded-lg hover:bg-gray-400 transition">Batal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const cookieBanner = document.getElementById('cookieBanner');
+  const acceptAll = document.getElementById('acceptAll');
+  const customizeCookie = document.getElementById('customizeCookie');
+  const cookiePopup = document.getElementById('cookiePopup');
+  const saveCookieSettings = document.getElementById('saveCookieSettings');
+  const cancelCookieSettings = document.getElementById('cancelCookieSettings');
+  const cookieForm = document.getElementById('cookieForm');
+
+  function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/`;
+  }
+
+  function getCookie(name) {
+    const cname = name + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for(let i=0;i<ca.length;i++) {
+      let c = ca[i].trim();
+      if (c.indexOf(cname) === 0) return c.substring(cname.length, c.length);
+    }
+    return "";
+  }
+
+  function showBanner() { cookieBanner.classList.remove('translate-y-full'); }
+  function hideBanner() { cookieBanner.classList.add('translate-y-full'); }
+  function showPopup() { cookiePopup.classList.remove('hidden'); cookiePopup.classList.add('flex'); }
+  function hidePopup() { cookiePopup.classList.add('hidden'); cookiePopup.classList.remove('flex'); }
+
+  acceptAll.addEventListener('click', () => {
+    setCookie('cookieFunctional', 'true', 365);
+    setCookie('cookieAnalytics', 'true', 365);
+    setCookie('cookieMarketing', 'true', 365);
+    hideBanner();
+  });
+
+  customizeCookie.addEventListener('click', showPopup);
+
+  saveCookieSettings.addEventListener('click', () => {
+    setCookie('cookieFunctional', 'true', 365);
+    setCookie('cookieAnalytics', cookieForm.analytics.checked ? 'true' : 'false', 365);
+    setCookie('cookieMarketing', cookieForm.marketing.checked ? 'true' : 'false', 365);
+    hidePopup();
+    hideBanner();
+  });
+
+  cancelCookieSettings.addEventListener('click', hidePopup);
+
+  window.addEventListener('load', () => {
+    if (!getCookie('cookieFunctional')) setTimeout(showBanner, 500);
+  });
+</script>
+
 </body>
 
 <!-- Tombol Audio -->
