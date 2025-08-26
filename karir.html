@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karir - Prasetya Studio</title>
+<link rel="icon" href="images/logo duwa.png" type="image/png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Manrope', sans-serif; background-color: #f5f7fa; }
+.marquee { overflow: hidden; white-space: nowrap; box-sizing: border-box; background-color:#e0f2fe; color:#3B83F6; padding:0.5rem; border-radius:0.5rem; margin-bottom:1rem;}
+.marquee span { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
+@keyframes marquee { 0% { transform: translate(0,0);} 100% { transform: translate(-100%,0);} }
+.whatsapp-float { position: fixed; bottom: 20px; right: 20px; z-index:50; }
+.card { transition: all 0.3s ease; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15);}
+.bg-custom { background-color: #3B83F6; }
+.text-custom { color: #3B83F6; }
+.hover-bg-custom:hover { background-color: #346ED8; } /* dikurangi sedikit untuk efek hover */
+</style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+<!-- Header -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+    <div class="flex items-center gap-3">
+      <img src="images/logo duwa.png.png" alt="Prasetya Studio" class="h-10 w-10 object-contain">
+      <h1 class="text-2xl font-bold text-custom">Prasetya Studio</h1>
+    </div>
+    <nav class="space-x-6">
+      <a href="#cara" class="text-gray-700 hover:text-custom font-semibold">Cara Melamar</a>
+      <a href="#proses" class="text-gray-700 hover:text-custom font-semibold">Proses Seleksi</a>
+      <a href="/hub-kami" class="text-gray-700 hover:text-custom font-semibold">Kontak</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="bg-blue-50 py-12">
+  <div class="max-w-7xl mx-auto text-center px-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-custom mb-4">Bergabunglah dengan Prasetya Studio</h2>
+    <p class="text-gray-700 mb-6 text-lg">Temukan peluang karir terbaik dan jadilah bagian dari tim kreatif kami.</p>
+    <a href="#lowongan" class="bg-custom hover-bg-custom text-white px-6 py-3 rounded-lg transition">Lihat Lowongan</a>
+    <a href="seleksi.html" class="bg-custom hover-bg-custom text-white px-6 py-3 rounded-lg transition">Hasil Seleksi</a>
+  </div>
+</section>
+
+<!-- Running Text -->
+<div class="marquee"><span><i class='bx bx-info-circle'></i> Tidak ada lowongan kerja untuk saat ini. Jika ingin mengirimkan lowongan pekerjaan untuk dipromosikan, hubungi admin.</span></div>
+
+<!-- Lowongan Karir -->
+<section id="lowongan" class="max-w-7xl px-4 mb-12">
+  <h3 class="text-2xl font-bold text-gray-800 mb-6">Lowongan Karir</h3>
+
+  <!-- flex default, grid aktif di md -->
+  <div class="flex flex-wrap gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
+
+    <!-- Lowongan Aktif -->
+    <!-- <div class="bg-white rounded-lg p-6 flex flex-col justify-between shadow card">
+      <div>
+        <h4 class="text-xl font-bold text-custom mb-2">Desainer Grafis</h4>
+        <p class="text-gray-600 mb-1"><i class='bx bx-calendar'></i> 01-08-2025 s/d 31-08-2025</p>
+        <p class="text-gray-600 mb-1"><i class='bx bx-briefcase'></i> Kreatif, teliti, menguasai Photoshop & Illustrator</p>
+        <p class="text-gray-600 mb-1"><i class='bx bx-book'></i> Pendidikan: S1 Desain Komunikasi Visual / Multimedia</p>
+        <p class="text-gray-600 mb-1"><i class='bx bx-file'></i> Persyaratan: CV, Portofolio, Surat Lamaran</p>
+      </div>
+      <a href="lamar.html?posisi=Desainer%20Grafis" class="mt-4 text-center bg-custom hover-bg-custom text-white px-4 py-2 rounded transition">Lamar</a>
+    </div>-->
+
+    <!-- Lowongan Expired -->
+    <div class="bg-gray-100 rounded-lg p-6 flex flex-col justify-between shadow card">
+      <div>
+        <h4 class="text-xl font-bold text-gray-500 mb-2">Freelance Desain Grafis</h4>
+        <p class="text-gray-500 mb-1"><i class='bx bx-calendar'></i> 01-06-2025 s/d 30-07-2025</p>
+        <p class="text-gray-500 mb-1"><i class='bx bx-user'></i> Formasi: 1 (Satu)</p>
+        <p class="text-gray-500 mb-1"><i class='bx bx-briefcase'></i> Menguasai Software Desain Grafis</p>
+        <p class="text-gray-500 mb-1"><i class='bx bx-book'></i> Pendidikan: SLTA</p>
+        <p class="text-gray-500 mb-1"><i class='bx bx-file'></i> Persyaratan: Portofolio Konten</p>
+        <p class="text-gray-500 mb-1"><i class='bx bx-notepad'></i> Jobdesc: Admin Media Sosial</p>
+        <p class="text-gray-500 mb-1"><i class='bx bx-money'></i> Gaji: NaN</p>
+      </div>
+      <span class="mt-4 inline-block text-center bg-red-500 text-white px-4 py-2 rounded">Expired</span>
+    </div>
+
+  </div>
+</section>
+
+<section id="cara" class="max-w-4xl mx-auto px-4 mb-16">
+  <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">Cara Melamar</h3>
+  <div class="space-y-6">
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0 bg-custom text-white rounded-full w-10 h-10 flex items-center justify-center text-xl">
+        <i class='bx bx-check-circle'></i>
+      </div>
+      <p class="text-gray-700 text-lg leading-relaxed">Klik tombol <strong>Lamar</strong> pada lowongan yang diinginkan.</p>
+    </div>
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0 bg-custom text-white rounded-full w-10 h-10 flex items-center justify-center text-xl">
+        <i class='bx bx-edit'></i>
+      </div>
+      <p class="text-gray-700 text-lg leading-relaxed">Isi form lamaran lengkap di halaman berikutnya.</p>
+    </div>
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0 bg-custom text-white rounded-full w-10 h-10 flex items-center justify-center text-xl">
+        <i class='bx bx-upload'></i>
+      </div>
+      <p class="text-gray-700 text-lg leading-relaxed">Upload dokumen: CV, Surat Lamaran, Portofolio opsional.</p>
+    </div>
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0 bg-custom text-white rounded-full w-10 h-10 flex items-center justify-center text-xl">
+        <i class='bx bx-shield'></i>
+      </div>
+      <p class="text-gray-700 text-lg leading-relaxed">Masukkan kode CAPTCHA dan submit lamaran.</p>
+    </div>
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0 bg-custom text-white rounded-full w-10 h-10 flex items-center justify-center text-xl">
+        <i class='bx bx-mail-send'></i>
+      </div>
+      <p class="text-gray-700 text-lg leading-relaxed">Tunggu konfirmasi melalui email atau WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<section id="proses" class="max-w-4xl mx-auto px-4 mb-16">
+  <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">Proses Seleksi</h3>
+  
+  <div class="relative">
+    <!-- Horizontal line (jalan raya) -->
+    <div class="absolute top-5 left-10 right-10 h-1 bg-gray-300 z-0"></div>
+
+    <div class="grid md:grid-cols-4 gap-6 relative z-10">
+      <!-- Step 1 -->
+      <div class="flex flex-col items-center">
+        <div class="bg-custom text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">1</div>
+        <div class="bg-white shadow-md rounded-lg p-4 mt-4 w-full text-center">
+          <h4 class="text-lg font-semibold text-gray-800">Seleksi Administrasi</h4>
+          <p class="text-gray-600 text-sm mt-1">Dokumen lamaran diperiksa dan diverifikasi sesuai kriteria.</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="flex flex-col items-center">
+        <div class="bg-custom text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">2</div>
+        <div class="bg-white shadow-md rounded-lg p-4 mt-4 w-full text-center">
+          <h4 class="text-lg font-semibold text-gray-800">Tes Kemampuan / Tes Praktik</h4>
+          <p class="text-gray-600 text-sm mt-1">Peserta mengikuti tes sesuai posisi yang dilamar.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="flex flex-col items-center">
+        <div class="bg-custom text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">3</div>
+        <div class="bg-white shadow-md rounded-lg p-4 mt-4 w-full text-center">
+          <h4 class="text-lg font-semibold text-gray-800">Wawancara</h4>
+          <p class="text-gray-600 text-sm mt-1">Wawancara dilakukan untuk mengetahui kompetensi dan kecocokan kandidat.</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="flex flex-col items-center">
+        <div class="bg-custom text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">4</div>
+        <div class="bg-white shadow-md rounded-lg p-4 mt-4 w-full text-center">
+          <h4 class="text-lg font-semibold text-gray-800">Pengumuman Hasil</h4>
+          <p class="text-gray-600 text-sm mt-1">
+            <strong>Perhatian:</strong> Setiap tahap diinformasikan melalui email/WA sesuai data yang diisi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="kontak" class="bg-white shadow-inner rounded-lg p-6 text-gray-600 text-sm mt-auto">
+  <div class="flex flex-col md:flex-row justify-between">
+    <div>
+      <p>© 2025 Prasetya Studio. All rights reserved.</p>
+      <p>Banjarnegara, Jawa Tengah, Indonesia</p>
+    </div>
+    <div class="mt-2 md:mt-0">
+      <p>Email: prasetystudioservicehub@gmail.com</p>
+      <p>Telp: +62 851 - 4308 - 0554</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating Buttons -->
+<div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+  <!-- WhatsApp Floating -->
+  <a href="https://wa.me/6285143080554" target="_blank" 
+     class="bg-green-500 w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-green-600 transition">
+    <i class='bx bxl-whatsapp text-2xl text-white'></i>
+  </a>
+
+  <!-- Home Floating -->
+  <a href="/home" 
+     class="bg-blue-500 w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-blue-600 transition">
+    <i class='bx bx-home text-2xl text-white'></i>
+  </a>
+</div>
+
+
+</body>
+</html>
