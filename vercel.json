@@ -24,6 +24,9 @@
     { "source": "/pricelist", "destination": "/pricelist.html" },
     { "source": "/museum", "destination": "/museum.html" },
     { "source": "/cookies", "destination": "/cookies.html" },
+    { "source": "/karir", "destination": "/karir.html" },
+    { "source": "/lamar", "destination": "/lamar.html" },
+    { "source": "/klaim", "destination": "/klaim.html" },
     { "source": "/kebijakan", "destination": "/kebijakan.html" }
   ],
   "headers": [
