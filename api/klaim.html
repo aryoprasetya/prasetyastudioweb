@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Claim Garansi - Prasetya Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    body { font-family: 'Manrope', sans-serif; }
+    .card { border: 1px solid #e5e7eb; }
+    .puzzle-wrap{ position: relative; width: 320px; height: 180px; }
+    .piece-canvas{ position:absolute; top:0; left:0; pointer-events:none; }
+    /* Ganti semua biru default Tailwind ke #3B83F6 */
+    .text-blue-700 { color: #3B83F6 !important; }
+    .focus\:ring-blue-600:focus { --tw-ring-color: #3B83F6 !important; }
+    .hover\:bg-blue-700:hover { background-color: #3B83F6 !important; }
+    .bg-blue-600 { background-color: #3B83F6 !important; }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+      <div class="flex items-center gap-3">
+        <img src="/assets/BIRD.png" alt="Prasetya Studio" class="h-10 w-10 object-contain">
+        <span class="text-xl font-extrabold tracking-tight text-blue-700">Prasetya Studio</span>
+      </div>
+      <nav class="text-sm">
+        <a href="#" class="text-gray-600 hover:text-blue-700 font-semibold">Beranda</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto mt-10 mb-16 px-4">
+    <div class="bg-white card rounded-2xl shadow-lg p-8">
+      <h1 class="text-3xl font-extrabold text-blue-700 text-center mb-4">Cek & Klaim Garansi</h1>
+
+<!-- Pesan Garansi Hangus -->
+<div id="catatanHangus" class="mt-2 p-4 bg-yellow-50 border border-yellow-400 rounded-xl text-yellow-800 text-center">
+  ⚠️ Garansi yang telah hangus tidak akan ditampilkan. Jika menurut Anda ini sebuah kesalahan, silakan hubungi kami melalui WhatsApp:
+  <br>
+  <a href="https://wa.me/6285143080554" target="_blank" class="inline-flex items-center mt-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+    <i class='bx bxl-whatsapp mr-2'></i> Hubungi Kami
+  </a>
+</div>
+
+
+      <!-- Cek Garansi -->
+      <section class="bg-white p-6 rounded-2xl border border-gray-200 mb-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Cek Status Garansi</h2>
+        <form id="cekGaransiForm" class="space-y-4">
+          <div class="flex items-center gap-2 mb-2">
+  <label class="block text-gray-700 font-bold">Nomor Invoice</label>
+  <!-- Icon Info -->
+  <button type="button" onclick="alert('Nomor invoice tertera pada invoice pembayaran. Jika tidak punya/hilang, hubungi admin.')" 
+          class="text-gray-400 hover:text-gray-600">
+    <i class='bx bx-info-circle'></i>
+  </button>
+</div>
+<input id="invoice" type="text" placeholder="Contoh: INV001"
+       class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+
+          <div>
+            <label class="block text-gray-700 font-bold mb-2">Tanggal Order</label>
+            <input id="tanggalOrder" type="date"
+                   class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+          </div>
+          <button type="submit"
+                  class="w-full bg-blue-600 text-white font-semibold px-4 py-3 rounded-xl text-base hover:bg-blue-700 focus:outline-none focus:ring-2 transition">
+            Cek Garansi
+          </button>
+        </form>
+      </section>
+
+      <!-- Hasil -->
+      <div id="hasilGaransi" class="hidden mt-6 p-5 rounded-xl border"></div>
+
+      <!-- Form Klaim -->
+      <section id="formKlaimSection" class="hidden mt-8">
+        <h2 class="text-2xl font-extrabold text-gray-900 mb-4">Formulir Klaim Garansi</h2>
+        <form id="formKlaim" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Nama Lengkap</label>
+              <input type="text" id="nama" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Email</label>
+              <input type="email" id="email" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-2">Nomor Telepon</label>
+            <input type="tel" id="telp" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Tanggal Order</label>
+              <input type="date" id="tglForm" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Nama Orderan</label>
+              <input type="text" id="namaOrder" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-2">Metode Garansi</label>
+            <select id="metode" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+              <option value="">– Pilih Metode –</option>
+              <option value="refund">Refund 50%</option>
+              <option value="revisi">Revisi</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-2">Kendala / Alasan</label>
+            <textarea id="alasan" rows="4" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required></textarea>
+          </div>
+
+          <!-- CAPTCHA -->
+          <div class="mt-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-2">Verifikasi Keamanan</h3>
+            <p class="text-sm text-gray-500 mb-3">Masukkan kode yang ditampilkan di gambar.</p>
+
+            <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+              <canvas id="captchaCanvas" width="200" height="50" class="border border-gray-300 rounded-lg bg-gray-100"></canvas>
+              <input type="text" id="captchaInput" class="border border-gray-300 rounded-lg px-4 py-2" placeholder="Masukkan kode" maxlength="6">
+              <button type="button" id="refreshCaptcha" class="px-3 py-2 text-sm rounded-lg border border-gray-300 hover:bg-gray-100">Ganti Kode</button>
+            </div>
+            <p id="captchaMsg" class="text-sm mt-2"></p>
+          </div>
+
+          <button type="submit"
+                  class="w-full bg-green-600 text-white font-semibold px-4 py-3 rounded-xl text-base hover:bg-green-700 focus:outline-none focus:ring-2 transition">
+            Kirim Klaim
+          </button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 text-center py-4 mt-10 border-t border-gray-300">
+    <p class="text-sm text-gray-600">
+      © 2025 Prasetya Studio. All rights reserved.
+    </p>
+  </footer>
+
+  <!-- Boxicons -->
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+  <!-- Script utama -->
+  <script src="script.js"></script>
+
+  <!-- Firebase App (wajib) -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+
+<!-- Firestore -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+<script>
+  // Konfigurasi Firebase Project kamu (ganti dengan data dari Firebase Console)
+  const firebaseConfig = {
+  apiKey: "AIzaSyD1AkEsEKa4UGbxNiU3HGsD86fNZ5HoX-M",
+  authDomain: "garansi-prasetya.firebaseapp.com",
+  projectId: "garansi-prasetya",
+  storageBucket: "garansi-prasetya.firebasestorage.app",
+  messagingSenderId: "251914402966",
+  appId: "1:251914402966:web:e41190698f670050d116b7",
+  measurementId: "G-SNCGS0Q73Y"
+};
+
+  // Inisialisasi Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
+</body>
+</html>
