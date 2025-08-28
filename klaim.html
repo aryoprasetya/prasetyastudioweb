@@ -13,7 +13,6 @@
     .card { border: 1px solid #e5e7eb; }
     .puzzle-wrap{ position: relative; width: 320px; height: 180px; }
     .piece-canvas{ position:absolute; top:0; left:0; pointer-events:none; }
-    /* Ganti semua biru default Tailwind ke #3B83F6 */
     .text-blue-700 { color: #3B83F6 !important; }
     .focus\:ring-blue-600:focus { --tw-ring-color: #3B83F6 !important; }
     .hover\:bg-blue-700:hover { background-color: #3B83F6 !important; }
@@ -26,7 +25,7 @@
   <header class="bg-white shadow-sm">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
       <div class="flex items-center gap-3">
-        <img src="images/logo duwa.png" alt="Prasetya Studio" class="h-10 w-10 object-contain">
+        <img src="/assets/BIRD.png" alt="Prasetya Studio" class="h-10 w-10 object-contain">
         <span class="text-xl font-extrabold tracking-tight text-blue-700">Prasetya Studio</span>
       </div>
       <nav class="text-sm">
@@ -39,30 +38,28 @@
     <div class="bg-white card rounded-2xl shadow-lg p-8">
       <h1 class="text-3xl font-extrabold text-blue-700 text-center mb-4">Cek & Klaim Garansi</h1>
 
-<!-- Pesan Garansi Hangus -->
-<div id="catatanHangus" class="mt-2 p-4 bg-yellow-50 border border-yellow-400 rounded-xl text-yellow-800 text-center">
-  ⚠️ Garansi yang telah hangus tidak akan ditampilkan. Jika menurut Anda ini sebuah kesalahan, silakan hubungi kami melalui WhatsApp:
-  <br>
-  <a href="https://wa.me/6285143080554" target="_blank" class="inline-flex items-center mt-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-    <i class='bx bxl-whatsapp mr-2'></i> Hubungi Kami
-  </a>
-</div>
-
+      <!-- Pesan Garansi Hangus -->
+      <div id="catatanHangus" class="mt-2 p-4 bg-yellow-50 border border-yellow-400 rounded-xl text-yellow-800 text-center">
+        ⚠️ Catatan: Garansi memiliki batas waktu 10 hari. Jika garansi tidak berlaku, silakan hubungi kami melalui WhatsApp:
+        <br>
+        <a href="https://wa.me/6285143080554" target="_blank" class="inline-flex items-center mt-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+          <i class='bx bxl-whatsapp mr-2'></i> Hubungi Kami
+        </a>
+      </div>
 
       <!-- Cek Garansi -->
-      <section class="bg-white p-6 rounded-2xl border border-gray-200 mb-6">
+      <section class="bg-white mt-10 p-6 rounded-2xl border border-gray-200 mb-6">
         <h2 class="text-xl font-bold text-gray-800 mb-4">Cek Status Garansi</h2>
         <form id="cekGaransiForm" class="space-y-4">
           <div class="flex items-center gap-2 mb-2">
-  <label class="block text-gray-700 font-bold">Nomor Invoice</label>
-  <!-- Icon Info -->
-  <button type="button" onclick="alert('Nomor invoice tertera pada invoice pembayaran. Jika tidak punya/hilang, hubungi admin.')" 
-          class="text-gray-400 hover:text-gray-600">
-    <i class='bx bx-info-circle'></i>
-  </button>
-</div>
-<input id="invoice" type="text" placeholder="Contoh: INV001"
-       class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
+            <label class="block text-gray-700 font-bold">Nomor Invoice</label>
+            <button type="button" onclick="alert('Nomor invoice hanya formalitas, contoh: INV000-PS. Jika typo, muncul Data Tidak Ditemukan.')" 
+                    class="text-gray-400 hover:text-gray-600">
+              <i class='bx bx-info-circle'></i>
+            </button>
+          </div>
+          <input id="invoice" type="text" placeholder="Contoh: INV000-PS"
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
 
           <div>
             <label class="block text-gray-700 font-bold mb-2">Tanggal Order</label>
@@ -105,9 +102,15 @@
               <input type="date" id="tglForm" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-2">Nama Orderan</label>
-              <input type="text" id="namaOrder" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" required>
-            </div>
+  <label class="block text-gray-700 font-medium mb-2">
+    Nama Orderan 
+    <span class="text-gray-400 text-sm">(sesuai di invoice)</span>
+  </label>
+  <input type="text" id="namaOrder" 
+         class="w-full border border-gray-300 rounded-xl px-4 py-3 text-base focus:ring-2 focus:outline-none" 
+         placeholder="Contoh: CV ATS" 
+         required>
+</div>
           </div>
 
           <div>
@@ -153,34 +156,7 @@
     </p>
   </footer>
 
-  <!-- Boxicons -->
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-
-  <!-- Script utama -->
   <script src="script.js"></script>
-
-  <!-- Firebase App (wajib) -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-
-<!-- Firestore -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
-<script>
-  // Konfigurasi Firebase Project kamu (ganti dengan data dari Firebase Console)
-  const firebaseConfig = {
-  apiKey: "AIzaSyD1AkEsEKa4UGbxNiU3HGsD86fNZ5HoX-M",
-  authDomain: "garansi-prasetya.firebaseapp.com",
-  projectId: "garansi-prasetya",
-  storageBucket: "garansi-prasetya.firebasestorage.app",
-  messagingSenderId: "251914402966",
-  appId: "1:251914402966:web:e41190698f670050d116b7",
-  measurementId: "G-SNCGS0Q73Y"
-};
-
-  // Inisialisasi Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
-
 </body>
 </html>
