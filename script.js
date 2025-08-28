@@ -48,99 +48,71 @@ generateCaptcha();
 cekGaransiForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const inv = document.getElementById('invoice').value.trim();
+  const inv = document.getElementById('invoice').value.trim().toUpperCase();
   const tgl = document.getElementById('tanggalOrder').value;
 
-  // sembunyikan form klaim & catatan hangus
   formKlaimSection.classList.add('hidden');
-  catatanHangus.classList.add('hidden');
 
   hasilGaransi.className = "mt-6 p-5 rounded-xl border border-gray-400 bg-gray-50 text-gray-700";
   hasilGaransi.innerHTML = "Memeriksa garansi...";
   hasilGaransi.classList.remove('hidden');
 
-  try {
-    const res = await fetch('/api/cek-garansi', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ invoice: inv, tanggal: tgl })
-});
+  // ===== Validasi Nomor Invoice =====
+  const invPattern = /^INV\d{3}-PS$/;
+  if(!invPattern.test(inv)){
+    hasilGaransi.className = "mt-6 p-5 rounded-xl border border-red-400 bg-red-50 text-red-700";
+    hasilGaransi.innerHTML = "<strong>Data tidak ditemukan!</strong>";
+    return;
+  }
 
-    const data = await res.json();
-    let garansiDate = data.garansiHabis ? new Date(data.garansiHabis).toLocaleDateString('id-ID') : '-';
+  // ===== Validasi Tanggal =====
+  const today = new Date();
+  const tglOrder = new Date(tgl);
+  if(tglOrder > today){
+    hasilGaransi.className = "mt-6 p-5 rounded-xl border border-red-400 bg-red-50 text-red-700";
+    hasilGaransi.innerHTML = "<strong>Silakan cek kembali tanggal Anda!</strong>";
+    return;
+  }
 
-    let btnClass = 'bg-blue-600 text-white hover:bg-blue-700';
-    let btnAction = '';
-    let html = '';
+  // ===== Hitung sisa garansi =====
+  const garansiHabis = new Date(tglOrder);
+  garansiHabis.setDate(garansiHabis.getDate() + 10);
+  const sisaHari = Math.ceil((garansiHabis - today) / (1000*60*60*24));
 
-    if(data.status === 'active'){
-      btnAction = 'id="btnKlaim"';
-      html = `
-        <p class="font-semibold">
-          Garansi Anda masih berlaku hingga <b>${garansiDate}</b>.
-        </p>
-        <div class="mt-2 text-gray-800">
-          <p><strong>Nomor Invoice:</strong> ${data.order.invoice}</p>
-          <p><strong>Tanggal Order:</strong> ${data.order.tanggal}</p>
-          <p><strong>Orderan:</strong> ${data.order.orderan}</p>
-        </div>
-        <button type="button" 
-                class="mt-4 px-4 py-2 rounded-lg ${btnClass}"
-                ${btnAction}>
-          Klaim Garansi
-        </button>
-      `;
-      hasilGaransi.className = "mt-6 p-5 rounded-xl border border-green-400 bg-green-50 text-green-700";
-    } else if(data.status === 'expired'){
-  btnAction = 'id="btnKlaim"';
-  html = `
-    <p class="font-semibold text-yellow-700">
-      ⚠️ Garansi Anda sudah habis sejak <b>${garansiDate}</b>.
-    </p>
+  let status = '';
+  let garansiMsg = '';
+
+  if(sisaHari >= 0){
+    status = 'active';
+    garansiMsg = `Garansi masih berlaku hingga ${garansiHabis.toLocaleDateString('id-ID')}`;
+    hasilGaransi.className = "mt-6 p-5 rounded-xl border border-green-400 bg-green-50 text-green-700";
+  } else {
+    status = 'expired';
+    garansiMsg = `Garansi sudah habis sejak ${Math.abs(sisaHari)} hari lalu`;
+    hasilGaransi.className = "mt-6 p-5 rounded-xl border border-yellow-400 bg-yellow-50 text-yellow-800";
+  }
+
+  hasilGaransi.innerHTML = `
+    <p class="font-semibold">${garansiMsg}</p>
     <div class="mt-2 text-gray-800">
-      <p><strong>Nomor Invoice:</strong> ${data.order.invoice}</p>
-      <p><strong>Tanggal Order:</strong> ${data.order.tanggal}</p>
-      <p><strong>Orderan:</strong> ${data.order.orderan}</p>
+      <p><strong>Nomor Invoice:</strong> ${inv}</p>
+      <p><strong>Tanggal Order:</strong> ${tgl}</p>
     </div>
-    <button type="button" 
-            class="mt-4 px-4 py-2 rounded-lg ${btnClass}"
-            ${btnAction}>
+    <button type="button" id="btnKlaim" class="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
       Klaim Garansi
     </button>
   `;
-  hasilGaransi.className = "mt-6 p-5 rounded-xl border border-yellow-400 bg-yellow-50 text-yellow-800";
-  catatanHangus.classList.remove('hidden');
 
-  // otomatis hilang setelah 20 detik
-  setTimeout(() => {
-    hasilGaransi.classList.add('hidden');
-    catatanHangus.classList.add('hidden');
-  }, 20000);
-}
- else {
-      html = `<strong>${data.message || 'Garansi tidak ditemukan.'}</strong>`;
-      hasilGaransi.className = "mt-6 p-5 rounded-xl border border-red-400 bg-red-50 text-red-700";
-    }
+  lastHasilGaransiHTML = hasilGaransi.innerHTML;
 
-    hasilGaransi.innerHTML = html;
-    lastHasilGaransiHTML = html;
-
-    if(data.status === 'active' || data.status === 'expired'){
-      const btnKlaim = document.getElementById('btnKlaim');
-      btnKlaim.addEventListener('click', () => {
-        document.getElementById('tglForm').value = data.order.tanggal;
-        document.getElementById('namaOrder').value = data.order.orderan;
-        formKlaimSection.classList.remove('hidden');
-        generateCaptcha();
-        hasilGaransi.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-
-  } catch (err) {
-    hasilGaransi.className = "mt-6 p-5 rounded-xl border border-red-400 bg-red-50 text-red-700";
-    hasilGaransi.innerHTML = `<strong>Terjadi kesalahan server!</strong>`;
-    console.error(err);
-  }
+  const btnKlaim = document.getElementById('btnKlaim');
+  btnKlaim.addEventListener('click', () => {
+    document.getElementById('tglForm').value = tgl;
+    document.getElementById('namaOrder').value ="";
+    formKlaimSection.classList.remove('hidden');
+    generateCaptcha();
+    hasilGaransi.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 });
 
 // ==================== FORM KLAIM ====================
@@ -163,6 +135,7 @@ formKlaim.addEventListener('submit', async (e) => {
     alasan: document.getElementById('alasan').value
   };
 
+  // Kirim via EmailJS
   try{
     emailjs.init("ruGEfqQ8sHty_bvx_"); // public key
     await emailjs.send('service_wyuak48','template_f4babnq',dataKlaim);
