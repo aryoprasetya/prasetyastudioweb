@@ -53,6 +53,20 @@ button:hover { opacity: 0.9; }
     Silakan lengkapi form berikut sesuai data diri dan persyaratan lowongan. Pastikan semua dokumen telah diunggah sesuai ketentuan.
   </p>
 
+    <script>// Cek apakah ada parameter posisi
+const urlParams = new URLSearchParams(window.location.search);
+const posisi = urlParams.get('posisi');
+
+// Kalau posisi tidak ada, redirect ke karir.html
+if (!posisi) {
+  alert("Silakan pilih lowongan dulu di halaman Karir.");
+  window.location.href = "karir";
+} else {
+  document.getElementById('jobTitle').innerText = 'Lamaran untuk posisi: ' + posisi;
+  document.getElementById('posisiInput').value = posisi;
+}
+</script>
+  
   <!-- Form -->
   <form id="lamaranForm" class="space-y-6 max-w-5xl mx-auto card-form">
     <!-- Data Diri -->
