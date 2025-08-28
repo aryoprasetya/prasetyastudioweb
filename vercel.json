@@ -1,43 +1,40 @@
 {
-  "rewrites": [
-    { "source": "/home", "destination": "/index.html" },
-    { "source": "/tentang", "destination": "/about.html" },
-    { "source": "/layanan", "destination": "/services.html" },
-    { "source": "/artikel", "destination": "/artikel.html" },
-    { "source": "/hub-kami", "destination": "/contact.html" },
-    { "source": "/e-commerce", "destination": "/e-commerce.html" },
-    { "source": "/payment", "destination": "/payment.html" },
-    { "source": "/maintenance", "destination": "/maintenance.html" },
-    { "source": "/katalog", "destination": "/katalog.html" },
-    { "source": "/artikel-detail", "destination": "/artikel-detail.html" },
-    { "source": "/product", "destination": "/product.html" },
-    { "source": "/bri", "destination": "/bri.html" },
-    { "source": "/seabank", "destination": "/seabank.html" },
-    { "source": "/bankjago", "destination": "/bankjago.html" },
-    { "source": "/dana", "destination": "/dana.html" },
-    { "source": "/ovo", "destination": "/ovo.html" },
-    { "source": "/gopay", "destination": "/gopay.html" },
-    { "source": "/shopeepay", "destination": "/shopeepay.html" },
-    { "source": "/paypal", "destination": "/paypal.html" },
-    { "source": "/vaiwallet", "destination": "/vaiwallet.html" },
-    { "source": "/faq", "destination": "/faq.html" },
-    { "source": "/pricelist", "destination": "/pricelist.html" },
-    { "source": "/museum", "destination": "/museum.html" },
-    { "source": "/cookies", "destination": "/cookies.html" },
-    { "source": "/karir", "destination": "/karir.html" },
-    { "source": "/lamar", "destination": "/lamar.html" },
-    { "source": "/klaim", "destination": "/klaim.html" },
-    { "source": "/garansi", "destination": "/garansi.html" },
-    { "source": "/kebijakan", "destination": "/kebijakan.html" }
+  "routes": [
+    { "src": "/home", "dest": "/index.html" },
+    { "src": "/tentang", "dest": "/about.html" },
+    { "src": "/layanan", "dest": "/services.html" },
+    { "src": "/artikel", "dest": "/artikel.html" },
+    { "src": "/hub-kami", "dest": "/contact.html" },
+    { "src": "/e-commerce", "dest": "/e-commerce.html" },
+    { "src": "/payment", "dest": "/payment.html" },
+    { "src": "/maintenance", "dest": "/maintenance.html" },
+    { "src": "/katalog", "dest": "/katalog.html" },
+    { "src": "/artikel-detail", "dest": "/artikel-detail.html" },
+    { "src": "/product", "dest": "/product.html" },
+    { "src": "/bri", "dest": "/bri.html" },
+    { "src": "/seabank", "dest": "/seabank.html" },
+    { "src": "/bankjago", "dest": "/bankjago.html" },
+    { "src": "/dana", "dest": "/dana.html" },
+    { "src": "/ovo", "dest": "/ovo.html" },
+    { "src": "/gopay", "dest": "/gopay.html" },
+    { "src": "/shopeepay", "dest": "/shopeepay.html" },
+    { "src": "/paypal", "dest": "/paypal.html" },
+    { "src": "/vaiwallet", "dest": "/vaiwallet.html" },
+    { "src": "/faq", "dest": "/faq.html" },
+    { "src": "/pricelist", "dest": "/pricelist.html" },
+    { "src": "/museum", "dest": "/museum.html" },
+    { "src": "/cookies", "dest": "/cookies.html" },
+    { "src": "/karir", "dest": "/karir.html" },
+    { "src": "/lamar", "dest": "/lamar.html" },
+    { "src": "/klaim", "dest": "/klaim.html" },
+    { "src": "/garansi", "dest": "/garansi.html" },
+    { "src": "/kebijakan", "dest": "/kebijakan.html" }
   ],
   "headers": [
     {
       "source": "/sitemap.xml",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml"
-        }
+        { "key": "Content-Type", "value": "application/xml" }
       ]
     }
   ]
