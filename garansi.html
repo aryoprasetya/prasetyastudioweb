@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ketentuan & Kalkulasi Garansi — Prasetya Studio</title>
+  <link rel="icon" href="images/logo duwa.png" type="image/png">
+  <!-- Google font Manrope -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN (utility) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --brand: #3B83F6;
+      --muted:#6B7280;
+    }
+    html,body{
+      font-family: 'Manrope', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#f7fbff 0%, #ffffff 100%);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .brand {
+      color: var(--brand);
+    }
+    .btn-brand {
+      background: var(--brand);
+      color: white;
+    }
+    /* simple card shadow */
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(59,131,246,0.08);
+    }
+    /* small helper for code-like note */
+    .note {
+      background:#f1f5f9;padding:.6rem;border-radius:.5rem;font-size:.95rem;color:var(--muted)
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-8 px-4">
+
+  <header class="w-full max-w-4xl mb-8">
+    <div class="flex items-center justify-between gap-4">
+  <div class="flex items-center gap-3">
+    <!-- Logo gambar asli -->
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="assets/BIRD.png" alt="Logo Prasetya Studio" class="w-12 h-12 object-contain">
+      <div>
+        <div class="text-lg font-semibold brand">Prasetya Studio</div>
+        <div class="text-xs text-gray-500 -mt-1">Laman Garansi</div>
+      </div>
+    </a>
+  </div>
+
+      <nav class="hidden sm:flex items-center gap-3 text-sm">
+        <a href="#ketentuan" class="px-3 py-2 rounded hover:bg-slate-100">Ketentuan Garansi</a>
+        <a href="#kalkulasi" class="px-3 py-2 rounded hover:bg-slate-100">Kalkulasi Garansi</a>
+        <a href="/frontend/index.html" class="px-3 py-2 rounded btn-brand">Halaman Klaim</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="w-full max-w-4xl space-y-8">
+
+    <!-- Ketentuan Garansi -->
+    <section id="ketentuan" class="card p-6">
+      <h1 class="text-2xl font-bold mb-2">Ketentuan Garansi Layanan — <span class="brand">Prasetya Studio</span></h1>
+      <p class="text-sm text-gray-600 mb-4">Semua ketentuan garansi berikut berlaku untuk layanan yang diterima oleh klien dari Prasetya Studio. Pilih jenis layanan untuk melihat ketentuan rinci.</p>
+
+      <!-- dropdown jenis layanan -->
+      <div class="grid gap-4 md:grid-cols-2">
+        <div>
+          <label class="block text-sm font-medium mb-2">Pilih Layanan</label>
+          <select id="serviceSelect" class="w-full p-3 border rounded-md">
+            <option value="desain">Desain Visual, Logo, Media Sosial, dll</option>
+            <option value="video">Video Animasi</option>
+            <option value="cv">Curriculum Vitae (CV)</option>
+            <option value="lain">Layanan Lain</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-2">Ringkasan Garansi</label>
+          <div id="summaryBox" class="p-3 border rounded-md min-h-[84px]">
+            <div class="text-sm text-gray-700">Pilih layanan untuk melihat ringkasan ketentuan garansi.</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-5" />
+
+      <div id="detailsArea" class="space-y-4">
+        <!-- Detail konten akan dimuat lewat JS -->
+      </div>
+
+      <div class="mt-4 text-xs text-gray-500">
+        <div class="note">
+          Catatan singkat: Periode garansi standar adalah <strong>10 hari</strong> sejak tanggal layanan. Proses klaim harus disertai bukti dan deskripsi masalah. Untuk mengajukan klaim gunakan tombol <strong>Halaman Klaim</strong>.
+        </div>
+      </div>
+    </section>
+
+    <!-- Kalkulasi Garansi -->
+    <section id="kalkulasi" class="card p-6">
+      <h2 class="text-2xl font-bold mb-2">Kalkulasi Garansi</h2>
+      <p class="text-sm text-gray-600 mb-4">Masukkan data layanan untuk menghitung sisa garansi dan dana yang akan dikembalikan (jika berlaku).</p>
+
+      <form id="calcForm" class="space-y-4">
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label class="block text-sm font-medium mb-2">Nama</label>
+            <input required name="name" type="text" class="w-full p-3 border rounded-md" placeholder="Nama lengkap" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Nomor Invoice</label>
+            <input required name="invoice" type="text" class="w-full p-3 border rounded-md" placeholder="INV-2025-xxxxx" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Tanggal Pelayanan</label>
+            <input required id="serviceDate" name="date" type="date" class="w-full p-3 border rounded-md" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Harga Pelayanan (Rp)</label>
+            <input required id="price" name="price" type="number" min="0" step="1" class="w-full p-3 border rounded-md" placeholder="Contoh: 100000" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-2">Pilih Layanan (untuk referensi ketentuan)</label>
+          <select id="calcService" class="w-full p-3 border rounded-md">
+            <option value="desain">Desain Visual</option>
+            <option value="video">Video Animasi</option>
+            <option value="cv">Curriculum Vitae (CV)</option>
+            <option value="lain">Layanan Lain</option>
+          </select>
+        </div>
+
+        <div class="flex gap-3 items-center">
+          <button type="submit" class="px-4 py-2 rounded btn-brand">Hitung</button>
+          <button type="button" id="resetBtn" class="px-4 py-2 rounded border">Reset</button>
+          <a id="toClaimBtn" href="/frontend/index.html" class="ml-auto px-4 py-2 rounded border btn-brand/80 text-white" style="background:var(--brand);opacity:.95">Klaim</a>
+        </div>
+
+      </form>
+
+      <div id="result" class="mt-6 p-4 border rounded-md hidden">
+        <h3 class="text-lg font-semibold mb-2">Hasil Kalkulasi</h3>
+        <div class="grid gap-2">
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Tanggal Pelayanan</span><strong id="resDate"></strong></div>
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Hari Sejak Pelayanan</span><strong id="resDays"></strong></div>
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Sisa Garansi (hari dari 10)</span><strong id="resRemain"></strong></div>
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Formulir Perhitungan</span><span id="resFormula" class="text-sm text-gray-700"></span></div>
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Dana yang akan dikembalikan (Rp)</span><strong id="resRefund" class="text-lg"></strong></div>
+          <div class="pt-2 text-sm text-gray-600">
+            <strong>Penjelasan:</strong> Garansi standar: <strong>10 hari</strong>. Dana pengembalian dihitung sebagai <strong>80%</strong> dari proporsi sisa garansi terhadap 10 hari. Jika garansi habis, nilai pengembalian = Rp 0.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="w-full max-w-4xl text-center text-sm text-gray-500">
+      © <span id="year"></span> Prasetya Studio — Semua hak dilindungi.
+    </footer>
+
+  </main>
+
+  <script>
+    // populate year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Ketentuan detail texts (Bahasa Indonesia)
+    const ketentuan = {
+      desain: {
+        title: 'Desain Visual',
+        summary: 'Perbaikan minor gratis dalam masa garansi 10 hari. Revisi besar dilayani berbayar.',
+        details: `
+          <h4 class="text-lg font-semibold mb-2">Ketentuan Garansi — Desain Visual</h4>
+          <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700">
+            <li>Periode garansi: <strong>10 hari</strong> sejak tanggal selesai pekerjaan.</li>
+            <li>Garansi mencakup perbaikan kesalahan teknis, kesalahan eksport file (format), dan penyesuaian minor pada elemen desain.</li>
+            <li>Perubahan konsep, penambahan konten besar, atau revisi yang mengubah struktur desain dianggap kerja baru dan akan dikenakan biaya.</li>
+            <li>Permintaan garansi wajib disertai bukti (file sumber, screenshot, atau deskripsi masalah) dan nomor invoice.</li>
+            <li>Perbaikan diselesaikan sesuai kapasitas tim; waktu perbaikan tidak memperpanjang periode garansi.</li>
+            <li>Jika garansi diajukan setelah habis masa 10 hari, hak garansi dianggap hangus.</li>
+          </ul>
+        `
+      },
+      video: {
+        title: 'Video Animasi',
+        summary: 'Garansi 10 hari untuk perbaikan kesalahan render, sinkronisasi audio, atau file source.',
+        details: `
+          <h4 class="text-lg font-semibold mb-2">Ketentuan Garansi — Video Animasi</h4>
+          <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700">
+            <li>Periode garansi: <strong>10 hari</strong> sejak tanggal serah terima file final.</li>
+            <li>Termasuk perbaikan render, subtitle yang salah posisi, atau perbaikan sinkron audio kecil.</li>
+            <li>Permintaan perubahan durasi signifikan, penggantian aset utama, atau revisi konsep tidak termasuk garansi gratis.</li>
+            <li>Semua klaim harus mencantumkan timestamp kejadian dan bukti file.</li>
+            <li>Apabila garansi habis, layanan perbaikan tersedia dengan biaya tambahan.</li>
+          </ul>
+        `
+      },
+      cv: {
+        title: 'Curriculum Vitae (CV)',
+        summary: 'Perbaikan tata letak dan typo kecil gratis selama 10 hari.',
+        details: `
+          <h4 class="text-lg font-semibold mb-2">Ketentuan Garansi — Curriculum Vitae</h4>
+          <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700">
+            <li>Periode garansi: <strong>10 hari</strong> sejak file final diserahkan.</li>
+            <li>Perbaikan typo, penyesuaian ukuran font, dan tata letak ringan termasuk garansi.</li>
+            <li>Perubahan data substansial atau penulisan ulang bukan bagian dari garansi gratis.</li>
+            <li>Dokumen sumber (mis. file .docx) wajib disertakan untuk mempercepat proses.</li>
+          </ul>
+        `
+      },
+      lain: {
+        title: 'Layanan Lain',
+        summary: 'Ketentuan menyesuaikan layanan; periode garansi standar 10 hari kecuali disebut berbeda.',
+        details: `
+          <h4 class="text-lg font-semibold mb-2">Ketentuan Garansi — Layanan Lain</h4>
+          <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700">
+            <li>Secara default periode garansi: <strong>10 hari</strong>, kecuali disepakati berbeda secara tertulis.</li>
+            <li>Garansi mencakup perbaikan teknis minor yang menjadi tanggung jawab tim produksi.</li>
+            <li>Pekerjaan tambahan, integrasi sistem pihak ketiga, atau permintaan pengembangan merupakan pekerjaan baru.</li>
+          </ul>
+        `
+      }
+    };
+
+    // initial render
+    const serviceSelect = document.getElementById('serviceSelect');
+    const summaryBox = document.getElementById('summaryBox');
+    const detailsArea = document.getElementById('detailsArea');
+
+    function renderKetentuan(key){
+      const k = ketentuan[key];
+      summaryBox.innerHTML = '<div class="text-sm text-gray-700"><strong>' + k.title + '</strong><div class="text-sm text-gray-600 mt-1">' + k.summary + '</div></div>';
+      detailsArea.innerHTML = k.details;
+    }
+
+    // default
+    renderKetentuan('desain');
+
+    serviceSelect.addEventListener('change', (e) => {
+      renderKetentuan(e.target.value);
+    });
+
+    // Kalkulasi logic
+    const calcForm = document.getElementById('calcForm');
+    const resultBox = document.getElementById('result');
+    const resDate = document.getElementById('resDate');
+    const resDays = document.getElementById('resDays');
+    const resRemain = document.getElementById('resRemain');
+    const resRefund = document.getElementById('resRefund');
+    const resFormula = document.getElementById('resFormula');
+    const resetBtn = document.getElementById('resetBtn');
+
+    // Calculation rules:
+    // Warranty period = 10 days.
+    // Remaining days = max(0, 10 - daysSinceService)
+    // Refund = price * (remainingDays / 10) * 0.8
+    // If remainingDays == 0 -> refund = 0
+
+    function formatRp(n){
+      if (Number.isNaN(n) || n === Infinity) return 'Rp 0';
+      return 'Rp ' + Number(Math.round(n)).toLocaleString('id-ID');
+    }
+
+    calcForm.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      // read values
+      const data = new FormData(calcForm);
+      const name = data.get('name').trim();
+      const invoice = data.get('invoice').trim();
+      const serviceDateValue = data.get('date');
+      const priceValue = Number(data.get('price') || 0);
+
+      if(!serviceDateValue){
+        alert('Isi tanggal pelayanan terlebih dahulu.');
+        return;
+      }
+
+      const today = new Date();
+      const serviceDate = new Date(serviceDateValue + 'T00:00:00');
+      // compute full days difference
+      const msPerDay = 24*60*60*1000;
+      const diffMs = today - serviceDate;
+      const daysSince = Math.floor(diffMs / msPerDay);
+      const warrantyDays = 10;
+      const remaining = Math.max(0, warrantyDays - daysSince);
+
+      // refund formula
+      const refund = remaining > 0 ? priceValue * (remaining / warrantyDays) * 0.8 : 0;
+
+      // show results
+      resultBox.classList.remove('hidden');
+      resDate.textContent = serviceDate.toLocaleDateString('id-ID', {year:'numeric',month:'2-digit',day:'2-digit'});
+      resDays.textContent = (daysSince >= 0 ? daysSince : 0) + ' hari';
+      resRemain.textContent = remaining + ' hari';
+      resFormula.textContent = `Refund = Harga × (sisa / ${warrantyDays}) × 80%`;
+      resRefund.textContent = formatRp(refund);
+
+      // Add structured data for clarity (accessible)
+      resultBox.setAttribute('aria-live','polite');
+    });
+
+    resetBtn.addEventListener('click', () => {
+      calcForm.reset();
+      resultBox.classList.add('hidden');
+    });
+
+    // UX: sync service dropdown in ketentuan and kalkulasi
+    const calcService = document.getElementById('calcService');
+    calcService.addEventListener('change', (e) => {
+      serviceSelect.value = e.target.value;
+      renderKetentuan(e.target.value);
+    });
+
+    // also sync from ketentuan to kalkulasi
+    serviceSelect.addEventListener('change', (e) => {
+      calcService.value = e.target.value;
+    });
+
+  </script>
+
+</body>
+</html>
