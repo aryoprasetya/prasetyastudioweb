@@ -160,7 +160,7 @@
           <div class="flex justify-between"><span class="text-sm text-gray-600">Formulir Perhitungan</span><span id="resFormula" class="text-sm text-gray-700"></span></div>
           <div class="flex justify-between"><span class="text-sm text-gray-600">Dana yang akan dikembalikan (Rp)</span><strong id="resRefund" class="text-lg"></strong></div>
           <div class="pt-2 text-sm text-gray-600">
-            <strong>Penjelasan:</strong> Garansi standar: <strong>10 hari</strong>. Dana pengembalian dihitung sebagai <strong>80%</strong> dari proporsi sisa garansi terhadap 10 hari. Jika garansi habis, nilai pengembalian = Rp 0.
+            <strong>Penjelasan:</strong> Garansi standar: <strong>10 hari</strong>. Dana pengembalian dihitung sebagai <strong>50%</strong> dari proporsi sisa garansi terhadap 10 hari. Jika garansi habis, nilai pengembalian = Rp 0.
           </div>
         </div>
       </div>
@@ -305,7 +305,7 @@
       resDate.textContent = serviceDate.toLocaleDateString('id-ID', {year:'numeric',month:'2-digit',day:'2-digit'});
       resDays.textContent = (daysSince >= 0 ? daysSince : 0) + ' hari';
       resRemain.textContent = remaining + ' hari';
-      resFormula.textContent = `Refund = Harga × (sisa / ${warrantyDays}) × 80%`;
+      resFormula.textContent = `Refund = Harga × (sisa / ${warrantyDays}) × 50%`;
       resRefund.textContent = formatRp(refund);
 
       // Add structured data for clarity (accessible)
