@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tap Link — Prasetya Studio</title>
+<link rel="icon" href="images/link.png" type="image/png">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+:root{
+  --bg:#0b1020; --fg:#eaf2ff; --muted:#94a3b8;
+  --card:rgba(255,255,255,0.08); --stroke:rgba(255,255,255,0.15);
+  --brand:#3B83F6; --brand2:#06B6D4; --radius:20px;
+  --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+}
+@media (prefers-color-scheme: light){
+  :root{--bg:#f6f8ff; --fg:#0b1020; --muted:#475569; --card:rgba(255,255,255,.85); --stroke:rgba(0,0,0,.08);}
+  body::before{opacity:.25;}
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0; font-family:'Manrope', sans-serif; color:var(--fg);
+  background:var(--bg); display:grid; place-items:center; overflow-x:hidden;
+}
+/* animated gradient background */
+body::before{
+  content:""; position:fixed; inset:-10%; z-index:-1; filter:blur(60px);
+  background:
+    radial-gradient(36% 36% at 20% 20%, rgba(59,130,246,.7), transparent 60%),
+    radial-gradient(40% 40% at 80% 10%, rgba(6,182,212,.6), transparent 60%),
+    radial-gradient(32% 32% at 50% 90%, rgba(168,85,247,.5), transparent 60%);
+  animation: float 26s ease-in-out infinite alternate;
+}
+@keyframes float{from{transform:translate3d(-2%,2%,0) scale(1.05);} to{transform:translate3d(2%,-2%,0) scale(1.1);}}
+
+.wrap{width:min(680px,92vw); padding:28px;}
+.card{
+  background:var(--card); backdrop-filter:saturate(140%) blur(14px);
+  border:1px solid var(--stroke); border-radius:var(--radius); box-shadow:var(--shadow);
+  padding:28px; position:relative; overflow:hidden;
+}
+.top{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:18px; margin-bottom:16px;}
+.avatar {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.35);
+  object-fit: contain; /* sebelumnya 'cover' */
+}
+
+.name{font-size:1.35rem; font-weight:700; margin:0;}
+.bio{margin:4px 0 0; color:var(--muted); font-size:.96rem;}
+.badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.badge{display:flex; align-items:center; gap:4px; border:1px solid var(--stroke); padding:6px 10px; border-radius:999px; font-size:.78rem; color:var(--muted);}
+.badge i{color:var(--brand);}
+
+.actions{display:flex; gap:10px;}
+.btn{display:inline-grid; place-items:center; padding:10px 12px; border-radius:12px; border:1px solid var(--stroke); background:transparent; color:var(--fg); cursor:pointer;}
+.btn:active{transform:translateY(1px);}
+
+.links{display:grid; gap:12px; margin-top:18px;}
+.link {
+  display: flex;
+  align-items: center; /* pastikan sejajar vertikal */
+  gap:14px;
+  width:100%;
+  text-decoration:none;
+  color:var(--fg);
+  border:1px solid var(--stroke);
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  padding:14px 16px;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  transition:transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.link .icon {
+  width:26px;
+  height:26px;
+  flex:0 0 26px;
+  display:flex;
+  align-items:center;
+  justify-content:center; /* memastikan ikon center di kotaknya */
+}
+
+.link div {
+  display:flex;
+  flex-direction:column;
+  justify-content:center; /* vertical align text sejajar ikon */
+}
+
+.link:hover{transform:translateY(-2px); border-color:var(--brand);}
+.link .icon{width:26px; height:26px; flex:0 0 26px;}
+.link .meta{margin-left:auto; font-size:.8rem; color:var(--muted);}
+
+.socials{display:flex; gap:10px; margin:20px 0 8px; flex-wrap:wrap;}
+.socials a{display:grid; place-items:center; width:42px; height:42px; border-radius:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.06); text-decoration:none; color:var(--brand);}
+.socials svg{width:20px; height:20px;}
+
+.footer{margin-top:18px; color:var(--muted); font-size:.8rem; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+.tiny{opacity:.8;}
+.theme-toggle{display:flex; align-items:center; gap:8px; font-size:.9rem;}
+
+.sr-only{position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+
+@media (max-width:480px){
+  .top{grid-template-columns:auto 1fr; grid-template-rows:auto auto;}
+  .actions{grid-column:1/-1;}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+  <div class="top">
+    <img src="assets/logologo.png" alt="Logo Prasetya Studio" class="avatar"/>
+    <div>
+      <h1 class="name">Prasetya Studio</h1>
+      <p class="bio">Layanan Desain & Konten Digital.</p>
+      <div class="badges">
+        <span class="badge"><i class='bx bxs-map'></i> Indonesia</span>
+        <span class="badge"><i class='bx bxs-rocket'></i> Open to Work</span>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="copyLink"><i class='bx bx-link'></i></button>
+      <button class="btn" id="share"><i class='bx bx-share-alt'></i></button>
+    </div>
+  </div>
+
+  <div class="socials">
+    <a href="https://instagram.com/prasetyastudio"><i class='bx bxl-instagram'></i></a>
+    <a href="https://instagram.com/cvmurahbanjarnegara"><i class='bx bxl-instagram'></i></a>
+    <a href="https://wa.me/6285143080554"><i class='bx bxl-whatsapp'></i></a>
+    <a href="mailto:prasetyastudioservicehub"><i class='bx bx-envelope'></i></a>
+    <a href="mailto:vandoraservicehub"><i class='bx bx-envelope'></i></a>
+    <a href="https://t.me/prasetyastudiomy"><i class='bx bxl-telegram'></i></a>
+    <a href="home"><i class='bx bx-globe'></i></a>
+  </div>
+
+  <div class="links">
+    <a class="link" href="e-commerce"><i class='bx bx-store icon'></i><div><strong>E-Commerce</strong><div class="tiny"></div></div><span class="meta" data-clicks>0 klik</span></a>
+    <a class="link" href="pricelist"><i class='bx bx-file icon'></i><div><strong>Price List</strong><div class="tiny"></div></div><span class="meta" data-clicks>0 klik</span></a>
+    <a class="link" href="garansi#ketentuan"><i class='bx bx-shield-quarter icon'></i><div><strong>Ket. Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks>0 klik</span></a>
+    <a class="link" href="garansi#kalkulasi"><i class='bx bx-calculator icon'></i><div><strong>Kalkulasi Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks>0 klik</span></a>
+    <a class="link" href="faq"><i class='bx bx-conversation icon'></i><div><strong>FAQs</strong><div class="tiny"></div></div><span class="meta" data-clicks>0 klik</span></a>
+    <a class="link" href="karir"><i class='bx bx-user-pin icon'></i><div><strong>Freelance</strong><div class="tiny"></div></div><span class="meta" data-clicks>0 klik</span></a>
+    <a class="link" href="klaim"><i class='bx bx-transfer icon'></i><div><strong>Klaim Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks>0 klik</span></a>
+    <a class="link" href="mailto:vandoraservicehub@gmail.com"><i class='bx bx-envelope icon'></i><div><strong>Email Vandora</strong><div class="tiny"></div></div><span class="meta" data-clicks>0 klik</span></a>
+  </div>
+
+  <div class="footer">
+    <div>Copyright © <span id="year"></span> Prasetya Studio · <span class="tiny">Tap Link</span></div>
+  </div>
+</section>
+</main>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const storeKey='taplink-clicks-v2';
+const clicks=JSON.parse(localStorage.getItem(storeKey)||'{}');
+document.querySelectorAll('.link').forEach(el=>{
+  const name=el.querySelector('strong').textContent;
+  const meta=el.querySelector('[data-clicks]');
+  meta.textContent=(clicks[name]||0)+' klik';
+  el.addEventListener('click',()=>{
+    clicks[name]=(clicks[name]||0)+1;
+    localStorage.setItem(storeKey, JSON.stringify(clicks));
+    meta.textContent=clicks[name]+' klik';
+  });
+});
+
+// Copy & Share
+document.getElementById('copyLink')?.addEventListener('click', async ()=>{
+  try{ await navigator.clipboard.writeText(location.href); alert('Tautan disalin!'); }
+  catch(e){ alert('Gagal menyalin tautan'); }
+});
+document.getElementById('share')?.addEventListener('click', async ()=>{
+  if(navigator.share){ await navigator.share({ title: document.title, url: location.href }); }
+  else{ alert('Fitur share tidak didukung browser ini'); }
+});
+
+// Theme toggle
+const themeBtn=document.getElementById('theme');
+const themeCbx=document.getElementById('themeToggle');
+const themeKey='taplink-theme-v2';
+const root=document.documentElement;
+const saved=localStorage.getItem(themeKey);
+if(saved==='light'){ root.setAttribute('data-theme','light'); themeCbx.checked=true; themeBtn.innerHTML='<i class="bx bx-sun"></i>'; }
+
+themeBtn.addEventListener('click',()=>{
+  if(root.getAttribute('data-theme')==='light'){ root.removeAttribute('data-theme'); themeCbx.checked=false; themeBtn.innerHTML='<i class="bx bx-moon"></i>'; localStorage.setItem(themeKey,'dark'); }
+  else{ root.setAttribute('data-theme','light'); themeCbx.checked=true; themeBtn.innerHTML='<i class="bx bx-sun"></i>'; localStorage.setItem(themeKey,'light'); }
+});
+themeCbx.addEventListener('change',e=>{ themeBtn.click(); });
+</script>
+</body>
+</html>
