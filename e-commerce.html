@@ -1,122 +1,544 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prasetya Studio E-Commerce</title>
-  <!-- Tambahkan link Boxicons di <head> -->
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <link rel="icon" href="images/logo duwa.png" type="image/png">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background: linear-gradient(135deg, #0f172a, #1e3a8a);
-      color: white;
-      font-family: 'Manrope', sans-serif;
-    }
-    .glass {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .floating-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 50;
-    }
-    .floating-home {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      z-index: 50;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prasetya Studio - E-Commerce Versi 1.0.0</title>
+<link rel="icon" href="images/logo duwa.png" type="image/png">
+<link rel="icon" href="images/logo duwa.png" type="image/png">
+
+<!-- Font Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Boxicons -->
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+body { font-family: 'Manrope', sans-serif; background-color: #f9fafb; color: #111827; }
+.fade-in { opacity: 0; transform: translateY(20px); transition: all 0.5s ease-in-out; }
+.fade-in.show { opacity: 1; transform: translateY(0); }
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.2); transition: 0.3s; }
+</style>
 </head>
 <body>
 
-  <!-- Running Text -->
-  <div class="w-full py-2 bg-blue-900 text-white text-sm overflow-hidden">
-    <marquee behavior="scroll" direction="left">
-      Selamat datang di Laman E-Commerce Prasetya Studio! Website masih dalam tahap pengembangan. Hubungi kami via Instagram @prasetyastudio | WhatsApp: +62 851-4308-0554 | Email: prasetyastudioservicehub@gmail.com
-    </marquee>
-  </div>
-
-  <!-- Header -->
-  <header class="p-6 text-center">
-    <h1 class="text-3xl font-bold">Selamat Datang di Laman E-Commerce Prasetya Studio</h1>
-    <p class="text-sm mt-2 text-gray-200">Solusi cepat untuk desain, CV, dan animasi profesional. Untuk melihat katalog CV dan portofolio desain kunjungi instagram kami @prasetyastudio</p>
-  </header>
-
-  <!-- Banner Text -->
-  <div class="max-w-3xl mx-auto my-4 p-4 glass rounded-lg text-center">
-    <h2 class="text-xl font-semibold">🔥 Promo Spesial Agustus 🔥</h2>
-    <p class="text-sm text-gray-200 mt-1">Nikmati diskon hingga 70% untuk layanan desain visual dan CV ATS.</p>
-  </div>
-
-  <div class="max-w-3xl mx-auto my-4 p-4 glass rounded-lg text-center">
-    <h2 class="text-xl font-semibold">⚠️ Perhatian ⚠️</h2>
-    <p class="text-sm text-gray-200 mt-1">Pemesanan desain melalui website masih terbatas, untuk konsultasi lebih lanjut hubungi admin.</p>
-  </div>
-
-  <!-- Konten Produk atau Navigasi -->
-  <!-- Produk -->
-  <section class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6 text-center">Produk Kami</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- Produk Dummy -->
-      <div class="max-w-4xl mx-auto my-4 p-4 glass rounded-lg">
-        <img src="/images/katalog1.png" alt="CV ATS" class="rounded mb-4">
-        <h2 class="text-lg text-blue-600 font-semibold">Desain Logo</h2>
-        <p class="text-sm text-white-500 mb-2">Desain Logo (Khusus UMKM)</p>
-        <p class="font-bold text-blue-600">Rp50.000</p>
-        <a href="product.html?id=katalog1" class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Detail</a>
-      </div>
-
-      <div class="max-w-3xl mx-auto my-4 p-4 glass rounded-lg">
-        <img src="/images/katalog2.png" alt="CV ATS" class="rounded mb-4">
-        <h2 class="text-lg text-blue-600 font-semibold">CV ATS Friendly (Free surat lamaran)</h2>
-        <p class="text-sm text-whiite-500 mb-2">CV untuk melamar perusahaan besar dan PT</p>
-        <p class="font-bold text-blue-600">Rp20.000</p>
-        <a href="product.html?id=katalog2" class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Detail</a>
-      </div>
-
-      <div class="max-w-3xl mx-auto my-4 p-4 glass rounded-lg">
-        <img src="/images/katalog3.png" alt="CV ATS" class="rounded mb-4">
-        <h2 class="text-lg  text-blue-600 font-semibold">CV Kreatif (Free surat lamaran)</h2>
-        <p class="text-sm text-white-500 mb-2">CV untuk melamar perusahaan/ industri kreatif</p>
-        <p class="font-bold text-blue-600">Rp15.000</p>
-        <a href="product.html?id=katalog3" class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Detail</a>
-      </div>
-
-      <div class="max-w-3xl mx-auto my-4 p-4 glass rounded-lg">
-        <img src="/images/katalog4.png" alt="CV ATS" class="rounded mb-4">
-        <h2 class="text-lg text-blue-600 font-semibold">Desain Flyer/ Brosur</h2>
-        <p class="text-sm text-white-500 mb-2">Desain brosur untuk media promosi, edukasi, dll</p>
-        <p class="font-bold text-blue-600">Rp40.000</p>
-        <a href="product.html?id=katalog4" class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Detail</a>
-      </div>
-
-      <div class="max-w-3xl mx-auto my-4 p-4 glass rounded-lg">
-        <img src="/images/katalog5.png" alt="CV ATS" class="rounded mb-4">
-        <h2 class="text-lg text-blue-600 font-semibold">Surat Lamaran Kerja</h2>
-        <p class="text-sm text-white-500 mb-2">Surat lamaran kerja (PDF, Word, Canva)</p>
-        <p class="font-bold text-blue-600">Rp5.000</p>
-        <a href="product.html?id=katalog5" class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Detail</a>
-      </div>
-
-      <div class="max-w-3xl mx-auto my-4 p-4 glass rounded-lg">
-        <img src="/images/katalog6.png" alt="CV ATS" class="rounded mb-4">
-        <h2 class="text-lg text-blue-600 font-semibold">Video Animasi</h2>
-        <p class="text-sm text-white-500 mb-2">Video animasi edukasi/tugas sekolah dan kuliah harga permenit</p>
-        <p class="font-bold text-blue-600">Rp35.000</p>
-        <a href="product.html?id=katalog6" class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Detail</a>
-      </div>
-      
+<!-- Navbar -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center py-4 px-6">
+    <div class="flex items-center space-x-2">
+      <img src="assets/logo-prasetya.png" alt="Logo Prasetya Studio" class="h-10 w-10">
+      <span class="font-bold text-xl text-[#3B82F6]">Prasetya Studio</span>
     </div>
-  </section>
+    <nav class="flex items-center space-x-4">
+      <a href="#services" class="hover:text-blue-600 flex items-center gap-1"><i class='bx bx-grid-alt'></i>Layanan</a>
+      <a href="#cart" class="hover:text-blue-600 flex items-center gap-1"><i class='bx bx-cart'></i>Keranjang <span id="cart-count" class="font-semibold">0</span></a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="bg-blue-600 text-white py-16">
+  <div class="container mx-auto text-center">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Desain Profesional, Cepat, dan Mudah</h1>
+    <p class="text-lg md:text-xl mb-6">Jasa desain grafis, video animasi, CV, dan lainnya. Checkout kapan pun, dimana pun.</p>
+    <a href="#services" class="bg-white text-blue-600 font-semibold py-3 px-6 rounded hover:bg-gray-100 transition">Lihat Layanan</a>
+  </div>
+</section>
+
+<!-- Banner Carousel -->
+<section class="container mx-auto py-8 px-6 overflow-hidden">
+  <div id="banner-carousel" class="relative w-full h-24 rounded-lg overflow-hidden">
+    <div class="absolute inset-0 bg-yellow-100 flex items-center justify-center transition-opacity duration-700 opacity-100">🔥 Promo: Diskon 10% pakai kode <strong>PRAS10</strong></div>
+    <div class="absolute inset-0 bg-green-100 flex items-center justify-center transition-opacity duration-700 opacity-0">📢 Free konsultasi desain untuk semua layanan!</div>
+    <div class="absolute inset-0 bg-blue-100 flex items-center justify-center transition-opacity duration-700 opacity-0">💡 Layanan custom sesuai kebutuhan Anda!</div>
+  </div>
+</section>
+
+<!-- Filter Kategori -->
+<section class="container mx-auto py-4 px-6">
+  <h2 class="text-xl font-bold mb-2">Filter Kategori</h2>
+  <div class="flex gap-2 flex-wrap">
+    <button onclick="filterCategory('all')" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Semua</button>
+    <button onclick="filterCategory('Logo')" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition">Logo</button>
+    <button onclick="filterCategory('Poster')" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition">Poster</button>
+    <button onclick="filterCategory('Banner')" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition">Banner</button>
+    <button onclick="filterCategory('CV')" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition">CV</button>
+    <button onclick="filterCategory('Video')" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition">Video</button>
+    <button onclick="filterCategory('Media')" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition">Media Sosial</button>
+  </div>
+</section>
+
+<!-- Layanan Kami -->
+<section id="services" class="container mx-auto py-16 px-6">
+  <h2 class="text-3xl font-bold text-center mb-12">Layanan Kami</h2>
+  <div id="product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+</section>
+
+<!-- Voucher -->
+<section class="container mx-auto py-8 px-6">
+  <h2 class="text-2xl font-bold mb-4">Gunakan Kode Voucher</h2>
+  <div class="flex gap-2 max-w-md">
+    <input type="text" id="voucher-code" placeholder="Masukkan kode voucher" class="flex-1 border rounded px-4 py-2">
+    <button id="voucher-btn" class="bg-green-600 text-white px-4 rounded hover:bg-green-700 transition">Terapkan</button>
+  </div>
+  <p id="voucher-msg" class="mt-2 text-sm"></p>
+</section>
+
+<!-- Keranjang & Checkout -->
+<section id="cart" class="container mx-auto py-16 px-6">
+  <h2 class="text-3xl font-bold mb-8">Keranjang Belanja</h2>
+  <div id="cart-items" class="space-y-4"></div>
+  <div class="mt-4 text-lg font-semibold">Total: Rp<span id="cart-total">0</span></div>
+  <button id="checkout-btn" class="mt-4 bg-green-600 text-white py-3 px-6 rounded hover:bg-green-700 transition flex items-center gap-2"><i class='bx bx-credit-card'></i> Lanjut ke Checkout</button>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg w-full max-w-lg p-6 relative">
+      <h3 class="text-xl font-bold mb-4">Checkout</h3>
+      <div id="checkout-items" class="space-y-2 max-h-64 overflow-y-auto mb-4"></div>
+      <div class="font-semibold mb-4">Total Bayar: Rp<span id="checkout-total">0</span></div>
+      <div class="flex justify-end gap-2">
+        <button id="close-modal" class="px-4 py-2 rounded bg-gray-400 hover:bg-gray-500 text-white">Batal</button>
+        <button id="confirm-checkout" class="px-4 py-2 rounded bg-green-600 hover:bg-green-700 text-white">Bayar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Xendit Static Modal -->
+<div id="xendit-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white rounded-lg w-full max-w-md p-6 relative max-h-screen overflow-y-auto">
+    <h3 class="text-xl font-bold mb-4">Pembayaran Prasetya Studio</h3>
+
+    <!-- Type Pembeli -->
+    <div class="mb-4">
+      <label class="font-semibold">Tipe Pembeli:</label>
+      <select id="buyer-type" class="border rounded px-3 py-2 w-full mt-1">
+        <option value="individu">Individu</option>
+        <option value="organisasi">Organisasi/ Perusahaan</option>
+        <option value="instansi">Instansi Pemerintah</option>
+      </select>
+      <p id="ppn-note" class="hidden mt-2 text-sm text-red-600">⚠️ Instansi Pemerintah dikenakan PPN 12%</p>
+    </div>
+
+    <!-- Metode Pembayaran -->
+    <div class="mb-4">
+      <label class="font-semibold">Metode Pembayaran:</label>
+      <select id="payment-method" class="border rounded px-3 py-2 w-full mt-1">
+        <option value="">-- Pilih --</option>
+        <option value="bank">Transfer Bank</option>
+        <option value="ewallet">E-Wallet</option>
+        <option value="qris">QRIS</option>
+        <option value="usd">USD (PayPal/Wallet)</option>
+      </select>
+    </div>
+
+    <!-- Sub metode -->
+    <div id="sub-method-container" class="mb-4 hidden">
+      <label class="font-semibold">Pilih Detail Metode:</label>
+      <select id="sub-method" class="border rounded px-3 py-2 w-full mt-1"></select>
+    </div>
+
+    <!-- Container detail metode -->
+    <div id="payment-detail" class="bg-gray-100 p-4 mb-4 rounded text-sm space-y-3 max-h-40 overflow-y-auto"></div>
+
+    <!-- Email & WhatsApp -->
+    <div class="mb-4">
+      <label class="font-semibold">Email:</label>
+      <input type="email" id="buyer-email" class="border rounded px-3 py-2 w-full mt-1" placeholder="Masukkan email anda">
+    </div>
+    <div class="mb-4">
+      <label class="font-semibold">WhatsApp:</label>
+      <input type="text" id="buyer-whatsapp" class="border rounded px-3 py-2 w-full mt-1" placeholder="Masukkan nomor WhatsApp">
+    </div>
+
+    <p class="mb-2 font-semibold">Total Bayar: Rp<span id="xendit-total">0</span></p>
+
+    <div class="flex items-center gap-2 mb-4">
+      <input type="checkbox" id="confirm-check" class="w-5 h-5">
+      <label for="confirm-check" class="text-sm">Saya telah mengecek pesanan saya</label>
+    </div>
+
+    <div class="flex justify-end gap-2 sticky bottom-0 bg-white pt-2">
+      <button id="xendit-close" class="px-4 py-2 rounded bg-gray-400 hover:bg-gray-500 text-white">Tutup</button>
+      <button id="xendit-paid" class="px-4 py-2 rounded bg-green-600 hover:bg-green-700 text-white">Sudah Bayar</button>
+    </div>
+  </div>
+</div>
+
+<div id="checkoutMessage" class="mt-3 text-center text-sm font-medium"></div>
+
+<!-- Toast -->
+<div id="toast" class="fixed top-6 right-6 bg-blue-600 text-white px-6 py-3 rounded shadow-lg hidden transition-opacity duration-300">
+  <span id="toast-msg"></span>
+</div>
+
+<!-- Footer -->
+<footer class="bg-white border-t py-6 text-center">
+  <p>© 2025 Prasetya Studio. Hak Cipta Dilindungi.</p>
+</footer>
+
+<!-- Scripts -->
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+emailjs.init("YriGj6ltxmKl1SXqg"); // ganti dengan userID EmailJS
+
+// ===== DATA PRODUK & VAR =====
+let cart = [];
+let voucher = null;
+const LS_CART_KEY = 'ps_cart';
+const LS_VOUCHER_KEY = 'ps_voucher';
+
+const products = [ {id:"VD001",name:"Desain Logo",desc:"Logo profesional + file PNG, SVG, JPG, Brand Guidelines",price:"Kesepakatan",stock:10,category:"Logo",icon:"bxs-paint"},
+{id:"VI001",name:"Desain Poster/A4",desc:"Poster siap cetak + file editable",price:35000,stock:20,category:"Poster",icon:"bxs-file"},
+{id:"VI002",name:"Poster Infografis",desc:"Poster Infografis file PDF editable",price:35000,stock:20,category:"Poster",icon:"bxs-file"},
+{id:"GD001",name:"Desain Brosur/A4",desc:"Brosur A4 siap cetak",price:35000,stock:15,category:"Poster",icon:"bxs-book"},
+{id:"VI001",name:"Gabung/ edit dokumen",desc:"Gabung file pdf, img, dll",price:5000,stock:20,category:"Poster",icon:"bxs-file"},
+{id:"AD001",name:"Desain Banner",desc:"Desain banner file PDF, AI, PSD",price:35000,stock:15,category:"Banner",icon:"bxs-image"},
+{id:"AD002",name:"Desain Undangan",desc:"Desain undangan file PDF, AI, PSD",price:25000,stock:15,category:"Banner",icon:"bxs-envelope"},
+{id:"IS001",name:"Desain Invoice",desc:"Desain invoice file PDF, AI, PSD",price:10000,stock:50,category:"Banner",icon:"bxs-receipt"},
+{id:"CV001",name:"CV ATS Friendly",desc:"CV ATS-friendly file PDF, Doc editable",price:15000,stock:50,category:"CV",icon:"bxs-id-card"},
+{id:"CV002",name:"CV Kreatif",desc:"CV Kreatif file PDF, Doc editable",price:10000,stock:50,category:"CV",icon:"bxs-id-card"},
+{id:"SL001",name:"Surat Lamaran",desc:"Surat lamaran kerja file PDF, Doc editable",price:5000,stock:50,category:"CV",icon:"bxs-file"},
+{id:"CP001",name:"Desain Company Profile",desc:"Desain company profile profesional file PDF",price:450000,stock:5,category:"Logo",icon:"bxs-building"},
+{id:"CD001",name:"Custom Desain",desc:"Desain custom file PDF, AI, PSD",price:"Menyesuaikan",stock:5,category:"Logo",icon:"bxs-palette"},
+{id:"VI003",name:"Desain Feed Instagram",desc:"File PNG/ JPG editable",price:10000,stock:25,category:"Media",icon:"bxl-instagram"},
+{id:"SOC01",name:"Paket Feed 15 Konten",desc:"15 desain feed Instagram",price:135000,stock:10,category:"Media",icon:"bxl-instagram"},
+{id:"SOC02",name:"Paket Feed 25 Konten",desc:"25 desain feed Instagram",price:200000,stock:10,category:"Media",icon:"bxl-instagram"},
+{id:"SOC03",name:"Paket Feed 30 Konten",desc:"30 desain feed Instagram",price:230000,stock:10,category:"Media",icon:"bxl-instagram"},
+{id:"VA001",name:"Video Animasi",desc:"Video animasi/ menit",price:35000,stock:10,category:"Video",icon:"bxs-video"}, ];
+
+// ===== TOAST =====
+function showToast(msg,type='info'){
+  const toast=document.getElementById('toast');
+  toast.innerText=msg;
+  toast.style.backgroundColor=type==='error'?'#dc2626':type==='success'?'#16a34a':'#2563eb';
+  toast.classList.remove('hidden');
+  toast.style.opacity=1;
+  setTimeout(()=>{toast.style.opacity=0;setTimeout(()=>toast.classList.add('hidden'),300)},2500);
+}
+
+// ===== STORAGE HELPERS =====
+function saveCartToStorage(){
+  try{
+    localStorage.setItem(LS_CART_KEY, JSON.stringify(cart));
+    localStorage.setItem(LS_VOUCHER_KEY, voucher ? String(voucher) : '');
+  }catch(e){ /* silent */ }
+}
+function loadCartFromStorage(){
+  try{
+    const savedCart = localStorage.getItem(LS_CART_KEY);
+    if(savedCart){
+      const arr = JSON.parse(savedCart);
+      if(Array.isArray(arr)) cart = arr;
+    }
+    const savedVoucher = localStorage.getItem(LS_VOUCHER_KEY);
+    voucher = savedVoucher ? savedVoucher : null;
+  }catch(e){ /* silent */ }
+}
+
+// ===== RENDER PRODUK =====
+function renderProducts(filtered='all'){
+  const grid=document.getElementById('product-grid');
+  grid.innerHTML='';
+  const list = filtered==='all'?products:products.filter(p=>p.category===filtered);
+  list.forEach(p=>{
+    const div=document.createElement('div');
+    div.className="bg-white shadow-md rounded-lg p-6 flex flex-col fade-in product-card text-center";
+    div.innerHTML=`
+      <div class="text-6xl text-blue-600 mb-4 flex justify-center items-center"><i class='bx ${p.icon}'></i></div>
+      <h3 class="font-semibold text-xl mb-1">${p.name}</h3>
+      <p class="text-gray-600 mb-2">${p.desc}</p>
+      <div class="flex items-center justify-center mb-2">
+        ${typeof p.price==='number'
+          ? `<span class="font-bold text-lg text-blue-600">Rp${p.price.toLocaleString()}</span>`
+          : `<span class="font-bold text-lg text-blue-600">${p.price}</span>`}
+      </div>
+      <p class="font-semibold mb-2">Stock Bulan Ini: <span id="stock-${p.id}">${p.stock}</span></p>
+      <button onclick="addToCart('${p.id}')" class="mt-auto bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition flex items-center justify-center gap-2"><i class='bx bx-cart-add'></i> Keranjang</button>
+    `;
+    grid.appendChild(div);
+    setTimeout(()=>div.classList.add('show'),100);
+  });
+}
+renderProducts();
+
+// Muat cart tersimpan lalu render total
+loadCartFromStorage();
+updateCart?.();
+
+// fungsi filter kategori tetap
+function filterCategory(cat){ renderProducts(cat); }
+
+// ===== KERANJANG =====
+function addToCart(id){
+  const p = products.find(pr=>pr.id===id);
+  if(p.stock===0){ showToast('Maaf, stok habis!','error'); return; }
+  cart.push({id:p.id,name:p.name,price:p.price});
+  saveCartToStorage();
+  showToast(`${p.name} ditambahkan ke keranjang!`,'success');
+  updateCart();
+}
+
+function updateCart(){
+  const items=document.getElementById('cart-items');
+  const count=document.getElementById('cart-count');
+  const totalEl=document.getElementById('cart-total');
+  items.innerHTML='';
+  let total=0;
+  cart.forEach((i, idx)=>{
+    total+=typeof i.price==='number'?i.price:0;
+    const div=document.createElement('div');
+    div.className="flex justify-between items-center bg-white p-4 rounded shadow gap-2";
+    div.innerHTML=`
+      <span>${i.name}</span>
+      <div class="flex items-center gap-2">
+        <span>${typeof i.price==='number'? 'Rp'+i.price.toLocaleString():i.price}</span>
+        <button onclick="removeFromCart(${idx})" class="text-red-600 hover:text-red-800"><i class='bx bx-trash'></i></button>
+      </div>
+    `;
+    items.appendChild(div);
+  });
+  if(voucher) total=total-(total*0.1);
+  count.innerText=cart.length;
+  totalEl.innerText=total.toLocaleString();
+  saveCartToStorage();
+}
+
+function removeFromCart(index){
+  cart.splice(index,1);
+  saveCartToStorage();
+  updateCart();
+  showToast('Produk dihapus dari keranjang','info');
+}
+
+// ===== VOUCHER =====
+document.getElementById('voucher-btn').addEventListener('click',()=>{
+  const code=document.getElementById('voucher-code').value.trim();
+  if(code==='PRAS10'){
+    voucher=code;
+    showToast('Voucher diterapkan! Diskon 10% berlaku.','success');
+  } else{
+    voucher=null;
+    showToast('Kode voucher tidak valid','error');
+  }
+  saveCartToStorage();
+  updateCart();
+});
+
+// ===== CHECKOUT MODAL =====
+const checkoutBtn=document.getElementById('checkout-btn');
+const checkoutModal=document.getElementById('checkout-modal');
+const closeModal=document.getElementById('close-modal');
+const checkoutItems=document.getElementById('checkout-items');
+const checkoutTotal=document.getElementById('checkout-total');
+const confirmCheckout=document.getElementById('confirm-checkout');
+
+checkoutBtn.addEventListener('click',()=>{
+  if(cart.length===0){ showToast('Keranjang kosong!','error'); return; }
+  checkoutItems.innerHTML='';
+  let total=0;
+  cart.forEach(i=>{
+    total+=typeof i.price==='number'?i.price:0;
+    const div=document.createElement('div');
+    div.className="flex justify-between bg-gray-100 p-2 rounded";
+    div.innerHTML=`<span>${i.name}</span><span>${typeof i.price==='number'? 'Rp'+i.price.toLocaleString():i.price}</span>`;
+    checkoutItems.appendChild(div);
+  });
+  if(voucher) total=total-(total*0.1);
+  checkoutTotal.innerText=total.toLocaleString();
+  checkoutModal.classList.remove('hidden');
+});
+
+closeModal.addEventListener('click',()=>checkoutModal.classList.add('hidden'));
+
+// ===== XENDIT STATIC =====
+const xenditModal=document.getElementById('xendit-modal');
+const xenditTotal=document.getElementById('xendit-total');
+const xenditClose=document.getElementById('xendit-close');
+const xenditPaid=document.getElementById('xendit-paid');
+const buyerType=document.getElementById('buyer-type');
+const confirmCheck=document.getElementById('confirm-check');
+
+function calculateXenditTotal(){
+  let total=0;
+  cart.forEach(i=>total+=typeof i.price==='number'?i.price:0);
+  if(voucher) total=total-(total*0.1);
+  if(buyerType.value==='instansi') total+=total*0.12; // PPN 12% untuk instansi
+  xenditTotal.innerText=total.toLocaleString();
+}
+
+// update total otomatis saat tipe pembeli berubah
+buyerType.addEventListener('change',calculateXenditTotal);
+
+// confirm checkout ke Xendit
+confirmCheckout.addEventListener('click',()=>{
+  calculateXenditTotal();
+  checkoutModal.classList.add('hidden');
+  xenditModal.classList.remove('hidden');
+});
+
+// tombol tutup Xendit
+xenditClose.addEventListener('click',()=>xenditModal.classList.add('hidden'));
+
+const paymentMethod=document.getElementById('payment-method');
+const subMethodContainer=document.getElementById('sub-method-container');
+const subMethod=document.getElementById('sub-method');
+const paymentDetail=document.getElementById('payment-detail');
+
+// tombol sudah bayar
+xenditPaid.addEventListener('click',()=>{
+  if(!confirmCheck.checked){
+    showToast('Centang konfirmasi terlebih dahulu','error');
+    return;
+  }
+
+  const selectedPayment = paymentMethod.options[paymentMethod.selectedIndex].text;
+  const buyerEmail = document.getElementById('buyer-email').value.trim();
+  const buyerWhatsapp = document.getElementById('buyer-whatsapp').value.trim();
+
+  if(!buyerEmail || !buyerWhatsapp){
+    showToast('Isi email dan WhatsApp terlebih dahulu','error');
+    return;
+  }
+
+  const templateParams = {
+    buyer_type: buyerType.options[buyerType.selectedIndex].text,
+    payment_method: selectedPayment,
+    buyer_email: buyerEmail,
+    buyer_whatsapp: buyerWhatsapp,
+    items: cart.map(i=>i.name).join(', '),
+    total: xenditTotal.innerText,
+    status: 'Pesanan sudah dibayar (Xendit Static)',
+    date: new Date().toLocaleString('id-ID')
+  };
+
+  emailjs.send('service_6hr6jio','template_zfa3873',templateParams)
+    .then(()=>{
+      // ===== Pesan konfirmasi non-alert =====
+      showToast('Pesanan terkirim! Detail sudah dikirim ke email/WA kamu.','success');
+      // Bersihkan keranjang + storage
+      cart=[];
+      voucher=null;
+      saveCartToStorage();
+      updateCart();
+      xenditModal.classList.add('hidden');
+    })
+    .catch((err)=>{
+      console.error("❌ EmailJS gagal:", err);
+      showToast('Gagal mengirim konfirmasi','error');
+    });
+});
+
+// ===== BANNER CAROUSEL =====
+const banners=document.querySelectorAll('#banner-carousel > div');
+let bannerIndex=0;
+setInterval(()=>{
+  banners.forEach((b,i)=>b.style.opacity=i===bannerIndex?1:0);
+  bannerIndex=(bannerIndex+1)%banners.length;
+},3500);
+
+// ===== PEMBAYARAN =====
+function renderPaymentDetail(category, method){
+  let html='';
+  if(category==='bank'){
+    if(method==='BRI'){
+      html=`<div><b>BRI</b><br>No.Rek: 662201064230532 
+      <button onclick="copyToClipboard('662201064230532')" class="text-blue-600">Salin</button><br>a.n: ARYO YULIO PRASETYA</div>`;
+    } 
+    else if(method==='SeaBank'){
+      html=`<div><b>SeaBank</b><br>No.Rek: 901615652166 
+      <button onclick="copyToClipboard('901615652166')" class="text-blue-600">Salin</button><br>a.n: ARYO YULIO PRASETYA</div>`;
+    } 
+    else if(method==='Jago'){
+      html=`<div><b>Bank Jago</b><br>No.Rek: COMING SOON<br>a.n: Prasetya Studio</div>`;
+    }
+    else if(method==='Lain'){
+      html=`<div><b>Bank Lain</b><br>No.Rek: COMING SOON<br>a.n: Prasetya Studio</div>`;
+    }
+  } 
+  else if(category==='ewallet'){
+    if(method==='Dana'){
+      html=`<div><b>DANA</b><br>No.HP: 082136065407 
+      <button onclick="copyToClipboard('082136065407')" class="text-blue-600">Salin</button><br>a.n: ARYO YULIO PRASETYA</div>`;
+    }
+    else if(method==='OVO'){
+      html=`<div><b>OVO</b><br>No.HP: 082136065407 
+      <button onclick="copyToClipboard('082136065407')" class="text-blue-600">Salin</button><br>a.n: ARYO YULIO PRASETYA</div>`;
+    }
+    else if(method==='GoPay'){
+      html=`<div><b>GoPay</b><br>No.HP: 082136065407 
+      <button onclick="copyToClipboard('082136065407')" class="text-blue-600">Salin</button><br>a.n: ARYO YULIO PRASETYA</div>`;
+    }
+    else if(method==='ShopeePay'){
+      html=`<div><b>ShopeePay</b><br>No.HP: 082136065407 
+      <button onclick="copyToClipboard('082136065407')" class="text-blue-600">Salin</button><br>a.n: ARYO YULIO PRASETYA</div>`;
+    }
+  }
+  else if(category==='qris'){
+    html=`<p class="font-semibold">Scan QR berikut untuk bayar:</p>
+    <img src="assets/Kode QRIS Prasetya Qris Pay_1.png" class="mx-auto w-40 h-40 object-contain">`;
+  }
+  else if(category==='usd'){
+    if(method==='PayPal'){
+      html=`<div><b>PayPal</b><br>Email: aryoyulio22@gmail.com 
+      <button onclick="copyToClipboard('aryoyulio22@gmail.com')" class="text-blue-600">Salin</button></div>`;
+    }
+    else if(method==='Wallet'){
+      html=`<div><b>Vai Wallet</b><br>ID Wallet: 2795502272 
+      <button onclick="copyToClipboard('2795502272')" class="text-blue-600">Salin</button></div>`;
+    }
+  }
+  paymentDetail.innerHTML=html;
+}
+
+// handle dropdown utama
+paymentMethod.addEventListener('change',()=>{
+  subMethodContainer.classList.add('hidden');
+  subMethod.innerHTML='';
+  paymentDetail.innerHTML='';
+
+  if(paymentMethod.value==='bank'){
+    subMethodContainer.classList.remove('hidden');
+    subMethod.innerHTML=`
+      <option value="">-- Pilih Bank --</option>
+      <option value="BRI">BRI</option>
+      <option value="SeaBank">SeaBank</option>
+      <option value="Jago">Bank Jago</option>
+      <option value="Lain">Bank Lain</option>`;
+  }
+  else if(paymentMethod.value==='ewallet'){
+    subMethodContainer.classList.remove('hidden');
+    subMethod.innerHTML=`
+      <option value="">-- Pilih E-Wallet --</option>
+      <option value="Dana">DANA</option>
+      <option value="OVO">OVO</option>
+      <option value="GoPay">GoPay</option>
+      <option value="ShopeePay">ShopeePay</option>`;
+  }
+  else if(paymentMethod.value==='qris'){
+    renderPaymentDetail('qris','');
+  }
+  else if(paymentMethod.value==='usd'){
+    subMethodContainer.classList.remove('hidden');
+    subMethod.innerHTML=`
+      <option value="">-- Pilih --</option>
+      <option value="PayPal">PayPal</option>
+      <option value="Wallet">Vai Wallet</option>`;
+  }
+});
+
+// handle sub method
+subMethod.addEventListener('change',()=>{
+  if(subMethod.value){
+    renderPaymentDetail(paymentMethod.value, subMethod.value);
+  }
+});
+</script>
 <!-- Tombol Home Floating -->
 <a href="index.html" class="fixed bottom-20 right-5 z-50 flex items-center bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300">
   <i class="bx bx-home-alt text-lg mr-2"></i>
@@ -128,10 +550,5 @@
   <i class="bx bxl-whatsapp text-lg mr-2"></i>
   <span class="text-sm font-medium">Hubungi Kami</span>
 </a>
-
 </body>
 </html>
-
-
-
-
