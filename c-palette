@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prasetya Studio - Color Palette Generator</title>
+<link rel="icon" href="images/logo duwa.png" type="image/png">
+
+<!-- Font Manrope & Boxicons -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+:root {
+  --primary: #3B83F6;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+}
+
+body {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+.container {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: background 0.3s, color 0.3s;
+  position: relative;
+}
+
+.logo {
+  width: 80px;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+/* Color Picker Styles */
+.color-picker-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+input[type="color"] {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #cbd5e1;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover { background: #1d4ed8; }
+
+.palette-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.color-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.color-box:hover { transform: scale(1.05); }
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: #fff;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.6rem;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(-10px);
+}
+
+/* Dark Mode Toggle */
+.dark-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+.dark-toggle:hover { color: var(--primary); }
+
+.flex-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+
+.notes {
+  text-align: left;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.note-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.note-item i {
+  color: var(--primary);
+  margin-top: 0.1rem;
+}
+
+.credits {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.credits img {
+  height: 28px;
+  margin-top: 0.3rem;
+}
+.palette-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 2px solid #cbd5e1; /* garis luar */
+  border-radius: 0.8rem;
+  background: var(--card);
+  min-height: 80px; /* memberi ruang kosong kalau palet masih sedikit */
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+
+  <button class="dark-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+    <i id="themeIcon" class='bx bx-moon'></i>
+  </button>
+
+  <img src="images/CPE.png" alt="Prasetya Studio" class="logo">
+  <h1>Color Palette Generator</h1>
+
+  <div id="colorPickers" class="color-picker-group">
+    <input type="color" value="#3498db">
+    <input type="color" value="#e74c3c">
+  </div>
+
+  <div class="flex-row">
+    <button id="addColorBtn">Tambah Warna</button>
+    <button id="resetColorBtn" style="background:red;">Reset</button>
+    <input type="number" id="count" value="5" min="2" max="10" style="width:70px; border-radius:0.5rem; padding:0.3rem;">
+  </div>
+
+  <div class="flex-row" style="margin-top:0.5rem;">
+    <button id="generateBtn">Generate</button>
+    <button id="downloadTxtBtn" style="background:green;">Download TXT</button>
+    <button id="downloadPngBtn" style="background:purple;">Download PNG</button>
+  </div>
+
+  <div id="paletteContainer" class="palette-container"></div>
+
+  <!-- Notes -->
+  <div class="notes">
+    <div class="note-item"><i class='bx bx-info-circle'></i> Klik warna untuk menyalin kode.</div>
+    <div class="note-item"><i class='bx bx-paint'></i> Tambah warna sebanyak yang kamu mau.</div>
+    <div class="note-item"><i class='bx bx-loader-alt'></i> Untuk reset hasil warna, reload halaman.</div>
+    <div class="note-item"><i class='bx bx-reset'></i> Tombol reset akan mengembalikan warna ke default.</div>
+    <div class="note-item"><i class='bx bx-download'></i> Download bisa berupa TXT atau PNG.</div>
+  </div>
+
+  <!-- Managed by -->
+  <div class="credits">
+    <span>Managed by:</span>
+    <img src="images/managed.png" alt="Logo">
+  </div>
+</div>
+
+<div id="toast" class="toast">Warna berhasil disalin!</div>
+
+<script>
+const generateBtn = document.getElementById('generateBtn');
+const colorPickersContainer = document.getElementById('colorPickers');
+const addColorBtn = document.getElementById('addColorBtn');
+const resetColorBtn = document.getElementById('resetColorBtn');
+const countInput = document.getElementById('count');
+const paletteContainer = document.getElementById('paletteContainer');
+const copyBtn = document.getElementById('copyBtn');
+const downloadTxtBtn = document.getElementById('downloadTxtBtn');
+const downloadPngBtn = document.getElementById('downloadPngBtn');
+const toastEl = document.getElementById('toast');
+
+let currentPalette = [];
+const defaultColors = ['#3498db','#e74c3c'];
+
+function showToast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(()=>{ toastEl.classList.remove('show'); },2000);
+}
+
+addColorBtn.addEventListener('click', ()=>{
+  const input = document.createElement('input');
+  input.type = 'color';
+  input.value = '#ffffff';
+  colorPickersContainer.appendChild(input);
+});
+
+resetColorBtn.addEventListener('click', ()=>{
+  colorPickersContainer.innerHTML = '';
+  defaultColors.forEach(c=>{
+    const input = document.createElement('input');
+    input.type = 'color';
+    input.value = c;
+    colorPickersContainer.appendChild(input);
+  });
+  showToast('Warna berhasil di-reset!');
+});
+
+function hexVariation(hex, step){
+  let num = parseInt(hex.slice(1),16);
+  let variation = (num + step*0x111111) & 0xFFFFFF;
+  return '#'+variation.toString(16).padStart(6,'0');
+}
+
+function generatePalette(colors, count){
+  const palette = [];
+  colors.forEach(base=>{
+    for(let i=0;i<count;i++){
+      palette.push(hexVariation(base,i));
+    }
+  });
+  return palette;
+}
+
+function renderPalette(colors){
+  paletteContainer.innerHTML = '';
+  currentPalette = colors;
+  colors.forEach(color=>{
+    const div = document.createElement('div');
+    div.className = 'color-box';
+    div.style.backgroundColor = color;
+    div.textContent = color;
+    div.onclick = ()=> {
+      navigator.clipboard.writeText(color);
+      showToast(color+' berhasil disalin!');
+    };
+    paletteContainer.appendChild(div);
+  });
+}
+
+generateBtn.addEventListener('click', ()=>{
+  const pickers = colorPickersContainer.querySelectorAll('input[type=color]');
+  const baseColors = Array.from(pickers).map(p=>p.value);
+  const count = parseInt(countInput.value);
+  renderPalette(generatePalette(baseColors,count));
+});
+
+copyBtn.addEventListener('click', ()=>{
+  if(!currentPalette.length){ showToast('Generate palette dulu!'); return; }
+  navigator.clipboard.writeText(currentPalette.join('\n'));
+  showToast('Semua warna berhasil disalin!');
+});
+
+downloadTxtBtn.addEventListener('click', ()=>{
+  if(!currentPalette.length){ showToast('Generate palette dulu!'); return; }
+  const blob = new Blob([currentPalette.join('\n')], {type:'text/plain'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'palette.txt';
+  link.click();
+  showToast('Palette berhasil di-download (TXT)!');
+});
+
+downloadPngBtn.addEventListener('click', ()=>{
+  if(!currentPalette.length){ showToast('Generate palette dulu!'); return; }
+  const canvas = document.createElement('canvas');
+  canvas.width = currentPalette.length*100;
+  canvas.height = 100;
+  const ctx = canvas.getContext('2d');
+  currentPalette.forEach((color,i)=>{
+    ctx.fillStyle = color;
+    ctx.fillRect(i*100,0,100,100);
+  });
+  const link = document.createElement('a');
+  link.href = canvas.toDataURL();
+  link.download = 'palette.png';
+  link.click();
+  showToast('Palette berhasil di-download (PNG)!');
+});
+
+// Default generate
+generateBtn.click();
+
+function toggleDarkMode(){
+  const body = document.body;
+  const icon = document.getElementById('themeIcon');
+  body.classList.toggle('dark');
+  if(body.classList.contains('dark')){
+    icon.classList.replace('bx-moon','bx-sun');
+  } else {
+    icon.classList.replace('bx-sun','bx-moon');
+  }
+}
+</script>
+</body>
+</html>
