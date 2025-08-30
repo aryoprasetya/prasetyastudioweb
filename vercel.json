@@ -42,10 +42,5 @@
       ]
     }
   ]
-  {
-    "rewrites": [
-      { "source": "/nyingket/:path*",
-  "destination": "/nyingket/:path*" }
-    ]
 }
 
