@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tap Link — Prasetya Studio</title>
-<link rel="icon" href="images/link.png" type="image/png">
+<link rel="icon" href="images/logo duwa.png" type="image/png">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <style>
 :root{
@@ -117,7 +117,6 @@ body::before{
     <img src="images/logologo.png" alt="Logo Prasetya Studio" class="avatar"/>
     <div>
       <h1 class="name">Prasetya Studio</h1>
-      <p class="bio">Layanan Desain & Konten Digital.</p>
       <div class="badges">
         <span class="badge"><i class='bx bxs-map'></i> Indonesia</span>
         <span class="badge"><i class='bx bxs-rocket'></i> Open to Work</span>
@@ -137,18 +136,23 @@ body::before{
     <a href="mailto:vandoraservicehub"><i class='bx bx-envelope'></i></a>
     <a href="https://t.me/prasetyastudiomy"><i class='bx bxl-telegram'></i></a>
     <a href="home"><i class='bx bx-globe'></i></a>
-    <a href="maintenance"><i class='bx bx-links'></i></a>
+    <a href="maintenance"><i class='bx bx-link'></i></a>
   </div>
 
   <div class="links">
-    <a class="link" href="e-commerce"><i class='bx bx-store icon'></i><div><strong>E-Commerce</strong><div class="tiny"></div></div><span class="meta" data-clicks>P</span></a>
-    <a class="link" href="pricelist"><i class='bx bx-file icon'></i><div><strong>Price List</strong><div class="tiny"></div></div><span class="meta" data-clicks>R</span></a>
-    <a class="link" href="garansi#ketentuan"><i class='bx bx-shield-quarter icon'></i><div><strong>Ket. Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks>A</span></a>
-    <a class="link" href="garansi#kalkulasi"><i class='bx bx-calculator icon'></i><div><strong>Kalkulasi Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks>S</span></a>
-    <a class="link" href="faq"><i class='bx bx-conversation icon'></i><div><strong>FAQs</strong><div class="tiny"></div></div><span class="meta" data-clicks>E</span></a>
-    <a class="link" href="karir"><i class='bx bx-user-pin icon'></i><div><strong>Freelance</strong><div class="tiny"></div></div><span class="meta" data-clicks>T</span></a>
-    <a class="link" href="klaim"><i class='bx bx-transfer icon'></i><div><strong>Klaim Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks>Y</span></a>
-    <a class="link" href="mailto:vandoraservicehub@gmail.com"><i class='bx bx-envelope icon'></i><div><strong>Email Vandora</strong><div class="tiny"></div></div><span class="meta" data-clicks>A</span></a>
+    <h1 class="name">Order dan Price List</h1>
+    <a class="link" href="e-commerce"><i class='bx bx-store icon'></i><div><strong>E-Commerce</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
+    <a class="link" href="pricelist"><i class='bx bx-file icon'></i><div><strong>Price List</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
+    <h1 class="name">Informasi Layanan</h1>
+    <a class="link" href="faq"><i class='bx bx-conversation icon'></i><div><strong>FAQs</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
+    <a class="link" href="garansi#ketentuan"><i class='bx bx-shield-quarter icon'></i><div><strong>Ketentuan Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
+    <a class="link" href="karir"><i class='bx bx-user-pin icon'></i><div><strong>Freelance</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
+    <h1 class="name">Alat-alat</h1>
+    <a class="link" href="garansi#kalkulasi"><i class='bx bx-calculator icon'></i><div><strong>Kalkulasi Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
+    <a class="link" href="klaim"><i class='bx bx-transfer icon'></i><div><strong>Klaim Garansi</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
+    <a class="link" href="shorten"><i class='bx bx-cut icon'></i><div><strong>Shorten Link</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
+    <h1 class="name">Kontak Tambahan</h1>
+    <a class="link" href="mailto:vandoraservicehub@gmail.com"><i class='bx bx-envelope icon'></i><div><strong>Email Vandora</strong><div class="tiny"></div></div><span class="meta" data-clicks></span></a>
   </div>
 
   <div class="footer">
@@ -158,20 +162,6 @@ body::before{
 </main>
 
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
-const storeKey='taplink-clicks-v2';
-const clicks=JSON.parse(localStorage.getItem(storeKey)||'{}');
-document.querySelectorAll('.link').forEach(el=>{
-  const name=el.querySelector('strong').textContent;
-  const meta=el.querySelector('[data-clicks]');
-  meta.textContent=(clicks[name]||0)+' klik';
-  el.addEventListener('click',()=>{
-    clicks[name]=(clicks[name]||0)+1;
-    localStorage.setItem(storeKey, JSON.stringify(clicks));
-    meta.textContent=clicks[name]+' klik';
-  });
-});
-
 // Copy & Share
 document.getElementById('copyLink')?.addEventListener('click', async ()=>{
   try{ await navigator.clipboard.writeText(location.href); alert('Tautan disalin!'); }
