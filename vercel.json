@@ -29,6 +29,7 @@
     { "source": "/klaim", "destination": "/klaim.html" },
     { "source": "/garansi", "destination": "/garansi.html" },
     { "source": "/taplink", "destination": "/taplink.html" },
+    { "source": "/shorten", "destination": "/shorten.html" },
     { "source": "/kebijakan", "destination": "/kebijakan.html" }
   ],
   "headers": [
