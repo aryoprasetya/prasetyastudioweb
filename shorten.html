@@ -268,40 +268,37 @@
   let lastShortUrl = "";
 
   async function shortenUrl() {
-    const input = document.getElementById("longUrl").value;
-    const result = document.getElementById("result");
-    const shortlinkSpan = document.querySelector(".shortlink");
+  const input = document.getElementById("longUrl").value;
+  const result = document.getElementById("result");
+  const shortlinkSpan = document.querySelector(".shortlink");
 
-    if (!input) {
-      showToast("Masukkan URL dulu!");
-      return;
-    }
-
-    try {
-      // Call TinyURL API
-      const res = await fetch("https://api.tinyurl.com/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer T1SGaviVTQ4ytUCKmAVOP3vxTTkZ69XEfCHhI3ziAEX43DBEpUQmwTJS0wAk" 
-        },
-        body: JSON.stringify({ url: input })
-      });
-
-      const data = await res.json();
-
-      if (data.data && data.data.tiny_url) {
-        lastShortUrl = data.data.tiny_url;
-        shortlinkSpan.innerHTML = `Shortlink kamu: <a href="${lastShortUrl}" target="_blank">${lastShortUrl}</a>`;
-        result.style.display = "flex";
-      } else {
-        showToast("Gagal memendekkan link!");
-      }
-    } catch (error) {
-      console.error(error);
-      showToast("Error koneksi ke TinyURL API");
-    }
+  if (!input) {
+    showToast("Masukkan URL dulu!");
+    return;
   }
+
+  try {
+    const res = await fetch("/api/shorten", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: input })
+    });
+
+    const data = await res.json();
+
+    if (data.data && data.data.tiny_url) {
+      lastShortUrl = data.data.tiny_url;
+      shortlinkSpan.innerHTML = `Shortlink kamu: <a href="${lastShortUrl}" target="_blank">${lastShortUrl}</a>`;
+      result.style.display = "flex";
+    } else {
+      showToast("Gagal memendekkan link!");
+      console.error(data);
+    }
+  } catch (error) {
+    console.error(error);
+    showToast("Error koneksi ke TinyURL API");
+  }
+}
 
   function copyUrl() {
     if (!lastShortUrl) return;
@@ -333,6 +330,7 @@
 </script>
 </body>
 </html>
+
 
 
 
