@@ -30,6 +30,8 @@
     { "source": "/garansi", "destination": "/garansi.html" },
     { "source": "/taplink", "destination": "/taplink.html" },
     { "source": "/shorten", "destination": "/shorten.html" },
+    { "source": "/code", "destination": "/code.html" },
+    { "source": "/c-palette", "destination": "/c-palette.html" },
     { "source": "/kebijakan", "destination": "/kebijakan.html" }
   ],
   "headers": [
