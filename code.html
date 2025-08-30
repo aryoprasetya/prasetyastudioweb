@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prasetya Studio - Barcode & QR Generator</title>
+<link rel="icon" href="images/logo duwa.png" type="image/png">
+
+<!-- Font Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Boxicons -->
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<!-- JsBarcode, QRCode.js, Html5 QRCode -->
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+
+<style>
+:root { --primary:#3B83F6; --bg:#f8fafc; --card:#fff; --text:#1e293b; --muted:#64748b; }
+body.dark { --bg:#0f172a; --card:#1e293b; --text:#f1f5f9; --muted:#94a3b8; }
+body { margin:0; font-family:'Manrope',sans-serif; background:var(--bg); color:var(--text);
+display:flex; justify-content:center; align-items:center; min-height:100vh; padding:1rem; transition:0.3s;}
+.container { background:var(--card); padding:2rem; border-radius:1rem; width:100%; max-width:600px;
+box-shadow:0 8px 25px rgba(0,0,0,0.1); position:relative; transition:0.3s; text-align:center;}
+.logo { width:80px; margin-bottom:1rem; }
+h1 { font-size:1.8rem; font-weight:700; margin-bottom:1.5rem; color:var(--primary); }
+.dark-toggle { position:absolute; top:1rem; right:1rem; background:transparent; border:none; font-size:1.5rem; cursor:pointer; color:var(--muted); transition:0.3s; }
+.dark-toggle:hover { color:var(--primary); }
+.tabs { display:flex; justify-content:center; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap; }
+.tab { padding:0.6rem 1rem; border-radius:0.6rem; cursor:pointer; background:var(--bg); font-weight:600; color:var(--text); border:1px solid #cbd5e1; transition:0.3s; }
+.tab.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+.tab-content { display:none; text-align:center; }
+.tab-content.active { display:block; }
+.input-group { margin-bottom:1rem; display:flex; justify-content:center; gap:0.5rem; flex-wrap:wrap; }
+.input-group input[type="text"], .input-group input[type="color"], .input-group input[type="number"], .input-group select { padding:0.6rem 0.8rem; border-radius:0.6rem; border:1px solid #cbd5e1; font-size:1rem; min-width:120px; }
+.btn-group { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:0.8rem; }
+/* Tombol modern */
+button { display:inline-flex; align-items:center; gap:0.4rem; padding:0.65rem 1.2rem; border-radius:0.8rem; font-weight:600; font-size:1rem; cursor:pointer; border:none; transition:all 0.3s ease; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+button i { font-size:1.2rem; }
+button.generate { background: linear-gradient(135deg,#3B83F6,#1D4ED8); color:#fff; }
+button.generate:hover { transform:translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.15); }
+button.download { background: linear-gradient(135deg,#10B981,#059669); color:#fff; }
+button.download:hover { transform:translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.15); }
+button.clear { background: linear-gradient(135deg,#EF4444,#B91C1C); color:#fff; }
+button.clear:hover { transform:translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.15); }
+button.copy-btn { background: linear-gradient(135deg,#F59E0B,#D97706); color:#fff; }
+button.copy-btn:hover { transform:translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.15); }
+canvas, svg { margin-top:1rem; max-width:100%; }
+.result { margin-top:1rem; font-size:0.95rem; padding:0.8rem; background:#eff6ff; border-radius:0.6rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem; word-break:break-all; display:none; }
+body.dark .result { background:#1e3a8a33; }
+.notes { text-align:left; margin-top:1rem; font-size:0.9rem; color:var(--muted); }
+.note-item { display:flex; align-items:flex-start; gap:0.6rem; margin-bottom:0.5rem; }
+.note-item i { font-size:1.2rem; color:var(--primary); margin-top:0.1rem; }
+.credits { margin-top:2rem; font-size:0.85rem; color:var(--muted); display:flex; flex-direction:column; gap:0.5rem; align-items:center; }
+.credits img { height:28px; }
+.toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--primary); color:#fff; padding:0.7rem 1.2rem; border-radius:0.6rem;
+font-size:0.9rem; box-shadow:0 4px 12px rgba(0,0,0,0.2); opacity:0; pointer-events:none; transition:opacity 0.3s ease, transform 0.3s ease; z-index:9999; }
+.toast.show { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(-10px); }
+</style>
+</head>
+<body>
+<div class="container">
+<button class="dark-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode"><i id="themeIcon" class='bx bx-moon'></i></button>
+<img src="images/QWER.png" alt="Prasetya Studio" class="logo">
+<h1>Prasetya Studio Barcode & QR</h1>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('barcode-tab')">Barcode</div>
+  <div class="tab" onclick="showTab('qrcode-tab')">QR Code</div>
+  <div class="tab" onclick="showTab('scan-tab')">Scanner</div>
+</div>
+
+<!-- Barcode Tab -->
+<div id="barcode-tab" class="tab-content active">
+<div class="input-group">
+<input type="text" id="barcode-input" placeholder="Masukkan teks / angka">
+<input type="number" id="barcode-width" placeholder="Lebar" value="2">
+<input type="number" id="barcode-height" placeholder="Tinggi" value="50">
+</div>
+<div class="btn-group">
+<button class="generate" onclick="generateBarcode()"><i class='bx bx-barcode'></i> Generate</button>
+<button class="download" onclick="downloadSVG('barcode')"><i class='bx bx-download'></i> Download</button>
+<button class="clear" onclick="clearBarcode()"><i class='bx bx-trash'></i> Clear</button>
+</div>
+<svg id="barcode"></svg>
+<div class="notes">
+<div class="note-item"><i class='bx bx-info-circle'></i> Barcode format: CODE128</div>
+<div class="note-item"><i class='bx bx-info-circle'></i> Sesuaikan lebar/tinggi untuk ukuran optimal</div>
+</div>
+</div>
+
+<!-- QR Code Tab -->
+<div id="qrcode-tab" class="tab-content">
+<div class="input-group">
+<input type="text" id="qrcode-input" placeholder="Masukkan teks / URL">
+<input type="color" id="qr-dark1" value="#3B83F6" title="Warna Gradient Dark 1">
+<input type="color" id="qr-dark2" value="#1D4ED8" title="Warna Gradient Dark 2">
+<input type="color" id="qr-light" value="#ffffff" title="Warna Background">
+<input type="number" id="qr-size" placeholder="Ukuran" value="200">
+</div>
+<div class="btn-group">
+<button class="generate" onclick="generateGradientQRCode()"><i class='bx bx-qrcode'></i> Generate</button>
+<button class="download" onclick="downloadCanvas('qrcode')"><i class='bx bx-download'></i> Download</button>
+<button class="clear" onclick="clearQRCode()"><i class='bx bx-trash'></i> Clear</button>
+</div>
+<canvas id="qrcode"></canvas>
+<div class="notes">
+<div class="note-item"><i class='bx bx-info-circle'></i> QR bisa gradient 2 warna sesuai input</div>
+<div class="note-item"><i class='bx bx-info-circle'></i> Sesuaikan ukuran untuk cetak/digital</div>
+</div>
+</div>
+
+<!-- Scanner Tab -->
+<div id="scan-tab" class="tab-content">
+<div class="input-group">
+<select id="camera-select"></select>
+<button class="generate" onclick="restartScanner()"><i class='bx bx-camera'></i> Start / Switch</button>
+</div>
+<div id="reader" style="width:100%; height:250px; margin-bottom:1rem;"></div>
+<div id="scan-result" class="result">
+<span id="scan-text"></span>
+<button class="copy-btn" onclick="copyScan()"><i class='bx bx-copy'></i></button>
+<button class="clear" onclick="clearScan()"><i class='bx bx-trash'></i></button>
+</div>
+<div class="notes">
+<div class="note-item"><i class='bx bx-info-circle'></i> Pilih kamera yang diinginkan (depan/belakang)</div>
+<div class="note-item"><i class='bx bx-info-circle'></i> Hasil scan bisa disalin</div>
+</div>
+</div>
+
+<div class="credits">
+<span>Managed by:</span>
+<img src="images/managed.png" alt="Prasetya Studio">
+</div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+// Dark mode
+function toggleDarkMode(){ const body=document.body; const icon=document.getElementById("themeIcon");
+body.classList.toggle("dark"); icon.classList.toggle("bx-moon"); icon.classList.toggle("bx-sun"); }
+function showTab(tabId){ document.querySelectorAll('.tab-content').forEach(tc=>tc.classList.remove('active'));
+document.getElementById(tabId).classList.add('active'); document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active'); }
+function showToast(msg){ const toast=document.getElementById("toast"); toast.textContent=msg; toast.classList.add("show");
+setTimeout(()=>{toast.classList.remove("show");},2500); }
+
+// Barcode
+function generateBarcode(){
+  const val=document.getElementById("barcode-input").value;
+  const width=parseInt(document.getElementById("barcode-width").value)||2;
+  const height=parseInt(document.getElementById("barcode-height").value)||50;
+  if(!val) return showToast("Masukkan teks / angka!");
+  JsBarcode("#barcode", val, {format:"CODE128", lineColor:"#3B83F6", width:width, height:height, displayValue:true});
+  showToast("Barcode berhasil dibuat!");
+}
+function downloadSVG(id){
+  const svg=document.getElementById(id); if(!svg.hasChildNodes()) return showToast("Generate dulu!");
+  const serializer=new XMLSerializer(); const source=serializer.serializeToString(svg);
+  const blob=new Blob([source], {type:"image/svg+xml;charset=utf-8"}); const url=URL.createObjectURL(blob);
+  const a=document.createElement("a"); a.href=url; a.download=id+".svg"; a.click(); URL.revokeObjectURL(url);
+  showToast("Barcode berhasil diunduh!");
+}
+function clearBarcode(){ document.getElementById("barcode").innerHTML=""; showToast("Barcode dihapus"); }
+
+// QR Gradient
+function generateGradientQRCode(){
+  const val=document.getElementById("qrcode-input").value;
+  const size=parseInt(document.getElementById("qr-size").value)||200;
+  if(!val) return showToast("Masukkan teks / URL!");
+  const dark1=document.getElementById("qr-dark1").value;
+  const dark2=document.getElementById("qr-dark2").value;
+  const light=document.getElementById("qr-light").value;
+  const canvas=document.getElementById("qrcode");
+  canvas.width=canvas.height=size;
+
+  const ctx=canvas.getContext("2d");
+  // buat QR canvas hitam putih dulu
+  QRCode.toCanvas(canvas, val, { width: size, color: { dark:"#000000", light:light } }, function(err){
+    if(err) return console.error(err);
+    // overlay gradient
+    const imgData=ctx.getImageData(0,0,size,size);
+    const gradColors = [parseInt(dark1.slice(1),16), parseInt(dark2.slice(1),16)];
+    for(let y=0;y<size;y++){
+      for(let x=0;x<size;x++){
+        let idx=(y*size+x)*4;
+        if(imgData.data[idx]<128){ // hitam
+          const ratio=x/size;
+          // linear interpolation
+          const color = [
+            Math.round(parseInt(dark1.slice(1,3),16)*(1-ratio)+parseInt(dark2.slice(1,3),16)*ratio),
+            Math.round(parseInt(dark1.slice(3,5),16)*(1-ratio)+parseInt(dark2.slice(3,5),16)*ratio),
+            Math.round(parseInt(dark1.slice(5,7),16)*(1-ratio)+parseInt(dark2.slice(5,7),16)*ratio)
+          ];
+          imgData.data[idx]=color[0]; imgData.data[idx+1]=color[1]; imgData.data[idx+2]=color[2];
+        }
+      }
+    }
+    ctx.putImageData(imgData,0,0);
+    showToast("QR Code berhasil dibuat!");
+  });
+}
+function downloadCanvas(id){
+  const canvas=document.getElementById(id); if(!canvas.toDataURL) return showToast("Generate dulu!");
+  const url=canvas.toDataURL("image/png"); const a=document.createElement("a"); a.href=url; a.download=id+".png"; a.click();
+  showToast("QR Code berhasil diunduh!");
+}
+function clearQRCode(){ const c=document.getElementById("qrcode"); const ctx=c.getContext("2d"); ctx.clearRect(0,0,c.width,c.height); showToast("QR Code dihapus"); }
+
+// Scanner
+let html5QrCode, currentCameraId;
+async function initCameras(){
+  const cameras=await Html5Qrcode.getCameras();
+  const select=document.getElementById("camera-select"); select.innerHTML="";
+  cameras.forEach(c=>{ const opt=document.createElement("option"); opt.value=c.id; opt.text=c.label; select.appendChild(opt); });
+  currentCameraId=cameras[0]?.id;
+}
+async function startScanner(id=currentCameraId){
+  if(!id) return;
+  html5QrCode=new Html5Qrcode("reader");
+  html5QrCode.start(id,{fps:10, qrbox:250}, qrMsg=>{
+    document.getElementById("scan-result").style.display="flex";
+    document.getElementById("scan-text").innerText=qrMsg;
+  }, err=>{});
+}
+async function restartScanner(){ if(html5QrCode) await html5QrCode.stop(); currentCameraId=document.getElementById("camera-select").value; startScanner(currentCameraId); }
+function copyScan(){ const text=document.getElementById("scan-text").innerText; if(!text) return showToast("Belum ada hasil scan!");
+navigator.clipboard.writeText(text).then(()=>showToast("Hasil scan berhasil disalin!")); }
+function clearScan(){ document.getElementById("scan-text").innerText=""; document.getElementById("scan-result").style.display="none"; showToast("Hasil scan dihapus"); }
+
+initCameras().then(()=>startScanner());
+</script>
+</body>
+</html>
