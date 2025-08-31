@@ -79,39 +79,42 @@ cekGaransiForm.addEventListener('submit', async (e) => {
   garansiHabis.setDate(garansiHabis.getDate() + 10);
   const sisaHari = Math.ceil((garansiHabis - today) / (1000*60*60*24));
 
-  let status = '';
-  let garansiMsg = '';
-
+  let btnHTML = '';
   if(sisaHari >= 0){
-    status = 'active';
-    garansiMsg = `Garansi masih berlaku hingga ${garansiHabis.toLocaleDateString('id-ID')}`;
+    // Garansi masih berlaku → tombol Klaim
     hasilGaransi.className = "mt-6 p-5 rounded-xl border border-green-400 bg-green-50 text-green-700";
+    btnHTML = `<button type="button" id="btnAction" class="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Klaim Garansi</button>`;
   } else {
-    status = 'expired';
-    garansiMsg = `Garansi sudah habis sejak ${Math.abs(sisaHari)} hari lalu`;
+    // Garansi habis → tombol Kembali
     hasilGaransi.className = "mt-6 p-5 rounded-xl border border-yellow-400 bg-yellow-50 text-yellow-800";
+    btnHTML = `<button type="button" id="btnAction" class="mt-4 px-4 py-2 rounded-lg bg-gray-600 text-white hover:bg-gray-700">Kembali</button>`;
   }
 
   hasilGaransi.innerHTML = `
-    <p class="font-semibold">${garansiMsg}</p>
+    <p class="font-semibold">${sisaHari >=0 ? 'Garansi masih berlaku hingga ' + garansiHabis.toLocaleDateString('id-ID') : 'Garansi sudah habis sejak ' + Math.abs(sisaHari) + ' hari lalu'}</p>
     <div class="mt-2 text-gray-800">
       <p><strong>Nomor Invoice:</strong> ${inv}</p>
       <p><strong>Tanggal Order:</strong> ${tgl}</p>
     </div>
-    <button type="button" id="btnKlaim" class="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
-      Klaim Garansi
-    </button>
+    ${btnHTML}
   `;
 
   lastHasilGaransiHTML = hasilGaransi.innerHTML;
 
-  const btnKlaim = document.getElementById('btnKlaim');
-  btnKlaim.addEventListener('click', () => {
-    document.getElementById('tglForm').value = tgl;
-    document.getElementById('namaOrder').value ="";
-    formKlaimSection.classList.remove('hidden');
-    generateCaptcha();
-    hasilGaransi.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Event tombol
+  const btnAction = document.getElementById('btnAction');
+  btnAction.addEventListener('click', () => {
+    if(sisaHari >= 0){
+      // Klaim
+      document.getElementById('tglForm').value = tgl;
+      document.getElementById('namaOrder').value = "";
+      formKlaimSection.classList.remove('hidden');
+      generateCaptcha();
+      hasilGaransi.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Kembali ke beranda
+      window.location.href = "index.html"; // ganti dengan link beranda
+    }
   });
 });
 
