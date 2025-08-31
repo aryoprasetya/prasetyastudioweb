@@ -113,7 +113,7 @@ cekGaransiForm.addEventListener('submit', async (e) => {
       hasilGaransi.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       // Kembali ke beranda
-      window.location.href = "index.html"; // ganti dengan link beranda
+      window.location.href = "home"; // ganti dengan link beranda
     }
   });
 });
