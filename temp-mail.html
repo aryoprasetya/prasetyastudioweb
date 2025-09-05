@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temp Mail – Prasetya Studio</title>
+  <link rel="icon" href="images/logo duwa.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <style>
+    :root {
+      --primary: #3B83F6;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 1rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      width: 100%;
+      max-width: 960px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .dark-toggle {
+      background: transparent;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+
+    .dark-toggle:hover { color: var(--primary); }
+
+    /* EMAIL BOX FULL WIDTH */
+    .email-box {
+      display: flex;
+      width: 100%;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .email-box input,
+    .email-box select {
+      flex: 1;
+      padding: 0.6rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .email-box button {
+      flex: 0 0 auto;
+      padding: 0.6rem 1.2rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .email-box button:hover {
+      background: #1d4ed8;
+    }
+
+    .address-display {
+      margin-bottom: 1rem;
+    }
+
+    .address-display span {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .actions button {
+      flex: 1;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.25s;
+    }
+
+    .btn-copy { background: var(--primary); color: #fff; }
+    .btn-refresh { background: #22c55e; color: #fff; }
+    .btn-delete { background: #ef4444; color: #fff; }
+
+    .btn-copy:hover { background: #1d4ed8; }
+    .btn-refresh:hover { background: #16a34a; }
+    .btn-delete:hover { background: #dc2626; }
+
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1rem;
+    }
+
+    .box {
+      background: var(--bg);
+      border: 1px solid #cbd5e1;
+      border-radius: 0.8rem;
+      padding: 1rem;
+      min-height: 300px;
+    }
+
+    .box h2 {
+      margin: 0 0 0.8rem 0;
+      font-size: 1.1rem;
+    }
+
+    .message-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .message-list li {
+      padding: 0.6rem;
+      border-bottom: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .message-list li:hover {
+      background: #f1f5f9;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      border-radius: 0.6rem;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(-10px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Temp Mail – Prasetya Studio</h1>
+      <button class="dark-toggle" onclick="toggleDarkMode()">
+        <i id="themeIcon" class='bx bx-moon'></i>
+      </button>
+    </div>
+
+    <!-- EMAIL BOX FULL WIDTH -->
+    <div class="email-box">
+      <input type="text" id="usernameInput" placeholder="Buat username (opsional)">
+      <select id="domainSelect">
+        <option value="1secmail.com">1secmail.com</option>
+        <option value="1secmail.org">1secmail.org</option>
+        <option value="1secmail.net">1secmail.net</option>
+      </select>
+      <button id="createBtn">Buat</button>
+    </div>
+
+    <div class="address-display">
+      Alamat saat ini: <span id="currentEmail">–</span>
+    </div>
+
+    <div class="actions">
+      <button class="btn-copy" onclick="copyEmail()">Salin</button>
+      <button class="btn-refresh" onclick="loadMessages()">Refresh Kotak</button>
+      <button class="btn-delete" onclick="clearMessages()">Hapus Semua</button>
+    </div>
+
+    <div class="main">
+      <div class="box">
+        <h2>Pesan Masuk</h2>
+        <ul id="messageList" class="message-list">
+          <li>Tidak ada pesan.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Pratinjau Pesan</h2>
+        <div id="messagePreview">Pilih pesan untuk melihat isi.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Email disalin!</div>
+
+  <script>
+    const emailSpan = document.getElementById("currentEmail");
+    const messageList = document.getElementById("messageList");
+    const messagePreview = document.getElementById("messagePreview");
+    const toastEl = document.getElementById("toast");
+
+    let currentEmail = "";
+
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      setTimeout(() => toastEl.classList.remove("show"), 2000);
+    }
+
+    document.getElementById("createBtn").addEventListener("click", () => {
+      const username = document.getElementById("usernameInput").value || Math.random().toString(36).substring(2, 10);
+      const domain = document.getElementById("domainSelect").value;
+      currentEmail = `${username}@${domain}`;
+      emailSpan.textContent = currentEmail;
+      loadMessages();
+    });
+
+    function copyEmail() {
+      if (!currentEmail) return showToast("Buat email dulu!");
+      navigator.clipboard.writeText(currentEmail);
+      showToast("Alamat email disalin!");
+    }
+
+    async function loadMessages() {
+      if (!currentEmail) return showToast("Buat email dulu!");
+      const [login, domain] = currentEmail.split("@");
+      const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${login}&domain=${domain}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      messageList.innerHTML = "";
+      if (!data.length) {
+        messageList.innerHTML = "<li>Tidak ada pesan.</li>";
+        return;
+      }
+
+      data.forEach(msg => {
+        const li = document.createElement("li");
+        li.textContent = msg.from + " - " + msg.subject;
+        li.onclick = () => loadMessageContent(login, domain, msg.id);
+        messageList.appendChild(li);
+      });
+    }
+
+    async function loadMessageContent(login, domain, id) {
+      const url = `https://www.1secmail.com/api/v1/?action=readMessage&login=${login}&domain=${domain}&id=${id}`;
+      const res = await fetch(url);
+      const msg = await res.json();
+      messagePreview.innerHTML = `
+        <p><strong>Dari:</strong> ${msg.from}</p>
+        <p><strong>Subjek:</strong> ${msg.subject}</p>
+        <p><strong>Tanggal:</strong> ${msg.date}</p>
+        <hr>
+        <div>${msg.body}</div>
+      `;
+    }
+
+    function clearMessages() {
+      messageList.innerHTML = "<li>Tidak ada pesan.</li>";
+      messagePreview.innerHTML = "Pilih pesan untuk melihat isi.";
+    }
+
+    function toggleDarkMode() {
+      const body = document.body;
+      const icon = document.getElementById("themeIcon");
+      body.classList.toggle("dark");
+      if (body.classList.contains("dark")) {
+        icon.classList.replace("bx-moon", "bx-sun");
+      } else {
+        icon.classList.replace("bx-sun", "bx-moon");
+      }
+    }
+  </script>
+</body>
+</html>
