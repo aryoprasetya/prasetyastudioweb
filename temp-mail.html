@@ -203,6 +203,19 @@
       vertical-align: middle;
       margin-right: 6px;
     }
+    .credits {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.credits img {
+  height: 28px;
+  margin-top: 0.3rem;
+}
   </style>
 </head>
 <body>
@@ -258,14 +271,14 @@
         <li><i class='bx bx-refresh'></i> Klik Refresh untuk memeriksa pesan baru.</li>
       </ul>
     </div>
+     <!-- Managed by -->
+  <div class="credits">
+    <span>Managed by:</span>
+    <img src="assets/managed.png" alt="Logo">
   </div>
-
-  <!-- Footer -->
-  <footer>
-    <img src="images/managed.png" alt="Prasetya Studio Logo">
-    Managed by <strong>Prasetya Studio</strong>
-  </footer>
-
+</div>
+  </div>
+  
   <!-- Toast -->
   <div id="toast" class="toast">Email disalin!</div>
 
