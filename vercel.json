@@ -32,6 +32,7 @@
     { "source": "/shorten", "destination": "/shorten.html" },
     { "source": "/code", "destination": "/code.html" },
     { "source": "/c-palette", "destination": "/c-palette.html" },
+    { "source": "/temp-mail", "destination": "/temp-mail.html" },
     { "source": "/kebijakan", "destination": "/kebijakan.html" }
   ],
   "headers": [
