@@ -30,39 +30,41 @@
       background: var(--bg);
       color: var(--text);
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
       min-height: 100vh;
-      padding: 1rem;
       transition: background 0.3s, color 0.3s;
     }
 
     .container {
       background: var(--card);
-      padding: 1.5rem;
+      padding: 2rem;
       border-radius: 1rem;
+      text-align: center;
       width: 100%;
-      max-width: 960px;
+      max-width: 600px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.08);
       transition: background 0.3s, color 0.3s;
+      margin: 2rem auto;
       position: relative;
     }
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.2rem;
+    .logo {
+      width: 70px;
+      margin-bottom: 1rem;
     }
 
-    .header h1 {
+    h1 {
       font-size: 1.4rem;
       font-weight: 700;
+      margin-bottom: 1.2rem;
       color: var(--primary);
-      margin: 0;
     }
 
+    /* Dark mode toggle */
     .dark-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
       background: transparent;
       border: none;
       font-size: 1.4rem;
@@ -70,15 +72,15 @@
       color: var(--muted);
       transition: color 0.3s;
     }
-
     .dark-toggle:hover { color: var(--primary); }
 
-    /* EMAIL BOX FULL WIDTH */
+    /* Email input */
     .email-box {
       display: flex;
-      width: 100%;
+      flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 1rem;
+      justify-content: center;
     }
 
     .email-box input,
@@ -88,27 +90,24 @@
       border: 1px solid #cbd5e1;
       border-radius: 0.5rem;
       font-size: 1rem;
+      min-width: 140px;
     }
 
     .email-box button {
-      flex: 0 0 auto;
-      padding: 0.6rem 1.2rem;
       background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 0.5rem;
+      padding: 0.6rem 1.2rem;
       cursor: pointer;
       transition: 0.25s;
     }
-
-    .email-box button:hover {
-      background: #1d4ed8;
-    }
+    .email-box button:hover { background: #1d4ed8; }
 
     .address-display {
       margin-bottom: 1rem;
+      font-size: 0.95rem;
     }
-
     .address-display span {
       font-weight: 600;
       color: var(--primary);
@@ -116,64 +115,59 @@
 
     .actions {
       display: flex;
+      flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 1.5rem;
+      justify-content: center;
     }
 
     .actions button {
       flex: 1;
+      min-width: 100px;
       padding: 0.6rem;
       border: none;
       border-radius: 0.5rem;
       cursor: pointer;
       font-weight: 600;
       transition: 0.25s;
+      color: #fff;
     }
-
-    .btn-copy { background: var(--primary); color: #fff; }
-    .btn-refresh { background: #22c55e; color: #fff; }
-    .btn-delete { background: #ef4444; color: #fff; }
-
+    .btn-copy { background: var(--primary); }
+    .btn-refresh { background: #22c55e; }
+    .btn-delete { background: #ef4444; }
     .btn-copy:hover { background: #1d4ed8; }
     .btn-refresh:hover { background: #16a34a; }
     .btn-delete:hover { background: #dc2626; }
-
-    .main {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 1rem;
-    }
 
     .box {
       background: var(--bg);
       border: 1px solid #cbd5e1;
       border-radius: 0.8rem;
       padding: 1rem;
-      min-height: 300px;
+      margin-bottom: 1rem;
+      text-align: left;
     }
-
     .box h2 {
       margin: 0 0 0.8rem 0;
       font-size: 1.1rem;
+      color: var(--primary);
     }
 
     .message-list {
       list-style: none;
       padding: 0;
       margin: 0;
+      font-size: 0.95rem;
     }
-
     .message-list li {
       padding: 0.6rem;
       border-bottom: 1px solid #e2e8f0;
       cursor: pointer;
       transition: background 0.2s;
     }
+    .message-list li:hover { background: #f1f5f9; }
 
-    .message-list li:hover {
-      background: #f1f5f9;
-    }
-
+    /* Toast */
     .toast {
       position: fixed;
       bottom: 20px;
@@ -190,24 +184,37 @@
       transition: opacity 0.3s ease, transform 0.3s ease;
       z-index: 9999;
     }
-
     .toast.show {
       opacity: 1;
       pointer-events: auto;
       transform: translateX(-50%) translateY(-10px);
     }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    footer img {
+      width: 28px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>Temp Mail – Prasetya Studio</h1>
-      <button class="dark-toggle" onclick="toggleDarkMode()">
-        <i id="themeIcon" class='bx bx-moon'></i>
-      </button>
-    </div>
+    <button class="dark-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+      <i id="themeIcon" class='bx bx-moon'></i>
+    </button>
 
-    <!-- EMAIL BOX FULL WIDTH -->
+    <img src="images/TEMP.png" alt="Logo" class="logo">
+    <h1>Temporary Mail – Prasetya Studio</h1>
+
+    <!-- Email Box -->
     <div class="email-box">
       <input type="text" id="usernameInput" placeholder="Buat username (opsional)">
       <select id="domainSelect">
@@ -228,20 +235,38 @@
       <button class="btn-delete" onclick="clearMessages()">Hapus Semua</button>
     </div>
 
-    <div class="main">
-      <div class="box">
-        <h2>Pesan Masuk</h2>
-        <ul id="messageList" class="message-list">
-          <li>Tidak ada pesan.</li>
-        </ul>
-      </div>
-      <div class="box">
-        <h2>Pratinjau Pesan</h2>
-        <div id="messagePreview">Pilih pesan untuk melihat isi.</div>
-      </div>
+    <!-- Pesan Masuk -->
+    <div class="box">
+      <h2>Pesan Masuk</h2>
+      <ul id="messageList" class="message-list">
+        <li>Tidak ada pesan.</li>
+      </ul>
+    </div>
+
+    <!-- Pratinjau Pesan -->
+    <div class="box">
+      <h2>Pratinjau Pesan</h2>
+      <div id="messagePreview">Pilih pesan untuk melihat isi.</div>
+    </div>
+
+    <!-- Catatan -->
+    <div class="box">
+      <h2>Catatan</h2>
+      <ul style="list-style:none; padding:0; margin:0; font-size:0.9rem; color:var(--muted);">
+        <li><i class='bx bx-info-circle'></i> Email ini bersifat sementara, pesan bisa hilang kapan saja.</li>
+        <li><i class='bx bx-shield-quarter'></i> Jangan gunakan untuk data sensitif.</li>
+        <li><i class='bx bx-refresh'></i> Klik Refresh untuk memeriksa pesan baru.</li>
+      </ul>
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer>
+    <img src="images/managed.png" alt="Prasetya Studio Logo">
+    Managed by <strong>Prasetya Studio</strong>
+  </footer>
+
+  <!-- Toast -->
   <div id="toast" class="toast">Email disalin!</div>
 
   <script>
@@ -249,7 +274,6 @@
     const messageList = document.getElementById("messageList");
     const messagePreview = document.getElementById("messagePreview");
     const toastEl = document.getElementById("toast");
-
     let currentEmail = "";
 
     function showToast(msg) {
