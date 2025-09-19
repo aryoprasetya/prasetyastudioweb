@@ -33,6 +33,7 @@
     { "source": "/code", "destination": "/code.html" },
     { "source": "/c-palette", "destination": "/c-palette.html" },
     { "source": "/temp-mail", "destination": "/temp-mail.html" },
+    { "source": "/dkrpunggelan-register", "destination": "/dkrpunggelan-register.html" },
     { "source": "/kebijakan", "destination": "/kebijakan.html" }
   ],
   "headers": [
