@@ -581,9 +581,10 @@ tglLahir.addEventListener("change", function() {
 
 </script>
 <!-- MENU AKSESIBILITAS -->
-<div id="aksesibilitasMenu" class="fixed bottom-6 right-6">
+<div id="aksesibilitasMenu" class="fixed bottom-6 right-6 z-50">
   <!-- Tombol utama -->
-  <button type="button" id="aksesBtn" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition">
+  <button type="button" id="aksesBtn" 
+    class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition">
     <i class='bx bx-universal-access text-2xl'></i>
   </button>
   
@@ -608,71 +609,75 @@ tglLahir.addEventListener("change", function() {
 </div>
 
 <script>
-const resetFormBtn = document.getElementById("resetFormBtn");
-
-resetFormBtn.addEventListener("click", ()=> {
-  if(confirm("Apakah Anda yakin ingin mengosongkan seluruh formulir?")) {
-    form.reset();
-    // Reset ke step pertama
-    currentStep = 0;
-    updateStep();
-    // Sembunyikan preview bukti & status
-    previewBukti.classList.add("hidden");
-    statusMsg.classList.add("hidden");
-    // Sembunyikan jabaran tugas
-    jabaranBox.classList.add("hidden");
-  }
-});
-
-// Toggle panel aksesibilitas
 const aksesBtn = document.getElementById("aksesBtn");
 const aksesPanel = document.getElementById("aksesPanel");
+let kontraskMode = false;
+let currentFontSize = 16;
+
+// Toggle panel aksesibilitas
 aksesBtn.addEventListener("click", ()=> {
   aksesPanel.classList.toggle("hidden");
 });
 
-// === FITUR ===
-
 // Text-to-Speech
 document.getElementById("ttsBtn").addEventListener("click", ()=>{
-  let teks = document.body.innerText;
-  let utterance = new SpeechSynthesisUtterance(teks);
+  const teks = document.body.innerText;
+  const utterance = new SpeechSynthesisUtterance(teks);
   utterance.lang = "id-ID";
   speechSynthesis.speak(utterance);
 });
 
-// Perbesar & Perkecil teks
-let currentFontSize = 16;
+// Perbesar teks
 document.getElementById("zoomInBtn").addEventListener("click", ()=>{
   currentFontSize += 2;
   document.body.style.fontSize = currentFontSize + "px";
 });
+
+// Perkecil teks
 document.getElementById("zoomOutBtn").addEventListener("click", ()=>{
   currentFontSize = Math.max(12, currentFontSize - 2);
   document.body.style.fontSize = currentFontSize + "px";
 });
 
-// Mode Kontras
-let kontrastMode = false;
+// Mode kontras tinggi
 document.getElementById("contrastBtn").addEventListener("click", ()=>{
-  kontrastMode = !kontrastMode;
-  if(kontrastMode){
+  kontraskMode = !kontraskMode;
+  if(kontraskMode){
     document.body.style.backgroundColor = "#000";
     document.body.style.color = "#fff";
+    document.querySelectorAll("a").forEach(a => a.style.color = "#0ff");
+    document.querySelectorAll("button").forEach(b => b.style.filter = "invert(1)");
   } else {
     document.body.style.backgroundColor = "";
     document.body.style.color = "";
+    document.querySelectorAll("a").forEach(a => a.style.color = "");
+    document.querySelectorAll("button").forEach(b => b.style.filter = "");
   }
 });
 
-// Reset Aksesibilitas
+// Reset aksesibilitas
 document.getElementById("resetBtn").addEventListener("click", ()=>{
+  currentFontSize = 16;
   document.body.style.fontSize = "";
+  kontraskMode = false;
   document.body.style.backgroundColor = "";
   document.body.style.color = "";
-  kontrastMode = false;
+  document.querySelectorAll("a").forEach(a => a.style.color = "");
+  document.querySelectorAll("button").forEach(b => b.style.filter = "");
 });
 </script>
+
+<style>
+/* Pastikan panel aksesibilitas muncul di atas konten lain */
+#aksesibilitasMenu {
+  z-index: 9999;
+}
+
+/* Animasi fade panel */
+#aksesPanel {
+  transition: all 0.3s ease;
+}
+</style>
 
 </body>
 </html>
