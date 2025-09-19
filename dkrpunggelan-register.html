@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pendaftaran DKR Punggelan 2026-2028</title>
+  <link rel="icon" href="images/Pramuka,_Lambang_Dewan_Kerja_Ranting.svg" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("MMZjllxNncydFYOOW"); // ganti dengan User ID EmailJS
+    })();
+  </script>
+  <style>
+    body { font-family: 'Manrope', sans-serif; }
+    .required::after { content:" *"; color:red; }
+    .step-active { background: linear-gradient(to right, #ff3131, #ff914d); color:white; }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+ <!-- LOGO SECTION -->
+<section class="bg-white py-4 shadow">
+  <div class="max-w-5xl mx-auto flex justify-center items-center">
+    <img src="images/LOGO.png" alt="Gerakan Pramuka" class="h-12 w-auto">
+  </div>
+</section>
+
+  <!-- TITLE -->
+  <header class="text-center py-8 bg-gradient-to-r from-blue-700 to-blue-500 text-white shadow-lg">
+    <h1 class="text-2xl md:text-3xl font-bold leading-snug">
+      Formulir Pendaftaran<br/>
+      Dewan Kerja Ranting Punggelan<br/>
+      Masa Bakti 2026 – 2028
+    </h1>
+    <p class="mt-2 text-sm md:text-base font-light italic">"Saatnya Berkarya, Saatnya Mengabdi di Dewan Kerja"</p>
+  </header>
+
+  <!-- STEP INDICATOR -->
+  <div class="max-w-4xl mx-auto flex justify-between mt-6 px-4">
+    <div class="flex-1 text-center step step-active py-2 rounded-lg mx-1">Data Diri</div>
+    <div class="flex-1 text-center step py-2 rounded-lg mx-1">Pendidikan</div>
+    <div class="flex-1 text-center step py-2 rounded-lg mx-1">Kepramukaan</div>
+    <div class="flex-1 text-center step py-2 rounded-lg mx-1">Konfirmasi</div>
+  </div>
+
+  <!-- DESKRIPSI -->
+  <section class="max-w-4xl mx-auto bg-white shadow-md rounded-xl p-6 mt-6 text-gray-700 animate-fadeIn">
+    <h2 class="text-lg font-semibold mb-2 flex items-center gap-2">
+      <i class='bx bx-info-circle text-blue-600 text-xl'></i> Informasi
+    </h2>
+    <p class="text-sm leading-relaxed">
+      Formulir ini digunakan untuk pendaftaran <strong>Dewan Kerja Ranting (DKR) Punggelan Masa Bakti 2026–2028</strong>.
+      Mohon diisi dengan data yang benar dan lengkap. Data yang bertanda <span class="text-red-600">*</span> wajib diisi.
+      Setelah mengirim, Anda dapat mencetak <strong>Bukti Pendaftaran</strong> sebagai arsip pribadi.
+    </p>
+  </section>
+
+  <!-- FORMULIR -->
+  <main class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-6 mb-20 animate-fadeIn">
+    <form id="pendaftaranForm" class="space-y-6">
+      <!-- Step 1: Data Diri -->
+      <div class="form-step block">
+        <h2 class="text-lg font-semibold text-blue-700 border-b pb-2 flex items-center gap-2">
+          <i class='bx bx-user'></i> Data Diri
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label class="block font-medium required">Nama Lengkap</label>
+            <input type="text" name="nama" required class="w-full mt-1 p-2 border rounded"/>
+          </div>
+          <div>
+            <label class="block font-medium required">NIK</label>
+            <input type="text" name="nik" required class="w-full mt-1 p-2 border rounded"/>
+            <p class="text-xs text-gray-500 italic mt-1">Untuk sementara boleh dikosongi dengan strip (-).</p>
+          </div>
+          <div>
+            <label class="block font-medium required">Tempat Lahir</label>
+            <input type="text" name="tempat_lahir" required class="w-full mt-1 p-2 border rounded"/>
+          </div>
+          <div>
+            <label class="block font-medium required">Tanggal Lahir</label>
+            <input type="date" name="tanggal_lahir" required class="w-full mt-1 p-2 border rounded"/>
+          </div>
+          <div>
+            <label class="block font-medium required">Jenis Kelamin</label>
+            <select name="jk" required class="w-full mt-1 p-2 border rounded">
+              <option value="">-- Pilih --</option>
+              <option>Laki-laki</option>
+              <option>Perempuan</option>
+            </select>
+          </div>
+          <!-- Agama -->
+<div>
+  <label for="agama" class="block text-gray-700 font-medium">Agama <span class="text-red-500">*</span></label>
+  <select id="agama" name="agama" required
+    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+    <option value="" disabled selected>-- Pilih Agama --</option>
+    <option value="Islam">Islam</option>
+    <option value="Kristen Protestan">Kristen Protestan</option>
+    <option value="Kristen Katolik">Kristen Katolik</option>
+    <option value="Hindu">Hindu</option>
+    <option value="Buddha">Buddha</option>
+    <option value="Konghucu">Konghucu</option>
+  </select>
+</div>
+        </div>
+        <div>
+          <label class="block font-medium required">Alamat Lengkap</label>
+          <textarea name="alamat" required class="w-full mt-1 p-2 border rounded"></textarea>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label class="block font-medium required">Nomor HP / WA</label>
+            <input type="tel" name="hp" required class="w-full mt-1 p-2 border rounded"/>
+          </div>
+          <div>
+            <label class="block font-medium required">Email Aktif</label>
+            <input type="email" name="email" required class="w-full mt-1 p-2 border rounded"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Pendidikan -->
+      <div class="form-step hidden">
+        <h2 class="text-lg font-semibold text-blue-700 border-b pb-2 flex items-center gap-2">
+          <i class='bx bx-book'></i> Pendidikan
+        </h2>
+        <!-- Pendidikan Terakhir -->
+<div>
+  <label for="pendidikan" class="block text-gray-700 font-medium">Pendidikan Terakhir <span class="text-red-500">*</span></label>
+  <select id="pendidikan" name="pendidikan" required
+    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+    <option value="" disabled selected>-- Pilih Pendidikan --</option>
+    <option value="SMA/SMK/Sederajat">SMA/SMK/Sederajat</option>
+    <option value="Perguruan Tinggi">Perguruan Tinggi</option>
+  </select>
+  <p class="text-xs text-gray-500 italic mt-1">
+            Jika masih menempuh pendidikan, isi pendidikan yang sedang ditempuh saat ini. Cth: SMKN 2 Punggelan
+          </p>
+</div>
+        <div>
+          <label class="block font-medium required">Nama Sekolah / Kampus</label>
+          <input type="text" name="sekolah" required class="w-full mt-1 p-2 border rounded"/>
+        </div>
+      </div>
+
+      <!-- Step 3: Data Kepramukaan -->
+      <div class="form-step hidden">
+        <h2 class="text-lg font-semibold text-blue-700 border-b pb-2 flex items-center gap-2">
+          <i class='bx bx-group'></i> Data Kepramukaan
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label class="block font-medium required">Pangkalan / Gugus Depan Saat Ini atau Terakhir</label>
+            <input type="text" name="gudep" required class="w-full mt-1 p-2 border rounded"/>
+          </div>
+          <div>
+            <label class="block font-medium required">Nomor Gudep</label>
+            <input type="text" name="no_gudep" required class="w-full mt-1 p-2 border rounded"/>
+            <p class="text-xs text-gray-500 italic mt-1">Isi dengan strip (-) jika tidak tahu.</p>
+          </div>
+          <div>
+            <label class="block font-medium required">Tingkat Golongan</label>
+            <select name="golongan" required class="w-full mt-1 p-2 border rounded">
+              <option value="">-- Pilih --</option>
+              <option>Penegak</option>
+              <option>Pandega</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-medium required">Nomor KTA Pramuka</label>
+            <input type="text" name="kta" required class="w-full mt-1 p-2 border rounded"/>
+            <p class="text-xs text-gray-500 italic mt-1">Isi dengan strip (-) jika tidak memiliki NTA.</p>
+          </div>
+        </div>
+        <div>
+          <label class="block font-medium">Riwayat Kepengurusan / Jabatan Pramuka</label>
+          <textarea name="riwayat" class="w-full mt-1 p-2 border rounded"></textarea>
+        </div>
+        <div>
+          <label class="block font-medium">Prestasi Pramuka / Non-Pramuka</label>
+          <textarea name="prestasi" class="w-full mt-1 p-2 border rounded"></textarea>
+        </div>
+        
+        <!-- Tambahkan di form-step Kepramukaan -->
+<div>
+  <label class="block font-medium required">Minat Jabatan</label>
+  <select id="minatJabatan" name="minat_jabatan" required class="w-full mt-1 p-2 border rounded">
+    <option value="">-- Pilih Jabatan --</option>
+    <option value="Ketua">Ketua</option>
+    <option value="Wakil Ketua">Wakil Ketua</option>
+    <option value="Sekretaris">Sekretaris</option>
+    <option value="Bendahara">Bendahara</option>
+    <option value="Bidang Kajian Kepramukaan">Bidang Kajian Kepramukaan</option>
+    <option value="Bidang Kegiatan Kepramukaan">Bidang Kegiatan Kepramukaan</option>
+    <option value="Bidang Pengabdian Masyarakat">Bidang Pengabdian Masyarakat</option>
+    <option value="Bidang Evaluasi dan Pengembangan">Bidang Evaluasi dan Pengembangan</option>
+    <option value="Jurnalistik">Jurnalistik</option>
+  </select>
+
+  <!-- JABARAN TUGAS KOTAK -->
+  <div id="jabaranBox" class="hidden mt-4 bg-white shadow-md border rounded-lg p-4">
+    <h3 class="text-base font-semibold text-blue-700 mb-2">Jabaran Tugas</h3>
+    <p id="jabaranTugas" class="text-sm text-gray-700 leading-relaxed"></p>
+  </div>
+</div>
+
+        <div>
+          <label class="block font-medium required">Motivasi Mendaftar DKR</label>
+          <textarea name="motivasi" required class="w-full mt-1 p-2 border rounded"></textarea>
+        </div>
+      </div>
+
+<!-- Step 4: Konfirmasi -->
+<div class="form-step hidden">
+  <h2 class="text-lg font-semibold text-blue-700 border-b pb-2 flex items-center gap-2">
+    <i class='bx bx-check-shield'></i> Konfirmasi
+  </h2>
+
+  <!-- Checkbox Persetujuan -->
+  <div class="space-y-3 mt-4">
+    <label class="flex items-start gap-2">
+      <input type="checkbox" id="persetujuan1" class="mt-1" required>
+      <span class="text-sm text-gray-700">Saya siap mengikuti seluruh proses seleksi DKR dari awal hingga akhir.</span>
+    </label>
+    <label class="flex items-start gap-2">
+      <input type="checkbox" id="persetujuan2" class="mt-1" required>
+      <span class="text-sm text-gray-700">Saya mengizinkan panitia untuk mengakses data yang saya kirimkan.</span>
+    </label>
+    <label class="flex items-start gap-2">
+      <input type="checkbox" id="persetujuan3" class="mt-1" required>
+      <span class="text-sm text-gray-700">Saya menyetujui seluruh ketentuan pendaftaran DKR Punggelan 2026–2028.</span>
+    </label>
+  </div>
+</div>
+
+      <div class="pt-4 flex justify-between items-center">
+  <div class="flex gap-2">
+    <button type="button" id="prevBtn" class="bg-gray-400 text-white px-6 py-2 rounded-lg hidden hover:bg-gray-500 transition">Sebelumnya</button>
+    <button type="button" id="nextBtn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Selanjutnya</button>
+    <button type="submit" id="submitBtn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition hidden">Kirim</button>
+  </div>
+  <!-- Tombol Kosongkan -->
+  <button type="button" id="resetFormBtn" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition">
+    Kosongkan Formulir
+  </button>
+</div>
+
+
+    <p id="statusMsg" class="text-center mt-4 text-green-600 font-semibold hidden">✅ Pendaftaran berhasil dikirim!</p>
+
+    <!-- Preview Bukti -->
+    <div id="previewBukti" class="hidden mt-6 p-4 border rounded-lg bg-gray-50">
+      <div id="buktiContent" class="text-sm"></div>
+      <button id="cetakBtn" class="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+        <i class='bx bx-printer'></i> Cetak Bukti
+      </button>
+    </div>
+  </main>
+  
+      <!-- PERSYARATAN PENDAFTARAN -->
+<section class="max-w-4xl mx-auto mt-6 p-6 border rounded-xl bg-white shadow-md animate-fadeIn">
+  <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+    <i class="bx bx-list-check text-blue-600 text-xl"></i> Persyaratan Pendaftaran
+  </h3>
+  <ul class="list-disc pl-5 text-gray-700 space-y-2 text-sm">
+    <li>Pramuka aktif di Gugus Depan.</li>
+    <li>Berusia 16 – 25 tahun pada saat pendaftaran.</li>
+    <li>Merupakan anggota Pramuka Penegak atau Pandega.</li>
+    <li>Berdomisili di Kwarran Punggelan.</li>
+    <li>Mengisi formulir pendaftaran dengan lengkap dan benar.</li>
+    <li>Mampu mengikuti seluruh proses seleksi.</li>
+    <li>Memiliki motivasi tinggi dan komitmen untuk mengabdi di DKR Punggelan.</li>
+    <li>Setuju dengan seluruh ketentuan dan kebijakan panitia pendaftaran.</li>
+  </ul>
+</section>
+
+<!-- INFO DEWAN KERJA PUNGGELAN -->
+<section class="max-w-4xl mx-auto mt-10 p-6 border rounded-xl bg-white shadow-md animate-fadeIn">
+  <h3 class="text-lg font-semibold mb-3 flex items-center gap-2">
+    <i class="bx bx-info-circle text-blue-600 text-xl"></i> Tentang Dewan Kerja Ranting Punggelan
+  </h3>
+  <p class="text-sm text-gray-700 leading-relaxed mb-2">
+    Dewan Kerja Ranting (DKR) Punggelan merupakan organisasi kepanduan di tingkat ranting yang beranggotakan
+    pemuda-pemudi aktif Pramuka Penegak dan Pandega. DKR bertugas mengembangkan kegiatan kepanduan,
+    melatih keterampilan anggota, serta mendukung program kerja kwartir ranting Punggelan.
+  </p>
+  <p class="text-sm text-gray-700 leading-relaxed mb-2">
+    DKR Punggelan juga berperan dalam pengabdian masyarakat, penyelenggaraan kegiatan sosial, dan
+    pengembangan karakter anggota melalui kegiatan kepemimpinan, kepramukaan, serta kreativitas.
+  </p>
+  <p class="text-sm text-gray-700 leading-relaxed mb-4">
+    Anggota DKR dipilih melalui proses seleksi yang adil, dengan fokus pada kemampuan berorganisasi,
+    motivasi tinggi, dan komitmen untuk mengabdi dalam kegiatan kepanduan di Punggelan.
+  </p>
+
+  <!-- Tombol Download -->
+  <div class="flex flex-wrap gap-4 mt-4">
+    <a href="files/surat-edaran.pdf" download
+       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition">
+       <i class='bx bx-download'></i> Unduh Surat Edaran
+    </a>
+    <a href="images/portfolio3.jpg" download
+       class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition">
+       <i class='bx bx-download'></i> Unduh Pamflet
+    </a>
+    <a href="images/kopdkr.png" download
+       class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition">
+       <i class='bx bx-download'></i> Unduh Kop Surat
+    </a>
+  </div>
+</section>
+
+<!-- Q&A Seputar DKR -->
+<section class="max-w-4xl mx-auto mt-6 p-6 border rounded-xl bg-white shadow-md animate-fadeIn">
+  <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+    <i class="bx bx-question-mark text-blue-600 text-xl"></i> Tanya Jawab Umum
+  </h3>
+
+  <div class="space-y-3">
+    <!-- Q1 -->
+    <div class="border rounded-lg">
+      <button type="button" class="w-full flex justify-between items-center px-4 py-2 text-left focus:outline-none faq-btn">
+        <span>Apa itu Dewan Kerja Ranting Punggelan?</span>
+        <i class='bx bx-chevron-down text-xl'></i>
+      </button>
+      <div class="faq-content px-4 py-2 hidden text-gray-700 text-sm">
+        DKR Punggelan adalah organisasi kepanduan tingkat ranting yang beranggotakan pemuda aktif Pramuka Penegak & Pandega.
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="border rounded-lg">
+      <button type="button" class="w-full flex justify-between items-center px-4 py-2 text-left focus:outline-none faq-btn">
+        <span>Siapa yang bisa mendaftar?</span>
+        <i class='bx bx-chevron-down text-xl'></i>
+      </button>
+      <div class="faq-content px-4 py-2 hidden text-gray-700 text-sm">
+        Pemuda-pemudi Pramuka Penegak atau Pandega yang berusia 16–25 tahun dan memiliki motivasi tinggi.
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="border rounded-lg">
+      <button type="button" class="w-full flex justify-between items-center px-4 py-2 text-left focus:outline-none faq-btn">
+        <span>Bagaimana proses seleksinya?</span>
+        <i class='bx bx-chevron-down text-xl'></i>
+      </button>
+      <div class="faq-content px-4 py-2 hidden text-gray-700 text-sm">
+        Seleksi meliputi administrasi, tes pengetahuan umum, dan wawancara sebelum pengumuman final.
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="border rounded-lg">
+      <button type="button" class="w-full flex justify-between items-center px-4 py-2 text-left focus:outline-none faq-btn">
+        <span>Apa saja manfaat menjadi anggota DKR?</span>
+        <i class='bx bx-chevron-down text-xl'></i>
+      </button>
+      <div class="faq-content px-4 py-2 hidden text-gray-700 text-sm">
+        Pengembangan kepemimpinan, pengalaman organisasi, keterampilan kepanduan, dan pengabdian masyarakat.
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="border rounded-lg">
+      <button type="button" class="w-full flex justify-between items-center px-4 py-2 text-left focus:outline-none faq-btn">
+        <span>Apakah harus memiliki pengalaman kepanduan sebelumnya?</span>
+        <i class='bx bx-chevron-down text-xl'></i>
+      </button>
+      <div class="faq-content px-4 py-2 hidden text-gray-700 text-sm">
+        Tidak wajib, namun pengalaman pramuka akan menjadi nilai tambah dalam proses seleksi.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPT ACCORDION Q&A -->
+<script>
+const faqButtons = document.querySelectorAll(".faq-btn");
+faqButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const content = btn.nextElementSibling;
+    const icon = btn.querySelector("i");
+    content.classList.toggle("hidden");
+    icon.classList.toggle("rotate-180");
+  });
+});
+</script>
+
+<style>
+/* Rotasi ikon panah */
+.faq-btn i {
+  transition: transform 0.3s ease;
+}
+</style>
+
+<!-- Jadwal Rekrutmen -->
+<div class="max-w-4xl mx-auto mt-10 p-6 border rounded-xl bg-white shadow">
+  <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
+    <i class="bx bx-calendar text-blue-600 text-xl"></i> Jadwal & Timeline Rekrutmen
+  </h3>
+  <ul class="list-disc pl-5 text-gray-600 space-y-1">
+    <li><b>Pendaftaran Online:</b> 20 September – 5 Oktober 2025</li>
+    <li><b>Tes Pengetahuan Umum & Wawancara:</b> <i>Jadwal Menyusul</i></li>
+    <li><b>Pengumuman Final:</b> <i>Jadwal Menyusul</i></li>
+    <li><b>Pelantikan:</b> <i>Jadwal Menyusul</i></li>
+  </ul>
+</div>
+
+  <!-- KONTAK -->
+  <section class="max-w-4xl mx-auto bg-white shadow-md rounded-xl p-6 mt-6 text-gray-700">
+    <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">
+      <i class='bx bx-phone text-green-600 text-xl'></i> Kontak Person & Sekretariat
+    </h2>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-center gap-2 hover:translate-x-1 transition">
+        <i class='bx bxl-whatsapp text-green-500 text-xl'></i> WA 1: 
+        <a href="https://wa.me/6282136065407" target="_blank" class="text-blue-600 hover:underline">+62 821-3606-5407 (Aryo - Teknis Recruitment)</a>
+      </li>
+      <li class="flex items-center gap-2 hover:translate-x-1 transition">
+        <i class='bx bxl-whatsapp text-green-500 text-xl'></i> WA 2: 
+        <a href="https://wa.me/6285640567453" target="_blank" class="text-blue-600 hover:underline">+62 856-4056-7453 (Kak Salsa - Ketua DKR)</a>
+      </li>
+      <li class="flex items-center gap-2 hover:translate-x-1 transition">
+        <i class='bx bxl-instagram-alt text-pink-500 text-xl'></i> Instagram: 
+        <a href="https://instagram.com/dkr__punggelan" target="_blank" class="text-blue-600 hover:underline">@dkr__punggelan</a>
+      </li>
+      <li class="flex items-center gap-2 hover:translate-x-1 transition">
+        <i class='bx bx-envelope text-red-500 text-xl'></i> Email: 
+        <a href="mailto:dewankerjarantingkecpunggelan@gmail.com" class="text-blue-600 hover:underline">dewankerjarantingkecpunggelan@gmail.com</a>
+      </li>
+      <li class="flex items-center gap-2 hover:translate-x-1 transition">
+        <i class='bx bx-map text-blue-500 text-xl'></i> Sekretariat: Dindikpora Kecamatan Punggelan, Jl. Raya Pasar Manis, Kec. Punggelan, Kab. Banjarnegara, Jawa Tengah 53462
+      </li>
+    </ul>
+  </section>
+
+  <!-- FOOTER -->
+<footer class="text-white py-6 text-center mt-8" style="background: linear-gradient(to right, #ff3131, #ff914d);">
+  <div class="flex justify-center items-center gap-2">
+    <span>Hosting dan Tema oleh:</span>
+    <a href="home"> <!-- Ganti dengan URL home jika berbeda -->
+      <img src="images/yo.designwht.png" alt="Prasetya Studio" class="h-7 hover:opacity-80 transition">
+    </a>
+  </div>
+  <p class="text-sm mt-2">© 2026 Dewan Kerja Ranting Punggelan</p>
+</footer>
+
+  <!-- SCRIPT -->
+  <script>
+  const steps = document.querySelectorAll(".form-step");
+  const stepIndicators = document.querySelectorAll(".step");
+  let currentStep = 0;
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const submitBtn = document.getElementById("submitBtn");
+  const form = document.getElementById("pendaftaranForm");
+  const statusMsg = document.getElementById("statusMsg");
+  const previewBukti = document.getElementById("previewBukti");
+  const buktiContent = document.getElementById("buktiContent");
+  const cetakBtn = document.getElementById("cetakBtn");
+
+  // fungsi step
+  function updateStep() {
+    steps.forEach((s,i)=> s.classList.toggle("hidden", i!==currentStep));
+    stepIndicators.forEach((ind,i)=> ind.classList.toggle("step-active", i===currentStep));
+    prevBtn.classList.toggle("hidden", currentStep===0);
+    nextBtn.classList.toggle("hidden", currentStep===steps.length-1);
+    submitBtn.classList.toggle("hidden", currentStep!==steps.length-1);
+  }
+  updateStep();
+
+  nextBtn.addEventListener("click", ()=>{currentStep++;updateStep();});
+  prevBtn.addEventListener("click", ()=>{currentStep--;updateStep();});
+
+  // === JABARAN TUGAS ===
+  const minatJabatan = document.getElementById("minatJabatan");
+  const jabaranBox = document.getElementById("jabaranBox");
+  const jabaranTugas = document.getElementById("jabaranTugas");
+
+  const tugas = {
+    "Ketua": "Memimpin dan mengoordinasikan seluruh kegiatan Dewan Kerja Ranting (DKR), serta menjadi penanggung jawab utama.",
+    "Wakil Ketua": "Mendampingi Ketua, menggantikan jika berhalangan, serta ikut memastikan jalannya program kerja DKR.",
+    "Sekretaris": "Mencatat, mengarsipkan, dan mengelola seluruh administrasi, surat-menyurat, serta laporan kegiatan.",
+    "Bendahara": "Mengelola pemasukan, pengeluaran, dan laporan keuangan secara transparan serta bertanggung jawab kepada Ketua.",
+    "Bidang Kajian Kepramukaan": "Melakukan kajian aturan, kebijakan, dan pengembangan wawasan kepramukaan untuk mendukung keputusan organisasi.",
+    "Bidang Kegiatan Kepramukaan": "Menyusun rencana, melaksanakan, dan mengevaluasi kegiatan kepramukaan tingkat ranting.",
+    "Bidang Pengabdian Masyarakat": "Menginisiasi dan melaksanakan kegiatan sosial, bakti masyarakat, serta aksi peduli lingkungan.",
+    "Bidang Evaluasi dan Pengembangan": "Melakukan monitoring, evaluasi program kerja, serta mengembangkan potensi sumber daya anggota.",
+    "Jurnalistik": "Mendokumentasikan, menulis, dan menyebarkan informasi kegiatan DKR melalui media internal maupun eksternal."
+  };
+
+  minatJabatan.addEventListener("change", function () {
+    const value = this.value;
+    if (tugas[value]) {
+      jabaranTugas.textContent = tugas[value];
+      jabaranBox.classList.remove("hidden");
+    } else {
+      jabaranBox.classList.add("hidden");
+    }
+  });
+
+  // === SUBMIT FORM ===
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    let html = `
+      <div id="form-preview" class="p-6 bg-white">
+        <div class="text-center mb-4">
+          <img src="images/kopdkr.png" alt="Kop DKR" class="w-full"/>
+        </div>
+        <h2 class="text-lg font-bold text-center mb-6">
+          BUKTI PENDAFTARAN<br/>DKR PUNGGELAN 2026-2028
+        </h2>
+        <div class="space-y-1 text-sm">`;
+
+    formData.forEach((v,k)=> {
+      html += `<p><strong>${k}:</strong> ${v}</p>`;
+    });
+
+    // Tambahkan jabaran tugas ke preview
+    const jabatanDipilih = minatJabatan.value;
+    if (tugas[jabatanDipilih]) {
+      html += `<p><strong>Jabaran Tugas:</strong> ${tugas[jabatanDipilih]}</p>`;
+    }
+
+    html += `
+        </div>
+        <p class="mt-6 text-right">
+          Punggelan, ${new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}
+        </p>
+      </div>`;
+
+    buktiContent.innerHTML = html;
+    previewBukti.classList.remove("hidden");
+
+    // kirim email
+    emailjs.sendForm('service_hqdz3zm','template_aou90nh',this)
+      .then(()=>{ statusMsg.classList.remove("hidden"); },err=>{ alert("Gagal mengirim! "+JSON.stringify(err)); });
+  });
+
+  // === CETAK PDF ===
+  cetakBtn.addEventListener("click", ()=>{
+    const element = document.getElementById("form-preview");
+    html2pdf().from(element).set({
+      margin: 0.5,
+      filename: 'Bukti_Pendaftaran_DKR_Punggelan.pdf',
+      html2canvas: { scale: 2 },
+      jsPDF: { orientation:'portrait', unit:'in', format:'a4' }
+    }).save();
+  });
+
+  const tglLahir = document.getElementById("tanggalLahir");
+const warningUsia = document.createElement("p");
+warningUsia.className = "text-red-600 text-sm mt-1 hidden";
+warningUsia.textContent = "Usia harus antara 16 – 25 tahun!";
+tglLahir.parentNode.appendChild(warningUsia);
+
+function hitungUsia(tgl) {
+  const today = new Date();
+  const lahir = new Date(tgl);
+  let usia = today.getFullYear() - lahir.getFullYear();
+  const m = today.getMonth() - lahir.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < lahir.getDate())) {
+    usia--;
+  }
+  return usia;
+}
+
+tglLahir.addEventListener("change", function() {
+  const usia = hitungUsia(this.value);
+  if (usia < 16 || usia > 25) {
+    warningUsia.classList.remove("hidden");
+    this.setCustomValidity("Usia harus antara 16 – 25 tahun!");
+  } else {
+    warningUsia.classList.add("hidden");
+    this.setCustomValidity("");
+  }
+});
+
+</script>
+<!-- MENU AKSESIBILITAS -->
+<div id="aksesibilitasMenu" class="fixed bottom-6 right-6">
+  <!-- Tombol utama -->
+  <button type="button" id="aksesBtn" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition">
+    <i class='bx bx-universal-access text-2xl'></i>
+  </button>
+  
+  <!-- Panel opsi -->
+  <div id="aksesPanel" class="hidden mt-2 bg-white shadow-lg rounded-xl p-4 space-y-3 w-56">
+    <button type="button" id="ttsBtn" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-blue-50 transition text-sm">
+      <i class='bx bx-volume-full text-blue-600'></i> Bacakan Teks
+    </button>
+    <button type="button" id="zoomInBtn" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-blue-50 transition text-sm">
+      <i class='bx bx-zoom-in text-blue-600'></i> Perbesar Teks
+    </button>
+    <button type="button" id="zoomOutBtn" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-blue-50 transition text-sm">
+      <i class='bx bx-zoom-out text-blue-600'></i> Perkecil Teks
+    </button>
+    <button type="button" id="contrastBtn" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-blue-50 transition text-sm">
+      <i class='bx bx-low-vision text-blue-600'></i> Mode Kontras
+    </button>
+    <button type="button" id="resetBtn" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-red-100 hover:bg-red-200 transition text-sm text-red-600 font-semibold">
+      <i class='bx bx-reset'></i> Reset
+    </button>
+  </div>
+</div>
+
+<script>
+const resetFormBtn = document.getElementById("resetFormBtn");
+
+resetFormBtn.addEventListener("click", ()=> {
+  if(confirm("Apakah Anda yakin ingin mengosongkan seluruh formulir?")) {
+    form.reset();
+    // Reset ke step pertama
+    currentStep = 0;
+    updateStep();
+    // Sembunyikan preview bukti & status
+    previewBukti.classList.add("hidden");
+    statusMsg.classList.add("hidden");
+    // Sembunyikan jabaran tugas
+    jabaranBox.classList.add("hidden");
+  }
+});
+
+// Toggle panel aksesibilitas
+const aksesBtn = document.getElementById("aksesBtn");
+const aksesPanel = document.getElementById("aksesPanel");
+aksesBtn.addEventListener("click", ()=> {
+  aksesPanel.classList.toggle("hidden");
+});
+
+// === FITUR ===
+
+// Text-to-Speech
+document.getElementById("ttsBtn").addEventListener("click", ()=>{
+  let teks = document.body.innerText;
+  let utterance = new SpeechSynthesisUtterance(teks);
+  utterance.lang = "id-ID";
+  speechSynthesis.speak(utterance);
+});
+
+// Perbesar & Perkecil teks
+let currentFontSize = 16;
+document.getElementById("zoomInBtn").addEventListener("click", ()=>{
+  currentFontSize += 2;
+  document.body.style.fontSize = currentFontSize + "px";
+});
+document.getElementById("zoomOutBtn").addEventListener("click", ()=>{
+  currentFontSize = Math.max(12, currentFontSize - 2); // minimal 12px
+  document.body.style.fontSize = currentFontSize + "px";
+});
+
+// High Contrast
+let contrast = false;
+document.getElementById("contrastBtn").addEventListener("click", ()=>{
+  document.body.classList.toggle("contrast-mode");
+  contrast = !contrast;
+});
+
+// Reset Aksesibilitas
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  // Reset font size
+  currentFontSize = 16;
+  document.body.style.fontSize = currentFontSize + "px";
+  // Hapus mode kontras
+  if(contrast) document.body.classList.remove("contrast-mode");
+  contrast = false;
+  // Tutup panel aksesibilitas
+  aksesPanel.classList.add("hidden");
+});
+</script>
+
+<style>
+/* Mode kontras */
+.contrast-mode {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+.contrast-mode a {
+  color: #0ff !important;
+}
+.contrast-mode input,
+.contrast-mode select,
+.contrast-mode textarea,
+.contrast-mode button {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+</style>
+
+</body>
+</html>
