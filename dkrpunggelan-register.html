@@ -60,15 +60,7 @@
     </p>
   </section>
 
-  <!-- WRAPPER FORMULIR -->
-<div id="formWrapper" class="relative">
-  <!-- Overlay peringatan -->
-  <div id="formOverlay" class="hidden absolute inset-0 bg-gray-200 bg-opacity-80 flex items-center justify-center z-20">
-    <p class="text-red-700 text-lg font-semibold text-center">
-      Formulir baru bisa diisi mulai tanggal 20 September 2025
-    </p>
-  </div>
-    <!-- FORMULIR -->
+  <!-- FORMULIR -->
   <main class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-6 mb-20 animate-fadeIn">
     <form id="pendaftaranForm" class="space-y-6">
       <!-- Step 1: Data Diri -->
@@ -102,19 +94,20 @@
               <option>Perempuan</option>
             </select>
           </div>
-          <div>
-            <label for="agama" class="block text-gray-700 font-medium">Agama <span class="text-red-500">*</span></label>
-            <select id="agama" name="agama" required
-              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
-              <option value="" disabled selected>-- Pilih Agama --</option>
-              <option value="Islam">Islam</option>
-              <option value="Kristen Protestan">Kristen Protestan</option>
-              <option value="Kristen Katolik">Kristen Katolik</option>
-              <option value="Hindu">Hindu</option>
-              <option value="Buddha">Buddha</option>
-              <option value="Konghucu">Konghucu</option>
-            </select>
-          </div>
+          <!-- Agama -->
+<div>
+  <label for="agama" class="block text-gray-700 font-medium">Agama <span class="text-red-500">*</span></label>
+  <select id="agama" name="agama" required
+    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+    <option value="" disabled selected>-- Pilih Agama --</option>
+    <option value="Islam">Islam</option>
+    <option value="Kristen Protestan">Kristen Protestan</option>
+    <option value="Kristen Katolik">Kristen Katolik</option>
+    <option value="Hindu">Hindu</option>
+    <option value="Buddha">Buddha</option>
+    <option value="Konghucu">Konghucu</option>
+  </select>
+</div>
         </div>
         <div>
           <label class="block font-medium required">Alamat Lengkap</label>
@@ -137,18 +130,19 @@
         <h2 class="text-lg font-semibold text-blue-700 border-b pb-2 flex items-center gap-2">
           <i class='bx bx-book'></i> Pendidikan
         </h2>
-        <div>
-          <label for="pendidikan" class="block text-gray-700 font-medium">Pendidikan Terakhir <span class="text-red-500">*</span></label>
-          <select id="pendidikan" name="pendidikan" required
-            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
-            <option value="" disabled selected>-- Pilih Pendidikan --</option>
-            <option value="SMA/SMK/Sederajat">SMA/SMK/Sederajat</option>
-            <option value="Perguruan Tinggi">Perguruan Tinggi</option>
-          </select>
-          <p class="text-xs text-gray-500 italic mt-1">
+        <!-- Pendidikan Terakhir -->
+<div>
+  <label for="pendidikan" class="block text-gray-700 font-medium">Pendidikan Terakhir <span class="text-red-500">*</span></label>
+  <select id="pendidikan" name="pendidikan" required
+    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+    <option value="" disabled selected>-- Pilih Pendidikan --</option>
+    <option value="SMA/SMK/Sederajat">SMA/SMK/Sederajat</option>
+    <option value="Perguruan Tinggi">Perguruan Tinggi</option>
+  </select>
+  <p class="text-xs text-gray-500 italic mt-1">
             Jika masih menempuh pendidikan, isi pendidikan yang sedang ditempuh saat ini. Cth: SMKN 2 Punggelan
           </p>
-        </div>
+</div>
         <div>
           <label class="block font-medium required">Nama Sekolah / Kampus</label>
           <input type="text" name="sekolah" required class="w-full mt-1 p-2 border rounded"/>
@@ -193,26 +187,28 @@
           <textarea name="prestasi" class="w-full mt-1 p-2 border rounded"></textarea>
         </div>
         
-        <div>
-          <label class="block font-medium required">Minat Jabatan</label>
-          <select id="minatJabatan" name="minat_jabatan" required class="w-full mt-1 p-2 border rounded">
-            <option value="">-- Pilih Jabatan --</option>
-            <option value="Ketua">Ketua</option>
-            <option value="Wakil Ketua">Wakil Ketua</option>
-            <option value="Sekretaris">Sekretaris</option>
-            <option value="Bendahara">Bendahara</option>
-            <option value="Bidang Kajian Kepramukaan">Bidang Kajian Kepramukaan</option>
-            <option value="Bidang Kegiatan Kepramukaan">Bidang Kegiatan Kepramukaan</option>
-            <option value="Bidang Pengabdian Masyarakat">Bidang Pengabdian Masyarakat</option>
-            <option value="Bidang Evaluasi dan Pengembangan">Bidang Evaluasi dan Pengembangan</option>
-            <option value="Jurnalistik">Jurnalistik</option>
-          </select>
+        <!-- Tambahkan di form-step Kepramukaan -->
+<div>
+  <label class="block font-medium required">Minat Jabatan</label>
+  <select id="minatJabatan" name="minat_jabatan" required class="w-full mt-1 p-2 border rounded">
+    <option value="">-- Pilih Jabatan --</option>
+    <option value="Ketua">Ketua</option>
+    <option value="Wakil Ketua">Wakil Ketua</option>
+    <option value="Sekretaris">Sekretaris</option>
+    <option value="Bendahara">Bendahara</option>
+    <option value="Bidang Kajian Kepramukaan">Bidang Kajian Kepramukaan</option>
+    <option value="Bidang Kegiatan Kepramukaan">Bidang Kegiatan Kepramukaan</option>
+    <option value="Bidang Pengabdian Masyarakat">Bidang Pengabdian Masyarakat</option>
+    <option value="Bidang Evaluasi dan Pengembangan">Bidang Evaluasi dan Pengembangan</option>
+    <option value="Jurnalistik">Jurnalistik</option>
+  </select>
 
-          <div id="jabaranBox" class="hidden mt-4 bg-white shadow-md border rounded-lg p-4">
-            <h3 class="text-base font-semibold text-blue-700 mb-2">Jabaran Tugas</h3>
-            <p id="jabaranTugas" class="text-sm text-gray-700 leading-relaxed"></p>
-          </div>
-        </div>
+  <!-- JABARAN TUGAS KOTAK -->
+  <div id="jabaranBox" class="hidden mt-4 bg-white shadow-md border rounded-lg p-4">
+    <h3 class="text-base font-semibold text-blue-700 mb-2">Jabaran Tugas</h3>
+    <p id="jabaranTugas" class="text-sm text-gray-700 leading-relaxed"></p>
+  </div>
+</div>
 
         <div>
           <label class="block font-medium required">Motivasi Mendaftar DKR</label>
@@ -220,83 +216,46 @@
         </div>
       </div>
 
-      <!-- Step 4: Konfirmasi -->
-      <div class="form-step hidden">
-        <h2 class="text-lg font-semibold text-blue-700 border-b pb-2 flex items-center gap-2">
-          <i class='bx bx-check-shield'></i> Konfirmasi
-        </h2>
-        <div class="space-y-3 mt-4">
-          <label class="flex items-start gap-2">
-            <input type="checkbox" id="persetujuan1" class="mt-1" required>
-            <span class="text-sm text-gray-700">Saya siap mengikuti seluruh proses seleksi DKR dari awal hingga akhir.</span>
-          </label>
-          <label class="flex items-start gap-2">
-            <input type="checkbox" id="persetujuan2" class="mt-1" required>
-            <span class="text-sm text-gray-700">Saya mengizinkan panitia untuk mengakses data yang saya kirimkan.</span>
-          </label>
-          <label class="flex items-start gap-2">
-            <input type="checkbox" id="persetujuan3" class="mt-1" required>
-            <span class="text-sm text-gray-700">Saya menyetujui seluruh ketentuan pendaftaran DKR Punggelan 2026–2028.</span>
-          </label>
-        </div>
-      </div>
+<!-- Step 4: Konfirmasi -->
+<div class="form-step hidden">
+  <h2 class="text-lg font-semibold text-blue-700 border-b pb-2 flex items-center gap-2">
+    <i class='bx bx-check-shield'></i> Konfirmasi
+  </h2>
 
-      <!-- Navigasi -->
-      <div class="pt-4 flex justify-between items-center">
-        <div class="flex gap-2">
-          <button type="button" id="prevBtn" class="bg-gray-400 text-white px-6 py-2 rounded-lg hidden hover:bg-gray-500 transition">Sebelumnya</button>
-          <button type="button" id="nextBtn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Selanjutnya</button>
-          <button type="submit" id="submitBtn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition hidden">Kirim</button>
-        </div>
-      </div>
-
-      <p id="statusMsg" class="text-center mt-4 text-green-600 font-semibold hidden">✅ Pendaftaran berhasil dikirim!</p>
-
-      <!-- Preview Bukti -->
-      <div id="previewBukti" class="hidden mt-6 p-4 border rounded-lg bg-gray-50">
-        <div id="buktiContent" class="text-sm"></div>
-        <button id="cetakBtn" class="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
-          <i class='bx bx-printer'></i> Cetak Bukti
-        </button>
-      </div>
-    </form>
-  </main>
+  <!-- Checkbox Persetujuan -->
+  <div class="space-y-3 mt-4">
+    <label class="flex items-start gap-2">
+      <input type="checkbox" id="persetujuan1" class="mt-1" required>
+      <span class="text-sm text-gray-700">Saya siap mengikuti seluruh proses seleksi DKR dari awal hingga akhir.</span>
+    </label>
+    <label class="flex items-start gap-2">
+      <input type="checkbox" id="persetujuan2" class="mt-1" required>
+      <span class="text-sm text-gray-700">Saya mengizinkan panitia untuk mengakses data yang saya kirimkan.</span>
+    </label>
+    <label class="flex items-start gap-2">
+      <input type="checkbox" id="persetujuan3" class="mt-1" required>
+      <span class="text-sm text-gray-700">Saya menyetujui seluruh ketentuan pendaftaran DKR Punggelan 2026–2028.</span>
+    </label>
+  </div>
 </div>
 
-<!-- SCRIPT TANGGAL FORMULIR BISA DIISI -->
-<script>
-  const openDate = new Date("2025-09-20T00:00:00");
-  const now = new Date();
+      <div class="pt-4 flex justify-between items-center">
+  <div class="flex gap-2">
+    <button type="button" id="prevBtn" class="bg-gray-400 text-white px-6 py-2 rounded-lg hidden hover:bg-gray-500 transition">Sebelumnya</button>
+    <button type="button" id="nextBtn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Selanjutnya</button>
+    <button type="submit" id="submitBtn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition hidden">Kirim</button>
+  </div>
 
-  const formMain = document.querySelector("main"); // hanya form
-  const overlay = document.getElementById("formOverlay");
+    <p id="statusMsg" class="text-center mt-4 text-green-600 font-semibold hidden">✅ Pendaftaran berhasil dikirim!</p>
 
-  if (now < openDate) {
-    formMain.classList.add("blurred");  // blur hanya main
-    overlay.classList.remove("hidden"); // tampilkan overlay di atas form
-  }
-</script>
-
-<style>
-  /* Blur hanya untuk formulir */
-  .blurred {
-    filter: blur(4px);
-    pointer-events: none;
-    opacity: 0.6;
-  }
-
-  /* overlay tetap full di atas formulir */
-  #formOverlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(220,220,220,0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 20;
-    text-align: center;
-  }
-</style>
+    <!-- Preview Bukti -->
+    <div id="previewBukti" class="hidden mt-6 p-4 border rounded-lg bg-gray-50">
+      <div id="buktiContent" class="text-sm"></div>
+      <button id="cetakBtn" class="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+        <i class='bx bx-printer'></i> Cetak Bukti
+      </button>
+    </div>
+  </main>
   
       <!-- PERSYARATAN PENDAFTARAN -->
 <section class="max-w-4xl mx-auto mt-6 p-6 border rounded-xl bg-white shadow-md animate-fadeIn">
