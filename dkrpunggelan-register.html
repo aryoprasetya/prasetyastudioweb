@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pendaftaran DKR Punggelan 2026-2028</title>
-  <link rel="icon" href="images/Pramuka,_Lambang_Dewan_Kerja_Ranting.svg" type="image/png">
+  <link rel="icon" href="images/pngegg (2)" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -675,5 +675,51 @@ document.getElementById("resetBtn").addEventListener("click", ()=>{
 }
 </style>
 
+<!-- POPUP SELAMAT DATANG -->
+<div id="welcomePopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full relative transform scale-95 opacity-0 transition-all duration-500">
+    <!-- Tombol tutup -->
+    <button id="closePopup" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 font-bold text-2xl">&times;</button>
+    
+    <!-- Ikon Pramuka -->
+    <div class="flex justify-center mb-4">
+      <img src="images/pngegg (2)" alt="Pramuka" class="w-16 h-16 animate-bounce">
+    </div>
+    
+    <!-- Judul -->
+    <h2 class="text-2xl font-bold text-center text-green-800 mb-2">Selamat Datang Kakak Penegak dan Pandega!</h2>
+    
+    <!-- Isi Pesan -->
+    <p class="text-gray-700 text-center mb-4">
+      Segera daftarkan diri Anda untuk menjadi bagian dari Dewan Kerja Ranting Punggelan dan tunjukkan semangat Pramuka sejati!<br>
+      Harap baca halaman ini hingga selesai untuk mengetahui seluruh informasi penting seputar pendaftaran.
+    </p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!localStorage.getItem('welcomeShown')) {
+      const popup = document.getElementById('welcomePopup');
+      const popupContent = popup.querySelector('div');
+      const closeBtn = document.getElementById('closePopup');
+
+      popup.classList.remove('hidden');
+      // animasi muncul
+      setTimeout(() => {
+        popupContent.classList.remove('scale-95', 'opacity-0');
+      }, 50);
+
+      closeBtn.addEventListener('click', () => {
+        // animasi hilang
+        popupContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+          popup.classList.add('hidden');
+        }, 300);
+        localStorage.setItem('welcomeShown', 'true');
+      });
+    }
+  });
+</script>      
 </body>
 </html>
