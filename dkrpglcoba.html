@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DKR Punggelan — Beranda</title>
+
+  <!-- Font Quantico -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --wosm-purple: #5b2c83;
+      --wosm-purple-light: #6f3aa6;
+      --bg: #faf9ff;
+      --muted: #6b7280;
+      --radius: 12px;
+      --max-w: 1200px;
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{margin:0;font-family:'Montserrat',sans-serif;background:var(--bg);color:#111;line-height:1.5}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:50px;width:50px;object-fit:contain}
+    .brand h1{margin:0;font-size:20px;color:var(--wosm-purple)}
+    nav{display:flex;align-items:center;gap:20px}
+    nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative}
+    nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--wosm-purple);transition:.3s}
+    nav a:hover::after{width:100%}
+    nav a:hover{color:var(--wosm-purple)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+    .dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+    .dropdown:hover .dropdown-menu{display:block}
+
+    /* Burger Menu */
+    .menu-toggle{display:none;font-size:26px;color:var(--wosm-purple);cursor:pointer}
+    @media(max-width:850px){
+      nav{position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:0;background:#fff;display:none;padding:12px 20px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+      nav.active{display:flex}
+      nav a{padding:12px 0;width:100%}
+      .dropdown-menu{position:static;box-shadow:none;padding:0;margin-left:10px}
+      .dropdown:hover .dropdown-menu{display:none}
+      .dropdown.open .dropdown-menu{display:block}
+      .menu-toggle{display:block}
+    }
+
+    /* Hero Slider */
+    .hero{position:relative;height:420px;overflow:hidden}
+    .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease}
+    .slide.active{opacity:1}
+    .slide img{width:100%;height:100%;object-fit:cover}
+    .overlay{position:absolute;inset:0;background:rgba(91,44,131,.4)}
+    .caption{position:absolute;bottom:30px;left:30px;color:#fff;max-width:60%}
+    .caption h2{margin:0 0 6px;font-size:26px}
+    .caption p{margin:0;font-size:15px;color:rgba(255,255,255,.9)}
+    .dots{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer}
+    .dot.active{background:#fff}
+
+    /* Content */
+    main{max-width:var(--max-w);margin:auto;padding:20px}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-top:20px}
+    .card{background:#fff;padding:16px;border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,.04);transition:.3s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    h3{margin-top:0;color:var(--wosm-purple)}
+
+    /* Agenda */
+    .agenda-list{display:flex;flex-direction:column;gap:12px}
+    .agenda-item{display:flex;gap:12px;background:#fff;border-radius:8px;padding:8px;text-decoration:none;color:inherit;transition:.3s;cursor:pointer}
+    .agenda-item:hover{background:rgba(91,44,131,.08);transform:translateY(-2px)}
+    .agenda-item .when{min-width:80px;text-align:center;background:linear-gradient(180deg,var(--wosm-purple),var(--wosm-purple-light));color:#fff;border-radius:8px;padding:6px 8px}
+    .agenda-item h4{margin:0 0 4px;font-size:16px}
+    .agenda-item p{margin:0;font-size:14px;color:var(--muted)}
+
+    /* Blog / WordPress Feed */
+    .blog-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .post{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:.3s}
+    .post:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
+    .post img{width:100%;height:140px;object-fit:cover}
+    .p-body{padding:10px}
+    .p-body h4{margin:0 0 6px;font-size:16px;color:#111}
+    .p-body p{margin:0;font-size:14px;color:var(--muted)}
+    .p-body a{color:var(--wosm-purple);text-decoration:none}
+    .p-body a:hover{text-decoration:underline}
+
+    /* Modal */
+    .modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.5);overflow:auto}
+    .modal-content{background:#fff;margin:60px auto;padding:20px;border-radius:12px;max-width:500px;position:relative;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+    .modal-content img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;margin-bottom:12px}
+    .close{position:absolute;top:10px;right:15px;font-size:24px;cursor:pointer;color:#333}
+
+    /* Footer */
+    footer{background:var(--wosm-purple);color:#fff;margin-top:40px;padding:40px 20px 20px;font-size:14px}
+    footer h4{margin:0 0 10px;font-size:14px;font-weight:700;text-transform:uppercase}
+    footer p{margin:0 0 10px;line-height:1.6}
+    footer a{color:#fff;text-decoration:none}
+    footer a:hover{text-decoration:underline}
+    .footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+    .socials{display:flex;gap:10px;margin-top:10px}
+    .socials a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:4px;background:rgba(255,255,255,.15);font-size:18px;transition:.3s}
+    .socials a:hover{background:#fff;color:var(--wosm-purple)}
+    footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
+    .credits{text-align:center;font-size:13px;color:rgba(255,255,255,.8)}
+
+    /* Responsive */
+    @media(max-width:800px){
+      .grid{grid-template-columns:1fr}
+      .caption{max-width:90%;font-size:14px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>DKR Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="#beranda">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="about.html">Tentang DKR Punggelan</a>
+            <a href="profil.html">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="unduh.html">Peraturan dan Berkas</a>
+            <a href="potensi.html">Data Potensi Pramuka Kwarran</a>
+          </div>
+        </div>
+        <a href="https://dkrpunggelan.wordpress.com/">Berita</a>
+        <a href="#rekrutmen">Rekrutmen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="beranda" class="hero">
+    <div class="slide active">
+      <img src="https://www.refoindonesia.com/wp-content/uploads/2022/08/Pramuka-Kecerdasan-Emosional-dan-Generasi-Emas-2045--1024x640.jpg" alt="Slide 1"><div class="overlay"></div>
+      <div class="caption"><h2>Selamat Datang di DKR Punggelan</h2><p>Semangat kepemimpinan, keterampilan, dan pengabdian masyarakat.</p></div>
+    </div>
+    <div class="slide">
+      <img src="https://sumselprov.go.id/storage/berita//j7BnqGe7DvDXkWFGT2FQIlwjJ2kVLpTiMmU4itoV.jpg" alt="Slide 2"><div class="overlay"></div>
+      <div class="caption"><h2>Agenda & Kegiatan</h2><p>Temukan pelatihan, aksi sosial, dan kegiatan pramuka terbaru.</p></div>
+    </div>
+    <div class="slide">
+      <img src="https://pramukajateng.or.id/wp-content/uploads/2024/06/1d6f285b-f449-4bbd-accf-b400dad05e80.jpg" alt="Slide 3"><div class="overlay"></div>
+      <div class="caption"><h2>Gabung Bersama Kami</h2><p>Rekrutmen terbuka — kembangkan keterampilan kepemimpinanmu.</p></div>
+    </div>
+    <div class="dots">
+      <div class="dot active" data-index="0"></div>
+      <div class="dot" data-index="1"></div>
+      <div class="dot" data-index="2"></div>
+    </div>
+  </section>
+
+  <main>
+    <div class="grid">
+      <div class="card">
+        <h3>Agenda Kegiatan</h3>
+        <div class="agenda-list">
+
+          <div class="agenda-item" onclick="openEvent(
+            'Pelatihan Kepemimpinan',
+            '2025-10-12T08:00',
+            '2025-10-12T15:00',
+            'Lapangan Desa Punggelan',
+            'Pelatihan kepemimpinan Pramuka DKR Punggelan',
+            'assets/images/eror.gif'
+          )">
+            <div class="when">12 Okt<br><small>2025</small></div>
+            <div><h4>Pelatihan Kepemimpinan</h4><p>Lapangan Desa Punggelan — 08.00–15.00</p></div>
+          </div>
+
+          <div class="agenda-item" onclick="openEvent(
+            'Bakhti Sosial',
+            '2025-11-25T07:30',
+            '2025-11-25T12:00',
+            'Sekretariat DKR Punggelan',
+            'Kegiatan Bakti Sosial DKR Punggelan',
+            'https://via.placeholder.com/600x600.png?text=Bakti+Sosial'
+          )">
+            <div class="when">25 Nov<br><small>2025</small></div>
+            <div><h4>Bakti Sosial</h4><p>Sekretariat — 07.30–12.00</p></div>
+          </div>
+
+          <div class="agenda-item" onclick="openEvent(
+            'Kemah Ranting',
+            '2025-12-07T08:00',
+            '2025-12-09T16:00',
+            'Bumi Perkemahan',
+            'Kemah ranting 2 hari DKR Punggelan',
+            'https://via.placeholder.com/600x600.png?text=Kemah+Ranting'
+          )">
+            <div class="when">07 Des<br><small>2025</small></div>
+            <div><h4>Kemah Ranting</h4><p>Bumi Perkemahan — 2 Hari</p></div>
+          </div>
+
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3>Informasi Singkat</h3>
+          <p>DKR Punggelan — Dewan Kerja Ranting Punggelan. Mendorong kreasi, kepemimpinan, dan pengabdian di Kecamatan Punggelan.</p>
+          <h4>Sekretariat</h4>
+          <p>Dindikpora Kec. Punggelan, Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462</p>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3>Rekrutmen Cepat</h3>
+          <p>Buka pendaftaran anggota baru & relawan. Klik tombol di bawah untuk daftar online.</p>
+          <a href="#rekrutmen" style="display:inline-block;padding:10px 14px;background:var(--wosm-purple);color:#fff;border-radius:8px;text-decoration:none">Daftar Sekarang</a>
+        </div>
+      </aside>
+    </div>
+
+    <section id="berita" style="margin-top:20px">
+      <div class="card">
+        <h3>Berita & Blog</h3>
+        <div id="posts" class="blog-preview"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Detail Event -->
+  <div id="eventModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEvent()">&times;</span>
+      <img id="eventImg" src="" alt="Poster Agenda">
+      <h3 id="eventTitle"></h3>
+      <p><strong>Waktu:</strong> <span id="eventTime"></span></p>
+      <p><strong>Tempat:</strong> <span id="eventLocation"></span></p>
+      <p id="eventDescription"></p>
+      <a id="eventLink" target="_blank"
+         style="display:inline-block;margin-top:12px;padding:10px 14px;background:var(--wosm-purple);color:#fff;border-radius:6px;text-decoration:none">
+         Tambah ke Kalender
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid" style="gap:40px">
+      <div>
+        <h4>DKR PUNGGELAN</h4>
+        <p>Dewan Kerja Ranting Punggelan adalah wadah pengembangan kepemimpinan pramuka penegak dan pandega di Kecamatan Punggelan.</p>
+        <p><em>"Mengabdi dengan Kreasi, Menginspirasi dengan Aksi"</em></p>
+      </div>
+      <div>
+        <h4>SEKRETARIAT</h4>
+        <p>Dindikpora Kec. Punggelan<br>Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462</p>
+        <p>Email: <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">dewankerjarantingkecpunggelan@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>LINK ORGANISASI</h4>
+        <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+          <li>
+            <a href="https://pramukabanjarnegara.or.id" target="_blank">
+              Kwarcab Banjarnegara <i class='bx bx-link-external'></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://pramukajateng.or.id" target="_blank">
+              Kwarda Jawa Tengah <i class='bx bx-link-external'></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://pramuka.or.id" target="_blank">
+              Kwartir Nasional <i class='bx bx-link-external'></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4>MEDIA SOSIAL</h4>
+        <div class="socials">
+          <a href="https://facebook.com/DkrPunggelan" target="_blank"><i class='bx bxl-facebook'></i></a>
+          <a href="https://x.com/dkr__punggelan" target="_blank"><i class='bx bxl-twitter'></i></a>
+          <a href="https://youtube.com" target="_blank"><i class='bx bxl-youtube'></i></a>
+          <a href="https://instagram.com/dkr__punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="credits">© 2025 Dewan Kerja Ranting Punggelan. Semua Hak Dilindungi.</div>
+  </footer>
+
+  <!-- Script -->
+  <script src="https://cdn.jsdelivr.net/npm/rss-parser/dist/rss-parser.min.js"></script>
+  <script>
+    // Slider
+    const slides=document.querySelectorAll('.slide');
+    const dots=document.querySelectorAll('.dot');
+    let current=0;let interval;
+    function show(i){slides.forEach(s=>s.classList.remove('active'));dots.forEach(d=>d.classList.remove('active'));slides[i].classList.add('active');dots[i].classList.add('active');current=i;}
+    function next(){show((current+1)%slides.length);}
+    dots.forEach(d=>d.addEventListener('click',()=>{show(+d.dataset.index);reset();}));
+    function start(){interval=setInterval(next,5000);}
+    function reset(){clearInterval(interval);start();}
+    start();
+
+    // Event Modal
+    function openEvent(title,start,end,location,desc,img){
+      document.getElementById("eventTitle").textContent=title;
+      document.getElementById("eventTime").textContent=new Date(start).toLocaleString()+" - "+new Date(end).toLocaleString();
+      document.getElementById("eventLocation").textContent=location;
+      document.getElementById("eventDescription").textContent=desc;
+      document.getElementById("eventImg").src=img;
+      const link=`https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start.replace(/-|:|\.\d\d\d/g,"")}Z/${end.replace(/-|:|\.\d\d\d/g,"")}Z&details=${encodeURIComponent(desc)}&location=${encodeURIComponent(location)}`;
+      document.getElementById("eventLink").href=link;
+      document.getElementById("eventModal").style.display="block";
+    }
+    function closeEvent(){document.getElementById("eventModal").style.display="none";}
+    window.onclick=e=>{if(e.target==document.getElementById("eventModal"))closeEvent();}
+
+    function toggleMenu(){document.getElementById("nav").classList.toggle("active");}
+    function toggleDropdown(el){el.parentElement.classList.toggle("open");}
+
+const postsContainer = document.getElementById("posts");
+
+async function loadWPPosts() {
+  try {
+    const res = await fetch('https://dkrpunggelan.wordpress.com/wp-json/wp/v2/posts?per_page=5&_embed');
+    const posts = await res.json();
+
+    posts.forEach(post => {
+      // Ambil featured image jika ada
+      let img = 'https://via.placeholder.com/400x300';
+      if(post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]){
+        img = post._embedded['wp:featuredmedia'][0].source_url;
+      }
+
+      // Ambil excerpt tanpa tag HTML
+      const excerpt = post.excerpt.rendered.replace(/<[^>]+>/g, '');
+
+      postsContainer.innerHTML += `
+        <div class="post">
+          <img src="${img}" alt="${post.title.rendered}">
+          <div class="p-body">
+            <h4><a href="${post.link}" target="_blank">${post.title.rendered}</a></h4>
+            <p>${excerpt}</p>
+          </div>
+        </div>`;
+    });
+  } catch (err) {
+    console.error(err);
+    postsContainer.innerHTML = "<p>Gagal memuat berita dari WordPress.</p>";
+  }
+}
+
+loadWPPosts();
+</script>
+</body>
+</html>
