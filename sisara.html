@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Absensi SAGARA</title>
-  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="icon" href="images/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
@@ -57,7 +57,7 @@
 <body data-theme="light">
   <header>
     <div class="brand">
-      <img src="assets/images/logo.png" alt="Logo SAGARA">
+      <img src="images/logo.png" alt="Logo SAGARA">
       <div>
         <h1>SISARA SAGARA</h1>
         <p>Sistem Absensi Rapat</p>
@@ -129,7 +129,7 @@
   </footer>
 
   <!-- WhatsApp Floating -->
-  <a href="https://wa.me/6281234567890" target="_blank" class="whatsapp-float" title="Hubungi Admin">
+  <a href="https://wa.me/6282136065407" target="_blank" class="whatsapp-float" title="Hubungi Admin">
     <i class='bx bxl-whatsapp' style="font-size:24px;"></i>
   </a>
 
@@ -212,7 +212,7 @@
       const { jsPDF }=window.jspdf;
       const doc=new jsPDF({unit:'pt',format:'a4'});
       const pageWidth=doc.internal.pageSize.getWidth(); const pageHeight=doc.internal.pageSize.getHeight(); const marginX=40, marginY=40;
-      const kopImg=new Image(); kopImg.src='assets/images/kop.png';
+      const kopImg=new Image(); kopImg.src='images/kop.png';
       kopImg.onload=function(){
         const ratio=kopImg.height/kopImg.width; const kopWidth=pageWidth-marginX*2; const kopHeight=kopWidth*ratio;
         doc.addImage(kopImg,'PNG',marginX,marginY,kopWidth,kopHeight);
