@@ -4,54 +4,44 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Absensi SAGARA</title>
-  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
     :root {
-      --navy:#0b2340;
-      --muted:#64748b;
-      --bg:#f5f7fb;
-      --card:#ffffff;
+      --navy:#0b2340; --muted:#64748b; --bg:#f5f7fb; --card:#ffffff;
+    }
+    [data-theme="dark"]{
+      --navy:#f5f7fb; --muted:#94a3b8; --bg:#0b2340; --card:#1e293b;
     }
     * { box-sizing: border-box; font-family: 'Manrope', sans-serif; }
-    body { margin:0; background:var(--bg); color:var(--navy); line-height:1.5; }
-    header {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:20px 24px; background:#fff; box-shadow:0 4px 20px rgba(0,0,0,0.05);
-      flex-wrap:wrap; gap:10px;
-    }
+    body { margin:0; background:var(--bg); color:var(--navy); line-height:1.5; transition:0.3s; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; background:var(--card); box-shadow:0 4px 20px rgba(0,0,0,0.05); flex-wrap:wrap; gap:10px; }
     .brand { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
     .brand img { width:72px; height:72px; object-fit:contain; }
     .brand h1 { margin:0; font-size:22px; font-weight:700; }
     .brand p { margin:2px 0 0; color:var(--muted); font-size:14px; }
-    .container {
-      max-width:1200px; margin:30px auto; padding:0 20px;
-      display:grid; grid-template-columns:2fr 1fr; gap:20px;
-    }
-    .card {
-      background:var(--card); border-radius:14px; padding:22px;
-      box-shadow:0 6px 24px rgba(11,35,64,0.06);
-    }
+    .container { max-width:1200px; margin:30px auto; padding:0 20px; display:grid; grid-template-columns:2fr 1fr; gap:20px; }
+    .card { background:var(--card); border-radius:14px; padding:22px; box-shadow:0 6px 24px rgba(11,35,64,0.06); transition:0.3s; }
     h3 { margin-top:0; font-size:18px; display:flex; align-items:center; gap:6px; }
     label { display:block; font-size:13px; color:var(--muted); margin-bottom:4px; margin-top:8px; }
-    input[type=text], input[type=date] {
-      width:100%; padding:10px 12px; border:1px solid #e2e8f0;
-      border-radius:8px; font-size:14px;
-    }
-    button {
-      background:var(--navy); color:#fff; border:none; padding:10px 14px;
-      border-radius:8px; cursor:pointer; font-weight:600;
-      transition:all .2s ease;
-    }
+    input[type=text], input[type=date], select { width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; }
+    button { background:var(--navy); color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600; transition:all .2s ease; }
     button:hover { opacity:.9; }
     .small { padding:7px 10px; font-size:13px; }
-    .muted { color:var(--muted); font-size:13px; }
     table { width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; }
     th, td { border-bottom:1px solid #e2e8f0; padding:8px 6px; text-align:left; }
     th { color:var(--muted); font-weight:600; }
     footer { text-align:center; font-size:13px; color:var(--muted); margin:30px 0; padding:0 10px; }
     #reader { width:100%; max-height:250px; border-radius:8px; overflow:hidden; margin-bottom:0.3rem; }
+    .theme-toggle { cursor:pointer; font-size:18px; }
+
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      position:fixed; bottom:20px; right:20px; background:#25d366; color:#fff;
+      width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:999; text-decoration:none;
+    }
 
     @media(max-width:1024px){ .container { grid-template-columns:1fr; } }
     @media(max-width:600px){
@@ -64,14 +54,16 @@
     }
   </style>
 </head>
-<body>
+<body data-theme="light">
   <header>
     <div class="brand">
-      <img src="images/logo.png" alt="Logo SAGARA">
+      <img src="assets/images/logo.png" alt="Logo SAGARA">
       <div>
         <h1>SISARA SAGARA</h1>
         <p>Sistem Absensi Rapat</p>
       </div>
+    </div>
+    <div class="theme-toggle" onclick="toggleTheme()"><i class='bx bx-moon'></i></div>
   </header>
 
   <div class="container">
@@ -80,11 +72,11 @@
       <h3><i class="bx bx-qr-scan"></i> Pemindaian QR Code</h3>
       <p class="muted">Scan QR Code yang tertera pada ID Card/ KTA Digital</p>
       <div class="input-group" style="margin-bottom:8px;">
-        <select id="camera-select"></select>
-        <button class="small" onclick="restartScanner()">Mulai / Ganti Kamera</button>
-      </div>
+  <select id="camera-select"></select>
+  <button class="small" onclick="restartScanner()">Mulai / Ganti Kamera</button>
+  <button class="small" style="background:#ef4444" onclick="stopScanner()">Matikan Kamera</button>
+</div>
       <div id="reader"></div>
-      </div>
 
       <h3 style="margin-top:20px;"><i class="bx bx-edit"></i> Absensi Manual</h3>
       <label>Nama</label>
@@ -100,7 +92,10 @@
         <thead><tr><th>Nama</th><th>Jabatan</th><th>Waktu</th><th>Aksi</th></tr></thead>
         <tbody></tbody>
       </table>
-      <div style="margin-top:8px;"><button id="clearLog" class="small" style="background:#6b7280">Bersihkan Daftar</button></div>
+      <div style="margin-top:8px;">
+        <button id="clearLog" class="small" style="background:#6b7280">Bersihkan Daftar</button>
+        <button id="exportCsv" class="small" style="background:#047857">Export CSV</button>
+      </div>
     </section>
 
     <!-- Bagian Kanan -->
@@ -133,129 +128,176 @@
     © 2025 SAGARA — Sampang Generasi Remaja Aktif. All rights reserved.
   </footer>
 
+  <!-- WhatsApp Floating -->
+  <a href="https://wa.me/6281234567890" target="_blank" class="whatsapp-float" title="Hubungi Admin">
+    <i class='bx bxl-whatsapp' style="font-size:24px;"></i>
+  </a>
+
   <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-  let attendance = JSON.parse(localStorage.getItem('attendance')) || [];
-  const tbody = document.querySelector('#attendanceTable tbody');
-  const manualNama = document.getElementById('manualNama');
-  const manualJabatan = document.getElementById('manualJabatan');
-  const addManualBtn = document.getElementById('addManual');
-  const genNama = document.getElementById('genNama');
-  const genJabatan = document.getElementById('genJabatan');
-  const qrCanvas = document.getElementById('qrCanvas');
-  const generateQR = document.getElementById('generateQR');
-  const downloadQR = document.getElementById('downloadQR');
-  const downloadPdf = document.getElementById('downloadPdf');
-  const clearLogBtn = document.getElementById('clearLog');
-  const keterangan = document.getElementById('keterangan');
-  const tanggal = document.getElementById('tanggal');
+    let attendance = JSON.parse(localStorage.getItem('attendance')) || [];
+    const tbody = document.querySelector('#attendanceTable tbody');
+    const manualNama = document.getElementById('manualNama');
+    const manualJabatan = document.getElementById('manualJabatan');
+    const addManualBtn = document.getElementById('addManual');
+    const genNama = document.getElementById('genNama');
+    const genJabatan = document.getElementById('genJabatan');
+    const qrCanvas = document.getElementById('qrCanvas');
+    const generateQR = document.getElementById('generateQR');
+    const downloadQR = document.getElementById('downloadQR');
+    const downloadPdf = document.getElementById('downloadPdf');
+    const clearLogBtn = document.getElementById('clearLog');
+    const exportCsvBtn = document.getElementById('exportCsv');
+    const keterangan = document.getElementById('keterangan');
+    const tanggal = document.getElementById('tanggal');
 
-  tanggal.value = new Date().toISOString().slice(0,10);
+    tanggal.value = new Date().toISOString().slice(0,10);
 
-  function saveData() { localStorage.setItem('attendance', JSON.stringify(attendance)); }
-  function renderTable(){
-    if(attendance.length===0){ tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:#94a3b8">Belum ada data absensi</td></tr>'; return; }
-    tbody.innerHTML = attendance.map((a,i)=>`<tr>
-      <td>${a.nama}</td><td>${a.jabatan}</td><td>${a.waktu}</td>
-      <td style="text-align:center;"><button class="small" style="background:#ef4444" onclick="deleteRow(${i})"><i class='bx bx-trash'></i></button></td>
-    </tr>`).join('');
-  }
-  window.deleteRow=function(i){ if(confirm(`Hapus ${attendance[i].nama}?`)){ attendance.splice(i,1); saveData(); renderTable(); } }
+    function saveData() { localStorage.setItem('attendance', JSON.stringify(attendance)); }
+    function renderTable(){
+      if(attendance.length===0){
+        tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:#94a3b8">Belum ada data absensi</td></tr>'; return;
+      }
+      tbody.innerHTML = attendance.map((a,i)=>`<tr>
+        <td>${a.nama}</td><td>${a.jabatan}</td><td>${a.waktu}</td>
+        <td style="text-align:center;"><button class="small" style="background:#ef4444" onclick="deleteRow(${i})"><i class='bx bx-trash'></i></button></td>
+      </tr>`).join('');
+    }
 
-  function addAttendance(n,j){ attendance.push({nama:n,jabatan:j,waktu:new Date().toLocaleString('id-ID')}); saveData(); renderTable(); }
+    window.deleteRow=function(i){ if(confirm(`Hapus ${attendance[i].nama}?`)){ attendance.splice(i,1); saveData(); renderTable(); } }
+    function addAttendance(n,j){
+      attendance.push({nama:n,jabatan:j,waktu:new Date().toLocaleString('id-ID')}); saveData(); renderTable();
+    }
 
-  addManualBtn.onclick = ()=>{ const n=manualNama.value.trim(), j=manualJabatan.value.trim(); if(!n||!j) return alert('Isi nama dan jabatan!'); addAttendance(n,j); manualNama.value=manualJabatan.value=''; };
-
-  generateQR.onclick = ()=>{ const n=genNama.value.trim(), j=genJabatan.value.trim(); if(!n||!j)return alert('Isi nama dan jabatan!'); qrCanvas.innerHTML=''; new QRCode(qrCanvas,{text:JSON.stringify({nama:n,jabatan:j}),width:200,height:200}); };
-
-  downloadQR.onclick=()=>{ const img=qrCanvas.querySelector('img'); if(!img)return alert('Buat QR dulu!'); const a=document.createElement('a'); a.href=img.src; a.download=`qr-${genNama.value||'anggota'}.png`; a.click(); };
-
-  clearLogBtn.onclick=()=>{ if(confirm('Hapus semua daftar absensi?')){ attendance.length=0; saveData(); renderTable(); } };
-
-  // === PDF ===
-  downloadPdf.onclick=()=>{
-    if(attendance.length===0)return alert('Belum ada data absensi!');
-    const { jsPDF }=window.jspdf;
-    const doc=new jsPDF({unit:'pt',format:'a4'}); const pageWidth=doc.internal.pageSize.getWidth(); const pageHeight=doc.internal.pageSize.getHeight(); const marginX=40, marginY=40;
-    const kopImg=new Image(); kopImg.src='images/kop.png';
-    kopImg.onload=function(){
-      const ratio=kopImg.height/kopImg.width; const kopWidth=pageWidth-marginX*2; const kopHeight=kopWidth*ratio;
-      doc.addImage(kopImg,'PNG',marginX,marginY,kopWidth,kopHeight);
-      const today=new Date(); const formattedDate=today.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'});
-      doc.setFont('helvetica','normal'); doc.setFontSize(11);
-      doc.text(`Banjarnegara, ${formattedDate}`,pageWidth-marginX,marginY+kopHeight+10,{align:'right'});
-      doc.setFont('helvetica','bold'); doc.setFontSize(13.5); doc.text('DAFTAR HADIR KEGIATAN / RAPAT',pageWidth/2,marginY+kopHeight+42,{align:'center'});
-      doc.setFontSize(12); doc.text('SAMPANG GENERASI REMAJA AKTIF (SAGARA)',pageWidth/2,marginY+kopHeight+60,{align:'center'});
-      const ket=keterangan.value.trim()||'Rapat Koordinasi / Kegiatan Rutin';
-      doc.setFont('helvetica','italic'); doc.setFontSize(11); doc.text(`“${ket}”`,pageWidth/2,marginY+kopHeight+78,{align:'center'});
-      let y=marginY+kopHeight+105;
-      doc.setFont('helvetica','bold'); doc.setFontSize(11);
-      doc.text("No",marginX,y); doc.text("Nama",marginX+40,y); doc.text("Jabatan",marginX+240,y); doc.text("Waktu Kehadiran",marginX+400,y);
-      doc.setLineWidth(0.5); doc.line(marginX,y+3,pageWidth-marginX,y+3);
-      doc.setFont('helvetica','normal'); y+=18;
-      attendance.forEach((a,i)=>{ doc.text(String(i+1),marginX,y); doc.text(a.nama,marginX+40,y); doc.text(a.jabatan,marginX+240,y); doc.text(a.waktu,marginX+400,y); y+=18;
-        if(y>pageHeight-80){ doc.setFontSize(10); doc.setTextColor(120); doc.text('Dokumen ini dicetak secara digital oleh Sistem Absensi SAGARA.',pageWidth/2,pageHeight-30,{align:'center'}); doc.addPage(); y=marginY; } });
-      doc.setFontSize(10); doc.setTextColor(120); doc.text('Dokumen ini dicetak secara digital oleh Sistem Absensi SAGARA.',pageWidth/2,pageHeight-30,{align:'center'});
-      doc.save(`Absensi_SAGARA_${today.toISOString().slice(0,10)}.pdf`);
+    addManualBtn.onclick = ()=>{
+      const n=manualNama.value.trim(), j=manualJabatan.value.trim();
+      if(!n||!j) return alert('Isi nama dan jabatan!');
+      // cek duplikat
+      if(!attendance.some(a=>a.nama===n && a.jabatan===j)) addAttendance(n,j);
+      manualNama.value=manualJabatan.value='';
     };
-  };
 
-  renderTable();
+    generateQR.onclick = ()=>{
+      const n=genNama.value.trim(), j=genJabatan.value.trim();
+      if(!n||!j) return alert('Isi nama dan jabatan!');
+      qrCanvas.innerHTML='';
+      new QRCode(qrCanvas,{text:JSON.stringify({nama:n,jabatan:j}),width:200,height:200});
+    };
 
- // === Kamera / Scanner ===
-let html5QrCode, currentCameraId;
+    downloadQR.onclick=()=>{
+      const img=qrCanvas.querySelector('img');
+      if(!img) return alert('Buat QR dulu!');
+      const a=document.createElement('a');
+      a.href=img.src; a.download=`qr-${genNama.value||'anggota'}.png`; a.click();
+    };
+
+    clearLogBtn.onclick=()=>{ if(confirm('Hapus semua daftar absensi?')){ attendance.length=0; saveData(); renderTable(); } };
+
+    exportCsvBtn.onclick=()=>{
+      if(attendance.length===0) return alert('Belum ada data absensi!');
+      let csv='Nama,Jabatan,Waktu\n';
+      attendance.forEach(a=>{ csv+=`${a.nama},${a.jabatan},${a.waktu}\n`; });
+      const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download=`Absensi_SAGARA_${new Date().toISOString().slice(0,10)}.csv`; a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    // === PDF ===
+    downloadPdf.onclick=()=>{
+      if(attendance.length===0)return alert('Belum ada data absensi!');
+      const { jsPDF }=window.jspdf;
+      const doc=new jsPDF({unit:'pt',format:'a4'});
+      const pageWidth=doc.internal.pageSize.getWidth(); const pageHeight=doc.internal.pageSize.getHeight(); const marginX=40, marginY=40;
+      const kopImg=new Image(); kopImg.src='assets/images/kop.png';
+      kopImg.onload=function(){
+        const ratio=kopImg.height/kopImg.width; const kopWidth=pageWidth-marginX*2; const kopHeight=kopWidth*ratio;
+        doc.addImage(kopImg,'PNG',marginX,marginY,kopWidth,kopHeight);
+        const today=new Date(); const formattedDate=today.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'});
+        doc.setFont('helvetica','normal'); doc.setFontSize(11);
+        doc.text(`Banjarnegara, ${formattedDate}`,pageWidth-marginX,marginY+kopHeight+10,{align:'right'});
+        doc.setFont('helvetica','bold'); doc.setFontSize(13.5); doc.text('DAFTAR HADIR KEGIATAN / RAPAT',pageWidth/2,marginY+kopHeight+42,{align:'center'});
+        doc.setFontSize(12); doc.text('SAMPANG GENERASI REMAJA AKTIF (SAGARA)',pageWidth/2,marginY+kopHeight+60,{align:'center'});
+        const ket=keterangan.value.trim()||'Rapat Koordinasi / Kegiatan Rutin';
+        doc.setFont('helvetica','italic'); doc.setFontSize(11); doc.text(`“${ket}”`,pageWidth/2,marginY+kopHeight+78,{align:'center'});
+        let y=marginY+kopHeight+105;
+        doc.setFont('helvetica','bold'); doc.setFontSize(11);
+        doc.text("No",marginX,y); doc.text("Nama",marginX+40,y); doc.text("Jabatan",marginX+240,y); doc.text("Waktu Kehadiran",marginX+400,y);
+        doc.setLineWidth(0.5); doc.line(marginX,y+3,pageWidth-marginX,y+3);
+        doc.setFont('helvetica','normal'); y+=18;
+        attendance.forEach((a,i)=>{
+          doc.text(String(i+1),marginX,y); doc.text(a.nama,marginX+40,y); doc.text(a.jabatan,marginX+240,y); doc.text(a.waktu,marginX+400,y); y+=18;
+          if(y>pageHeight-80){ doc.setFontSize(10); doc.setTextColor(120); doc.text('Dokumen ini dicetak secara digital oleh Sistem Absensi SAGARA.',pageWidth/2,pageHeight-30,{align:'center'}); doc.addPage(); y=marginY; }
+        });
+        doc.setFontSize(10); doc.setTextColor(120); doc.text('Dokumen ini dicetak secara digital oleh Sistem Absensi SAGARA.',pageWidth/2,pageHeight-30,{align:'center'});
+        doc.save(`Absensi_SAGARA_${today.toISOString().slice(0,10)}.pdf`);
+      };
+    };
+
+    renderTable();
+
+    // === Kamera / Scanner ===
+    let html5QrCode, currentCameraId;
+
 async function initCameras(){
   const cameras = await Html5Qrcode.getCameras();
   const select = document.getElementById("camera-select");
   select.innerHTML = "";
-  cameras.forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c.id;
-    opt.text = c.label;
-    select.appendChild(opt);
+  cameras.forEach(c => { 
+    const opt = document.createElement("option"); 
+    opt.value = c.id; 
+    opt.text = c.label; 
+    select.appendChild(opt); 
   });
   currentCameraId = cameras[0]?.id;
 }
 
 async function startScanner(id = currentCameraId){
   if(!id) return;
+  if(html5QrCode && html5QrCode._isScanning) await html5QrCode.stop();
   html5QrCode = new Html5Qrcode("reader");
-  html5QrCode.start(
-    id,
-    {fps:10, qrbox:250},
-    qrMsg => {
-      try {
-        const d = JSON.parse(qrMsg);
-        if(d.nama && d.jabatan){
-          // Cek duplikat sebelum ditambahkan
-          const exists = attendance.some(a => a.nama === d.nama && a.jabatan === d.jabatan);
-          if(!exists) addAttendance(d.nama, d.jabatan);
-        }
-      } catch {
-        // Jika QR hanya teks
-        const text = qrMsg;
-        const exists = attendance.some(a => a.nama === text);
-        if(text && !exists) addAttendance(text, '-');
+  html5QrCode.start(id,{fps:10,qrbox:250}, qrMsg => {
+    try {
+      const d = JSON.parse(qrMsg);
+      if(d.nama && d.jabatan){
+        const exists = attendance.some(a=>a.nama===d.nama && a.jabatan===d.jabatan);
+        if(!exists) addAttendance(d.nama,d.jabatan);
       }
-    },
-    err => {}
-  );
+    } catch {
+      const text = qrMsg;
+      if(text && !attendance.some(a=>a.nama===text)) addAttendance(text,'-');
+    }
+  }, err => {});
 }
 
 async function restartScanner(){
-  if(html5QrCode) await html5QrCode.stop();
+  if(html5QrCode && html5QrCode._isScanning) await html5QrCode.stop();
   currentCameraId = document.getElementById("camera-select").value;
   startScanner(currentCameraId);
 }
-  async function restartScanner(){ if(html5QrCode) await html5QrCode.stop(); currentCameraId=document.getElementById("camera-select").value; startScanner(currentCameraId); }
-  function copyScan(){ const t=document.getElementById("scan-text").innerText; if(!t)return alert('Belum ada hasil scan!'); navigator.clipboard.writeText(t).then(()=>alert('Hasil scan berhasil disalin!')); }
-  function clearScan(){ document.getElementById("scan-text").innerText=""; document.getElementById("scan-result").style.display="none"; }
 
-  initCameras().then(()=>startScanner());
+async function stopScanner(){
+  if(html5QrCode && html5QrCode._isScanning){
+    await html5QrCode.stop();
+    html5QrCode.clear();
+    alert('Kamera berhasil dimatikan.');
+  } else {
+    alert('Kamera belum aktif.');
+  }
+}
+
+initCameras().then(()=>startScanner());
+
+    // === Theme Toggle ===
+    function toggleTheme(){
+      const body=document.body;
+      if(body.dataset.theme==='light'){ body.dataset.theme='dark'; }else{ body.dataset.theme='light'; }
+    }
+    
+    
   </script>
 </body>
 </html>
