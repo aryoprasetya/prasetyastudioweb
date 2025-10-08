@@ -8,12 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
-    :root {
-      --navy:#0b2340; --muted:#64748b; --bg:#f5f7fb; --card:#ffffff;
-    }
-    [data-theme="dark"]{
-      --navy:#f5f7fb; --muted:#94a3b8; --bg:#0b2340; --card:#1e293b;
-    }
+    :root { --navy:#0b2340; --muted:#64748b; --bg:#f5f7fb; --card:#ffffff; }
+    [data-theme="dark"]{ --navy:#f5f7fb; --muted:#94a3b8; --bg:#0b2340; --card:#1e293b; }
     * { box-sizing: border-box; font-family: 'Manrope', sans-serif; }
     body { margin:0; background:var(--bg); color:var(--navy); line-height:1.5; transition:0.3s; }
     header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; background:var(--card); box-shadow:0 4px 20px rgba(0,0,0,0.05); flex-wrap:wrap; gap:10px; }
@@ -43,6 +39,17 @@
       box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:999; text-decoration:none;
     }
 
+    /* Toast / Notifikasi */
+    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+    .toast {
+      background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-size: 14px; opacity: 0; transform: translateX(100%); transition: all 0.3s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(0); }
+    .toast.success { background:#047857; }
+    .toast.error { background:#ef4444; }
+    .toast.info { background:#0d6efd; }
+
     @media(max-width:1024px){ .container { grid-template-columns:1fr; } }
     @media(max-width:600px){
       header { flex-direction:column; align-items:flex-start; justify-content:flex-start; text-align:left; }
@@ -71,10 +78,10 @@
       <h3><i class="bx bx-qr-scan"></i> Pemindaian QR Code</h3>
       <p class="muted">Scan QR Code yang tertera pada ID Card/ KTA Digital</p>
       <div class="input-group" style="margin-bottom:8px;">
-  <select id="camera-select"></select>
-  <button class="small" onclick="restartScanner()">Mulai / Ganti Kamera</button>
-  <button class="small" style="background:#ef4444" onclick="stopScanner()">Matikan Kamera</button>
-</div>
+        <select id="camera-select"></select>
+        <button class="small" onclick="restartScanner()">Mulai / Ganti Kamera</button>
+        <button class="small" style="background:#ef4444" onclick="stopScanner()">Matikan Kamera</button>
+      </div>
       <div id="reader"></div>
 
       <h3 style="margin-top:20px;"><i class="bx bx-edit"></i> Absensi Manual</h3>
@@ -128,28 +135,20 @@
   </footer>
 
   <!-- WhatsApp Floating -->
-  <a href="https://wa.me/6282136065407" target="_blank" class="whatsapp-float" title="Hubungi Admin">
+  <a href="https://wa.me/6281234567890" target="_blank" class="whatsapp-float" title="Hubungi Admin">
     <i class='bx bxl-whatsapp' style="font-size:24px;"></i>
   </a>
+
   <!-- Theme Toggle Floating -->
-<div class="theme-toggle" onclick="toggleTheme()" style="
-  position:fixed;
-  bottom:80px;  /* 50px WA + 20px margin + 10px jarak */
-  right:20px;
-  background:var(--navy);
-  color:#fff;
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 4px 12px rgba(0,0,0,0.3);
-  z-index:1000;
-  cursor:pointer;
-">
-  <i class='bx bx-moon' style="font-size:24px"></i>
-</div>
+  <div class="theme-toggle" onclick="toggleTheme()" style="
+    position:fixed; bottom:80px; right:20px;
+    background:var(--navy); color:#fff; width:50px; height:50px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:1000; cursor:pointer;">
+    <i class='bx bx-moon' style="font-size:24px"></i>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
 
   <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
@@ -175,10 +174,25 @@
 
     tanggal.value = new Date().toISOString().slice(0,10);
 
-    function saveData() { localStorage.setItem('attendance', JSON.stringify(attendance)); }
+    // Toast function
+    function showToast(message, type='info', duration=3000){
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerText = message;
+      container.appendChild(toast);
+      setTimeout(()=> toast.classList.add('show'), 50);
+      setTimeout(()=>{
+        toast.classList.remove('show');
+        setTimeout(()=> container.removeChild(toast), 300);
+      }, duration);
+    }
+
+    function saveData(){ localStorage.setItem('attendance', JSON.stringify(attendance)); }
     function renderTable(){
       if(attendance.length===0){
-        tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:#94a3b8">Belum ada data absensi</td></tr>'; return;
+        tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:#94a3b8">Belum ada data absensi</td></tr>';
+        return;
       }
       tbody.innerHTML = attendance.map((a,i)=>`<tr>
         <td>${a.nama}</td><td>${a.jabatan}</td><td>${a.waktu}</td>
@@ -186,55 +200,90 @@
       </tr>`).join('');
     }
 
-    window.deleteRow=function(i){ if(confirm(`Hapus ${attendance[i].nama}?`)){ attendance.splice(i,1); saveData(); renderTable(); } }
-    function addAttendance(n,j){
-      attendance.push({nama:n,jabatan:j,waktu:new Date().toLocaleString('id-ID')}); saveData(); renderTable();
+    window.deleteRow=function(i){
+      attendance.splice(i,1);
+      saveData();
+      renderTable();
+      showToast('Data berhasil dihapus', 'success');
     }
 
+    function addAttendance(n,j){
+      attendance.push({nama:n,jabatan:j,waktu:new Date().toLocaleString('id-ID')});
+      saveData();
+      renderTable();
+      showToast('Absensi berhasil ditambahkan', 'success');
+    }
+
+    // Tambah manual
     addManualBtn.onclick = ()=>{
-      const n=manualNama.value.trim(), j=manualJabatan.value.trim();
-      if(!n||!j) return alert('Isi nama dan jabatan!');
-      // cek duplikat
+      const n=manualNama.value.trim();
+      const j=manualJabatan.value.trim();
+      if(!n||!j){ showToast('Isi nama dan jabatan!', 'error'); return; }
       if(!attendance.some(a=>a.nama===n && a.jabatan===j)) addAttendance(n,j);
       manualNama.value=manualJabatan.value='';
     };
 
+    // Generate QR
     generateQR.onclick = ()=>{
-      const n=genNama.value.trim(), j=genJabatan.value.trim();
-      if(!n||!j) return alert('Isi nama dan jabatan!');
+      const n=genNama.value.trim();
+      const j=genJabatan.value.trim();
+      if(!n||!j){ showToast('Isi nama dan jabatan!', 'error'); return; }
       qrCanvas.innerHTML='';
       new QRCode(qrCanvas,{text:JSON.stringify({nama:n,jabatan:j}),width:200,height:200});
+      showToast('QR berhasil dibuat', 'success');
     };
 
-    downloadQR.onclick=()=>{
-      const img=qrCanvas.querySelector('img');
-      if(!img) return alert('Buat QR dulu!');
-      const a=document.createElement('a');
-      a.href=img.src; a.download=`qr-${genNama.value||'anggota'}.png`; a.click();
+    // Download QR
+    downloadQR.onclick = ()=>{
+      const img = qrCanvas.querySelector('img');
+      if(!img) return showToast('Buat QR dulu!', 'error');
+      const a = document.createElement('a');
+      a.href = img.src;
+      a.download = `qr-${genNama.value||'anggota'}.png`;
+      a.click();
+      showToast('QR berhasil diunduh!', 'success');
     };
 
-    clearLogBtn.onclick=()=>{ if(confirm('Hapus semua daftar absensi?')){ attendance.length=0; saveData(); renderTable(); } };
+    // Clear Log
+    clearLogBtn.onclick = ()=>{
+      if(attendance.length===0){ showToast('Belum ada data absensi!', 'info'); return; }
+      attendance.length = 0;
+      saveData();
+      renderTable();
+      showToast('Daftar absensi berhasil dibersihkan', 'success');
+    };
 
-    exportCsvBtn.onclick=()=>{
-      if(attendance.length===0) return alert('Belum ada data absensi!');
+    // Export CSV
+    exportCsvBtn.onclick = ()=>{
+      if(attendance.length===0){ showToast('Belum ada data absensi!', 'info'); return; }
       let csv='Nama,Jabatan,Waktu\n';
       attendance.forEach(a=>{ csv+=`${a.nama},${a.jabatan},${a.waktu}\n`; });
-      const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob);
-      const a=document.createElement('a'); a.href=url; a.download=`Absensi_SAGARA_${new Date().toISOString().slice(0,10)}.csv`; a.click();
+      const blob = new Blob([csv],{type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Absensi_SAGARA_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
       URL.revokeObjectURL(url);
+      showToast('CSV berhasil diunduh!', 'success');
     };
 
-    // === PDF ===
-    downloadPdf.onclick=()=>{
-      if(attendance.length===0)return alert('Belum ada data absensi!');
-      const { jsPDF }=window.jspdf;
-      const doc=new jsPDF({unit:'pt',format:'a4'});
-      const pageWidth=doc.internal.pageSize.getWidth(); const pageHeight=doc.internal.pageSize.getHeight(); const marginX=40, marginY=40;
-      const kopImg=new Image(); kopImg.src='images/kop.png';
-      kopImg.onload=function(){
-        const ratio=kopImg.height/kopImg.width; const kopWidth=pageWidth-marginX*2; const kopHeight=kopWidth*ratio;
+    // Download PDF
+    downloadPdf.onclick = ()=>{
+      if(attendance.length===0){ showToast('Belum ada data absensi!', 'info'); return; }
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({unit:'pt',format:'a4'});
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const marginX = 40, marginY = 40;
+      const kopImg = new Image(); kopImg.src='images/kop.png';
+      kopImg.onload = function(){
+        const ratio = kopImg.height/kopImg.width;
+        const kopWidth = pageWidth - marginX*2;
+        const kopHeight = kopWidth*ratio;
         doc.addImage(kopImg,'PNG',marginX,marginY,kopWidth,kopHeight);
-        const today=new Date(); const formattedDate=today.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'});
+        const today=new Date();
+        const formattedDate=today.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'});
         doc.setFont('helvetica','normal'); doc.setFontSize(11);
         doc.text(`Banjarnegara, ${formattedDate}`,pageWidth-marginX,marginY+kopHeight+10,{align:'right'});
         doc.setFont('helvetica','bold'); doc.setFontSize(13.5); doc.text('DAFTAR HADIR KEGIATAN / RAPAT',pageWidth/2,marginY+kopHeight+42,{align:'center'});
@@ -243,79 +292,70 @@
         doc.setFont('helvetica','italic'); doc.setFontSize(11); doc.text(`“${ket}”`,pageWidth/2,marginY+kopHeight+78,{align:'center'});
         let y=marginY+kopHeight+105;
         doc.setFont('helvetica','bold'); doc.setFontSize(11);
-        doc.text("No",marginX,y); doc.text("Nama",marginX+40,y); doc.text("Jabatan",marginX+240,y); doc.text("Waktu Kehadiran",marginX+400,y);
-        doc.setLineWidth(0.5); doc.line(marginX,y+3,pageWidth-marginX,y+3);
-        doc.setFont('helvetica','normal'); y+=18;
+        doc.text("No",marginX,y); doc.text("Nama",marginX+40,y); doc.text("Jabatan",marginX+240,y); doc.text("Waktu",marginX+400,y);
+        doc.setFont('helvetica','normal'); doc.setFontSize(11);
         attendance.forEach((a,i)=>{
-          doc.text(String(i+1),marginX,y); doc.text(a.nama,marginX+40,y); doc.text(a.jabatan,marginX+240,y); doc.text(a.waktu,marginX+400,y); y+=18;
-          if(y>pageHeight-80){ doc.setFontSize(10); doc.setTextColor(120); doc.text('Dokumen ini dicetak secara digital oleh Sistem Absensi SAGARA.',pageWidth/2,pageHeight-30,{align:'center'}); doc.addPage(); y=marginY; }
+          y+=20;
+          doc.text(`${i+1}`,marginX,y);
+          doc.text(a.nama,marginX+40,y);
+          doc.text(a.jabatan,marginX+240,y);
+          doc.text(a.waktu,marginX+400,y);
         });
-        doc.setFontSize(10); doc.setTextColor(120); doc.text('Dokumen ini dicetak secara digital oleh Sistem Absensi SAGARA.',pageWidth/2,pageHeight-30,{align:'center'});
+        const footerText = "Dokumen ini resmi tanpa tanda tangan, dan dicetak secara digital oleh Sistem Absensi SAGARA.";
+doc.setFont('helvetica', 'italic');
+doc.setFontSize(9);
+doc.setTextColor(100,116,139); // abu-abu seperti var(--muted)
+doc.text(footerText, pageWidth/2, pageHeight - 30, {align: 'center'});
         doc.save(`Absensi_SAGARA_${today.toISOString().slice(0,10)}.pdf`);
+        showToast('PDF berhasil diunduh!', 'success');
       };
     };
 
+    // Theme toggle
+    function toggleTheme(){
+      const t = document.body.getAttribute('data-theme');
+      const next = t==='light'?'dark':'light';
+      document.body.setAttribute('data-theme',next);
+      showToast(`Mode ${next} diaktifkan`,'info');
+    }
+
     renderTable();
 
-    // === Kamera / Scanner ===
-    let html5QrCode, currentCameraId;
+    // Kamera QR
+    let html5QrCode=null;
+    const cameraSelect=document.getElementById('camera-select');
 
-async function initCameras(){
-  const cameras = await Html5Qrcode.getCameras();
-  const select = document.getElementById("camera-select");
-  select.innerHTML = "";
-  cameras.forEach(c => { 
-    const opt = document.createElement("option"); 
-    opt.value = c.id; 
-    opt.text = c.label; 
-    select.appendChild(opt); 
-  });
-  currentCameraId = cameras[0]?.id;
-}
-
-async function startScanner(id = currentCameraId){
-  if(!id) return;
-  if(html5QrCode && html5QrCode._isScanning) await html5QrCode.stop();
-  html5QrCode = new Html5Qrcode("reader");
-  html5QrCode.start(id,{fps:10,qrbox:250}, qrMsg => {
-    try {
-      const d = JSON.parse(qrMsg);
-      if(d.nama && d.jabatan){
-        const exists = attendance.some(a=>a.nama===d.nama && a.jabatan===d.jabatan);
-        if(!exists) addAttendance(d.nama,d.jabatan);
+    async function restartScanner(){
+      if(html5QrCode && html5QrCode._isScanning){
+        await html5QrCode.stop();
+        html5QrCode.clear();
       }
-    } catch {
-      const text = qrMsg;
-      if(text && !attendance.some(a=>a.nama===text)) addAttendance(text,'-');
+      Html5Qrcode.getCameras().then(cameras=>{
+        cameraSelect.innerHTML='';
+        cameras.forEach(c=>cameraSelect.appendChild(new Option(c.label,c.id)));
+        startScanner(cameraSelect.value);
+      }).catch(err=>showToast('Gagal mendapatkan kamera','error'));
     }
-  }, err => {});
-}
 
-async function restartScanner(){
-  if(html5QrCode && html5QrCode._isScanning) await html5QrCode.stop();
-  currentCameraId = document.getElementById("camera-select").value;
-  startScanner(currentCameraId);
-}
-
-async function stopScanner(){
-  if(html5QrCode && html5QrCode._isScanning){
-    await html5QrCode.stop();
-    html5QrCode.clear();
-    alert('Kamera berhasil dimatikan.');
-  } else {
-    alert('Kamera belum aktif.');
-  }
-}
-
-initCameras().then(()=>startScanner());
-
-    // === Theme Toggle ===
-    function toggleTheme(){
-      const body=document.body;
-      if(body.dataset.theme==='light'){ body.dataset.theme='dark'; }else{ body.dataset.theme='light'; }
+    function startScanner(cameraId){
+      html5QrCode = new Html5Qrcode("reader");
+      html5QrCode.start(cameraId,{fps:10, qrbox:250}, qrCodeMessage=>{
+        try{
+          const obj=JSON.parse(qrCodeMessage);
+          if(obj.nama && obj.jabatan) addAttendance(obj.nama,obj.jabatan);
+        }catch(e){ showToast('QR tidak valid','error'); }
+      }, err=>{}).catch(err=>showToast('Gagal memulai kamera','error'));
     }
-    
-    
+
+    async function stopScanner(){
+      if(html5QrCode && html5QrCode._isScanning){
+        await html5QrCode.stop();
+        html5QrCode.clear();
+        showToast('Kamera berhasil dimatikan','success');
+      } else showToast('Kamera belum aktif','info');
+    }
+
+    restartScanner();
   </script>
 </body>
 </html>
