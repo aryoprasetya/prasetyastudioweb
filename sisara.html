@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Absensi SAGARA</title>
-  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="icon" href="images/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
@@ -67,7 +67,7 @@
 <body>
   <header>
     <div class="brand">
-      <img src="assets/images/logo.png" alt="Logo SAGARA">
+      <img src="images/logo.png" alt="Logo SAGARA">
       <div>
         <h1>SISARA SAGARA</h1>
         <p>Sistem Absensi Rapat</p>
@@ -185,7 +185,7 @@
     if(attendance.length===0)return alert('Belum ada data absensi!');
     const { jsPDF }=window.jspdf;
     const doc=new jsPDF({unit:'pt',format:'a4'}); const pageWidth=doc.internal.pageSize.getWidth(); const pageHeight=doc.internal.pageSize.getHeight(); const marginX=40, marginY=40;
-    const kopImg=new Image(); kopImg.src='assets/images/kop.png';
+    const kopImg=new Image(); kopImg.src='images/kop.png';
     kopImg.onload=function(){
       const ratio=kopImg.height/kopImg.width; const kopWidth=pageWidth-marginX*2; const kopHeight=kopWidth*ratio;
       doc.addImage(kopImg,'PNG',marginX,marginY,kopWidth,kopHeight);
@@ -210,27 +210,51 @@
 
   renderTable();
 
-  // === Kamera / Scanner ===
-  let html5QrCode, currentCameraId;
-  async function initCameras(){
-    const cameras=await Html5Qrcode.getCameras();
-    const select=document.getElementById("camera-select"); select.innerHTML="";
-    cameras.forEach(c=>{ const opt=document.createElement("option"); opt.value=c.id; opt.text=c.label; select.appendChild(opt); });
-    currentCameraId=cameras[0]?.id;
-  }
-  async function startScanner(id=currentCameraId){
-    if(!id)return;
-    html5QrCode=new Html5Qrcode("reader");
-    html5QrCode.start(id,{fps:10,qrbox:250},qrMsg=>{
-      document.getElementById("scan-result").style.display="flex";
-      document.getElementById("scan-text").innerText=qrMsg;
-      try{
-        const d=JSON.parse(qrMsg); if(d.nama&&d.jabatan)addAttendance(d.nama,d.jabatan);
-      }catch{
-        const text=qrMsg; if(text)addAttendance(text,'-');
+ // === Kamera / Scanner ===
+let html5QrCode, currentCameraId;
+async function initCameras(){
+  const cameras = await Html5Qrcode.getCameras();
+  const select = document.getElementById("camera-select");
+  select.innerHTML = "";
+  cameras.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c.id;
+    opt.text = c.label;
+    select.appendChild(opt);
+  });
+  currentCameraId = cameras[0]?.id;
+}
+
+async function startScanner(id = currentCameraId){
+  if(!id) return;
+  html5QrCode = new Html5Qrcode("reader");
+  html5QrCode.start(
+    id,
+    {fps:10, qrbox:250},
+    qrMsg => {
+      try {
+        const d = JSON.parse(qrMsg);
+        if(d.nama && d.jabatan){
+          // Cek duplikat sebelum ditambahkan
+          const exists = attendance.some(a => a.nama === d.nama && a.jabatan === d.jabatan);
+          if(!exists) addAttendance(d.nama, d.jabatan);
+        }
+      } catch {
+        // Jika QR hanya teks
+        const text = qrMsg;
+        const exists = attendance.some(a => a.nama === text);
+        if(text && !exists) addAttendance(text, '-');
       }
-    }, err=>{});
-  }
+    },
+    err => {}
+  );
+}
+
+async function restartScanner(){
+  if(html5QrCode) await html5QrCode.stop();
+  currentCameraId = document.getElementById("camera-select").value;
+  startScanner(currentCameraId);
+}
   async function restartScanner(){ if(html5QrCode) await html5QrCode.stop(); currentCameraId=document.getElementById("camera-select").value; startScanner(currentCameraId); }
   function copyScan(){ const t=document.getElementById("scan-text").innerText; if(!t)return alert('Belum ada hasil scan!'); navigator.clipboard.writeText(t).then(()=>alert('Hasil scan berhasil disalin!')); }
   function clearScan(){ document.getElementById("scan-text").innerText=""; document.getElementById("scan-result").style.display="none"; }
