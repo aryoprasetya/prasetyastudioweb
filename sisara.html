@@ -59,11 +59,10 @@
     <div class="brand">
       <img src="images/logo.png" alt="Logo SAGARA">
       <div>
-        <h1>SISARA</h1>
-        <p></p>
+        <h1>SISARA SAGARA</h1>
+        <p>Sistem Absensi Rapat</p>
       </div>
     </div>
-    <div class="theme-toggle" onclick="toggleTheme()"><i class='bx bx-moon'></i></div>
   </header>
 
   <div class="container">
@@ -132,6 +131,25 @@
   <a href="https://wa.me/6282136065407" target="_blank" class="whatsapp-float" title="Hubungi Admin">
     <i class='bx bxl-whatsapp' style="font-size:24px;"></i>
   </a>
+  <!-- Theme Toggle Floating -->
+<div class="theme-toggle" onclick="toggleTheme()" style="
+  position:fixed;
+  bottom:80px;  /* 50px WA + 20px margin + 10px jarak */
+  right:20px;
+  background:var(--navy);
+  color:#fff;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  z-index:1000;
+  cursor:pointer;
+">
+  <i class='bx bx-moon' style="font-size:24px"></i>
+</div>
 
   <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
