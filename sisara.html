@@ -408,38 +408,58 @@ doc.text(footerText, pageWidth/2, pageHeight - 30, {align: 'center'});
     }
   }
 
-  // Mulai scanner
-  async function startScanner(cameraId) {
-    if (!cameraId) {
-      showToast('Pilih kamera terlebih dahulu', 'info');
-      return;
-    }
-
-    try {
-      if (html5QrCode && html5QrCode._isScanning) {
-        await html5QrCode.stop();
-        html5QrCode.clear();
-      }
-
-      html5QrCode = new Html5Qrcode("reader");
-      await html5QrCode.start(
-        { deviceId: { exact: cameraId } },
-        { fps: 10, qrbox: 250 },
-        qrCodeMessage => {
-          try {
-            const obj = JSON.parse(qrCodeMessage);
-            if (obj.nama && obj.jabatan) addAttendance(obj.nama, obj.jabatan);
-          } catch {
-            showToast('QR tidak valid', 'error');
-          }
-        },
-        errorMsg => {}
-      );
-    } catch (err) {
-      console.error(err);
-      showToast('Gagal memulai kamera', 'error');
-    }
+  // Mulai scanner (versi fix: hanya 1 kali baca per QR)
+async function startScanner(cameraId) {
+  if (!cameraId) {
+    showToast('Pilih kamera terlebih dahulu', 'info');
+    return;
   }
+
+  try {
+    if (html5QrCode && html5QrCode._isScanning) {
+      await html5QrCode.stop();
+      html5QrCode.clear();
+    }
+
+    html5QrCode = new Html5Qrcode("reader");
+    let lastScanned = "";        // menyimpan isi QR terakhir
+    let lastScanTime = 0;        // waktu terakhir pemindaian
+
+    await html5QrCode.start(
+      { deviceId: { exact: cameraId } },
+      { fps: 10, qrbox: 250 },
+      qrCodeMessage => {
+        const now = Date.now();
+
+        // Cegah pembacaan berulang QR yang sama dalam 3 detik
+        if (qrCodeMessage === lastScanned && now - lastScanTime < 3000) return;
+        lastScanned = qrCodeMessage;
+        lastScanTime = now;
+
+        try {
+          const obj = JSON.parse(qrCodeMessage);
+
+          if (obj.nama && obj.jabatan) {
+            // Cegah data duplikat di daftar absensi
+            if (!attendance.some(a => a.nama === obj.nama && a.jabatan === obj.jabatan)) {
+              addAttendance(obj.nama, obj.jabatan);
+            } else {
+              showToast(`Data ${obj.nama} sudah tercatat`, 'info');
+            }
+          } else {
+            showToast('Format QR tidak lengkap', 'error');
+          }
+        } catch {
+          showToast('QR tidak valid', 'error');
+        }
+      },
+      errorMsg => { /* abaikan error dari kamera */ }
+    );
+  } catch (err) {
+    console.error(err);
+    showToast('Gagal memulai kamera', 'error');
+  }
+}
 
   // Tombol restart kamera
   async function restartScanner() {
