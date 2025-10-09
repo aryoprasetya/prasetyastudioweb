@@ -377,6 +377,24 @@ doc.text(footerText, pageWidth/2, pageHeight - 30, {align: 'center'});
 
     renderTable();
 
+    // === fungsi beep ===
+function playBeep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = 880; // nada A5
+    gain.gain.value = 0.1;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.15); // durasi 150ms
+  } catch (e) {
+    console.warn('Beep gagal diputar:', e);
+  }
+}
+
     // Kamera QR
   let html5QrCode = null;
   const cameraSelect = document.getElementById('camera-select');
@@ -442,7 +460,8 @@ async function startScanner(cameraId) {
           if (obj.nama && obj.jabatan) {
             // Cegah data duplikat di daftar absensi
             if (!attendance.some(a => a.nama === obj.nama && a.jabatan === obj.jabatan)) {
-              addAttendance(obj.nama, obj.jabatan);
+  addAttendance(obj.nama, obj.jabatan);
+  playBeep(); // 🔊 bunyi setiap berhasil scan
             } else {
               showToast(`Data ${obj.nama} sudah tercatat`, 'info');
             }
@@ -480,5 +499,6 @@ async function startScanner(cameraId) {
   // Jalankan awal
   initCameras();
   </script>
+  
 </body>
 </html>
