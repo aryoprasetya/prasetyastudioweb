@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Notulensi SAGARA — Sistem Notulensi Rapat</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    :root { --navy:#0b2340; --muted:#64748b; --bg:#f5f7fb; --card:#ffffff; }
+    [data-theme="dark"]{ --navy:#f5f7fb; --muted:#94a3b8; --bg:#0b2340; --card:#1e293b; }
+    * { box-sizing: border-box; font-family: 'Manrope', sans-serif; }
+    body { margin:0; background:var(--bg); color:var(--navy); line-height:1.5; transition:0.3s; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; background:var(--card); box-shadow:0 4px 20px rgba(0,0,0,0.05); flex-wrap:wrap; gap:10px; }
+    .brand { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .brand img { width:72px; height:72px; object-fit:contain; }
+    .brand h1 { margin:0; font-size:22px; font-weight:700; }
+    .brand p { margin:2px 0 0; color:var(--muted); font-size:14px; }
+    .container { max-width:1200px; margin:30px auto; padding:0 20px; display:grid; grid-template-columns:2fr 1fr; gap:20px; }
+    .card { background:var(--card); border-radius:14px; padding:22px; box-shadow:0 6px 24px rgba(11,35,64,0.06); transition:0.3s; }
+    h3 { margin-top:0; font-size:18px; display:flex; align-items:center; gap:6px; }
+    label { display:block; font-size:13px; color:var(--muted); margin-bottom:4px; margin-top:8px; }
+    input[type=text], input[type=date], input[type=time], textarea, select { width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; }
+    textarea { min-height:120px; resize:vertical; }
+    button { background:var(--navy); color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600; transition:all .2s ease; }
+    button:hover { opacity:.9; }
+    .small { padding:7px 10px; font-size:13px; }
+    table { width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; }
+    th, td { border-bottom:1px solid #e2e8f0; padding:8px 6px; text-align:left; }
+    th { color:var(--muted); font-weight:600; }
+    footer { text-align:center; font-size:13px; color:var(--muted); margin:30px 0; padding:0 10px; }
+    .list-empty { text-align:center; color:var(--muted); padding:12px; }
+    .chip { display:inline-flex; gap:8px; align-items:center; background:#eef2ff; padding:6px 10px; border-radius:999px; font-size:13px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .agenda-item { border:1px dashed #e2e8f0; padding:10px; border-radius:8px; margin-bottom:8px; }
+    .actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .rich-editor {
+  min-height:120px; 
+  border:1px solid #e2e8f0; 
+  border-radius:8px; 
+  padding:10px; 
+  font-size:14px; 
+  overflow:auto;
+}
+.rich-editor:empty:before {
+  content:attr(placeholder);
+  color:var(--muted);
+}
+.theme-toggle { cursor:pointer; font-size:18px; }
+    .whatsapp-float {
+      position:fixed; bottom:20px; right:20px; background:#25d366; color:#fff;
+      width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:999; text-decoration:none;
+    }
+    @media(max-width:1024px){ .container { grid-template-columns:1fr; } }
+    @media(max-width:600px){ header { flex-direction:column; align-items:flex-start; justify-content:flex-start; text-align:left; } .brand img { width:60px; height:60px; } .card { padding:16px; } table { font-size:13px; } button, input { font-size:13px; } h3 { font-size:16px; } }
+  </style>
+</head>
+<body data-theme="light">
+  <header>
+    <div class="brand">
+      <img src="images/logo.png" alt="Logo SAGARA">
+      <div>
+        <h1>SILENSI</h1>
+        <p>Sistem Notulensi Rapat</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Form Notulensi -->
+    <section class="card">
+      <h3><i class='bx bx-notepad'></i> Buat Notulensi Rapat</h3>
+
+      <label>Judul Rapat</label>
+      <input id="judul" type="text" placeholder="Contoh: Rapat Koordinasi Program Kerja">
+
+      <div class="grid-2">
+        <div>
+          <label>Tanggal</label>
+          <input id="nTanggal" type="date">
+        </div>
+        <div>
+          <label>Waktu</label>
+          <input id="nWaktu" type="text" placeholder="Contoh: 09:00 - 11:00">
+        </div>
+      </div>
+
+      <label>Tempat</label>
+      <input id="tempat" type="text" placeholder="Masukkan tempat rapat">
+
+      <label>Moderator / Pemimpin Rapat</label>
+      <input id="moderator" type="text" placeholder="Nama pemimpin rapat">
+      <label>Notulensi</label>
+<input id="notulen" type="text" placeholder="Nama yang membuat notulensi">
+
+      <h3 style="margin-top:14px"><i class='bx bx-list-ol'></i> Agenda & Notulensi</h3>
+      <div id="agendaContainer"></div>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+        <button id="addAgenda">Tambah Agenda</button>
+        <button id="clearAgenda" class="small" style="background:#6b7280">Bersihkan Agenda</button>
+      </div>
+
+      <h3 style="margin-top:14px"><i class='bx bx-task'></i> Notulensi Rapat</h3>
+      <label>Hasil Rapat</label>
+      <div class="editor-toolbar" style="display:flex;gap:6px;margin-bottom:4px;">
+  <button type="button" onclick="formatText('bold')"><i class='bx bx-bold'></i></button>
+  <button type="button" onclick="formatText('italic')"><i class='bx bx-italic'></i></button>
+  <button type="button" onclick="formatText('underline')"><i class='bx bx-underline'></i></button>
+  <button type="button" onclick="formatText('insertUnorderedList')"><i class='bx bx-list-ul'></i></button>
+  <button type="button" onclick="formatText('insertOrderedList')"><i class='bx bx-list-ol'></i></button>
+  <button type="button" onclick="formatText('undo')"><i class='bx bx-rotate-left'></i></button>
+  <button type="button" onclick="formatText('redo')"><i class='bx bx-rotate-right'></i></button>
+</div>
+
+<div id="decisions" class="rich-editor" contenteditable="true" placeholder="Catat hasil keputusan rapat"></div>
+
+<label>Tindak Lanjut</label>
+<div class="editor-toolbar" style="display:flex;gap:6px;margin-bottom:4px;">
+  <button type="button" onclick="formatText('bold')"><i class='bx bx-bold'></i></button>
+  <button type="button" onclick="formatText('italic')"><i class='bx bx-italic'></i></button>
+  <button type="button" onclick="formatText('underline')"><i class='bx bx-underline'></i></button>
+  <button type="button" onclick="formatText('insertUnorderedList')"><i class='bx bx-list-ul'></i></button>
+  <button type="button" onclick="formatText('insertOrderedList')"><i class='bx bx-list-ol'></i></button>
+  <button type="button" onclick="formatText('undo')"><i class='bx bx-rotate-left'></i></button>
+  <button type="button" onclick="formatText('redo')"><i class='bx bx-rotate-right'></i></button>
+</div>
+
+<div id="actions" class="rich-editor" contenteditable="true" placeholder="Siapa melakukan apa, batas waktu, catatan..."></div>
+
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <button id="saveNotulen">Simpan Notulensi</button>
+        <button id="downloadNotulenPdf" class="small" style="background:#047857">Download PDF</button>
+        <button id="exportNotulenJson" class="small" style="background:#0d6efd">Export JSON</button>
+      </div>
+
+    </section>
+
+    <!-- Sidebar: Daftar Notulen tersimpan -->
+    <aside class="card">
+      <h3><i class='bx bx-archive-in'></i> Notulensi Tersimpan</h3>
+      <div id="savedList" style="max-height:480px;overflow:auto;"></div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="clearAllNotulen" class="small" style="background:#ef4444">Hapus Semua</button>
+        <button id="importJson" class="small" style="background:#f59e0b">Import JSON</button>
+        <input type="file" id="fileInput" accept="application/json" style="display:none">
+      </div>
+
+      <hr style="margin:14px 0">
+      <h3><i class='bx bx-info-circle'></i> Petunjuk Singkat</h3>
+      <ol style="padding-left:18px;color:var(--muted);font-size:13px;">
+        <li>Isi detail rapat lalu tambahkan agenda.</li>
+        <li>Simpan notulensi untuk menyimpan riwayat.</li>
+        <li>Gunakan tombol PDF untuk menghasilkan salinan resmi.</li>
+      </ol>
+    </aside>
+  </div>
+
+  <footer>
+    © 2025 SAGARA — Sampang Generasi Remaja Aktif. All rights reserved.
+  </footer>
+
+  <a href="https://wa.me/6282136065407" target="_blank" class="whatsapp-float" title="Hubungi Admin">
+    <i class='bx bxl-whatsapp' style="font-size:24px;"></i>
+  </a>
+
+  <div class="theme-toggle" onclick="toggleTheme()" style="
+    position:fixed; bottom:80px; right:20px;
+    background:var(--navy); color:#fff; width:50px; height:50px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:1000; cursor:pointer;">
+    <i class='bx bx-moon' style="font-size:24px"></i>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    // Theme toggle
+    function toggleTheme(){
+      const t = document.body.getAttribute('data-theme');
+      const next = t==='light'?'dark':'light';
+      document.body.setAttribute('data-theme',next);
+      showToast(`Mode ${next} diaktifkan`,'info');
+    }
+    // --- util: toast ---
+    function showToast(msg, type='info', t=2500){
+      const d=document.createElement('div'); d.innerText=msg; d.className='toast '+type; d.style.cssText='position:fixed;right:20px;bottom:120px;background:var(--navy);color:#fff;padding:10px 14px;border-radius:8px;z-index:9999;';
+      document.body.appendChild(d); setTimeout(()=>d.remove(),t);
+    }
+
+    // --- data store ---
+    const NOTULEN_KEY='sagara_notulen_v1';
+    let notulenList = JSON.parse(localStorage.getItem(NOTULEN_KEY) || '[]');
+
+    // --- fill defaults ---
+    const nTanggal = document.getElementById('nTanggal');
+    nTanggal.value = new Date().toISOString().slice(0,10);
+
+    // --- agenda management ---
+    const agendaContainer = document.getElementById('agendaContainer');
+    let agenda = [];
+    function renderAgenda(){
+      if(agenda.length===0){ agendaContainer.innerHTML='<div class="list-empty">Belum ada agenda</div>'; return; }
+      agendaContainer.innerHTML = agenda.map((ag,idx)=>{
+        return `<div class="agenda-item" data-idx="${idx}">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;"><input type=text placeholder="Judul agenda" value="${escapeHtml(ag.title)}" onchange="updateAgendaTitle(${idx},this.value)" style="width:70%"><div class="actions"><button class=small onclick="moveUp(${idx})">▲</button><button class=small onclick="moveDown(${idx})">▼</button><button class=small style='background:#ef4444' onclick="removeAgenda(${idx})">Hapus</button></div></div>
+          <label style="font-size:13px;color:var(--muted);margin-bottom:6px">Notulen</label>
+          <textarea onchange="updateAgendaNote(${idx},this.value)">${escapeHtml(ag.note)}</textarea>
+        </div>`;
+      }).join('');
+    }
+    function addAgendaItem(){ agenda.push({title:'',note:''}); renderAgenda(); }
+    window.addAgenda = ()=>{ addAgendaItem(); };
+    window.removeAgenda = (i)=>{ agenda.splice(i,1); renderAgenda(); };
+    window.moveUp = (i)=>{ if(i===0) return; [agenda[i-1],agenda[i]]=[agenda[i],agenda[i-1]]; renderAgenda(); };
+    window.moveDown = (i)=>{ if(i===agenda.length-1) return; [agenda[i+1],agenda[i]]=[agenda[i],agenda[i+1]]; renderAgenda(); };
+    window.updateAgendaTitle=(i,v)=>{ agenda[i].title=v; };
+    window.updateAgendaNote=(i,v)=>{ agenda[i].note=v; };
+    document.getElementById('addAgenda').addEventListener('click',addAgendaItem);
+    document.getElementById('clearAgenda').addEventListener('click',()=>{ agenda.length=0; renderAgenda(); });
+
+    // --- Save notulen locally ---
+    document.getElementById('saveNotulen').onclick = ()=>{
+      const payload = buildNotulenObject();
+      if(!payload.judul) return showToast('Judul rapat wajib diisi','info');
+      notulenList.unshift(payload);
+      localStorage.setItem(NOTULEN_KEY, JSON.stringify(notulenList));
+      renderSavedList();
+      showToast('Notulensi tersimpan di penyimpanan lokal','success');
+      // optional: clear form? keep it
+    };
+
+    function buildNotulenObject(){
+      return {
+        id: 'N'+Date.now(),
+        judul: document.getElementById('judul').value.trim(),
+        tanggal: document.getElementById('nTanggal').value,
+        waktu: document.getElementById('nWaktu').value.trim(),
+        tempat: document.getElementById('tempat').value.trim(),
+        moderator: document.getElementById('moderator').value.trim(),
+        agenda: JSON.parse(JSON.stringify(agenda)),
+        decisions: document.getElementById('decisions').value.trim(),
+        actions: document.getElementById('actions').value.trim(),
+        createdAt: new Date().toISOString()
+      };
+    }
+
+    // --- Render saved list ---
+    const savedListEl = document.getElementById('savedList');
+    function renderSavedList(){
+      if(notulenList.length===0){ savedListEl.innerHTML='<div class="list-empty">Belum ada notulensi tersimpan</div>'; return; }
+      savedListEl.innerHTML = notulenList.map(n=>{
+        const d = new Date(n.createdAt).toLocaleString('id-ID');
+        return `<div style="padding:10px;border-radius:8px;background:#f8fafc;margin-bottom:8px;">
+          <strong>${escapeHtml(n.judul)}</strong>
+          <div style="font-size:13px;color:var(--muted)">${n.tanggal||'-'} • ${d}</div>
+          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class=small onclick="viewNotulen('${n.id}')">Lihat</button>
+            <button class=small style='background:#047857' onclick="downloadPdfById('${n.id}')">PDF</button>
+            <button class=small style='background:#0d6efd' onclick="exportJsonById('${n.id}')">JSON</button>
+            <button class=small style='background:#ef4444' onclick="deleteNotulen('${n.id}')">Hapus</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    window.viewNotulen = (id)=>{
+      const n = notulenList.find(x=>x.id===id); if(!n) return showToast('Data tidak ditemukan','error');
+      // isi form dengan data
+      document.getElementById('judul').value = n.judul;
+      document.getElementById('nTanggal').value = n.tanggal || new Date().toISOString().slice(0,10);
+      document.getElementById('nWaktu').value = n.waktu;
+      document.getElementById('tempat').value = n.tempat;
+      document.getElementById('moderator').value = n.moderator;
+      agenda = JSON.parse(JSON.stringify(n.agenda)); renderAgenda();
+      document.getElementById('decisions').value = n.decisions;
+      document.getElementById('actions').value = n.actions;
+      showToast('Notulensi dimuat ke formulir','info');
+    };
+
+    window.deleteNotulen = (id)=>{
+      if(!confirm('Hapus notulensi ini?')) return;
+      notulenList = notulenList.filter(x=>x.id!==id);
+      localStorage.setItem(NOTULEN_KEY, JSON.stringify(notulenList));
+      renderSavedList();
+      showToast('Notulensi dihapus','success');
+    };
+
+    document.getElementById('clearAllNotulen').onclick = ()=>{
+      if(!confirm('Hapus semua notulensi yang tersimpan?')) return;
+      notulenList=[]; localStorage.removeItem(NOTULEN_KEY); renderSavedList(); showToast('Semua notulensi dihapus','success');
+    };
+
+    // --- Export single JSON ---
+    window.exportJsonById = (id)=>{
+      const n = notulenList.find(x=>x.id===id); if(!n) return;
+      const blob = new Blob([JSON.stringify(n,null,2)],{type:'application/json'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${n.judul||'notulen'}_${(n.tanggal||'')}.json`; a.click(); URL.revokeObjectURL(a.href);
+      showToast('JSON berhasil diunduh','success');
+    };
+
+    // --- Export all JSON import ---
+    document.getElementById('importJson').onclick = ()=>{ document.getElementById('fileInput').click(); };
+    document.getElementById('fileInput').onchange = function(e){
+      const f = e.target.files[0]; if(!f) return; const reader = new FileReader();
+      reader.onload = ()=>{
+        try{ const data = JSON.parse(reader.result); if(Array.isArray(data)) notulenList = data.concat(notulenList); else notulenList.unshift(data);
+          localStorage.setItem(NOTULEN_KEY, JSON.stringify(notulenList)); renderSavedList(); showToast('Data berhasil diimpor','success');
+        }catch(err){ showToast('File tidak valid','error'); }
+      }; reader.readAsText(f);
+      e.target.value='';
+    };
+
+    // --- Download PDF for form/current ---
+    document.getElementById('downloadNotulenPdf').onclick = ()=>{
+      const payload = buildNotulenObject(); if(!payload.judul) return showToast('Judul rapat wajib diisi','info');
+      generatePdfFromNotulen(payload);
+    };
+
+    window.downloadPdfById = (id)=>{
+      const n = notulenList.find(x=>x.id===id); if(!n) return showToast('Data tidak ditemukan','error');
+      generatePdfFromNotulen(n);
+    };
+
+    function generatePdfFromNotulen(n){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'pt',format:'a4'});
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const marginX = 40, marginTop = 40, marginBottom = 60;
+  const lineHeight = 14;
+  let y = marginTop;
+
+  function addPageIfNeeded(height){
+    if(y + height > pageHeight - marginBottom){
+      doc.addPage();
+      y = marginTop;
+    }
+  }
+
+  const kopImg = new Image();
+  kopImg.src='images/kop.png';
+  kopImg.onload = function(){
+    const ratio = kopImg.height / kopImg.width;
+    const kopWidth = pageWidth - marginX*2;
+    const kopHeight = kopWidth * ratio;
+    addPageIfNeeded(kopHeight);
+    doc.addImage(kopImg,'PNG',marginX,y,kopWidth,kopHeight);
+    y += kopHeight + 8;
+
+    // Tanggal
+    doc.setFont('helvetica','normal'); 
+    doc.setFontSize(11);
+
+    // Header
+    doc.setFont('helvetica','bold'); 
+    doc.setFontSize(14);
+    addPageIfNeeded(lineHeight);
+    doc.text('NOTULENSI RAPAT', pageWidth/2, y, {align:'center'});
+    y += lineHeight + 6;
+
+    // Judul rapat tepat di bawah
+    doc.text(n.judul || '-', pageWidth/2, y, {align:'center'});
+    y += lineHeight + 10;
+
+    // Info Rapat dalam 2 kolom
+    doc.setFont('helvetica','normal'); 
+    doc.setFontSize(11);
+    addPageIfNeeded(lineHeight*3);
+    const colX = marginX;
+    const colWidth = (pageWidth - marginX*2)/2;
+
+    // Baris 1: Waktu & Tempat
+    doc.text(`Waktu: ${n.waktu || '-'}`, colX, y);
+    doc.text(`Tempat: ${n.tempat || '-'}`, colX + colWidth, y);
+    y += lineHeight;
+
+    // Baris 2: Moderator & Notulensi
+    doc.text(`Moderator: ${n.moderator || '-'}`, colX, y);
+    doc.text(`Notulensi: ${n.notulen || '-'}`, colX + colWidth, y);
+    y += lineHeight + 6;
+
+    // --- Agenda ---
+    doc.setFont('helvetica','bold'); 
+    doc.setFontSize(12);
+    addPageIfNeeded(lineHeight); 
+    doc.text('Agenda & Notulen:', marginX, y); 
+    y += lineHeight;
+
+    doc.setFont('helvetica','normal'); 
+    doc.setFontSize(11);
+    if(n.agenda && n.agenda.length){
+      n.agenda.forEach((ag,idx)=>{
+        const title = `${idx+1}. ${ag.title||'(tanpa judul)'}`;
+        const splitTitle = doc.splitTextToSize(title, pageWidth - marginX*2 - 6);
+        addPageIfNeeded(splitTitle.length * lineHeight);
+        doc.setFont('helvetica','bold');
+        splitTitle.forEach(line => { addPageIfNeeded(lineHeight); doc.text(line, marginX+6, y); y+=lineHeight; });
+
+        if(ag.note){
+          const splitNote = doc.splitTextToSize(stripHtml(ag.note), pageWidth - marginX*2 - 12);
+          doc.setFont('helvetica','normal'); doc.setFontSize(11);
+          splitNote.forEach(line => { addPageIfNeeded(lineHeight); doc.text(line, marginX+12, y); y+=lineHeight; });
+        }
+        y += 6;
+      });
+    } else { addPageIfNeeded(lineHeight); doc.text('-', marginX+6, y); y+=lineHeight; }
+    y += 4;
+
+    // --- Keputusan ---
+    doc.setFont('helvetica','bold'); doc.setFontSize(12);
+    addPageIfNeeded(lineHeight); doc.text('Keputusan:', marginX, y); y += lineHeight;
+    doc.setFont('helvetica','normal'); doc.setFontSize(11);
+    if(n.decisions){
+      const splitDecisions = doc.splitTextToSize(stripHtml(n.decisions), pageWidth - marginX*2 - 12);
+      splitDecisions.forEach(line => { addPageIfNeeded(lineHeight); doc.text(line, marginX+6, y); y+=lineHeight; });
+    } else { addPageIfNeeded(lineHeight); doc.text('-', marginX+6, y); y+=lineHeight; }
+    y += 6;
+
+    // --- Tindak Lanjut ---
+    doc.setFont('helvetica','bold'); doc.setFontSize(12);
+    addPageIfNeeded(lineHeight); doc.text('Tindak Lanjut:', marginX, y); y += lineHeight;
+    doc.setFont('helvetica','normal'); doc.setFontSize(11);
+    if(n.actions){
+      const splitActions = doc.splitTextToSize(stripHtml(n.actions), pageWidth - marginX*2 - 12);
+      splitActions.forEach(line => { addPageIfNeeded(lineHeight); doc.text(line, marginX+6, y); y+=lineHeight; });
+    } else { addPageIfNeeded(lineHeight); doc.text('-', marginX+6, y); y+=lineHeight; }
+
+    // Sebelum doc.text('Mengetahui:', ...) tambahkan:
+const tgl = n.tanggal ? new Date(n.tanggal) : new Date();
+const tglStr = `Banjarnegara, ${tgl.getDate().toString().padStart(2,'0')} ${tgl.toLocaleString('id-ID',{month:'long'})} ${tgl.getFullYear()}`;
+addPageIfNeeded(lineHeight);
+doc.text(tglStr, pageWidth - marginX, y, {align:'right'});
+y += lineHeight + 8;
+
+    // --- Mengetahui (tanda tangan Ketua & Sekretaris tanpa kotak) ---
+// Tambahkan page baru jika konten rapat hampir penuh
+addPageIfNeeded(120);
+
+// Tempatkan setelah isi rapat selesai + spasi
+y += 20; // jarak dari isi rapat terakhir
+doc.setFont('helvetica','bold'); 
+doc.setFontSize(11);
+doc.text('Mengetahui:', pageWidth/2, y, {align:'center'}); 
+y += 30; // spasi untuk tanda tangan
+
+// Ketua Organisasi
+doc.setFont('helvetica','normal'); doc.setFontSize(11);
+doc.text('Ketua Organisasi', pageWidth/4, y, {align:'center'});
+doc.setFont('helvetica','bold');
+doc.text('ARYO YULIO PRASETYA', pageWidth/4, y + 40, {align:'center'});
+
+// Sekretaris
+doc.setFont('helvetica','normal'); doc.setFontSize(11);
+doc.text('Sekretaris', (pageWidth/4)*3, y, {align:'center'});
+doc.setFont('helvetica','bold');
+doc.text('ALYA AZKIYA ROHMAH', (pageWidth/4)*3, y + 40, {align:'center'});
+
+    // Footer
+    const footerText = "Dokumen ini dicetak secara digital oleh Sistem Notulensi SAGARA.";
+    doc.setFont('helvetica','italic'); doc.setFontSize(9); doc.setTextColor(100,116,139);
+    const pages = doc.getNumberOfPages();
+    for(let i=1;i<=pages;i++){ doc.setPage(i); doc.text(footerText, pageWidth/2, pageHeight-30, {align:'center'}); }
+
+    const name = `${(n.judul||'notulensi').replace(/[^a-z0-9\- ]/ig,'').slice(0,40)}_${(n.tanggal||'')}`;
+    doc.save(`${name}.pdf`);
+    showToast('PDF berhasil diunduh','success');
+  };
+
+  kopImg.onerror = function(){ showToast('Gagal memuat gambar kop. Pastikan file tersedia.','error'); };
+}
+
+// --- helper untuk strip HTML ---
+function stripHtml(html){
+  const tmp = document.createElement("DIV");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+}
+
+    // --- export single notulen to JSON from list ---
+    function exportJsonById(id){ /* placeholder, used above via window.exportJsonById */ }
+
+    // --- helper: escape html for value injection ---
+    function escapeHtml(s){ if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/\'/g,'&#39;'); }
+  
+    // render daftar notulensi yang tersimpan setelah semua fungsi sudah didefinisikan
+renderSavedList();
+
+function formatText(cmd){
+  document.execCommand(cmd, false, null);
+}
+
+// helper untuk mengambil konten editor saat simpan
+function getEditorContent(id){
+  const el = document.getElementById(id);
+  return el ? el.innerText.trim() : '';
+}
+
+// helper untuk set konten editor
+function setEditorContent(id, html){
+  document.getElementById(id).innerHTML = html || '';
+}
+
+// modifikasi buildNotulenObject
+function buildNotulenObject(){
+  return {
+    id: 'N'+Date.now(),
+    judul: document.getElementById('judul').value.trim(),
+    tanggal: document.getElementById('nTanggal').value,
+    waktu: document.getElementById('nWaktu').value.trim(),
+    tempat: document.getElementById('tempat').value.trim(),
+    moderator: document.getElementById('moderator').value.trim(),
+    notulen: document.getElementById('notulen').value.trim(),
+    agenda: JSON.parse(JSON.stringify(agenda)),
+    decisions: getEditorContent('decisions'),
+    actions: getEditorContent('actions'),
+    createdAt: new Date().toISOString()
+  };
+}
+
+// modifikasi viewNotulen untuk memuat kembali konten
+window.viewNotulen = (id)=>{
+  const n = notulenList.find(x=>x.id===id); if(!n) return showToast('Data tidak ditemukan','error');
+  document.getElementById('judul').value = n.judul;
+  document.getElementById('nTanggal').value = n.tanggal || new Date().toISOString().slice(0,10);
+  document.getElementById('nWaktu').value = n.waktu;
+  document.getElementById('tempat').value = n.tempat;
+  document.getElementById('moderator').value = n.moderator;
+  agenda = JSON.parse(JSON.stringify(n.agenda)); renderAgenda();
+  setEditorContent('decisions', n.decisions);
+  setEditorContent('actions', n.actions);
+  showToast('Notulensi dimuat ke formulir','info');
+};
+
+  </script>
+</body>
+</html>
