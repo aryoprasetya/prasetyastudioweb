@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Absensi SAGARA</title>
-  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
@@ -60,7 +60,7 @@
 <body data-theme="light">
   <header>
     <div class="brand">
-      <img src="images/logo.png" alt="Logo SAGARA">
+      <img src="assets/images/logo.png" alt="Logo SAGARA">
       <div>
         <h1>SISARA SAGARA</h1>
         <p>Sistem Absensi Rapat</p>
@@ -72,7 +72,7 @@
     <!-- Bagian Kiri -->
     <section class="card">
       <h3><i class="bx bx-qr-scan"></i> Pemindaian QR Code</h3>
-      <div class="input-group" style="margin-bottom:16px; display:flex; flex-wrap:wrap; gap:8px;">
+      <div class="input-group" style="margin-bottom:8px;">
         <select id="camera-select"></select>
         <button class="small" onclick="restartScanner()">Mulai / Ganti Kamera</button>
         <button class="small" style="background:#ef4444" onclick="stopScanner()">Matikan Kamera</button>
@@ -332,7 +332,7 @@ generateQR.onclick = () => {
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
       const marginX = 40, marginY = 40;
-      const kopImg = new Image(); kopImg.src='images/kop.png';
+      const kopImg = new Image(); kopImg.src='assets/images/kop.png';
       kopImg.onload = function(){
         const ratio = kopImg.height/kopImg.width;
         const kopWidth = pageWidth - marginX*2;
@@ -378,84 +378,40 @@ doc.text(footerText, pageWidth/2, pageHeight - 30, {align: 'center'});
     renderTable();
 
     // Kamera QR
-    let html5QrCode = null;
-const cameraSelect = document.getElementById('camera-select');
+    let html5QrCode=null;
+    const cameraSelect=document.getElementById('camera-select');
 
-async function restartScanner() {
-  try {
-    if (html5QrCode && html5QrCode._isScanning) {
-      await html5QrCode.stop();
-      html5QrCode.clear();
-    }
-
-    const cameras = await Html5Qrcode.getCameras();
-
-    if (!cameras || cameras.length === 0) {
-      showToast('Tidak ada kamera terdeteksi', 'error');
-      return;
-    }
-
-    // Kosongkan dropdown
-    cameraSelect.innerHTML = '';
-    cameras.forEach(c => {
-      const option = new Option(c.label || `Kamera ${cameraSelect.length + 1}`, c.id);
-      cameraSelect.appendChild(option);
-    });
-
-    // Cari kamera belakang
-    let backCamera = cameras.find(c =>
-      c.label.toLowerCase().includes('back') || c.label.toLowerCase().includes('rear')
-    );
-
-    // Jika tidak ditemukan label "back", ambil kamera terakhir
-    const selectedCameraId = backCamera ? backCamera.id : cameras[cameras.length - 1].id;
-
-    cameraSelect.value = selectedCameraId;
-
-    startScanner(selectedCameraId);
-  } catch (err) {
-    console.error(err);
-    showToast('Gagal mengakses kamera', 'error');
-  }
-}
-
-function startScanner(cameraId) {
-  html5QrCode = new Html5Qrcode("reader");
-
-  const reader = document.getElementById("reader");
-  const width = reader.offsetWidth;
-  const height = reader.offsetHeight;
-  const qrboxSize = Math.min(width, height) * 0.8;
-
-  html5QrCode.start(
-    cameraId,
-    { fps: 10, qrbox: qrboxSize },
-    qrCodeMessage => {
-      try {
-        const obj = JSON.parse(qrCodeMessage);
-        if (obj.nama && obj.jabatan) addAttendance(obj.nama, obj.jabatan);
-      } catch (e) {
-        showToast('QR tidak valid', 'error');
+    async function restartScanner(){
+      if(html5QrCode && html5QrCode._isScanning){
+        await html5QrCode.stop();
+        html5QrCode.clear();
       }
-    },
-    error => {}
-  ).catch(err => {
-    console.error(err);
-    showToast('Gagal memulai kamera', 'error');
-  });
-}
+      Html5Qrcode.getCameras().then(cameras=>{
+        cameraSelect.innerHTML='';
+        cameras.forEach(c=>cameraSelect.appendChild(new Option(c.label,c.id)));
+        startScanner(cameraSelect.value);
+      }).catch(err=>showToast('Gagal mendapatkan kamera','error'));
+    }
 
-async function stopScanner() {
-  if (html5QrCode && html5QrCode._isScanning) {
-    await html5QrCode.stop();
-    html5QrCode.clear();
-    showToast('Kamera berhasil dimatikan', 'success');
-  } else {
-    showToast('Kamera belum aktif', 'info');
-  }
-}
+    function startScanner(cameraId){
+      html5QrCode = new Html5Qrcode("reader");
+      html5QrCode.start(cameraId,{fps:10, qrbox:250}, qrCodeMessage=>{
+        try{
+          const obj=JSON.parse(qrCodeMessage);
+          if(obj.nama && obj.jabatan) addAttendance(obj.nama,obj.jabatan);
+        }catch(e){ showToast('QR tidak valid','error'); }
+      }, err=>{}).catch(err=>showToast('Gagal memulai kamera','error'));
+    }
 
-restartScanner();
+    async function stopScanner(){
+      if(html5QrCode && html5QrCode._isScanning){
+        await html5QrCode.stop();
+        html5QrCode.clear();
+        showToast('Kamera berhasil dimatikan','success');
+      } else showToast('Kamera belum aktif','info');
+    }
+
+    restartScanner();
   </script>
 </body>
 </html>
