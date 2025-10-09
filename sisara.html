@@ -378,40 +378,87 @@ doc.text(footerText, pageWidth/2, pageHeight - 30, {align: 'center'});
     renderTable();
 
     // Kamera QR
-    let html5QrCode=null;
-    const cameraSelect=document.getElementById('camera-select');
+  let html5QrCode = null;
+  const cameraSelect = document.getElementById('camera-select');
 
-    async function restartScanner(){
-      if(html5QrCode && html5QrCode._isScanning){
+  // Ambil daftar kamera saat pertama kali
+  async function initCameras() {
+    try {
+      const cameras = await Html5Qrcode.getCameras();
+      if (cameras.length === 0) {
+        showToast('Tidak ada kamera terdeteksi', 'error');
+        return;
+      }
+
+      // isi dropdown kamera
+      cameraSelect.innerHTML = '';
+      cameras.forEach(c => {
+        const opt = new Option(c.label || `Kamera ${cameraSelect.length + 1}`, c.id);
+        cameraSelect.appendChild(opt);
+      });
+
+      // simpan kamera belakang jika ada
+      const backCam = cameras.find(c => /back|rear|belakang/i.test(c.label));
+      cameraSelect.value = backCam ? backCam.id : cameras[0].id;
+
+      startScanner(cameraSelect.value);
+    } catch (err) {
+      showToast('Gagal mendapatkan daftar kamera', 'error');
+      console.error(err);
+    }
+  }
+
+  // Mulai scanner
+  async function startScanner(cameraId) {
+    if (!cameraId) {
+      showToast('Pilih kamera terlebih dahulu', 'info');
+      return;
+    }
+
+    try {
+      if (html5QrCode && html5QrCode._isScanning) {
         await html5QrCode.stop();
         html5QrCode.clear();
       }
-      Html5Qrcode.getCameras().then(cameras=>{
-        cameraSelect.innerHTML='';
-        cameras.forEach(c=>cameraSelect.appendChild(new Option(c.label,c.id)));
-        startScanner(cameraSelect.value);
-      }).catch(err=>showToast('Gagal mendapatkan kamera','error'));
-    }
 
-    function startScanner(cameraId){
       html5QrCode = new Html5Qrcode("reader");
-      html5QrCode.start(cameraId,{fps:10, qrbox:250}, qrCodeMessage=>{
-        try{
-          const obj=JSON.parse(qrCodeMessage);
-          if(obj.nama && obj.jabatan) addAttendance(obj.nama,obj.jabatan);
-        }catch(e){ showToast('QR tidak valid','error'); }
-      }, err=>{}).catch(err=>showToast('Gagal memulai kamera','error'));
+      await html5QrCode.start(
+        { deviceId: { exact: cameraId } },
+        { fps: 10, qrbox: 250 },
+        qrCodeMessage => {
+          try {
+            const obj = JSON.parse(qrCodeMessage);
+            if (obj.nama && obj.jabatan) addAttendance(obj.nama, obj.jabatan);
+          } catch {
+            showToast('QR tidak valid', 'error');
+          }
+        },
+        errorMsg => {}
+      );
+    } catch (err) {
+      console.error(err);
+      showToast('Gagal memulai kamera', 'error');
     }
+  }
 
-    async function stopScanner(){
-      if(html5QrCode && html5QrCode._isScanning){
-        await html5QrCode.stop();
-        html5QrCode.clear();
-        showToast('Kamera berhasil dimatikan','success');
-      } else showToast('Kamera belum aktif','info');
+  // Tombol restart kamera
+  async function restartScanner() {
+    const selectedCamera = cameraSelect.value;
+    startScanner(selectedCamera);
+  }
+
+  async function stopScanner() {
+    if (html5QrCode && html5QrCode._isScanning) {
+      await html5QrCode.stop();
+      html5QrCode.clear();
+      showToast('Kamera dimatikan', 'success');
+    } else {
+      showToast('Kamera belum aktif', 'info');
     }
+  }
 
-    restartScanner();
+  // Jalankan awal
+  initCameras();
   </script>
 </body>
 </html>
