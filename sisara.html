@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Absensi SAGARA</title>
-  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="icon" href="images/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
@@ -31,11 +31,15 @@
     footer { text-align:center; font-size:13px; color:var(--muted); margin:30px 0; padding:0 10px; }
     #reader { width:100%; max-height:250px; border-radius:8px; overflow:hidden; margin-bottom:0.3rem; }
     .theme-toggle { cursor:pointer; font-size:18px; }
+
+    /* Floating WhatsApp */
     .whatsapp-float {
       position:fixed; bottom:20px; right:20px; background:#25d366; color:#fff;
       width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center;
       box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:999; text-decoration:none;
     }
+
+    /* Toast / Notifikasi */
     .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
     .toast {
       background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -60,7 +64,7 @@
 <body data-theme="light">
   <header>
     <div class="brand">
-      <img src="assets/images/logo.png" alt="Logo SAGARA">
+      <img src="images/logo.png" alt="Logo SAGARA">
       <div>
         <h1>SISARA SAGARA</h1>
         <p>Sistem Absensi Rapat</p>
@@ -72,6 +76,7 @@
     <!-- Bagian Kiri -->
     <section class="card">
       <h3><i class="bx bx-qr-scan"></i> Pemindaian QR Code</h3>
+      <p class="muted">Scan QR Code yang tertera pada ID Card/ KTA Digital</p>
       <div class="input-group" style="margin-bottom:8px;">
         <select id="camera-select"></select>
         <button class="small" onclick="restartScanner()">Mulai / Ganti Kamera</button>
@@ -83,22 +88,7 @@
       <label>Nama</label>
       <input type="text" id="manualNama" placeholder="Masukkan nama...">
       <label>Jabatan</label>
-      <select id="manualJabatan">
-        <option value="">-- Pilih Jabatan --</option>
-        <option>KETUA</option>
-        <option>WAKIL KETUA</option>
-        <option>SEKRETARIS</option>
-        <option>BENDAHARA</option>
-        <option>HUMAS</option>
-        <option>SEKBID KEGIATAN</option>
-        <option>SEKBID KEAMANAN</option>
-        <option>SEKBID OLAHRAGA</option>
-        <option>SEKBID KEAGAMAAN</option>
-        <option>SEKBID SARPRAS</option>
-        <option>ANGGOTA</option>
-        <option value="lainnya">Lainnya</option>
-      </select>
-      <input type="text" id="manualJabatanLainnya" placeholder="Masukkan jabatan lainnya..." style="display:none;margin-top:6px;">
+      <input type="text" id="manualJabatan" placeholder="Masukkan jabatan...">
       <div style="margin-top:8px;">
         <button id="addManual">Tambahkan Manual</button>
       </div>
@@ -117,25 +107,11 @@
     <!-- Bagian Kanan -->
     <aside class="card">
       <h3><i class="bx bx-qr"></i> QR Generator</h3>
+      <p class="muted">Masukkan data untuk membuat QR unik anggota.</p>
       <label>Nama</label>
       <input type="text" id="genNama" placeholder="Nama anggota...">
       <label>Jabatan</label>
-      <select id="genJabatan">
-        <option value="">-- Pilih Jabatan --</option>
-        <option>KETUA</option>
-        <option>WAKIL KETUA</option>
-        <option>SEKRETARIS</option>
-        <option>BENDAHARA</option>
-        <option>HUMAS</option>
-        <option>SEKBID KEGIATAN</option>
-        <option>SEKBID KEAMANAN</option>
-        <option>SEKBID OLAHRAGA</option>
-        <option>SEKBID KEAGAMAAN</option>
-        <option>SEKBID SARPRAS</option>
-        <option>ANGGOTA</option>
-        <option value="lainnya">Lainnya</option>
-      </select>
-      <input type="text" id="genJabatanLainnya" placeholder="Masukkan jabatan lainnya..." style="display:none;margin-top:6px;">
+      <input type="text" id="genJabatan" placeholder="Jabatan...">
       <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
         <button id="generateQR">Buat QR</button>
         <button id="downloadQR" class="small">Download PNG</button>
@@ -158,10 +134,12 @@
     © 2025 SAGARA — Sampang Generasi Remaja Aktif. All rights reserved.
   </footer>
 
+  <!-- WhatsApp Floating -->
   <a href="https://wa.me/6281234567890" target="_blank" class="whatsapp-float" title="Hubungi Admin">
     <i class='bx bxl-whatsapp' style="font-size:24px;"></i>
   </a>
 
+  <!-- Theme Toggle Floating -->
   <div class="theme-toggle" onclick="toggleTheme()" style="
     position:fixed; bottom:80px; right:20px;
     background:var(--navy); color:#fff; width:50px; height:50px; border-radius:50%;
@@ -169,30 +147,22 @@
     <i class='bx bx-moon' style="font-size:24px"></i>
   </div>
 
+  <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
+  <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-    const manualJabatan = document.getElementById('manualJabatan');
-    const manualJabatanLainnya = document.getElementById('manualJabatanLainnya');
-    const genJabatan = document.getElementById('genJabatan');
-    const genJabatanLainnya = document.getElementById('genJabatanLainnya');
-
-    manualJabatan.addEventListener('change', () => {
-      manualJabatanLainnya.style.display = manualJabatan.value === 'lainnya' ? 'block' : 'none';
-    });
-    genJabatan.addEventListener('change', () => {
-      genJabatanLainnya.style.display = genJabatan.value === 'lainnya' ? 'block' : 'none';
-    });
-
     let attendance = JSON.parse(localStorage.getItem('attendance')) || [];
     const tbody = document.querySelector('#attendanceTable tbody');
     const manualNama = document.getElementById('manualNama');
+    const manualJabatan = document.getElementById('manualJabatan');
     const addManualBtn = document.getElementById('addManual');
     const genNama = document.getElementById('genNama');
+    const genJabatan = document.getElementById('genJabatan');
     const qrCanvas = document.getElementById('qrCanvas');
     const generateQR = document.getElementById('generateQR');
     const downloadQR = document.getElementById('downloadQR');
@@ -245,49 +215,23 @@
     }
 
     // Tambah manual
-addManualBtn.onclick = () => {
-  const n = manualNama.value.trim();
-  let j = manualJabatan.value.trim();
+    addManualBtn.onclick = ()=>{
+      const n=manualNama.value.trim();
+      const j=manualJabatan.value.trim();
+      if(!n||!j){ showToast('Isi nama dan jabatan!', 'error'); return; }
+      if(!attendance.some(a=>a.nama===n && a.jabatan===j)) addAttendance(n,j);
+      manualNama.value=manualJabatan.value='';
+    };
 
-  // jika pilih "lainnya", ambil teks yang diketik
-  if (j === 'lainnya') {
-    j = manualJabatanLainnya.value.trim();
-  }
-
-  if (!n || !j) {
-    showToast('Isi nama dan jabatan!', 'error');
-    return;
-  }
-
-  if (!attendance.some(a => a.nama === n && a.jabatan === j)) {
-    addAttendance(n, j);
-  }
-
-  manualNama.value = '';
-  manualJabatan.value = '';
-  manualJabatanLainnya.value = '';
-  manualJabatanLainnya.style.display = 'none';
-};
-
-   // Generate QR
-generateQR.onclick = () => {
-  const n = genNama.value.trim();
-  let j = genJabatan.value.trim();
-
-  // jika pilih "lainnya", ambil teks dari input
-  if (j === 'lainnya') {
-    j = genJabatanLainnya.value.trim();
-  }
-
-  if (!n || !j) {
-    showToast('Isi nama dan jabatan!', 'error');
-    return;
-  }
-
-  qrCanvas.innerHTML = '';
-  new QRCode(qrCanvas, { text: JSON.stringify({ nama: n, jabatan: j }), width: 200, height: 200 });
-  showToast('QR berhasil dibuat', 'success');
-};
+    // Generate QR
+    generateQR.onclick = ()=>{
+      const n=genNama.value.trim();
+      const j=genJabatan.value.trim();
+      if(!n||!j){ showToast('Isi nama dan jabatan!', 'error'); return; }
+      qrCanvas.innerHTML='';
+      new QRCode(qrCanvas,{text:JSON.stringify({nama:n,jabatan:j}),width:200,height:200});
+      showToast('QR berhasil dibuat', 'success');
+    };
 
     // Download QR
     downloadQR.onclick = ()=>{
@@ -332,7 +276,7 @@ generateQR.onclick = () => {
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
       const marginX = 40, marginY = 40;
-      const kopImg = new Image(); kopImg.src='assets/images/kop.png';
+      const kopImg = new Image(); kopImg.src='images/kop.png';
       kopImg.onload = function(){
         const ratio = kopImg.height/kopImg.width;
         const kopWidth = pageWidth - marginX*2;
