@@ -171,52 +171,44 @@ document.getElementById('setSaldoAwal').onclick = () => {
 };
 
 // === QR SCANNER FIX ===
-document.getElementById('scanQr').onclick = async () => {
-  const qrDiv = document.getElementById('qr-reader');
-  qrDiv.style.display = 'block';
+html5QrCode.start(
+  { facingMode: "environment" },
+  qrConfig,
+  qrCodeMessage => {
+    let nama = qrCodeMessage;
 
-  if (html5QrCode) {
-    await html5QrCode.stop();
-    html5QrCode = null;
-  }
-
-  html5QrCode = new Html5Qrcode("qr-reader");
-  const qrConfig = { fps: 10, qrbox: 250 };
-
-  html5QrCode.start(
-    { facingMode: "environment" },
-    qrConfig,
-    qrCodeMessage => {
-      // Ambil nama dari QR (anggap QR cuma teks nama atau format "Nama: [nama]")
-      let nama = qrCodeMessage.replace(/Nama:\s*/i, '').trim();
-      if(!nama) nama = qrCodeMessage.trim();
-
-      // Cek kalau nama sudah ada di transaksi terakhir untuk mencegah duplikat scan cepat
-      const lastTransaction = kasList[kasList.length - 1];
-      if(lastTransaction && lastTransaction.nama === nama && lastTransaction.jumlah === 3000 && lastTransaction.tanggal === new Date().toISOString().slice(0,10)) {
-        return; // abaikan jika scan duplikat beruntun
-      }
-
-      // Tambahkan transaksi otomatis
-      const transaksi = {
-        id: 'K' + Date.now(),
-        nama: nama,
-        jenis: 'pemasukan',
-        jumlah: 3000,
-        tanggal: new Date().toISOString().slice(0,10)
-      };
-
-      kasList.push(transaksi);
-      localStorage.setItem(KAS_KEY, JSON.stringify(kasList));
-      renderHistory();
-    },
-    errorMessage => {
-      // Abaikan error kecil saat kamera scanning
+    // Jika QR berformat JSON, ambil properti 'nama' saja
+    try {
+      const obj = JSON.parse(qrCodeMessage);
+      if(obj.nama) nama = obj.nama.trim();
+    } catch(e) {
+      // QR bukan JSON, pakai langsung teks
+      nama = qrCodeMessage.trim();
     }
-  ).catch(err => {
-    alert("Gagal mengakses kamera: " + err);
-  });
-};
+
+    // Cegah duplikat scan cepat
+    const lastTransaction = kasList[kasList.length - 1];
+    if(lastTransaction && lastTransaction.nama === nama && lastTransaction.jumlah === 3000 && lastTransaction.tanggal === new Date().toISOString().slice(0,10)) {
+      return;
+    }
+
+    // Tambah transaksi otomatis
+    kasList.push({
+      id: 'K' + Date.now(),
+      nama: nama,
+      jenis: 'pemasukan',
+      jumlah: 3000,
+      tanggal: new Date().toISOString().slice(0,10)
+    });
+
+    localStorage.setItem(KAS_KEY, JSON.stringify(kasList));
+    renderHistory();
+  },
+  errorMessage => {
+    // abaikan error kecil
+  }
+);
+
 // Download PDF (versi rapi)
 // === Download PDF (versi final tanpa kolom jabatan & tabel lebih rapat) ===
 document.getElementById('downloadPdf').onclick = () => {
