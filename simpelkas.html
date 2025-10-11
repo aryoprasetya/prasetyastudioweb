@@ -181,19 +181,25 @@ document.getElementById('scanQr').onclick = async () => {
   }
 
   html5QrCode = new Html5Qrcode("qr-reader");
-
   const qrConfig = { fps: 10, qrbox: 250 };
 
   html5QrCode.start(
     { facingMode: "environment" },
     qrConfig,
     qrCodeMessage => {
-      // Ambil nama dari QR (asumsikan format: "Nama: [nama], Jabatan: [jabatan]")
-      let nama = qrCodeMessage.split(',')[0].replace(/Nama:\s*/i, '').trim();
-      if(!nama) nama = qrCodeMessage; // fallback kalau format beda
+      // Ambil nama dari QR (anggap QR cuma teks nama atau format "Nama: [nama]")
+      let nama = qrCodeMessage.replace(/Nama:\s*/i, '').trim();
+      if(!nama) nama = qrCodeMessage.trim();
 
+      // Cek kalau nama sudah ada di transaksi terakhir untuk mencegah duplikat scan cepat
+      const lastTransaction = kasList[kasList.length - 1];
+      if(lastTransaction && lastTransaction.nama === nama && lastTransaction.jumlah === 3000 && lastTransaction.tanggal === new Date().toISOString().slice(0,10)) {
+        return; // abaikan jika scan duplikat beruntun
+      }
+
+      // Tambahkan transaksi otomatis
       const transaksi = {
-        id: 'K'+Date.now(),
+        id: 'K' + Date.now(),
         nama: nama,
         jenis: 'pemasukan',
         jumlah: 3000,
@@ -203,17 +209,14 @@ document.getElementById('scanQr').onclick = async () => {
       kasList.push(transaksi);
       localStorage.setItem(KAS_KEY, JSON.stringify(kasList));
       renderHistory();
-
-      html5QrCode.stop();
-      qrDiv.style.display = 'none';
-      alert(`Transaksi otomatis ditambahkan:\nNama: ${nama}\nJumlah: Rp 3.000`);
     },
-    errorMessage => { /* abaikan error kecil */ }
+    errorMessage => {
+      // Abaikan error kecil saat kamera scanning
+    }
   ).catch(err => {
     alert("Gagal mengakses kamera: " + err);
   });
 };
-
 // Download PDF (versi rapi)
 // === Download PDF (versi final tanpa kolom jabatan & tabel lebih rapat) ===
 document.getElementById('downloadPdf').onclick = () => {
