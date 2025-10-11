@@ -79,19 +79,23 @@ footer { text-align:center; font-size:13px; color:var(--muted); margin:30px 0; p
   </section>
 
   <aside class="card">
-    <h3><i class='bx bx-archive-in'></i> Riwayat Transaksi</h3>
-    <label>Saldo Awal / Bulan Lalu (Rp)</label>
-    <input id="saldoAwal" type="number" placeholder="Contoh: 100000" value="0">
-    <button id="setSaldoAwal" style="margin-top:6px;background:#f59e0b;">Set Saldo Awal</button>
+  <h3><i class='bx bx-archive-in'></i> Riwayat Transaksi</h3>
+  <label>Saldo Awal / Bulan Lalu (Rp)</label>
+  <input id="saldoAwal" type="number" placeholder="Contoh: 100000" value="0">
 
-    <div id="history" style="max-height:400px; overflow:auto; margin-top:10px;"></div>
-    <hr style="margin:14px 0">
-    <div style="font-size:14px;">
-      <p>Total Pemasukan: Rp <span id="totalPemasukan">0</span></p>
-      <p>Total Pengeluaran: Rp <span id="totalPengeluaran">0</span></p>
-      <p>Saldo Sekarang: Rp <span id="saldoSekarang">0</span></p>
-    </div>
-  </aside>
+  <div style="margin-top:6px; display:flex; gap:8px; flex-wrap:wrap;">
+    <button id="setSaldoAwal" style="background:#f59e0b;">Set Saldo Awal</button>
+    <button id="hapusSemua" style="background:#b91c1c;">Hapus Semua Riwayat</button>
+  </div>
+
+  <div id="history" style="max-height:400px; overflow:auto; margin-top:10px;"></div>
+  <hr style="margin:14px 0">
+  <div style="font-size:14px;">
+    <p>Total Pemasukan: Rp <span id="totalPemasukan">0</span></p>
+    <p>Total Pengeluaran: Rp <span id="totalPengeluaran">0</span></p>
+    <p>Saldo Sekarang: Rp <span id="saldoSekarang">0</span></p>
+  </div>
+</aside>
 </div>
 
 <footer>
@@ -105,7 +109,10 @@ let kasList = JSON.parse(localStorage.getItem(KAS_KEY)||'[]');
 let saldoAwal = 0;
 let html5QrCode = null;
 
-document.getElementById('tanggal').value = new Date().toISOString().slice(0,10);
+// Tampilkan riwayat dari localStorage saat halaman dibuka
+document.addEventListener('DOMContentLoaded', () => {
+  renderHistory();
+});
 
 function renderHistory(){
   const el = document.getElementById('history');
@@ -139,11 +146,18 @@ function renderHistory(){
   document.getElementById('saldoSekarang').innerText = saldo.toLocaleString();
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  // Set input tanggal ke hari ini
+  document.getElementById('tanggal').value = new Date().toISOString().slice(0,10);
+  renderHistory();
+});
+
+// Simpan transaksi baru
 document.getElementById('simpanTransaksi').onclick = ()=>{
   const nama=document.getElementById('nama').value.trim();
   const jenis=document.getElementById('jenis').value;
   const jumlah=parseInt(document.getElementById('jumlah').value);
-  const tanggal=document.getElementById('tanggal').value;
+  const tanggal = new Date().toISOString().slice(0,10);
   if(!nama||!jumlah||!tanggal){ alert('Nama, jumlah, dan tanggal wajib diisi'); return; }
 
   kasList.push({id:'K'+Date.now(),nama,jenis,jumlah,tanggal});
@@ -155,10 +169,19 @@ document.getElementById('simpanTransaksi').onclick = ()=>{
   document.getElementById('tanggal').value=new Date().toISOString().slice(0,10);
 };
 
+// Hapus satu transaksi
 function hapusTransaksi(idx){
   if(confirm('Yakin ingin menghapus transaksi ini?')){
     kasList.splice(idx,1);
     localStorage.setItem(KAS_KEY,JSON.stringify(kasList));
+    renderHistory();
+  }
+}
+
+document.getElementById('hapusSemua').onclick = () => {
+  if(confirm('Yakin ingin menghapus semua riwayat transaksi?')){
+    kasList = [];
+    localStorage.removeItem(KAS_KEY);
     renderHistory();
   }
 }
