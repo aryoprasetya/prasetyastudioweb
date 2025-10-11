@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAGARA — Akses Kartu Anggota</title>
+<link rel="icon" href="assets/images/logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root {
+  --navy: #0b2340;
+  --muted: #64748b;
+  --bg: #eef2f6;
+  --white: #ffffff;
+  --danger: #c0392b;
+}
+
+body {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: var(--white);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  padding: 12px 16px;
+}
+
+header img {
+  height: 55px;
+  margin-right: 12px;
+}
+
+header h1 {
+  font-size: 20px;
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.container {
+  max-width: 420px;
+  width: 90%;
+  margin: 50px auto;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  padding: 24px;
+  position: relative;
+}
+
+h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+input, select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  text-transform: uppercase; /* otomatis kapital */
+}
+
+input:focus, select:focus {
+  border-color: var(--navy);
+  outline: none;
+}
+
+.note {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: var(--navy);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+#reader {
+  width: 100%;
+  height: 250px;
+  margin-top: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+}
+
+footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 40px;
+  padding-bottom: 30px;
+}
+
+/* === Peringatan Custom === */
+.alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--danger);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  z-index: 999;
+  animation: fadeIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: translate(-50%, -10px); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  header img {
+    height: 45px;
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-size: 18px;
+  }
+  .container {
+    margin: 30px auto;
+    padding: 20px;
+  }
+  h2 {
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <img src="assets/images/logo.png" alt="Logo SAGARA">
+  <h1>SAMPANG GENERASI REMAJA AKTIF<br>
+  <small style="font-weight:400;color:var(--muted)">Akses Kartu Keanggotaan</small></h1>
+</header>
+
+<div class="container">
+  <h2><i class="bx bx-qr-scan"></i> Scan QR atau Input Manual</h2>
+  <div id="reader"></div>
+
+  <label for="nama">Nama</label>
+  <input type="text" id="nama" placeholder="Masukkan nama...">
+  <div class="note"><i class="bx bx-info-circle"></i>Nama wajib huruf besar semua dan tanpa simbol.</div>
+
+  <label for="jabatan">Jabatan</label>
+  <select id="jabatan">
+    <option value="">-- Pilih Jabatan --</option>
+    <option>KETUA</option>
+    <option>WAKIL KETUA</option>
+    <option>SEKRETARIS</option>
+    <option>BENDAHARA</option>
+    <option>HUMAS</option>
+    <option>SEKBID KEGIATAN</option>
+    <option>SEKBID KEAMANAN</option>
+    <option>SEKBID OLAHRAGA</option>
+    <option>SEKBID KEAGAMAAN</option>
+    <option>SEKBID SARPRAS</option>
+    <option>ANGGOTA</option>
+  </select>
+
+  <button onclick="kirimManual()">Tampilkan Kartu</button>
+</div>
+
+<footer>© 2025 SAGARA — Sistem Digital Keanggotaan</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+<script>
+function showAlert(message) {
+  const alertBox = document.createElement('div');
+  alertBox.className = 'alert';
+  alertBox.innerHTML = `<i class='bx bx-error-circle'></i> ${message}`;
+  document.body.appendChild(alertBox);
+  setTimeout(() => alertBox.remove(), 3000);
+}
+
+function kirimData(nama, jabatan, qrRaw) {
+  sessionStorage.setItem("nama", nama);
+  sessionStorage.setItem("jabatan", jabatan);
+  sessionStorage.setItem("qrRaw", qrRaw || JSON.stringify({ nama, jabatan }));
+  window.location.href = "card.html";
+}
+
+function kirimManual() {
+  let n = document.getElementById("nama").value.trim().toUpperCase();
+  const j = document.getElementById("jabatan").value.trim();
+
+  if (!n || !j) return showAlert("Lengkapi nama dan jabatan terlebih dahulu!");
+  if (!/^[A-Z\s]+$/.test(n)) return showAlert("Nama hanya boleh berisi huruf besar dan spasi (tanpa simbol).");
+
+  document.getElementById("nama").value = n;
+  kirimData(n, j);
+}
+
+// === QR Scanner ===
+const qrRegionId = "reader";
+const html5QrCode = new Html5Qrcode(qrRegionId);
+
+Html5Qrcode.getCameras().then(cameras => {
+  if (cameras && cameras.length) {
+    html5QrCode.start(
+      { deviceId: { exact: cameras[0].id } },
+      { fps: 10, qrbox: 250 },
+      qrCodeMessage => {
+        try {
+          const data = JSON.parse(qrCodeMessage);
+          if (data.nama && data.jabatan) {
+            html5QrCode.stop();
+            kirimData(data.nama.toUpperCase(), data.jabatan, qrCodeMessage);
+          }
+        } catch {
+          if (qrCodeMessage.includes("|")) {
+            const [nama, jabatan] = qrCodeMessage.split("|");
+            html5QrCode.stop();
+            kirimData(nama.trim().toUpperCase(), jabatan.trim(), qrCodeMessage);
+          }
+        }
+      }
+    );
+  }
+}).catch(err => console.error(err));
+</script>
+</body>
+</html>
