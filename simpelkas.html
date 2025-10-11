@@ -188,9 +188,25 @@ document.getElementById('scanQr').onclick = async () => {
     { facingMode: "environment" },
     qrConfig,
     qrCodeMessage => {
-      alert("QR Terdeteksi: " + qrCodeMessage);
+      // Ambil nama dari QR (asumsikan format: "Nama: [nama], Jabatan: [jabatan]")
+      let nama = qrCodeMessage.split(',')[0].replace(/Nama:\s*/i, '').trim();
+      if(!nama) nama = qrCodeMessage; // fallback kalau format beda
+
+      const transaksi = {
+        id: 'K'+Date.now(),
+        nama: nama,
+        jenis: 'pemasukan',
+        jumlah: 3000,
+        tanggal: new Date().toISOString().slice(0,10)
+      };
+
+      kasList.push(transaksi);
+      localStorage.setItem(KAS_KEY, JSON.stringify(kasList));
+      renderHistory();
+
       html5QrCode.stop();
       qrDiv.style.display = 'none';
+      alert(`Transaksi otomatis ditambahkan:\nNama: ${nama}\nJumlah: Rp 3.000`);
     },
     errorMessage => { /* abaikan error kecil */ }
   ).catch(err => {
