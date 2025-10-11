@@ -54,7 +54,6 @@ header h1 {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
   padding: 24px;
-  position: relative;
 }
 
 h2 {
@@ -80,7 +79,7 @@ input, select {
   border-radius: 8px;
   font-size: 14px;
   transition: border-color 0.2s;
-  text-transform: uppercase; /* otomatis kapital */
+  text-transform: uppercase;
 }
 
 input:focus, select:focus {
@@ -131,7 +130,7 @@ footer {
   padding-bottom: 30px;
 }
 
-/* === Peringatan Custom === */
+/* ALERT */
 .alert {
   position: fixed;
   top: 20px;
@@ -159,20 +158,10 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
-  header img {
-    height: 45px;
-    margin-bottom: 6px;
-  }
-  header h1 {
-    font-size: 18px;
-  }
-  .container {
-    margin: 30px auto;
-    padding: 20px;
-  }
-  h2 {
-    font-size: 16px;
-  }
+  header img { height: 45px; margin-bottom: 6px; }
+  header h1 { font-size: 18px; }
+  .container { margin: 30px auto; padding: 20px; }
+  h2 { font-size: 16px; }
 }
 </style>
 </head>
@@ -232,42 +221,43 @@ function kirimData(nama, jabatan, qrRaw) {
 function kirimManual() {
   let n = document.getElementById("nama").value.trim().toUpperCase();
   const j = document.getElementById("jabatan").value.trim();
-
   if (!n || !j) return showAlert("Lengkapi nama dan jabatan terlebih dahulu!");
-  if (!/^[A-Z\s]+$/.test(n)) return showAlert("Nama hanya boleh berisi huruf besar dan spasi (tanpa simbol).");
-
+  if (!/^[A-Z\s]+$/.test(n)) return showAlert("Nama hanya boleh huruf besar dan spasi.");
   document.getElementById("nama").value = n;
   kirimData(n, j);
 }
 
 // === QR Scanner ===
-const qrRegionId = "reader";
-const html5QrCode = new Html5Qrcode(qrRegionId);
+const html5QrCode = new Html5Qrcode("reader");
 
 Html5Qrcode.getCameras().then(cameras => {
   if (cameras && cameras.length) {
+    // 🔧 cari kamera belakang
+    const backCam = cameras.find(cam => /back|rear|environment/i.test(cam.label)) || cameras[0];
     html5QrCode.start(
-      { deviceId: { exact: cameras[0].id } },
+      { deviceId: { exact: backCam.id } },
       { fps: 10, qrbox: 250 },
       qrCodeMessage => {
         try {
           const data = JSON.parse(qrCodeMessage);
           if (data.nama && data.jabatan) {
             html5QrCode.stop();
-            kirimData(data.nama.toUpperCase(), data.jabatan, qrCodeMessage);
+            kirimData(data.nama.toUpperCase(), data.jabatan.toUpperCase(), qrCodeMessage);
           }
         } catch {
           if (qrCodeMessage.includes("|")) {
             const [nama, jabatan] = qrCodeMessage.split("|");
             html5QrCode.stop();
-            kirimData(nama.trim().toUpperCase(), jabatan.trim(), qrCodeMessage);
+            kirimData(nama.trim().toUpperCase(), jabatan.trim().toUpperCase(), qrCodeMessage);
           }
         }
-      }
-    );
+      },
+      err => {}
+    ).catch(err => console.error("Gagal memulai kamera:", err));
+  } else {
+    showAlert("Tidak ada kamera terdeteksi.");
   }
-}).catch(err => console.error(err));
+}).catch(() => showAlert("Gagal mengakses kamera."));
 </script>
 </body>
 </html>
-
