@@ -174,10 +174,14 @@ document.getElementById('setSaldoAwal').onclick = () => {
 document.getElementById('scanQr').onclick = async () => {
   const qrDiv = document.getElementById('qr-reader');
   qrDiv.style.display = 'block';
+  qrDiv.style.maxWidth = '400px';  // maksimal lebar tetap responsif
+  qrDiv.style.margin = '12px auto';
+  qrDiv.style.width = '100%';
+  qrDiv.style.height = 'auto';
 
   if (html5QrCode) {
-    await html5QrCode.stop();
-    html5QrCode = null;
+    // jika scanner sudah berjalan, jangan restart
+    return;
   }
 
   html5QrCode = new Html5Qrcode("qr-reader");
@@ -189,12 +193,10 @@ document.getElementById('scanQr').onclick = async () => {
     qrCodeMessage => {
       let nama = qrCodeMessage;
 
-      // Jika QR berformat JSON, ambil properti 'nama' saja
       try {
         const obj = JSON.parse(qrCodeMessage);
         if(obj.nama) nama = obj.nama.trim();
       } catch(e) {
-        // QR bukan JSON, pakai langsung teks
         nama = qrCodeMessage.trim();
       }
 
