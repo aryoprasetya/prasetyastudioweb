@@ -260,18 +260,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script>
-    // 🔒 Cegah akses langsung ke card.html
-  const fromProfile = sessionStorage.getItem("fromProfile");
-  if (!fromProfile || fromProfile !== "true") {
-    // Hapus semua session dan arahkan ke halaman utama
-    sessionStorage.clear();
-    window.location.replace("profile.html");
-  } else {
-    // Setelah berhasil lewat, hapus flag biar gak bisa reload ulang
-    sessionStorage.removeItem("fromProfile");
-  }
-    
+  <script> 
     const nama = sessionStorage.getItem("nama") || "Nama Anggota";
     const jabatan = sessionStorage.getItem("jabatan") || "Jabatan";
 
@@ -313,6 +302,7 @@
   </script>
 </body>
 </html>
+
 
 
 
