@@ -38,10 +38,10 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 420px;
-      height: 420px;
-      background: url('images/digitalid.png') center/contain no-repeat;
-      opacity: 0.12;
+      width: 210px;
+      height: 210px;
+      background: url('assets/images/digitalid.png') center/contain no-repeat;
+      opacity: 0.10;
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 1;
@@ -54,7 +54,7 @@
       left: 0;
       width: 100%;
       height: 120px;
-      background: url('images/batik.png') repeat-x bottom;
+      background: url('assets/images/batik.png') repeat-x bottom;
       background-size: contain;
       opacity: 100;
       z-index: 1;
@@ -73,6 +73,28 @@
       pointer-events: none;
       z-index: 2;
     }
+
+  .cap-digital {
+  position: absolute;
+  left: 35px; /* sejajar margin kiri area isi kartu */
+  bottom: 87px; /* sejajar vertikal dengan no-kartu dan masih di atas batik */
+  transform: none; /* lurus, tidak miring */
+  border: 1.3px solid silver;
+  color: silver;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(0.5px);
+  box-shadow: 0 0 6px #0b2340 inset;
+  text-align: center;
+  z-index: 4;
+  pointer-events: none;
+  font-family: 'Courier Prime', monospace;
+}
 
     @keyframes holoMove {
       0% { transform: translateX(-10%) translateY(-5%) scale(1.05); }
@@ -223,12 +245,12 @@
 </head>
 <body>
   <div class="card" id="cardRoot">
-    <div class="watermark"></div>
     <div class="batik"></div>
     <div class="hologram"></div>
+    <div class="cap-digital">[ DIGITAL — TIDAK UNTUK DICETAK FISIK ]</div>
 
     <div class="kop">
-      <img src="images/kop.png" alt="Kop Surat SAGARA">
+      <img src="assets/images/kop.png" alt="Kop Surat SAGARA">
     </div>
 
     <div class="judul">KARTU KEANGGOTAAN DIGITAL SAGARA</div>
@@ -240,6 +262,7 @@
         <p><span class="label">GOLONGAN:</span> REMAJA</p>
         <p><span class="label">ALAMAT:</span> SAMPANG, PETUGURAN, PUNGGELAN, BANJARNEGARA</p>
         <div class="status" id="status">ANGGOTA AKTIF</div>
+        <div class="watermark"></div>
       </div>
       <div class="qr" id="qr"></div>
     </div>
@@ -260,7 +283,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script> 
+  <script>
     const nama = sessionStorage.getItem("nama") || "Nama Anggota";
     const jabatan = sessionStorage.getItem("jabatan") || "Jabatan";
 
@@ -302,7 +325,3 @@
   </script>
 </body>
 </html>
-
-
-
-
