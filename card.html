@@ -261,6 +261,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
+    // 🚫 Blok akses langsung ke card.html
+  const referrer = document.referrer;
+  const allowedRef = window.location.origin + "/profile.html";
+
+  // Cek apakah data nama & jabatan tersedia di sessionStorage
+  const namaCheck = sessionStorage.getItem("nama");
+  const jabatanCheck = sessionStorage.getItem("jabatan");
+
+  if (!referrer.includes("profile.html") || !namaCheck || !jabatanCheck) {
+    alert("Akses langsung ke halaman ini tidak diizinkan.");
+    window.location.href = "profile.html";
+  }
+    
     const nama = sessionStorage.getItem("nama") || "Nama Anggota";
     const jabatan = sessionStorage.getItem("jabatan") || "Jabatan";
 
@@ -302,4 +315,5 @@
   </script>
 </body>
 </html>
+
 
