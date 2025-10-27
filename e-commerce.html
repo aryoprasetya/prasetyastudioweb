@@ -171,9 +171,249 @@ body { font-family: 'Manrope', sans-serif; background-color: #f9fafb; color: #11
 <div id="checkoutMessage" class="mt-3 text-center text-sm font-medium"></div>
 
 <!-- Toast -->
-<div id="toast" class="fixed top-6 right-6 bg-blue-600 text-white px-6 py-3 rounded shadow-lg hidden transition-opacity duration-300">
+<div id="toast" class="fixed top-[5.5rem] right-6 bg-blue-600 text-white px-6 py-3 rounded shadow-lg hidden transition-opacity duration-300 z-[100]">
   <span id="toast-msg"></span>
 </div>
+
+<!-- ===== RIWAYAT PEMBELIAN ===== -->
+<section class="container mx-auto py-16 px-6">
+  <h2 class="text-3xl font-bold mb-8">Riwayat Pembelian</h2>
+  <div id="purchase-history" class="space-y-4"></div>
+
+  <div class="mt-6 border-t pt-6">
+    <h3 class="text-xl font-semibold mb-2">Aktivasi Riwayat</h3>
+    <div class="flex gap-2 max-w-md">
+      <input type="text" id="invoice-input" placeholder="Masukkan nomor invoice" class="flex-1 border rounded px-4 py-2">
+      <button id="activate-btn" class="bg-blue-600 text-white px-4 rounded hover:bg-blue-700 transition">Aktifkan</button>
+    </div>
+    <p id="activation-msg" class="mt-2 text-sm font-medium"></p>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const LS_HISTORY_KEY = 'ps_purchase_history';
+  let historyList = [];
+
+  // ===== HELPERS =====
+  function loadHistory() {
+    try {
+      const saved = localStorage.getItem(LS_HISTORY_KEY);
+      if (saved) historyList = JSON.parse(saved);
+    } catch (e) { historyList = []; }
+  }
+
+  function saveHistory() {
+    localStorage.setItem(LS_HISTORY_KEY, JSON.stringify(historyList));
+  }
+
+  function showToast(msg,type='info'){
+    const toast=document.getElementById('toast');
+    toast.innerText=msg;
+    toast.style.backgroundColor=type==='error'?'#dc2626':type==='success'?'#16a34a':'#2563eb';
+    toast.classList.remove('hidden');
+    toast.style.opacity=1;
+    setTimeout(()=>{toast.style.opacity=0;setTimeout(()=>toast.classList.add('hidden'),300)},2500);
+  }
+
+  function generateInvoice() {
+    const rand = Math.floor(Math.random() * 900) + 100;
+    return `INV${rand}-PS`;
+  }
+
+  function renderHistory() {
+    const container = document.getElementById('purchase-history');
+    container.innerHTML = '';
+
+    if (historyList.length === 0) {
+      container.innerHTML = '<p class="text-gray-500">Belum ada riwayat pembelian.</p>';
+      return;
+    }
+
+    const adminPhone = '6285143080554';
+    historyList.forEach(h => {
+      const div = document.createElement('div');
+      div.className = 'bg-white p-4 rounded shadow flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3';
+      div.innerHTML = `
+        <div>
+          <p class="font-semibold text-lg">${h.items}</p>
+          <p class="text-sm text-gray-500">Tanggal: ${h.date}</p>
+          <p class="text-sm text-gray-500">Status:
+            <span class="${h.active ? 'text-green-600' : 'text-red-600'} font-semibold">
+              ${h.active ? 'Terverifikasi' : 'Belum Aktif/ Gagal'}
+            </span>
+          </p>
+        </div>
+        <button data-invoice="${h.invoice}" class="claim-btn bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition flex items-center justify-center gap-2">
+          <i class='bx bxl-whatsapp text-lg'></i> Klaim
+        </button>
+      `;
+      container.appendChild(div);
+    });
+
+    document.querySelectorAll('.claim-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const invoice = btn.getAttribute('data-invoice');
+        const entry = historyList.find(h => h.invoice === invoice);
+        if (!entry) return;
+
+        const message = `Halo admin, saya ingin klaim riwayat pembelian:\n\n` +
+                        `Invoice: ${entry.invoice}\n` +
+                        `Item: ${entry.items}\n` +
+                        `Tanggal: ${entry.date}\n` +
+                        `Status: ${entry.active ? 'Aktif' : 'Belum Aktif'}`;
+        const waLink = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
+        window.open(waLink, '_blank');
+      });
+    });
+  }
+
+  function addToHistory(itemsList, invoiceNumber = null) {
+    const invoice = invoiceNumber || generateInvoice();
+    const entry = {
+      invoice,
+      items: itemsList.join(', '),
+      date: new Date().toLocaleString('id-ID'),
+      active: false
+    };
+    historyList.push(entry);
+    saveHistory();
+    renderHistory();
+    showToast('Pesanan berhasil disimpan dan menunggu aktivasi admin.', 'info');
+    return invoice;
+  }
+
+  // ===== INVOICE ACTIVATION =====
+  document.getElementById('activate-btn').addEventListener('click', () => {
+    const input = document.getElementById('invoice-input').value.trim().toUpperCase();
+    const msg = document.getElementById('activation-msg');
+
+    if (!/^INV\d{3}-PS$/.test(input)) {
+      msg.innerText = '❌ Format invoice tidak valid.';
+      msg.className = 'text-red-600 mt-2';
+      return;
+    }
+
+    const found = historyList.find(h => h.invoice === input);
+    if (!found) {
+      msg.innerText = '❌ Invoice tidak ditemukan.';
+      msg.className = 'text-red-600 mt-2';
+      return;
+    }
+
+    if (found.active) {
+      msg.innerText = '⚠️ Invoice sudah aktif sebelumnya.';
+      msg.className = 'text-yellow-600 mt-2';
+      return;
+    }
+
+    found.active = true;
+    saveHistory();
+    renderHistory();
+    msg.innerText = '✅ Aktivasi berhasil! Riwayat telah aktif.';
+    msg.className = 'text-green-600 mt-2';
+  });
+
+  // ===== CART =====
+  window.cart = window.cart || [];
+
+  const LS_CART_KEY = 'ps_cart';
+  const LS_VOUCHER_KEY = 'ps_voucher';
+  let voucher = null;
+
+  function saveCartToStorage(){
+    try{
+      localStorage.setItem(LS_CART_KEY, JSON.stringify(cart));
+      localStorage.setItem(LS_VOUCHER_KEY, voucher ? String(voucher) : '');
+    }catch(e){ }
+  }
+  function loadCartFromStorage(){
+    try{
+      const savedCart = localStorage.getItem(LS_CART_KEY);
+      if(savedCart){ const arr = JSON.parse(savedCart); if(Array.isArray(arr)) cart = arr; }
+      const savedVoucher = localStorage.getItem(LS_VOUCHER_KEY);
+      voucher = savedVoucher ? savedVoucher : null;
+    }catch(e){ }
+  }
+
+  function updateCart(){
+    const items=document.getElementById('cart-items');
+    const count=document.getElementById('cart-count');
+    const totalEl=document.getElementById('cart-total');
+    items.innerHTML='';
+    let total=0;
+    cart.forEach((i, idx)=>{
+      total+=typeof i.price==='number'?i.price:0;
+      const div=document.createElement('div');
+      div.className="flex justify-between items-center bg-white p-4 rounded shadow gap-2";
+      div.innerHTML=`<span>${i.name}</span>
+      <div class="flex items-center gap-2">
+        <span>${typeof i.price==='number'? 'Rp'+i.price.toLocaleString():i.price}</span>
+        <button onclick="removeFromCart(${idx})" class="text-red-600 hover:text-red-800"><i class='bx bx-trash'></i></button>
+      </div>`;
+      items.appendChild(div);
+    });
+    if (voucher) {
+      const voucherList = { 'PRAS10': 10, 'BIRD30': 30, 'PSTD50': 50, 'YUAR80': 80, 'DISC60': 60 };
+      const diskon = voucherList[voucher] || 0;
+      total = total - (total * (diskon / 100));
+    }
+    count.innerText=cart.length;
+    totalEl.innerText=total.toLocaleString();
+    saveCartToStorage();
+  }
+
+  function removeFromCart(index){ cart.splice(index,1); saveCartToStorage(); updateCart(); showToast('Produk dihapus dari keranjang','info'); }
+
+  loadCartFromStorage();
+  updateCart();
+
+  // ===== EMAILJS & XENDIT PAID =====
+  const xenditPaid=document.getElementById('xendit-paid');
+  const confirmCheck=document.getElementById('confirm-check');
+
+  xenditPaid.addEventListener('click', () => {
+    if (!confirmCheck.checked) { showToast('Centang konfirmasi terlebih dahulu','error'); return; }
+    const selectedPayment = document.getElementById('payment-method').value;
+    const buyerEmail = document.getElementById('buyer-email').value.trim();
+    const buyerWhatsapp = document.getElementById('buyer-whatsapp').value.trim();
+
+    if (!buyerEmail || !buyerWhatsapp) { showToast('Isi email dan WhatsApp terlebih dahulu','error'); return; }
+
+    // Generate invoice dan gabungkan ke items
+    const itemsList = cart.map(i => i.name);
+    const invoiceNumber = addToHistory(itemsList); // simpan ke history, dapat invoice
+    const itemsWithInvoice = `Invoice: ${invoiceNumber} | Produk Dipesan: ${itemsList.join(', ')}`;
+
+    // Siapkan parameter EmailJS
+    const templateParams = {
+      buyer_type: document.getElementById('buyer-type').options[document.getElementById('buyer-type').selectedIndex].text,
+      payment_method: selectedPayment,
+      buyer_email: buyerEmail,
+      buyer_whatsapp: buyerWhatsapp,
+      items: itemsWithInvoice,
+      total: document.getElementById('xendit-total').innerText,
+      status: 'Pesanan sudah dibayar (Xendit Static)',
+      date: new Date().toLocaleString('id-ID')
+    };
+
+    emailjs.send('service_6hr6jio','template_zfa3873',templateParams)
+      .then(()=>{
+        showToast('Pesanan terkirim! Detail sudah dikirim ke email/WA kamu.','success');
+        // Bersihkan cart + voucher
+        cart=[]; voucher=null; saveCartToStorage(); updateCart();
+        document.getElementById('xendit-modal').classList.add('hidden');
+      })
+      .catch(err=>{
+        console.error("❌ EmailJS gagal:", err);
+        showToast('Gagal mengirim konfirmasi','error');
+      });
+  });
+
+  loadHistory();
+  renderHistory();
+});
+</script>
 
 <!-- Footer -->
 <footer class="bg-white border-t py-6 text-center">
@@ -196,7 +436,7 @@ const products = [ {id:"VD001",name:"Desain Logo",desc:"Logo profesional + file 
 {id:"VI001",name:"Desain Poster/A4",desc:"Poster siap cetak + file editable",price:35000,stock:20,category:"Poster",icon:"bxs-file"},
 {id:"VI002",name:"Poster Infografis",desc:"Poster Infografis file PDF editable",price:35000,stock:20,category:"Poster",icon:"bxs-file"},
 {id:"GD001",name:"Desain Brosur/A4",desc:"Brosur A4 siap cetak",price:35000,stock:15,category:"Poster",icon:"bxs-book"},
-{id:"VI001",name:"Gabung/ edit dokumen",desc:"Gabung file pdf, img, dll",price:5000,stock:20,category:"Poster",icon:"bxs-file"},
+{id:"AY001",name:"Gabung/ edit dokumen",desc:"Gabung file pdf, img, dll",price:5000,stock:20,category:"Poster",icon:"bxs-file"},
 {id:"AD001",name:"Desain Banner",desc:"Desain banner file PDF, AI, PSD",price:35000,stock:15,category:"Banner",icon:"bxs-image"},
 {id:"AD002",name:"Desain Undangan",desc:"Desain undangan file PDF, AI, PSD",price:25000,stock:15,category:"Banner",icon:"bxs-envelope"},
 {id:"IS001",name:"Desain Invoice",desc:"Desain invoice file PDF, AI, PSD",price:10000,stock:50,category:"Banner",icon:"bxs-receipt"},
@@ -274,12 +514,31 @@ updateCart?.();
 function filterCategory(cat){ renderProducts(cat); }
 
 // ===== KERANJANG =====
-function addToCart(id){
-  const p = products.find(pr=>pr.id===id);
-  if(p.stock===0){ showToast('Maaf, stok habis!','error'); return; }
-  cart.push({id:p.id,name:p.name,price:p.price});
+function addToCart(id) {
+  const p = products.find(pr => pr.id === id);
+  if (!p) {
+    showToast('Produk tidak ditemukan!', 'error');
+    return;
+  }
+
+  // Hitung berapa item yang sudah ada di keranjang dari produk ini
+  const existingCount = cart.filter(item => item.id === p.id).length;
+
+  // Cek apakah stok masih cukup
+  if (existingCount >= p.stock) {
+    showToast(`Pembelian ${p.name} melebihi stok bulan ini (${p.stock}).`, 'error');
+    return;
+  }
+
+  if (p.stock === 0) {
+    showToast('Maaf, stok habis!', 'error');
+    return;
+  }
+
+  // Tambahkan produk ke keranjang
+  cart.push({ id: p.id, name: p.name, price: p.price });
   saveCartToStorage();
-  showToast(`${p.name} ditambahkan ke keranjang!`,'success');
+  showToast(`${p.name} ditambahkan ke keranjang!`, 'success');
   updateCart();
 }
 
@@ -302,7 +561,11 @@ function updateCart(){
     `;
     items.appendChild(div);
   });
-  if(voucher) total=total-(total*0.1);
+  if (voucher) {
+  const voucherList = { 'PRAS10': 10, 'BIRD30': 30, 'PSTD50': 50, 'YUAR80': 80, 'DISC60': 60 };
+  const diskon = voucherList[voucher] || 0;
+  total = total - (total * (diskon / 100));
+}
   count.innerText=cart.length;
   totalEl.innerText=total.toLocaleString();
   saveCartToStorage();
@@ -316,15 +579,25 @@ function removeFromCart(index){
 }
 
 // ===== VOUCHER =====
-document.getElementById('voucher-btn').addEventListener('click',()=>{
-  const code=document.getElementById('voucher-code').value.trim();
-  if(code==='PRAS10'){
-    voucher=code;
-    showToast('Voucher diterapkan! Diskon 10% berlaku.','success');
-  } else{
-    voucher=null;
-    showToast('Kode voucher tidak valid','error');
+document.getElementById('voucher-btn').addEventListener('click', () => {
+  const code = document.getElementById('voucher-code').value.trim().toUpperCase();
+  const voucherList = {
+    'PRAS10': 10,
+    'BIRD30': 30,
+    'PSTD50': 50,
+    'YUAR80': 80,
+    'DISC60': 60
+  };
+
+  if (voucherList[code]) {
+    voucher = code;
+    const diskon = voucherList[code];
+    showToast(`Voucher ${code} diterapkan! Diskon ${diskon}% berlaku.`, 'success');
+  } else {
+    voucher = null;
+    showToast('Kode voucher tidak valid', 'error');
   }
+
   saveCartToStorage();
   updateCart();
 });
@@ -348,7 +621,11 @@ checkoutBtn.addEventListener('click',()=>{
     div.innerHTML=`<span>${i.name}</span><span>${typeof i.price==='number'? 'Rp'+i.price.toLocaleString():i.price}</span>`;
     checkoutItems.appendChild(div);
   });
-  if(voucher) total=total-(total*0.1);
+  if (voucher) {
+  const voucherList = { 'PRAS10': 10, 'BIRD30': 30, 'PSTD50': 50, 'YUAR80': 80, 'DISC60': 60 };
+  const diskon = voucherList[voucher] || 0;
+  total = total - (total * (diskon / 100));
+}
   checkoutTotal.innerText=total.toLocaleString();
   checkoutModal.classList.remove('hidden');
 });
@@ -366,7 +643,11 @@ const confirmCheck=document.getElementById('confirm-check');
 function calculateXenditTotal(){
   let total=0;
   cart.forEach(i=>total+=typeof i.price==='number'?i.price:0);
-  if(voucher) total=total-(total*0.1);
+  if (voucher) {
+  const voucherList = { 'PRAS10': 10, 'BIRD30': 30, 'PSTD50': 50, 'YUAR80': 80, 'DISC60': 60 };
+  const diskon = voucherList[voucher] || 0;
+  total = total - (total * (diskon / 100));
+}
   if(buyerType.value==='instansi') total+=total*0.12; // PPN 12% untuk instansi
   xenditTotal.innerText=total.toLocaleString();
 }
@@ -375,7 +656,16 @@ function calculateXenditTotal(){
 buyerType.addEventListener('change',calculateXenditTotal);
 
 // confirm checkout ke Xendit
-confirmCheckout.addEventListener('click',()=>{
+confirmCheckout.addEventListener('click', () => {
+  // Validasi stok ulang sebelum lanjut checkout
+  for (const p of products) {
+    const countInCart = cart.filter(i => i.id === p.id).length;
+    if (countInCart > p.stock) {
+      showToast(`Stok ${p.name} tidak mencukupi. Maksimum ${p.stock} item.`, 'error');
+      return; // hentikan proses checkout
+    }
+  }
+  
   calculateXenditTotal();
   checkoutModal.classList.add('hidden');
   xenditModal.classList.remove('hidden');
@@ -390,27 +680,34 @@ const subMethod=document.getElementById('sub-method');
 const paymentDetail=document.getElementById('payment-detail');
 
 // tombol sudah bayar
-xenditPaid.addEventListener('click',()=>{
-  if(!confirmCheck.checked){
-    showToast('Centang konfirmasi terlebih dahulu','error');
+xenditPaid.addEventListener('click', () => {
+  if (!confirmCheck.checked) {
+    showToast('Centang konfirmasi terlebih dahulu', 'error');
     return;
   }
 
-  const selectedPayment = paymentMethod.options[paymentMethod.selectedIndex].text;
+  const selectedPayment = paymentMethod.value;
   const buyerEmail = document.getElementById('buyer-email').value.trim();
   const buyerWhatsapp = document.getElementById('buyer-whatsapp').value.trim();
 
-  if(!buyerEmail || !buyerWhatsapp){
-    showToast('Isi email dan WhatsApp terlebih dahulu','error');
+  if (!buyerEmail || !buyerWhatsapp) {
+    showToast('Isi email dan WhatsApp terlebih dahulu', 'error');
     return;
   }
+
+  // Generate invoice
+  const invoiceNumber = generateInvoice(); // gunakan fungsi generateInvoice() yang sudah ada
+
+  // Gabungkan invoice ke dalam list items
+  const itemsList = cart.map(i => i.name);
+  const itemsWithInvoice = `Invoice: ${invoiceNumber} | Produk Dipesan: ${itemsList.join(', ')}`;
 
   const templateParams = {
     buyer_type: buyerType.options[buyerType.selectedIndex].text,
     payment_method: selectedPayment,
     buyer_email: buyerEmail,
     buyer_whatsapp: buyerWhatsapp,
-    items: cart.map(i=>i.name).join(', '),
+    items: itemsWithInvoice, // sudah termasuk invoice
     total: xenditTotal.innerText,
     status: 'Pesanan sudah dibayar (Xendit Static)',
     date: new Date().toLocaleString('id-ID')
@@ -418,8 +715,11 @@ xenditPaid.addEventListener('click',()=>{
 
   emailjs.send('service_6hr6jio','template_zfa3873',templateParams)
     .then(()=>{
-      // ===== Pesan konfirmasi non-alert =====
       showToast('Pesanan terkirim! Detail sudah dikirim ke email/WA kamu.','success');
+
+      // ===== SIMPAN KE RIWAYAT =====
+      addToHistory(itemsList, invoiceNumber); // tambahkan invoice ke history
+
       // Bersihkan keranjang + storage
       cart=[];
       voucher=null;
@@ -432,6 +732,7 @@ xenditPaid.addEventListener('click',()=>{
       showToast('Gagal mengirim konfirmasi','error');
     });
 });
+
 
 // ===== BANNER CAROUSEL =====
 const banners=document.querySelectorAll('#banner-carousel > div');
@@ -480,7 +781,7 @@ function renderPaymentDetail(category, method){
   }
   else if(category==='qris'){
     html=`<p class="font-semibold">Scan QR berikut untuk bayar:</p>
-    <img src="assets/Kode QRIS Prasetya Qris Pay_1.png" class="mx-auto w-40 h-40 object-contain">`;
+    <img src="images/Kode QRIS Prasetya Qris Pay_1.png" class="mx-auto w-40 h-40 object-contain">`;
   }
   else if(category==='usd'){
     if(method==='PayPal'){
@@ -538,18 +839,17 @@ subMethod.addEventListener('change',()=>{
   }
 });
 </script>
-<!-- Tombol Home Floating -->
-<a href="index.html" class="fixed bottom-20 right-5 z-50 flex items-center bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300">
-  <i class="bx bx-home-alt text-lg mr-2"></i>
-  <span class="text-sm font-medium"></span>
+<!-- Tombol Home Floating Bulat -->
+<a href="index.html"
+  class="fixed bottom-20 right-5 z-50 flex items-center justify-center w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-all duration-300">
+  <i class="bx bx-home-alt text-2xl"></i>
 </a>
 
-<!-- Tombol WhatsApp Floating -->
-<a href="https://wa.me/6285143080554" target="_blank" class="fixed bottom-5 right-5 z-50 flex items-center bg-green-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300">
-  <i class="bx bxl-whatsapp text-lg mr-2"></i>
-  <span class="text-sm font-medium"></span>
+<!-- Tombol WhatsApp Floating Bulat -->
+<a href="https://wa.me/6285143080554" target="_blank"
+  class="fixed bottom-5 right-5 z-50 flex items-center justify-center w-14 h-14 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 hover:scale-105 transition-all duration-300">
+  <i class="bx bxl-whatsapp text-2xl"></i>
 </a>
+
 </body>
 </html>
-
-
