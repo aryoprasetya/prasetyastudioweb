@@ -130,7 +130,7 @@ body { font-family: 'Manrope', sans-serif; background-color: #f9fafb; color: #11
         <option value="">-- Pilih --</option>
         <option value="bank">Transfer Bank</option>
         <option value="ewallet">E-Wallet</option>
-        <option value="qris">QRIS</option>
+        <option value="qris">QRIS (Dalam Perbaikan)</option>
         <option value="usd">USD (PayPal/Wallet)</option>
       </select>
     </div>
@@ -781,7 +781,7 @@ function renderPaymentDetail(category, method){
   }
   else if(category==='qris'){
     html=`<p class="font-semibold">Scan QR berikut untuk bayar:</p>
-    <img src="images/Kode QRIS Prasetya Qris Pay_1.png" class="mx-auto w-40 h-40 object-contain">`;
+    <img src="images/Kode QRIS Prasetya Pay_1.png" class="mx-auto w-40 h-40 object-contain">`;
   }
   else if(category==='usd'){
     if(method==='PayPal'){
@@ -853,3 +853,4 @@ subMethod.addEventListener('change',()=>{
 
 </body>
 </html>
+
