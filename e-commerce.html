@@ -19,7 +19,14 @@
 body { font-family: 'Manrope', sans-serif; background-color: #f9fafb; color: #111827; }
 .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.5s ease-in-out; }
 .fade-in.show { opacity: 1; transform: translateY(0); }
-.product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.2); transition: 0.3s; }
+.product-card {
+  backdrop-filter: blur(4px);
+  transition: all 0.4s ease-in-out;
+}
+.product-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
 </style>
 </head>
 <body>
@@ -123,6 +130,15 @@ body { font-family: 'Manrope', sans-serif; background-color: #f9fafb; color: #11
       <p id="ppn-note" class="hidden mt-2 text-sm text-red-600">⚠️ Instansi Pemerintah dikenakan PPN 12%</p>
     </div>
 
+<!-- Total Bayar di Xendit Modal -->
+<p class="mb-2 font-semibold bg-green-100 border-l-4 border-green-500 text-green-800 p-3 rounded-lg shadow-sm">
+  Total Bayar:
+  <span id="xendit-total" class="text-2xl font-bold text-green-700">0</span>
+</p>
+
+<!-- Pesan diskon voucher -->
+<p id="xendit-voucher-msg" class="text-sm text-green-700 font-medium mb-4"></p>
+
     <!-- Metode Pembayaran -->
     <div class="mb-4">
       <label class="font-semibold">Metode Pembayaran:</label>
@@ -153,8 +169,6 @@ body { font-family: 'Manrope', sans-serif; background-color: #f9fafb; color: #11
       <label class="font-semibold">WhatsApp:</label>
       <input type="text" id="buyer-whatsapp" class="border rounded px-3 py-2 w-full mt-1" placeholder="Masukkan nomor WhatsApp">
     </div>
-
-    <p class="mb-2 font-semibold">Total Bayar: Rp<span id="xendit-total">0</span></p>
 
     <div class="flex items-center gap-2 mb-4">
       <input type="checkbox" id="confirm-check" class="w-5 h-5">
@@ -449,7 +463,12 @@ const products = [ {id:"VD001",name:"Desain Logo",desc:"Logo profesional + file 
 {id:"SOC01",name:"Paket Feed 15 Konten",desc:"15 desain feed Instagram",price:135000,stock:10,category:"Media",icon:"bxl-instagram"},
 {id:"SOC02",name:"Paket Feed 25 Konten",desc:"25 desain feed Instagram",price:200000,stock:10,category:"Media",icon:"bxl-instagram"},
 {id:"SOC03",name:"Paket Feed 30 Konten",desc:"30 desain feed Instagram",price:230000,stock:10,category:"Media",icon:"bxl-instagram"},
-{id:"VA001",name:"Video Animasi",desc:"Video animasi/ menit",price:35000,stock:10,category:"Video",icon:"bxs-video"}, ];
+{id:"VA001",name:"Video Animasi",desc:"Video animasi/ menit",price:35000,stock:10,category:"Video",icon:"bxs-video"},
+{id:"PPT001", name:"PPT Slide Satuan", desc:"Desain PowerPoint 1 slide profesional, bisa revisi ringan", price:2500, stock:30, category:"Media", icon:"bxs-slideshow"},
+{id:"PPT002", name:"PPT 15 Slide ++", desc:"Desain PowerPoint minimal 15 slide, lengkap dengan template dan animasi", price:35000, stock:20, category:"Media", icon:"bxs-slideshow"},
+{id:"DOC001", name:"Laporan PKL", desc:"Laporan PKL full format sekolah/kampus + isi lengkap", price:40000, stock:10, category:"CV", icon:"bxs-file-doc"},
+{id:"DOC002", name:"Makalah Full Isi", desc:"Makalah lengkap format docx/pdf dengan isi pembahasan utuh", price:60000, stock:15, category:"CV", icon:"bxs-file-doc"},
+{id:"DOC008", name:"Desain Sertifikat", desc:"Desain sertifikat penghargaan", price:15000, stock:20, category:"Poster", icon:"bxs-file-doc"}, ];
 
 // ===== TOAST =====
 function showToast(msg,type='info'){
@@ -481,27 +500,47 @@ function loadCartFromStorage(){
 }
 
 // ===== RENDER PRODUK =====
-function renderProducts(filtered='all'){
-  const grid=document.getElementById('product-grid');
-  grid.innerHTML='';
-  const list = filtered==='all'?products:products.filter(p=>p.category===filtered);
-  list.forEach(p=>{
-    const div=document.createElement('div');
-    div.className="bg-white shadow-md rounded-lg p-6 flex flex-col fade-in product-card text-center";
-    div.innerHTML=`
-      <div class="text-6xl text-blue-600 mb-4 flex justify-center items-center"><i class='bx ${p.icon}'></i></div>
-      <h3 class="font-semibold text-xl mb-1">${p.name}</h3>
-      <p class="text-gray-600 mb-2">${p.desc}</p>
-      <div class="flex items-center justify-center mb-2">
-        ${typeof p.price==='number'
-          ? `<span class="font-bold text-lg text-blue-600">Rp${p.price.toLocaleString()}</span>`
-          : `<span class="font-bold text-lg text-blue-600">${p.price}</span>`}
+function renderProducts(filtered = 'all') {
+  const grid = document.getElementById('product-grid');
+  grid.innerHTML = '';
+  const list = filtered === 'all' ? products : products.filter(p => p.category === filtered);
+
+  list.forEach(p => {
+    const div = document.createElement('div');
+    div.className = `
+      bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center
+      hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100
+      fade-in product-card
+    `;
+    div.innerHTML = `
+      <div class="relative mb-4">
+        <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mx-auto">
+          <i class='bx ${p.icon} text-4xl text-blue-600'></i>
+        </div>
       </div>
-      <p class="font-semibold mb-2">Stock Bulan Ini: <span id="stock-${p.id}">${p.stock}</span></p>
-      <button onclick="addToCart('${p.id}')" class="mt-auto bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition flex items-center justify-center gap-2"><i class='bx bx-cart-add'></i> Keranjang</button>
+      <span class="text-xs uppercase tracking-wide text-blue-500 font-semibold mb-1">${p.category}</span>
+      <h3 class="font-bold text-lg mb-1 text-gray-800">${p.name}</h3>
+      <p class="text-gray-500 text-sm mb-3">${p.desc}</p>
+      <div class="mb-2">
+        ${
+          typeof p.price === 'number'
+            ? `<span class="font-extrabold text-lg text-blue-600">Rp${p.price.toLocaleString()}</span>`
+            : `<span class="font-extrabold text-lg text-blue-600">${p.price}</span>`
+        }
+      </div>
+      <p class="text-sm text-gray-600 mb-4">
+        <i class='bx bx-package text-blue-500'></i> Stok: <span id="stock-${p.id}" class="font-semibold">${p.stock}</span>
+      </p>
+      <button
+        onclick="addToCart('${p.id}')"
+        class="mt-auto bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg
+               hover:bg-blue-700 hover:shadow-md transition flex items-center justify-center gap-2"
+      >
+        <i class='bx bx-cart-add text-lg'></i> Tambah ke Keranjang
+      </button>
     `;
     grid.appendChild(div);
-    setTimeout(()=>div.classList.add('show'),100);
+    setTimeout(() => div.classList.add('show'), 100);
   });
 }
 renderProducts();
@@ -543,31 +582,48 @@ function addToCart(id) {
 }
 
 function updateCart(){
-  const items=document.getElementById('cart-items');
-  const count=document.getElementById('cart-count');
-  const totalEl=document.getElementById('cart-total');
-  items.innerHTML='';
-  let total=0;
+  const items = document.getElementById('cart-items');
+  const count = document.getElementById('cart-count');
+  const totalEl = document.getElementById('cart-total');
+  const voucherMsg = document.getElementById('voucher-msg');
+  const xenditTotal = document.getElementById('xendit-total');
+  const xenditVoucherMsg = document.getElementById('xendit-voucher-msg');
+  items.innerHTML = '';
+  let total = 0;
+
   cart.forEach((i, idx)=>{
-    total+=typeof i.price==='number'?i.price:0;
+    total += typeof i.price === 'number' ? i.price : 0;
     const div=document.createElement('div');
     div.className="flex justify-between items-center bg-white p-4 rounded shadow gap-2";
     div.innerHTML=`
       <span>${i.name}</span>
       <div class="flex items-center gap-2">
-        <span>${typeof i.price==='number'? 'Rp'+i.price.toLocaleString():i.price}</span>
+        <span>${typeof i.price==='number'?'Rp'+i.price.toLocaleString():i.price}</span>
         <button onclick="removeFromCart(${idx})" class="text-red-600 hover:text-red-800"><i class='bx bx-trash'></i></button>
-      </div>
-    `;
+      </div>`;
     items.appendChild(div);
   });
+
+  let diskon = 0;
   if (voucher) {
-  const voucherList = { 'PRAS10': 10, 'BIRD30': 30, 'PSTD50': 50, 'YUAR80': 80, 'DISC60': 60 };
-  const diskon = voucherList[voucher] || 0;
-  total = total - (total * (diskon / 100));
-}
-  count.innerText=cart.length;
-  totalEl.innerText=total.toLocaleString();
+    const voucherList = { 'PRAS10': 10, 'BIRD30': 30, 'PSTD50': 50, 'YUAR80': 80, 'DISC60': 60 };
+    const persen = voucherList[voucher] || 0;
+    diskon = total * (persen / 100);
+    total = total - diskon;
+
+    const msg = `Voucher <strong>${voucher}</strong> diterapkan. Anda menghemat <strong>Rp${diskon.toLocaleString()}</strong>.`;
+    voucherMsg.innerHTML = msg;
+    voucherMsg.className = "mt-2 text-green-700 text-sm font-semibold";
+
+    if (xenditVoucherMsg) xenditVoucherMsg.innerHTML = msg; // tampil juga di modal Xendit
+  } else {
+    voucherMsg.innerHTML = '';
+    if (xenditVoucherMsg) xenditVoucherMsg.innerHTML = '';
+  }
+
+  count.innerText = cart.length;
+  totalEl.innerText = total.toLocaleString();
+  if (xenditTotal) xenditTotal.innerText = total.toLocaleString();
   saveCartToStorage();
 }
 
@@ -853,5 +909,3 @@ subMethod.addEventListener('change',()=>{
 
 </body>
 </html>
-
-
