@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Affiliate Jasa Design — Prasetya Studio</title>
+  <link rel="icon" href="images/BIRD.png" type="image/png">
+  <!-- Google font Manrope -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Tailwind CDN (utility) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{ --brand: #3B83F6; --muted:#6B7280; }
+    html,body{ font-family: 'Manrope', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: linear-gradient(180deg,#f7fbff 0%, #ffffff 100%); color:#0f172a; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    .brand { color: var(--brand); }
+    .btn-brand { background: var(--brand); color: white; }
+    .card { background: white; border-radius: 12px; box-shadow: 0 6px 20px rgba(59,131,246,0.08); }
+    .note { background:#f1f5f9;padding:.6rem;border-radius:.5rem;font-size:.95rem;color:var(--muted) }
+    .muted { color: var(--muted); }
+    input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-8 px-4">
+  <!-- HEADER -->
+  <header class="w-full max-w-5xl mb-8 text-center">
+    <div class="flex flex-col items-center gap-2">
+      <img src="images/BIRD.png" alt="Logo Prasetya Studio" class="w-16 h-16 object-contain">
+      <h1 class="text-3xl font-bold brand">Prasetya Studio Affiliate</h1>
+      <p class="text-sm text-gray-500">Dapatkan komisi <strong>20%</strong> untuk setiap pesanan yang berhasil Anda referensikan.</p>
+    </div>
+    <nav class="mt-4 flex justify-center gap-3 text-sm">
+      <a href="#about" class="px-3 py-2 rounded hover:bg-slate-100">Tentang Program</a>
+      <a href="#calculator" class="px-3 py-2 rounded hover:bg-slate-100">Kalkulasi Komisi</a>
+      <a href="#claim" class="px-3 py-2 rounded btn-brand">Klaim Komisi</a>
+    </nav>
+  </header>
+
+  <main class="w-full max-w-5xl space-y-8">
+
+    <!-- HERO / CTA -->
+    <section id="about" class="card p-6">
+      <div class="md:flex md:items-center md:gap-6">
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold mb-2">Bergabunglah sebagai Affiliate — Mudah & Menguntungkan</h2>
+          <p class="text-sm text-gray-600 mb-4">Prasetya Studio membuka kesempatan untuk mitra affiliate yang ingin mendapatkan penghasilan tambahan dengan merekomendasikan layanan desain kami. Cocok untuk content creator, freelancer, komunitas, dan siapa saja yang punya jaringan klien.</p>
+
+          <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700 mb-4">
+            <li>Kompensasi: <strong>20%</strong> dari total pesanan yang berhasil dibayar.</li>
+            <li>Jenis layanan: Semua layanan jasa di Prasetya Studio.</li>
+            <li>Proses klaim cepat, lakukan dimana saja dan kapan saja.</li>
+          </ul>
+
+          <div class="flex gap-3">
+            <a id="signupBtn" href="https://wa.me/6285143080554" target="_blank" class="px-4 py-2 rounded btn-brand">Daftar Sekarang</a>
+            <a href="#calculator" class="px-4 py-2 rounded border" style="border-color:var(--brand); color:var(--brand);">Hitung Komisi</a>
+          </div>
+
+        </div>
+        <div class="mt-6 md:mt-0 w-full md:w-48">
+          <div class="card p-4 text-center">
+            <div class="text-sm muted">Komisi Affiliate</div>
+            <div class="text-3xl font-bold brand mt-3">20%</div>
+            <div class="text-sm text-gray-600 mt-1">Komisi per pesanan</div>
+            <div class="note mt-4">Pembayaran komisi diproses setelah 3 hari sejak project terselesaikan.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="card p-6">
+      <h3 class="text-xl font-semibold mb-3">Keuntungan Menjadi Affiliate</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="p-4 border rounded">
+          <h4 class="font-semibold">Bayaran Kompetitif</h4>
+          <p class="text-sm muted">Komisi 20% dari nilai pesanan tanpa syarat.</p>
+        </div>
+        <div class="p-4 border rounded">
+          <h4 class="font-semibold">Proses Sederhana</h4>
+          <p class="text-sm muted">Hitung otomatis & klaim via WhatsApp — cepat dan transparan.</p>
+        </div>
+        <div class="p-4 border rounded">
+          <h4 class="font-semibold">Dukungan Marketing</h4>
+          <p class="text-sm muted">Materi promosi bisa disediakan atas permintaan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MITRA AFFILIATE SECTION (DENGAN ARROW COLLAPSE) -->
+<section id="partners" class="card p-6">
+  <h3 class="text-2xl font-bold mb-2">Mitra Affiliate</h3>
+  <p class="text-sm text-gray-600 mb-4">Daftar mitra resmi Affiliate Prasetya Studio. Cari berdasarkan nama, provinsi, atau kabupaten/kota.</p>
+
+  <!-- SEARCH BAR -->
+  <div class="mb-4">
+    <input id="searchPartner" 
+           type="text" 
+           class="w-full p-3 border rounded-md" 
+           placeholder="Contoh: Jawa Tengah">
+  </div>
+
+  <!-- PARTNER LIST WRAPPER -->
+  <div id="partnerContainer" class="space-y-4"></div>
+</section>
+
+<script>
+/* ============================
+   DATA MITRA (BISA DIEDIT)
+============================= */
+// const partnerData = [
+//   {
+//     provinsi: "Jawa Tengah",
+//     mitra: [
+//       { nama: "Andi Prasetyo", telp: "08123456789", email: "andi@gmail.com", kota: "Banjarnegara" },
+//       { nama: "Siti Rahma", telp: "087712345678", email: "siti@gmail.com", kota: "Purbalingga" },
+//     ]
+//   },
+//   {
+//     provinsi: "DKI Jakarta",
+//     mitra: [
+//       { nama: "Dewi Lestari", telp: "082199887766", email: "dewi@gmail.com", kota: "Jakarta Selatan" },
+//       { nama: "Budi Santoso", telp: "081355667788", email: "budi@gmail.com", kota: "Jakarta Barat" },
+//     ]
+//   },
+//   {
+//     provinsi: "Jawa Barat",
+//     mitra: [
+//       { nama: "Rangga Mahesa", telp: "085799001122", email: "rangga@gmail.com", kota: "Bandung" },
+//     ]
+//   }
+// ];
+
+const partnerData = [];
+
+/* ============================
+   RENDER LIST PARTNER (DENGAN COLLAPSE)
+============================= */
+function renderPartnerList(keyword = "") {
+  const container = document.getElementById("partnerContainer");
+  container.innerHTML = "";
+
+  partnerData.forEach(region => {
+    const filtered = region.mitra.filter(m => {
+      const q = keyword.toLowerCase();
+      return (
+        m.nama.toLowerCase().includes(q) ||
+        m.email.toLowerCase().includes(q) ||
+        m.kota.toLowerCase().includes(q) ||
+        region.provinsi.toLowerCase().includes(q)
+      );
+    });
+
+    if (filtered.length === 0) return;
+
+    const provID = region.provinsi.replaceAll(" ", "-");
+
+    const card = document.createElement("div");
+    card.className = "border rounded-md bg-white shadow-sm";
+
+    card.innerHTML = `
+      <button onclick="toggleProv('${provID}')" class="w-full flex justify-between items-center p-4 text-left">
+        <span class="text-xl font-semibold">${region.provinsi}</span>
+        <span id="arrow-${provID}" class="transition text-lg">▶</span>
+      </button>
+
+      <div id="body-${provID}" class="hidden px-4 pb-4">
+        <div class="grid md:grid-cols-2 gap-4" id="grid-${provID}"></div>
+      </div>
+    `;
+
+    container.appendChild(card);
+
+    const grid = card.querySelector(`#grid-${provID}`);
+
+    filtered.forEach(m => {
+      const item = document.createElement("div");
+      item.className = "p-4 border rounded-md shadow-sm hover:shadow-md transition bg-white";
+
+      item.innerHTML = `
+        <div class="text-lg font-semibold">${m.nama}</div>
+        <div class="text-sm text-gray-600">${m.kota}</div>
+        <div class="mt-2 text-sm"><strong>No. Telp:</strong> ${m.telp}</div>
+        <div class="text-sm"><strong>Email:</strong> ${m.email}</div>
+        <a href="https://wa.me/${m.telp.replace(/^0/, "62")}" target="_blank"
+           class="mt-3 inline-block px-3 py-2 rounded text-white bg-green-600 text-sm hover:bg-green-700">
+           Hubungi via WhatsApp
+        </a>
+      `;
+
+      grid.appendChild(item);
+    });
+  });
+}
+
+/* ============================
+   COLLAPSE PROVINSI
+============================= */
+function toggleProv(id) {
+  const body = document.getElementById(`body-${id}`);
+  const arrow = document.getElementById(`arrow-${id}`);
+
+  if (body.classList.contains("hidden")) {
+    body.classList.remove("hidden");
+    arrow.style.transform = "rotate(90deg)";
+  } else {
+    body.classList.add("hidden");
+    arrow.style.transform = "rotate(0deg)";
+  }
+}
+
+// render awal
+renderPartnerList();
+
+// Jika belum ada mitra
+document.getElementById("partnerContainer").innerHTML = `
+  <div class="text-center p-6 border rounded-md bg-white text-gray-600">
+    <p class="text-lg font-semibold">Belum ada mitra untuk saat ini.</p>
+    <p class="text-sm">Silakan cek kembali nanti.</p>
+  </div>
+`;
+
+/* ============================
+   SEARCH HANDLER
+============================= */
+document.getElementById("searchPartner").addEventListener("input", function(){
+  renderPartnerList(this.value);
+});
+</script>
+
+
+    <!-- COMMISSION CALCULATOR -->
+    <section id="calculator" class="card p-6">
+      <h3 class="text-2xl font-bold mb-2">Kalkulator Komisi Affiliate</h3>
+      <p class="text-sm text-gray-600 mb-4">Masukkan jumlah pesanan (total nominal) untuk melihat berapa komisi yang akan Anda terima (20%).</p>
+
+      <form id="affiliateForm" class="space-y-4">
+        <div class="grid gap-4 md:grid-cols-3">
+          <div>
+            <label class="block text-sm font-medium mb-2">Nama Affiliate</label>
+            <input id="affName" name="name" type="text" class="w-full p-3 border rounded-md" placeholder="Nama lengkap" required />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Jumlah Klien Terkonfirmasi</label>
+            <input id="affClients" name="clients" type="number" min="0" step="1" class="w-full p-3 border rounded-md" placeholder="Contoh: 3" required />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Total Nominal Pesanan (Rp)</label>
+            <input id="affTotal" name="total" type="number" min="0" step="1" class="w-full p-3 border rounded-md" placeholder="Contoh: 100000" required />
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="calcBtn" type="button" class="px-4 py-2 rounded btn-brand">Hitung Komisi</button>
+          <button id="resetBtn" type="button" class="px-4 py-2 rounded border" style="border-color:var(--brand); color:var(--brand);">Reset</button>
+          <div class="ml-auto text-sm muted">Tarif komisi: <strong>20%</strong></div>
+        </div>
+      </form>
+
+      <div id="calcResult" class="mt-6 p-4 border rounded-md hidden">
+        <h4 class="text-lg font-semibold">Hasil Perhitungan</h4>
+        <div class="grid gap-2 mt-2">
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Nama</span><strong id="resName"></strong></div>
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Jumlah Klien</span><strong id="resClients"></strong></div>
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Total Pesanan</span><strong id="resTotal"></strong></div>
+          <div class="flex justify-between"><span class="text-sm text-gray-600">Komisi (20%)</span><strong id="resCommission" class="text-lg brand"></strong></div>
+        </div>
+
+        <div class="mt-4 flex gap-3">
+          <button id="claimBtn" type="button" class="px-4 py-2 rounded btn-brand">Klaim via WhatsApp</button>
+          <button id="copyBtn" type="button" class="px-4 py-2 rounded border" style="border-color:var(--brand); color:var(--brand);">Salin Ringkasan</button>
+        </div>
+
+        <div class="note mt-4 text-sm">Catatan: Setelah menekan "Klaim via WhatsApp", isi klaim akan dibuka di aplikasi WhatsApp Anda.</div>
+      </div>
+    </section>
+
+    <!-- CLAIM SECTION (ALTERNATIVE FORM) -->
+    <section id="claim" class="card p-6">
+      <h3 class="text-2xl font-bold mb-2">Form Klaim Komisi (Opsional)</h3>
+      <p class="text-sm text-gray-600 mb-4">Anda dapat langsung mengisi form ini juga — namun klaim final tetap dikirimkan melalui WhatsApp untuk verifikasi.</p>
+
+      <form id="claimForm" class="space-y-4">
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label class="block text-sm font-medium mb-2">Nama</label>
+            <input id="cName" name="cname" type="text" class="w-full p-3 border rounded-md" placeholder="Nama lengkap" required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Email (opsional)</label>
+            <input id="cEmail" name="cemail" type="email" class="w-full p-3 border rounded-md" placeholder="contoh@gmail.com" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Jumlah Klien</label>
+            <input id="cClients" name="cclients" type="number" min="0" step="1" class="w-full p-3 border rounded-md" placeholder="Jumlah klien" required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Total Nominal (Rp)</label>
+            <input id="cTotal" name="ctotal" type="number" min="0" step="1" class="w-full p-3 border rounded-md" placeholder="Total nilai pesanan" required />
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button id="claimSendBtn" type="button" class="px-4 py-2 rounded btn-brand">Kirim</button>
+          <button id="claimClearBtn" type="button" class="px-4 py-2 rounded border" style="border-color:var(--brand); color:var(--brand);">Bersihkan</button>
+        </div>
+
+        <div id="claimPreview" class="mt-4 p-3 border rounded hidden">
+          <div class="text-sm">Preview pesan klaim akan muncul sebelum dikirim ke WhatsApp.</div>
+          <pre id="claimText" class="text-xs mt-2 whitespace-pre-wrap"></pre>
+        </div>
+      </form>
+    </section>
+
+    <footer class="w-full max-w-5xl text-center text-sm text-gray-500">
+      © <span id="year"></span> Prasetya Studio — Program Affiliate. Kontak admin: <a href="https://wa.me/6285143080554" target="_blank" class="text-green-600">+62 851-4308-0554</a>
+    </footer>
+
+  </main>
+
+  <!-- Floating Buttons -->
+  <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+    <a href="https://wa.me/6285143080554" target="_blank" class="bg-green-500 w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-green-600 transition">
+      <i class='bx bxl-whatsapp text-2xl text-white'></i>
+    </a>
+    <a href="/" class="bg-blue-500 w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-blue-600 transition">
+      <i class='bx bx-home text-2xl text-white'></i>
+    </a>
+  </div>
+
+  <script>
+    // populate year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // helpers
+    function formatRp(n){ if(isNaN(n) || n===Infinity) return 'Rp 0'; return 'Rp ' + Math.round(n).toLocaleString('id-ID'); }
+
+    // Calculator logic (20%)
+    const calcBtn = document.getElementById('calcBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const calcResult = document.getElementById('calcResult');
+    const resName = document.getElementById('resName');
+    const resClients = document.getElementById('resClients');
+    const resTotal = document.getElementById('resTotal');
+    const resCommission = document.getElementById('resCommission');
+
+    calcBtn.addEventListener('click', ()=>{
+      const name = document.getElementById('affName').value.trim();
+      const clients = Number(document.getElementById('affClients').value || 0);
+      const total = Number(document.getElementById('affTotal').value || 0);
+
+      if(!name){ alert('Nama harus diisi.'); return; }
+      if(clients <= 0){ alert('Jumlah klien harus lebih dari 0.'); return; }
+      if(total <= 0){ alert('Total nominal harus lebih dari 0.'); return; }
+
+      const commission = Math.round(total * 0.20);
+
+      resName.textContent = name;
+      resClients.textContent = clients + ' klien';
+      resTotal.textContent = formatRp(total);
+      resCommission.textContent = formatRp(commission);
+      calcResult.classList.remove('hidden');
+
+      // store last calculation for claim
+      calcResult.dataset.lastPayload = JSON.stringify({ name, clients, total, commission });
+    });
+
+    resetBtn.addEventListener('click', ()=>{
+      document.getElementById('affName').value = '';
+      document.getElementById('affClients').value = '';
+      document.getElementById('affTotal').value = '';
+      calcResult.classList.add('hidden');
+      delete calcResult.dataset.lastPayload;
+    });
+
+    // Claim via WA from calculator
+    const claimBtn = document.getElementById('claimBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const WA_PHONE = '6285143080554'; // admin
+
+    claimBtn.addEventListener('click', ()=>{
+      if(!calcResult.dataset.lastPayload){ alert('Silakan hitung komisi terlebih dahulu.'); return; }
+      const payload = JSON.parse(calcResult.dataset.lastPayload);
+      const message = buildClaimMessage(payload.name, payload.clients, payload.total, payload.commission);
+      const url = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    });
+
+    copyBtn.addEventListener('click', ()=>{
+      if(!calcResult.dataset.lastPayload){ alert('Silakan hitung komisi terlebih dahulu.'); return; }
+      const payload = JSON.parse(calcResult.dataset.lastPayload);
+      const message = buildClaimMessage(payload.name, payload.clients, payload.total, payload.commission);
+      navigator.clipboard.writeText(message).then(()=>{ alert('Ringkasan klaim disalin ke clipboard.'); }).catch(()=>{ alert('Gagal menyalin. Silakan salin manual.'); });
+    });
+
+    function buildClaimMessage(name, clients, total, commission){
+      return `KLAIM KOMISI Prasetya Studio\nNama: ${name}\nJumlah Klien: ${clients}\nTotal Pesanan: ${formatRp(total)}\nKomisi (20%): ${formatRp(commission)}\n\nMohon verifikasi & instruksi pembayaran. Saya lampirkan bukti invoice pada chat.`;
+    }
+
+    // CLAIM FORM logic (alternate path)
+    const claimSendBtn = document.getElementById('claimSendBtn');
+    const claimClearBtn = document.getElementById('claimClearBtn');
+    const claimPreview = document.getElementById('claimPreview');
+    const claimText = document.getElementById('claimText');
+
+    claimSendBtn.addEventListener('click', ()=>{
+      const name = document.getElementById('cName').value.trim();
+      const email = document.getElementById('cEmail').value.trim();
+      const clients = Number(document.getElementById('cClients').value || 0);
+      const total = Number(document.getElementById('cTotal').value || 0);
+
+      if(!name || clients <= 0 || total <= 0){ alert('Lengkapi semua data klaim terlebih dahulu.'); return; }
+      const commission = Math.round(total * 0.20);
+      const message = `KLAIM KOMISI Prasetya Studio\nNama: ${name}\nEmail: ${email || '-'}\nJumlah Klien: ${clients}\nTotal Pesanan: ${formatRp(total)}\nKomisi (20%): ${formatRp(commission)}\n\nMohon verifikasi & instruksi pembayaran. Saya akan melampirkan bukti invoice.`;
+
+      // preview and open WA
+      claimPreview.classList.remove('hidden');
+      claimText.textContent = message;
+
+      const url = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    });
+
+    claimClearBtn.addEventListener('click', ()=>{
+      document.getElementById('cName').value = '';
+      document.getElementById('cEmail').value = '';
+      document.getElementById('cClients').value = '';
+      document.getElementById('cTotal').value = '';
+      claimPreview.classList.add('hidden');
+      claimText.textContent = '';
+    });
+
+    // small accessibility: allow enter to submit calc
+    document.getElementById('affiliateForm').addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        e.preventDefault(); calcBtn.click();
+      }
+    });
+
+  </script>
+</body>
+</html>
