@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form & Download Invoice | Prasetya Studio</title>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+
+<div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+  <h1 class="text-2xl font-bold mb-4">Form Input Struk Pembayaran</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <input type="text" id="namaClient" placeholder="Nama Client" class="border p-2 rounded" />
+    <input type="text" id="teleponClient" placeholder="No. Telepon Client" class="border p-2 rounded" />
+    <input type="text" id="noStruk" placeholder="No. Struk (biarkan kosong untuk generate otomatis)" class="border p-2 rounded" />
+    <input type="number" id="pajak" placeholder="Pajak (%)" class="border p-2 rounded" value="12" />
+    <input type="number" id="diskon" placeholder="Diskon (Rp)" class="border p-2 rounded" value="0" />
+    <input type="datetime-local" id="tanggalWaktu" class="border p-2 rounded" />
+  </div>
+
+  <h2 class="mt-6 font-semibold">Barang</h2>
+  <div id="barangContainer" class="space-y-2"></div>
+  <div class="flex gap-2 mt-2">
+    <button onclick="tambahBarang()" class="bg-blue-500 text-white px-4 py-2 rounded">+ Tambah Barang</button>
+    <button onclick="generateStruk()" class="bg-green-500 text-white px-4 py-2 rounded">Preview & Download Invoice</button>
+  </div>
+</div>
+
+<!-- Preview Invoice -->
+<div id="invoicePreview" class="max-w-4xl mx-auto mt-6"></div>
+
+<script>
+let barangList = [];
+
+// Tambah item barang
+function tambahBarang() {
+  const container = document.getElementById("barangContainer");
+  const index = barangList.length;
+
+  const div = document.createElement("div");
+  div.className = "grid grid-cols-1 md:grid-cols-4 gap-2 items-center";
+
+  div.innerHTML = `
+    <input type="text" placeholder="Jenis Desain" class="border p-2 rounded jenisDesain" />
+    <input type="text" placeholder="Nama Produk" class="border p-2 rounded namaProduk" />
+    <input type="number" placeholder="Jumlah" class="border p-2 rounded jumlah" value="1" />
+    <input type="number" placeholder="Harga" class="border p-2 rounded harga" value="0" />
+    <button onclick="hapusBarang(${index})" class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
+  `;
+
+  container.appendChild(div);
+  barangList.push(div);
+}
+
+function hapusBarang(index) {
+  const container = document.getElementById("barangContainer");
+  if(barangList[index]) {
+    container.removeChild(barangList[index]);
+    barangList[index] = null;
+  }
+}
+
+// Generate nomor invoice konsisten
+function generateInvoiceNumber() {
+  const d = new Date();
+  const tgl = String(d.getDate()).padStart(2,"0");
+  const bln = String(d.getMonth()+1).padStart(2,"0");
+  const thn = d.getFullYear();
+  const rand = String(Math.floor(Math.random()*10000)).padStart(4,"0");
+  return "PS" + thn + bln + tgl + rand;
+}
+
+// Generate invoice
+async function generateStruk() {
+  const namaClient = document.getElementById("namaClient").value.trim();
+  const teleponClient = document.getElementById("teleponClient").value.trim();
+  const noStrukInput = document.getElementById("noStruk").value.trim();
+  const pajak = parseFloat(document.getElementById("pajak").value) || 0;
+  const diskon = parseFloat(document.getElementById("diskon").value) || 0;
+  const tanggalWaktu = document.getElementById("tanggalWaktu").value || new Date().toISOString().slice(0,16);
+
+  const barangData = barangList.filter(b => b != null).map(b => ({
+    jenis_desain: b.querySelector(".jenisDesain").value,
+    nama_produk: b.querySelector(".namaProduk").value,
+    jumlah: parseInt(b.querySelector(".jumlah").value) || 0,
+    harga: parseFloat(b.querySelector(".harga").value) || 0
+  }));
+
+  if(barangData.length === 0){
+    alert("Tambahkan minimal 1 barang");
+    return;
+  }
+
+  let subtotal = 0;
+  barangData.forEach(b => subtotal += b.jumlah * b.harga);
+  const totalPajak = subtotal * (pajak/100);
+  const total = subtotal + totalPajak - diskon;
+
+  // Nomor invoice final
+  const invoiceNumber = noStrukInput || generateInvoiceNumber();
+
+  // HTML invoice profesional
+  const invoiceHTML = `
+  <div id="invoice" class="p-6 bg-white rounded shadow text-gray-800 font-sans">
+    <div class="flex justify-between items-center mb-4">
+      <div>
+        <h2 class="text-2xl font-bold">Prasetya Studio</h2>
+        <p class="text-sm">Jasa Desain & Layanan Digital</p>
+      </div>
+      <div class="w-32 h-16">
+        <img src="images/logo duwa.png" alt="Logo" class="w-full h-full object-contain"/>
+      </div>
+    </div>
+    <hr class="my-2"/>
+    <div class="mb-4 text-sm">
+      <div><strong>Invoice No:</strong> ${invoiceNumber}</div>
+      <div><strong>Nama Client:</strong> ${namaClient}</div>
+      <div><strong>Kontak:</strong> ${teleponClient}</div>
+      <div><strong>Tanggal:</strong> ${new Date(tanggalWaktu).toLocaleString()}</div>
+    </div>
+    <table class="w-full border border-gray-300 mb-4 text-sm">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border p-2 text-left">Jenis Desain</th>
+          <th class="border p-2 text-left">Nama Produk</th>
+          <th class="border p-2 text-right">Jumlah</th>
+          <th class="border p-2 text-right">Harga</th>
+          <th class="border p-2 text-right">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${barangData.map(b => `
+          <tr>
+            <td class="border p-2">${b.jenis_desain}</td>
+            <td class="border p-2">${b.nama_produk}</td>
+            <td class="border p-2 text-right">${b.jumlah}</td>
+            <td class="border p-2 text-right">${b.harga.toLocaleString()}</td>
+            <td class="border p-2 text-right">${(b.jumlah*b.harga).toLocaleString()}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+    <div class="text-right text-sm">
+      <div><strong>Subtotal:</strong> Rp ${subtotal.toLocaleString()}</div>
+      <div><strong>Pajak (${pajak}%):</strong> Rp ${totalPajak.toLocaleString()}</div>
+      <div><strong>Diskon:</strong> Rp ${diskon.toLocaleString()}</div>
+      <div class="text-lg font-bold"><strong>Total:</strong> Rp ${total.toLocaleString()}</div>
+    </div>
+    <hr class="my-2"/>
+    <div class="text-xs mt-2 text-gray-600">
+      <p>Invoice ini resmi dicetak menggunakan komputer sebagai dokumen transaksi resmi.</p>
+      <p>Harap simpan invoice ini untuk keperluan administrasi dan bukti pembayaran.</p>
+    </div>
+    <button onclick="downloadInvoice()" class="mt-4 bg-indigo-500 text-white px-4 py-2 rounded">Download PDF</button>
+  </div>
+  `;
+
+  document.getElementById("invoicePreview").innerHTML = invoiceHTML;
+
+  // Kirim data ke Apps Script
+  fetch("https://script.google.com/macros/s/AKfycbzowqgQjGScuxTVmDRBd8D-ab22Ih45-6sY0Gl3ZZY6VVmDWJkcwFj8HJAWveS4wReE/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      nama_pelanggan: namaClient,
+      kontak: teleponClient,
+      tanggal_order: tanggalWaktu,
+      tanggal_berakhir_garansi: tanggalWaktu,
+      no_invoice: invoiceNumber,
+      barang: barangData
+    })
+  })
+  .then(res => res.json())
+  .then(data => console.log("Invoice saved:", data))
+  .catch(err => console.error(err));
+}
+
+// Download PDF
+function downloadInvoice() {
+  const element = document.getElementById("invoice");
+  if(!element) return;
+  setTimeout(() => {
+    html2pdf()
+      .set({ margin:10, filename:'Invoice.pdf', html2canvas:{ scale:2, useCORS:true } })
+      .from(element)
+      .save();
+  }, 500);
+}
+</script>
+</body>
+</html>
