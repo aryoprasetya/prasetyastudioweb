@@ -160,22 +160,22 @@ async function generateStruk() {
 
   document.getElementById("invoicePreview").innerHTML = invoiceHTML;
 
-  // Kirim data ke Apps Script
-  fetch("https://script.google.com/macros/s/AKfycbzowqgQjGScuxTVmDRBd8D-ab22Ih45-6sY0Gl3ZZY6VVmDWJkcwFj8HJAWveS4wReE/exec", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      nama_pelanggan: namaClient,
-      kontak: teleponClient,
-      tanggal_order: tanggalWaktu,
-      tanggal_berakhir_garansi: tanggalWaktu,
-      no_invoice: invoiceNumber,
-      barang: barangData
-    })
-  })
-  .then(res => res.json())
-  .then(data => console.log("Invoice saved:", data))
-  .catch(err => console.error(err));
+fetch("https://script.google.com/macros/s/AKfycbz1rz4GonW9BMskZkwLbDbnWpcw9uWa7b0CqBKTv5xgEWVb_9zsZ50qLZbwWI62iMq6/exec", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    nama_pelanggan: namaClient,
+    kontak: teleponClient,
+    tanggal_order: tanggalWaktu,
+    tanggal_berakhir_garansi: tanggalWaktu,
+    no_invoice: invoiceNumber,
+    barang: barangData
+  }),
+  mode: "cors"
+})
+.then(res => res.json())
+.then(data => console.log("Invoice saved:", data))
+.catch(err => console.error(err));
 }
 
 // Download PDF
