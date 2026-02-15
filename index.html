@@ -1,629 +1,2480 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Prasetya Studio - Urusan Desain Menjadi Lebih Mudah</title>
-
-<!-- Perbaiki nama file favicon dan tipe -->
+<title>Prasetya Studio | Urusan Desain Jadi Lebih Mudah</title>
 <link rel="icon" href="images/logo duwa.png" type="image/png">
 
-    <!-- swiper csss -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- box icons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+:root{
+  --primary:#3B83F6;
+  --bg:#F6F8FB;
+  --white:#FFFFFF;
+  --text:#1F2937;
+  --muted:#6B7280;
+  --border:#E5E7EB;
+}
 
-    <!-- custom css -->
-    <link rel="stylesheet" href="css/style.css">
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Manrope,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:0 20px;
+}
+
+/* ===== HEADER ===== */
+header{
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:70px;
+  padding:10px 0; /* ⬅️ INI KUNCI */
+}
+
+.mobile-nav a{
+  display:block;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+  color:var(--text);        /* ⬅️ MATIIN BIRU */
+  font-weight:500;
+  background:var(--white);
+}
+
+.mobile-nav a:hover{
+  background:#f1f5f9;
+  color:var(--text);
+}
+
+
+/* ===== HEADER HIGHLIGHT AKTIF & HOVER ===== */
+nav a{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:500;
+  position:relative;
+  padding:8px 0;
+  transition:color 0.3s;
+}
+
+nav a::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:0%;
+  height:2px;
+  background:var(--primary);
+  border-radius:2px;
+  transition:width 0.3s;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+nav a.active{
+  color:var(--primary);
+}
+
+nav a.active::after{
+  width:100%;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:600;
+}
+
+.logo img{
+  height:40px;
+}
+
+nav{
+  display:flex;
+  gap:28px;
+}
+
+nav a{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:500;
+}
+
+nav a:hover{
+  color:var(--primary);
+}
+
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+}
+
+.menu-toggle span{
+  width:24px;
+  height:2px;
+  background:#333;
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-nav{
+  display:none;
+  background:var(--white);
+  border-top:1px solid var(--border);
+}
+
+.mobile-nav a{
+  display:block;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+}
+
+/* ===== HERO STYLE GRAFISATU-LIKE ===== */
+/* Default (Desktop / Laptop) */
+.beranda{
+  background: linear-gradient(135deg, #1E3A8A, #3B83F6);
+  color:#fff;
+  padding:70px 0;
+}
+
+/* Mobile */
+@media(max-width:900px){
+  .beranda{
+    padding:10px 0 20px 0;
+  }
+}
+
+.beranda-wrap{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:40px;
+  align-items:center;
+}
+
+.beranda-badge{
+  display:inline-block;
+  background:#EF4444;
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 16px;
+  border-radius:999px;
+  margin-bottom:18px;
+}
+
+.beranda h1{
+  font-size:44px;
+  line-height:1.25;
+  margin:0 0 18px;
+}
+
+.beranda h1 span{
+  color:#FACC15;
+  font-size:20px;
+}
+
+.beranda p{
+  color:#E5E7EB;
+  max-width:520px;
+  margin-bottom:28px;
+}
+
+.beranda-actions{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.btn-primary{
+  background:#2563EB;
+  color:#fff;
+  padding:14px 28px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:600;
+}
+
+.btn-secondary{
+  background:#fff;
+  color:#1F2937;
+  padding:14px 28px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:600;
+}
+
+.beranda-visual{
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.beranda-visual{
+  width:100%;                 /* full lebar container */
+  max-width:920px;            /* jangan melebihi ukuran asli */
+  margin:auto;                /* center jika lebih kecil dari container */
+  border-radius:22px;
+  overflow:hidden;
+}
+
+.beranda-visual img{
+  width:100%;                 /* lebar mengikuti container */
+  height:auto;                /* tinggi menyesuaikan proporsi asli */
+  display:block;
+  border-radius:22px;
+}
+
+/* ===== HERO WHATSAPP BUTTON ===== */
+.btn-wa-hero{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:#25D366;
+  color:#fff;
+  padding:14px 28px;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:600;
+  transition:all 0.3s ease;
+  box-shadow:0 8px 20px rgba(37,211,102,0.35);
+}
+
+.btn-wa-hero i{
+  font-size:18px;
+}
+
+.btn-wa-hero:hover{
+  background:#1ebe5d;
+  transform:translateY(-3px);
+  box-shadow:0 12px 28px rgba(37,211,102,0.45);
+}
+
+@media(max-width:900px){
+  .beranda-wrap{
+    grid-template-columns:1fr;
+    text-align:center;
+    gap:20px; /* jarak teks tetap nyaman */
+  }
+  .beranda-actions{
+    justify-content:center;
+  }
+  .beranda h1{
+    font-size:34px;
+  }
+
+  /* Sembunyikan hero image di mobile */
+}
+
+@media(max-width:900px){
+
+  .beranda-wrap{
+    display:flex;          /* ganti grid jadi flex */
+    flex-direction:column; /* susun vertikal */
+  }
+
+  .beranda-visual{
+    order:-1;              /* pindahkan ke atas */
+    margin-bottom:1px;
+  }
+
+  .beranda-visual img{
+    width:100%;
+    max-width:270px;
+    margin:0 auto;
+    display:block;
+  }
+
+}
+
+.btn{
+  display:inline-block;
+  background:var(--primary);
+  color:#fff;
+  padding:12px 24px;
+  border-radius:6px;
+  font-size:14px;
+  font-weight:500;
+}
+
+/* ===== SECTION ===== */
+section{
+  padding:10px 0; /* default untuk section umum */
+}
+
+/* Khusus layanan agar tidak terlalu jauh dari hero */
+#layanan{
+  padding-top:10px;  /* lebih dekat ke hero */
+  padding-bottom:10px; /* tetap ada jarak ke section berikut */
+}
+
+.section-title{
+  margin-bottom:30px;
+  text-align:center;
+}
+
+.section-title h2{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.section-title p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* ===== GRID ===== */
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  padding:24px;
+  border-radius:8px;
+}
+
+.card h3{
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+.card p{
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--white);
+  border-top:1px solid var(--border);
+}
+
+.footer-top{
+  padding:50px 0;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:30px;
+}
+
+.footer-logo img{
+  height:42px;
+  margin-bottom:12px;
+}
+
+footer h4{
+  font-size:15px;
+  margin-bottom:10px;
+}
+
+footer a{
+  display:block;
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+footer a:hover{
+  color:var(--primary);
+}
+
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding:16px 0;
+  font-size:13px;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  nav{display:none}
+  .menu-toggle{display:flex}
+  .grid-3{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+
+/* ===== Logo di mobile ===== */
+@media(max-width:900px){
+  .logo img{
+    height:32px; /* lebih kecil dari desktop (40px) */
+  }
+}
+
+/* ===== Centering Tentang Kami Grid ===== */
+.about-grid{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* center semua card */
+  gap:24px;
+}
+
+.about-card{
+  max-width:300px; /* supaya card tidak terlalu lebar */
+  width:100%;
+}
+
+#portofolio{
+  padding:40px 0 70px;
+  background:linear-gradient(135deg,#1E3A8A,#3B83F6);
+  color:#fff;
+}
+
+#portofolio .section-title p{
+  color:#E5E7EB;
+}
+
+.portfolio-masonry{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  grid-auto-rows:8px;
+  gap:14px;
+}
+
+.portfolio-masonry img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:12px;
+}
+
+.masonry-item{
+  overflow:hidden;
+  border-radius:12px;
+}
+
+.masonry-item img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* ===== Highlight Statistik Tentang Kami ===== */
+.about-stats{
+  display:flex;
+  justify-content:center;
+  gap:32px;
+  margin:30px 0 50px;
+  flex-wrap:wrap;
+}
+
+.stat-card{
+  background:linear-gradient(135deg,#1E3A8A,#3B83F6);
+  color:#fff;
+  padding:24px 36px;
+  border-radius:18px;
+  text-align:center;
+  min-width:220px;
+  box-shadow:0 12px 30px rgba(30,58,138,0.25);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.stat-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(30,58,138,0.35);
+}
+
+.stat-card h3{
+  font-size:42px;
+  margin:0;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.stat-card p{
+  margin:6px 0 0;
+  font-size:14px;
+  font-weight:500;
+  opacity:.95;
+}
+
+.order-flow-section{
+  padding:10px 20px;
+  background:#f9fafb;
+}
+
+.order-flow-container{
+  max-width:1100px;
+  margin:0 auto;
+}
+
+/* HEADER */
+.order-flow-header{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.order-flow-header h2{
+  font-size:30px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.order-flow-header p{
+  color:#6b7280;
+  font-size:15px;
+}
+
+/* PLATFORM */
+.order-platforms{
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  margin-bottom:60px;
+  flex-wrap:wrap;
+}
+
+.platform-item{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:18px 22px;
+}
+
+.platform-item i{
+  font-size:22px;
+  color:#1a73e8;
+}
+
+.platform-item span{
+  display:block;
+  font-size:12px;
+  color:#6b7280;
+}
+
+.platform-item a{
+  color:#111827;
+  text-decoration:none;
+  font-weight:500;
+}
+
+/* FLOW */
+.order-steps{
+  display:grid;
+  grid-template-columns:
+    repeat(5, auto 40px); /* step + garis */
+  align-items:center;
+  justify-content:center;
+  gap:0;
+}
+
+.step-card{
+  width:180px;          /* PAKSA SAMA SEMUA */
+  min-height:190px;     /* BIKIN TINGGI SERAGAM */
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:20px;
+  padding:26px 22px;
+  text-align:center;
+}
+
+.step-icon{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#e8f0fe;
+  color:#1a73e8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  margin:0 auto 12px;
+}
+
+.step-card h4{
+  margin-bottom:6px;
+}
+
+.step-card p{
+  font-size:14px;
+  color:#6b7280;
+}
+
+.step-line{
+  width:40px;
+  height:2px;
+  background:linear-gradient(90deg,#c7d2fe,#93c5fd);
+}
+
+.order-advantages.premium{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin:60px 0;
+}
+
+/* CARD */
+.adv-card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:20px;
+  padding:26px 24px;
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  transition:.25s ease;
+}
+
+.adv-card:hover{
+  border-color:#2563eb;
+  box-shadow:0 12px 30px rgba(37,99,235,.12);
+  transform:translateY(-4px);
+}
+
+/* ICON */
+.adv-icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#2563eb,#1a73e8);
+  color:#ffffff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  flex-shrink:0;
+}
+
+/* TEXT */
+.adv-text h5{
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:4px;
+  color:#111827;
+}
+
+.adv-text p{
+  font-size:14px;
+  color:#6b7280;
+  line-height:1.5;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .order-advantages.premium{
+    grid-template-columns:1fr;
+  }
+}
+
+/* CTA */
+.order-flow-cta{
+  text-align:center;
+  background:#1a73e8;
+  color:#fff;
+  padding:44px 24px;
+  border-radius:24px;
+}
+
+.order-flow-cta h3{
+  font-size:24px;
+  margin-bottom:8px;
+}
+
+.order-flow-cta p{
+  font-size:14px;
+  color:#d1d5db;
+  margin-bottom:22px;
+}
+
+.order-flow-btn{
+  display:inline-block;
+  padding:14px 32px;
+  background:#22c55e;
+  color:#ffffff;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .order-steps{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .step-line{
+    display:none;
+  }
+}
+
+/* ===== CENTER ORDER FLOW CARD DI HP ===== */
+@media(max-width:900px){
+  .order-steps{
+    display:grid;
+    grid-template-columns:1fr;
+    justify-items:center;   /* ⬅️ KUNCI UTAMA */
+  }
+
+  .step-card{
+    width:100%;
+    max-width:320px;        /* biar cakep & gak kepanjangan */
+    text-align:center;
+  }
+}
+
+/* ===== FIX HERO MOBILE TOTAL ===== */
+@media(max-width:900px){
+
+  .beranda{
+    padding:10px 0 15px;
+  }
+
+  .beranda-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .beranda-visual{
+    order:-1;
+    height:auto;      /* ⬅️ HAPUS TINGGI 450PX */
+    margin:0;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
-    <header class="header">
-  <a href="#home" class="logo">
-    <img src="images/logo duwa.png" alt="Prasetya Studio Logo" class="logo-img" />
-    <span>Prasetya Studio</span>
-  </a>
+<header>
+  <div class="container header-inner">
+    <div class="logo">
+      <img src="images/logo ps.png" alt="Logo">
+    </div>
 
- <nav class="navbar">
-  <a href="/home" class="active">Home</a>
-  <a href="/tentang">Tentang</a>
-  <a href="/layanan">Layanan</a>
-  <a href="/artikel" target="_blank">Artikel</a>
-  <a href="/hub-kami">Hub. Kami</a>
+<nav>
+  <a href="#beranda" class="active">Beranda</a>
+  <a href="#tentang">Tentang</a>
+  <a href="#layanan">Layanan</a>
+  <a href="#portofolio">Portofolio</a>
+  <a href="#harga">Pricelist</a>
 </nav>
 
-  <div class="bx bx-moon" id="darkMode-icon"></div>
-  <div class="bx bx-menu" id="menu-icon"></div>
-
-  <!-- Dropdown Tombol Mengambang -->
-<div class="dropdown-container">
-  <button class="dropdown-btn" onclick="toggleDropdownFloating()">
-    <i class='bx bx-menu'></i>
-  </button>
-  <div class="dropdown-menu" id="dropdownMenuFloating">
-    <a href="/karir" target="_blank"><i class='bx bx-briefcase-alt'></i> Karir</a>
-    <a href="/garansi" target="_blank"><i class='bx bx-shield-quarter'></i>Garansi</a>
-    <a href="/e-commerce"><i class='bx bx-cart'></i> E-Commerce</a>
-    <a href="/museum"><i class='bx bxs-landmark'></i> Museum Online</a>
-    <a href="/pricelist"><i class='bx bx-clipboard'></i> Pricelist Jasa</a>
-    <a href="/kebijakan"><i class='bx bx-shield'></i> Kebijakan</a>
-    <a href="/faq"><i class=' bx bx-message-rounded-dots'></i> FAQs</a>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
   </div>
-</div>
-<script>
-  function toggleDropdownFloating() {
-    const menu = document.getElementById("dropdownMenuFloating");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-  }
 
-  window.addEventListener('click', function(e) {
-    const btn = document.querySelector('.dropdown-btn');
-    const menu = document.getElementById('dropdownMenuFloating');
-    if (!btn.contains(e.target) && !menu.contains(e.target)) {
-      menu.style.display = 'none';
-    }
-  });
-</script>
-
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#beranda">Beranda</a>
+    <a href="#tentang">Tentang</a>
+    <a href="#layanan">Layanan</a>
+    <a href="#portofolio">Portofolio</a>
+    <a href="#harga">Biaya Layanan</a>
+  </div>
 </header>
 
-    <!-- home section design -->
-    <section class="home" id="home">
-        <div class="home-content">
-            <div class="running-text">
-            <marquee behavior="scroll" direction="left" scrollamount="5">
-                🎯 Promo Spesial! Dapatkan diskon desain hingga 80% hanya di Prasetya Studio! 🎯
-            </marquee>
-        </div>
-            <h3>Selamat Datang di Laman</h3>
-            <h1>Prasetya Studio</h1>
-            <p>
-                "Prasetya Studio adalah tim desainer grafis freelance di Indonesia yang sedang berkembang. Kami menyediakan jasa desain logo, identitas merek, dan materi promosi yang estetis, fungsional, dan memperkuat pesan bisnis Anda. Setiap bisnis layak tampil profesional dan menonjol di era digital."
-            </p>
-            <p>
-            <span>Bersama Kami, #UrusanDesainJadiLebihMudah</span></p>
+<section id="beranda" class="beranda">
+  <div class="container beranda-wrap">
 
-            <div class="social-media">
-                <a href="https://wa.me/6285143080554" target="_blank" rel="noopener noreferrer">
-                    <i class='bx bxl-whatsapp'></i>
-                </a>
-                <a href="https://instagram.com/prasetyastudio" target="_blank" rel="noopener noreferrer">
-                    <i class='bx bxl-instagram-alt'></i>
-                </a>
-                <a href="https://instagram.com/cvmurahbanjarnegara" target="_blank" rel="noopener noreferrer">
-                    <i class='bx bxl-instagram'></i>
-                </a>
-                <a href="https://www.linkedin.com/in/aryo-yulio-prasetya-9653682a1/?originalSubdomain=id" target="_blank" rel="noopener noreferrer">
-                    <i class='bx bxl-linkedin'></i>
-                </a>
-                
-            </div>
-            <!-- <a href="images/lain-lain/Curriculum Vitae Aryo Yulio Prasetya.pdf" download>
-                <button class="download-button">
-                  <div class="docs">
-                    <svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" height="20" width="20" viewBox="0 0 24 24">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                      <polyline points="14 2 14 8 20 8"></polyline>
-                      <line y2="13" x2="8" y1="13" x1="16"></line>
-                      <line y2="17" x2="8" y1="17" x1="16"></line>
-                      <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg> 
-                    CV Owner (Indonesia)
-                  </div>
-                  <div class="download">
-                    <svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" height="24" width="24" viewBox="0 0 24 24">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                      <polyline points="7 10 12 15 17 10"></polyline>
-                      <line y2="3" x2="12" y1="15" x1="12"></line>
-                    </svg>
-                  </div>
-                </button>
-              </a> -->
-        </div>
+    <div>
+      <div class="beranda-badge">
+        PROMO BULANAN DISKON HINGGA 80%
+      </div>
 
-        <div class="profession-container">
-            <div class="profession-box">
-                <!-- <div class="profession" style="--i:0;">
-                    <i class='bx'></i>
-                    <h3></h3>
-                </div>
-                <div class="profession" style="--i:1;">
-                    <i class='bx'></i>
-                    <h3></h3>
-                </div>
-                <div class="profession" style="--i:2;">
-                    <i class='bx'></i>
-                    <h3></h3>
-                </div>
-                <div class="profession" style="--i:3;">
-                    <i class='bx'></i>
-                    <h3></h3>
-                </div>-->
-                <!-- <div class="profession" style="--i:4;">
-                    <i class='bx bx-data'></i>
-                    <h3>Data Entry</h3>
-                </div>
-                <div class="profession" style="--i:5;">
-                    <i class='bx bx-shield-plus'></i>
-                    <h3>Insurance</h3>
-                </div>-->
+      <h1>
+        Jasa Desain Grafis <br>
+        Prasetya Studio <br>
+        <span>#UrusanDesainJadiLebihMudah</span>
+      </h1>
 
-                <div class="circle"></div>
-            </div>
+      <p>
+        Prasetya Studio adalah jasa desain grafis online yang membantu
+        bisnis dan organisasi tampil profesional dengan proses cepat,
+        harga terjangkau, dan hasil maksimal.
+      </p>
 
-            <div class="overlay"></div>
-        </div>
+      <div class="beranda-actions">
+        <a href="https://wa.me/6285143080554" class="btn-wa-hero" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+  Hubungi Kami
+</a>
 
-        <div class="home-img">
-            <img src="images/home.png" alt="">
-        </div>
-    </section>
-
-<!-- Banner Sambutan Berupa Gambar + Tombol Silang -->
-<!--<div id="digitalClockBanner" style="
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100vh;
-    background: rgba(0,0,0,0.65);
-    display: flex; justify-content: center; align-items: center;
-    z-index: 9999;
-">
-  <!-- Tombol Silang -->
-  <!--<button onclick="document.getElementById('digitalClockBanner').style.display='none'" style="
-      position: absolute;
-      top: 20px; right: 20px;
-      background: #ff4d4d;
-      border: none; color: white;
-      font-size: 20px; border-radius: 50%;
-      width: 32px; height: 32px;
-      cursor: pointer; font-weight: bold;
-      line-height: 1;
-      z-index: 10000;
-  ">×</button>-->
-
-  <!-- Gambar Banner -->
-  <!--<a href="https://alvo.chat/6ouQ" style="
-      display: block;
-      width: 300px;
-      aspect-ratio: 1 / 1;
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-  ">
-    <img src="images/DESAIN GRATIS_20250801_124830_0000.png" alt="Selamat Datang" style="
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    ">
-  </a>
-</div> -->
-
-    <!-- about section design -->
-    <section class="about" id="about">
-        <div class="about-img">
-            <img src="images/about.png" alt="">
-        </div>
-
-        <div class="about-content">
-            <h2 class="heading">Kenapa <span>Kami?</span></h2>
-            <h3>
-            Prasetya Studio adalah tempat jasa desain grafis untuk kebutuhan pribadi maupun bisnis. Kami siap membantu membuat logo, poster, konten promosi, dan desain lainnya dengan hasil yang rapi dan menarik.
-            </h3>
-            <p>
-            Kami percaya desain bukan hanya soal estetika, tetapi juga komunikasi. Oleh karena itu, setiap karya yang kami buat dirancang untuk menyampaikan pesan yang jelas dan berdampak. Dengan proses kerja yang cepat, terbuka, dan penuh dedikasi, kami memastikan hasil akhir sesuai dengan visi klien.
-            </p>
-            <p>
-            Kenapa harus Prasetya Studio? Karena kami tidak hanya menjual desain, tapi juga komitmen, kualitas, dan ketulusan dalam setiap prosesnya. Kami tumbuh bersama klien, dan karya kami adalah cerminan dari kepercayaan yang telah diberikan.
-            </p>
-            <a href="https://wa.me/6285143080554" class="btn" target="_blank" rel="noopener noreferrer">Konsultasi</a>
-
-        </div>
-    </section>
-
-    <!-- services section design -->
-    <section class="services" id="services">
-        <h2 class="heading">Layanan <span>Kami</span></h2>
-
-        <div class="services-container">
-            <div class="services-box">
-                <i class='bx bx-pen'></i>
-                <h3>Copywriting</h3>
-                <p></p>
-                <a href="services" class="btn">Details</a>
-            </div>
-            <div class="services-box">
-                <i class='bx bxs-paint'></i>
-                <h3>Desain Grafis</h3>
-                <p></p>
-                <a href="services" class="btn">Details</a>
-            </div>
-            <div class="services-box">
-                <i class='bx bx-bar-chart-alt'></i>
-                <h3>Pemasaran Digital</h3>
-                <p></p>
-                <a href="services" class="btn">Details</a>
-            </div>
-                <div class="services-box">
-                    <i class='bx bx-file'></i>
-                    <h3>Curriculum Vitae</h3>
-                    <p></p>
-                    <a href="services" class="btn">Details</a>
-            </div>
-            <div class="services-box">
-                <i class='bx bx-data'></i>
-                <h3>Input Data</h3>
-                <p></p>
-                <a href="services" class="btn">Details</a>
-            </div>
-            <div class="services-box">
-                <i class='bx bx-video'></i>
-                <h3>Animasi</h3>
-                <p></p>
-                <a href="services" class="btn">Details</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- portfolio section design -->
-    <section class="portfolio" id="portfolio">
-        <h2 class="heading">Proyek <span>Terbaru</span></h2>
-
-        <div class="portfolio-container">
-            <div class="portfolio-box">
-                <img src="images/portfolio1.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Desain Logo</h4>
-                    <p>Ini adalah desain logo untuk Dwija Komputer, sebuah usaha perbaikan laptop dan pc.</p>
-                    <a href="images/portfolio1.jpg"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio2.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Desain Logo</h4>
-                    <p>Desain logo untuk portofolio (Logo bisa dibeli).</p>
-                    <a href="images/portfolio2.jpg"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio3.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Desain Logo</h4>
-                    <p>>Desain logo untuk portofolio (Logo bisa dibeli).</p>
-                    <a href="images/portfolio3.jpg"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio4.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Desain Logo</h4>
-                    <p>Desain logo untuk CV. Gerakan melaju bersama.</p>
-                    <a href="images/portfolio4.jpg"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio5.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Desain Logo</h4>
-                    <p>Desain logo untuk usaha sayur keliling.</p>
-                    <a href="images/portfolio5.jpg"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio6.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Desain Logo</h4>
-                    <p>Logo kontes HUT Kab. Banjarnegara ke 454 Tahun (rejected).</p>
-                    <a href="images/portfolio6.jpg"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- testimonial design -->
-    <!--<div class="testimonial-container">
-        <h2 class="heading">Alat <span></span></h2>
-
-        <div class="testimonial-wrapper">
-            <div class="testimonial-box mySwiper">
-                <div class="testimonial-content swiper-wrapper">
-                    <div class="testimonial-slide swiper-slide">
-                        <img src="images/canva.webp" alt="">
-                        <h3>Canva<span>Mobile App</span></h3>
-                        <p>"Canva is a platform that allows people to create and publish any design, from logos, flyers, banners, to videos."
-                        </p>
-                    </div>
-                    <div class="testimonial-slide swiper-slide">
-                        <img src="images/picsart.png" alt="">
-                        <h3>Picsart<span>Mobile App</span></h3>
-                        <p>"Picsart is a creative platform for editing photos, videos, and complete designs. This ecosystem provides free content and inspiration from other creators."</p>
-                    </div>
-                    <div class="testimonial-slide swiper-slide">
-                        <img src="images/pix.png" alt="">
-                        <h3>Pixellab<span>Mobile App</span></h3>
-                        <p>"PixelLab is an application used for editing photos and creating graphic designs. This application is equipped with various features such as text, stickers, filters, effects, and other editing tools."</p>
-                    </div>
-                    <div class="testimonial-slide swiper-slide">
-                        <img src="images/coreldraw.png" alt="">
-                        <h3>CorelDRAW</h3>
-                        <p>"CorelDRAW is a program that can be used to create images and text applications quickly and easily. CorelDRAW features settings and layouts for various products."</p>
-                    </div>
-                    <div class="testimonial-slide swiper-slide">
-                        <img src="images/adobeil.jpg" alt="">
-                        <h3>Adobe Illustrator</h3>
-                        <p>"Adobe Illustrator is a vector-based graphic software developed and marketed by Adobe Systems. Over the years, Adobe Illustrator has undergone version developments, and Illustrator CC is the latest version of the twentieth generation for the Illustrator product. This software is used to draw digital illustrations with maximum results."</p>
-                    </div>
-                    <div class="testimonial-slide swiper-slide">
-                        <img src="images/pix.png" alt="">
-                        <h3>Pixellab<span>Mobile App</span></h3>
-                        <p>"PixelLab is an application used for editing photos and creating graphic designs. This application is equipped with various features such as text, stickers, filters, effects, and other editing tools."</p>
-                    </div>-->
-                <!--</div>
-
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </div>-->
-
-     <!-- portfolio section design -->
-     <!--<section class="portfolio" id="portfolio">
-        <h2 class="heading">Certificate <span></span></h2>
-
-        <div class="portfolio-container">
-            <div class="portfolio-box">
-                <img src="images/Strategi Brand Kelaya dalam Membangun Bisnisnya di Sosial Media_page-0001.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4></h4>
-                    <p>Brand Strategy webinar certificate in building your business.</p>
-                    <a href="images/lain-lain/Strategi Brand Kelaya dalam Membangun Bisnisnya di Sosial Media.pdf" target="_blank" rel="noopener noreferrer">
-                        <i class='bx bx-link-external'></i>
-                    </a>                    
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/ARYO YULIO PRASETYA - E-Certif SC Logo Design using Canva MySkill_page-0001.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4></h4>
-                    <p>Designing Logo Using Canva by MySkill</p>
-                    <a href="images/lain-lain/ARYO YULIO PRASETYA - E-Certif SC Logo Design using Canva MySkill.pdf" target="_blank" rel="noopener noreferrer">
-                        <i class='bx bx-link-external'></i>
-                    </a>
-                    
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio3.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Logo Design</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, ipsam est.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio4.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Logo Design</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, ipsam est.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio5.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Business Card</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, ipsam est.</p>
-                    <a href="images/dkk.jpg"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/portfolio6.jpg" alt="">
-
-                <div class="portfolio-layer">
-                    <h4>Logo Design</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, ipsam est.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div> 
-        </div>
-    </section> -->
-
-    <!-- contact section design -->
-    <section class="contact" id="contact">
-        <h2 class="heading">Hubungi <span>Kami!</span></h2>
-        <p>Abaikan jika terdapat keterangan pesan anda gagal dikirim (pesan telah kami terima)</p>
-        <form action="https://formspree.io/f/xpwzvzza" method="POST" id="contactForm">
-            <div class="input-box">
-                <input type="text" name="nama" placeholder="Nama Lengkap" required>
-                <input type="email" name="email" placeholder="Alamat Email" required>
-            </div>
-            <div class="input-box">
-                <input type="text" name="nomor_telepon" placeholder="Nomor Telepon">
-                <input type="text" name="subjek" placeholder="Subjek Email">
-            </div>
-            <textarea name="pesan" cols="30" rows="10" placeholder="Tulis Pesan" required></textarea>
-            <input type="submit" value="Kirim Pesan" class="btn">
-        </form>
-        <p id="successMessage" style="display: none; color: green; font-weight: bold; margin-top: 20px;">
-            Terima kasih, pesan Anda sukses dikirimkan!
-        </p>
-    </section> 
-    
-    <script>
-        const form = document.getElementById('contactForm');
-        const successMessage = document.getElementById('successMessage');
-    
-        form.addEventListener('submit', (event) => {
-            event.preventDefault(); // Cegah reload halaman
-    
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-            })
-            .then(response => {
-                if (response.ok) {
-                    successMessage.style.display = 'block'; // Tampilkan pesan sukses
-                    form.reset(); // Kosongkan formulir
-                } else {
-                    alert('Gagal mengirim pesan. Silakan coba lagi.');
-                }
-            })
-            .catch(error => {
-                alert('Terjadi kesalahan. Silakan coba lagi.');
-                console.error(error);
-            });
-        });
-    </script>    
-    
-    <!-- Cooperation & Intern Section -->
-<section class="cooperation" id="cooperation">
-    <h2 class="heading">Payment <span>Available</span></h2>
-    
-    <div class="logo-container">
-        <div class="logo-slider">
-            <img src="images/qris.png" alt="Company 1">
-            <img src="images/pngegg (1).png" alt="Company 2">
-            <img src="images/dana.webp" alt="Company 3">
-            <img src="images/ovo.png" alt="Company 4">
-            <img src="images/gopay.png" alt="Company 5">
-             <img src="images/shpay.png" alt="Company 6">
-            <img src="images/paypal.png" alt="Company 7">
-            <!-- Duplikat untuk animasi yang mulus -->
-            <img src="images/qris.png" alt="Company 1">
-            <img src="images/pngegg (1).png" alt="Company 2">
-            <img src="images/dana.webp" alt="Company 3">
-            <img src="images/ovo.png" alt="Company 4">
-            <img src="images/gopay.png" alt="Company 5">
-            <img src="images/shpay.png" alt="Company 6">
-            <img src="images/paypal.png" alt="Company 7">
-        </div>
-    </div>
-</section>
-    
-   <!-- footer design -->
-<footer class="footer">
-    <div class="footer-text">
-        <p>&copy; Copyright Prasetya Studio 2025 | All Rights Reserved.</p>
+      </div>
     </div>
 
-    <div class="footer-iconTop">
-        <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
-    </div>
-
-    <!-- Design credit 
-    <div class="footer-design">
-        <p>Design by:</p>
-        <img src="images/yo.design.png" alt="Prasetya Logo" class="design-logo">
-    </div> -->
-</footer>
-
-
-    <!-- scroll reveal -->
-    <script src="https://unpkg.com/scrollreveal"></script>
-
-    <!-- swiper js -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
-    <!-- custom js -->
-    <script src="js/script.js"></script>
-
-        <script>
-  // Cegah klik kanan & munculkan banner sementara
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-
-    // Jika banner belum ada, buat dan tampilkan
-    if (!document.getElementById('protectBanner')) {
-      const banner = document.createElement('div');
-      banner.id = 'protectBanner';
-      banner.textContent = "🔒 Akses dibatasi. Konten dilindungi.";
-      banner.style = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #8b0000;
-        color: white;
-        text-align: center;
-        padding: 10px;
-        font-size: 14px;
-        z-index: 9999;
-        font-family: sans-serif;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      `;
-      document.body.prepend(banner);
-
-      // Hilangkan setelah 3 detik
-      setTimeout(() => {
-        banner.remove();
-      }, 3000);
-    }
-  });
-
-  // Cegah shortcut inspect (F12, Ctrl+Shift+I/U/J)
-  document.onkeydown = function(e) {
-    if (e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && ['I','J','C','U'].includes(e.key.toUpperCase()))) {
-      return false;
-    }
-  };
-</script>
-
-</body>
-
-<!-- Tombol Audio -->
-<div id="audio-control" onclick="toggleAudio()">
-  <i class='bx bx-music' id="music-icon"></i>
+<div class="beranda-visual">
+  <img src="images/hero.png" alt="Visual Hero Prasetya Studio">
 </div>
 
-<!-- Elemen Audio -->
-<audio id="musik" autoplay loop>
-  <source src="images/lain-lain/musiq.mp3" type="audio/mpeg">
-</audio>
+  </div>
+</section>
 
+<section id="tentang" style="padding:10px 0; background:#fff;">
+  <div class="container">
+    
+    <div class="section-title" style="text-align:center; margin-bottom:40px;">
+      <h2>Tentang Kami</h2>
+      <p>Kami freelance muda yang masih belajar, tapi bersemangat membantu Anda tampil profesional dengan desain kreatif dan harga terjangkau.</p>
+    </div>
+      <!-- Highlight Statistik -->
+<div class="about-stats">
+  <div class="stat-card">
+    <h3>350+</h3>
+    <p>Desain Dikerjakan</p>
+  </div>
+  <div class="stat-card">
+    <h3>50+</h3>
+    <p>Klien Terlayani</p>
+  </div>
+</div>
+    <!-- Grid fitur -->
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-icon"><i class="fas fa-lightbulb"></i></div>
+        <div class="about-text">
+          <h3>Kreatif & Inovatif</h3>
+          <p>Walau masih belajar, kami selalu mencoba ide desain yang segar dan menarik untuk klien.</p>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <div class="about-icon"><i class="fas fa-clock"></i></div>
+        <div class="about-text">
+          <h3>Cepat & Responsif</h3>
+          <p>Kami berkomitmen menyelesaikan proyek tepat waktu sambil belajar meningkatkan kualitas.</p>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <div class="about-icon"><i class="fas fa-handshake"></i></div>
+        <div class="about-text">
+          <h3>Harga Ramah</h3>
+          <p>Layanan kami dirancang untuk terjangkau, ideal bagi yang butuh desain profesional tanpa ribet.</p>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <div class="about-icon"><i class="fas fa-users"></i></div>
+        <div class="about-text">
+          <h3>Freelance Muda & Semangat Belajar</h3>
+          <p>Kami tim kecil yang selalu ingin berkembang sambil membantu Anda mencapai hasil terbaik.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* Tentang Kami Grid */
+.about-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:24px;
+}
+
+.about-card{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  background:#f9fafb;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #e5e7eb;
+  transition:all 0.3s ease;
+}
+
+.about-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.about-icon{
+  font-size:36px;
+  color:var(--primary);
+  flex-shrink:0;
+}
+
+.about-text h3{
+  margin:0 0 6px;
+  font-size:18px;
+}
+
+.about-text p{
+  margin:0;
+  font-size:14px;
+  color:#4B5563;
+  line-height:1.5;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .about-card{
+    flex-direction:row;
+    align-items:center;
+  }
+}
+
+@media(max-width:500px){
+  .about-card{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+  .about-icon{
+    margin-bottom:12px;
+  }
+}
+
+</style>
+
+<section id="layanan">
+  <div class="container">
+    <div class="section-title">
+      <h2>Layanan Kami</h2>
+      <p>Layanan digital dan desain profesional yang kami sediakan</p>
+    </div>
+
+    <ul class="service-list">
+      <li>
+        <div class="icon"><i class="fas fa-paint-brush"></i></div>
+        <div class="content">
+          <h3>Desain Grafis</h3>
+          <p>Desain Flyer, Banner, Media Sosial, Kartu Nama, Company Profile dan kebutuhan desain lainnya.</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="icon"><i class="fas fa-file-alt"></i></div>
+        <div class="content">
+          <h3>Curriculum Vitae</h3>
+          <p>CV ATS, Kreatif, dan Surat Lamaran Kerja profesional.</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="icon"><i class="fas fa-video"></i></div>
+        <div class="content">
+          <h3>Video Animasi</h3>
+          <p>Tugas sekolah, kuliah, profil sederhana, dan animasi digital lainnya.</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="icon"><i class="fas fa-file-signature"></i></div>
+        <div class="content">
+          <h3>Edit Dokumen</h3>
+          <p>Laporan PKL, Makalah, Proposal, Undangan, Kop Surat, dan dokumen lainnya.</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="icon"><i class="fas fa-globe"></i></div>
+        <div class="content">
+          <h3>Jasa Digital Lainnya</h3>
+          <p>Layanan digital tambahan sesuai kebutuhan klien.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+/* Font Awesome CDN */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+.service-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.service-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  background:var(--white);
+  padding:20px 24px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  transition:all 0.3s ease;
+}
+
+.service-list li:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.service-list .icon{
+  font-size:36px;
+  color:var(--primary);
+  flex-shrink:0;
+  margin-top:4px;
+}
+
+.service-list .content h3{
+  margin:0 0 6px;
+  font-size:18px;
+}
+
+.service-list .content p{
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .service-list li{
+    flex-direction:row;
+  }
+}
+
+@media(max-width:500px){
+  .service-list li{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+  .service-list .icon{
+    margin:0 0 12px;
+  }
+}
+
+/* ===== PORTOFOLIO ===== */
+#portofolio{
+  padding:20px 0 10px 0; 
+  background: linear-gradient(135deg, #1E3A8A, #3B83F6);
+  color:#fff;
+}
+
+#portofolio .section-title p{
+  color: #E5E7EB;
+  text-align:center;
+}
+
+.portfolio-note{
+  max-width:680px;
+  margin:50px auto 0;
+  text-align:center;
+  font-size:14px;
+  line-height:1.7;
+  color:#E5E7EB; /* abu-abu elegan */
+  position:relative;
+  padding-top:1px;
+}
+
+/* garis tipis dekoratif */
+.portfolio-note::before{
+  content:"";
+  width:60px;
+  height:2px;
+  background:linear-gradient(90deg, transparent, #CBD5E1, transparent);
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+/* mobile refinement */
+@media(max-width:768px){
+  .portfolio-note{
+    font-size:13px;
+    margin-top:36px;
+    padding-top:16px;
+  }
+}
+
+/* ===== FIX HEADER MOBILE ===== */
+@media(max-width:900px){
+  header{
+    padding:6px 0; /* kasih napas atas bawah */
+  }
+
+  .header-inner{
+    height:auto;              /* JANGAN DIKUNCI */
+    padding:8px 0;            /* jarak dalam */
+  }
+
+  .container{
+    padding-left:16px;
+    padding-right:16px;
+  }
+}
+
+</style>
+
+<section id="portofolio">
+  <div class="container">
+    <div class="section-title">
+      <h2>Portofolio Kami</h2>
+      <p>Beberapa proyek desain yang telah kami kerjakan</p>
+    </div>
+
+<div class="portfolio-masonry">
+
+  <div class="masonry-item"><img src="images/porto (1).jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (1).png" alt=""></div>
+  <div class="masonry-item"><img src="images/3.png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (10).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (12).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (13).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (15).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (17).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (2).jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (2).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (20).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (21).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (24).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (27).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (28).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (29).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (3).jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (3).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (30).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (31).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (32).jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (4).jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (4).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (5).jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (5).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (6).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (7).jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (7).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (8).png" alt=""></div>
+  <div class="masonry-item"><img src="images/porto (9).png" alt=""></div>
+  <div class="masonry-item"><img src="images/portbaru.jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/portbaru2.png" alt=""></div>
+  <div class="masonry-item"><img src="images/portbaru3.png" alt=""></div>
+  <div class="masonry-item"><img src="images/portbaru4.png" alt=""></div>
+  <div class="masonry-item"><img src="images/portbaru5.jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/portbaru6.png" alt=""></div>
+  <div class="masonry-item"><img src="images/logo1.jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/logo2.jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/logo3.jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/logo4.jpg" alt=""></div>
+  <div class="masonry-item"><img src="images/logo6.jpg" alt=""></div>
+</div>
+  </div>
+
+  <p class="portfolio-note">
+  Dan masih banyak karya lainnya yang belum ditampilkan di sini.
+</p>
+</section>
+
+<section id="harga" style="padding:10px 0; background:#F6F8FB;">
+  <div class="container">
+    <div class="section-title" style="text-align:center; margin-bottom:40px;">
+      <h2>Daftar Harga Layanan</h2>
+      <p>
+  Daftar estimasi biaya layanan desain dan dokumen profesional.
+  Harga dapat menyesuaikan kebutuhan dan tingkat kompleksitas proyek.
+</p>
+    </div>
+
+    <div class="grid-3">
+
+      <!-- 1. Desain Logo -->
+<div class="card">
+  <div class="icon"><i class="fas fa-pencil-ruler"></i></div>
+  <h3>Desain Logo</h3>
+  <p>Logo profesional dengan file PNG, SVG, JPG, dan brand guideline.</p>
+  <!--<p class="harga-coret">Rp500.000</p>-->
+  <p class="harga">Kesepakatan</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20saya%20ingin%20konsultasi%20Desain%20Logo" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 2. Poster / A4 -->
+<div class="card">
+  <div class="icon"><i class="fas fa-image"></i></div>
+  <h3>Poster</h3>
+  <p>Poster profesional siap cetak dan digital, file editable.</p>
+  <p class="harga">Rp25.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Poster" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 3. Poster Infografis -->
+<div class="card">
+  <div class="icon"><i class="fas fa-chart-pie"></i></div>
+  <h3>Poster Infografis</h3>
+  <p>Visualisasi data rapi dan informatif, file PDF editable.</p>
+  <p class="harga">Rp35.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Poster%20Infografis" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 4. Brosur A4 -->
+<div class="card">
+  <div class="icon"><i class="fas fa-book-open"></i></div>
+  <h3>Brosur</h3>
+  <p>Brosur promosi profesional siap cetak.</p>
+  <p class="harga">Rp35.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Brosur" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 5. Banner -->
+<div class="card">
+  <div class="icon"><i class="fas fa-flag"></i></div>
+  <h3>Desain Banner</h3>
+  <p>Banner profesional untuk cetak dan digital.</p>
+  <p class="harga">Rp35.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Desain%20Banner" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 6. Undangan -->
+<div class="card">
+  <div class="icon"><i class="fas fa-envelope-open-text"></i></div>
+  <h3>Desain Undangan</h3>
+  <p>Undangan cetak & digital, rapi dan elegan.</p>
+  <p class="harga">Rp25.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Desain%20Undangan" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 7. Invoice -->
+<div class="card">
+  <div class="icon"><i class="fas fa-file-invoice-dollar"></i></div>
+  <h3>Desain Invoice</h3>
+  <p>Invoice profesional siap digunakan bisnis.</p>
+  <p class="harga">Rp10.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Desain%20Invoice" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 8. CV ATS -->
+<div class="card">
+  <div class="icon"><i class="fas fa-id-badge"></i></div>
+  <h3>CV ATS Friendly</h3>
+  <p>CV ATS-friendly, PDF & DOC editable.</p>
+  <p class="harga">Rp15.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20CV%20ATS" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 9. CV Kreatif -->
+<div class="card">
+  <div class="icon"><i class="fas fa-address-card"></i></div>
+  <h3>CV Kreatif</h3>
+  <p>CV visual menarik untuk personal branding.</p>
+  <p class="harga">Rp10.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20CV%20Kreatif" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 10. Surat Lamaran -->
+<div class="card">
+  <div class="icon"><i class="fas fa-file-signature"></i></div>
+  <h3>Surat Lamaran</h3>
+  <p>Surat lamaran profesional siap kirim.</p>
+  <p class="harga">Rp5.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Surat%20Lamaran" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 11. Company Profile -->
+<div class="card">
+  <div class="icon"><i class="fas fa-building"></i></div>
+  <h3>Company Profile</h3>
+  <p>Company profile profesional format PDF.</p>
+  <p class="harga">Rp450.000</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Company%20Profile" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+<!-- 12. Custom Desain -->
+<div class="card">
+  <div class="icon"><i class="fas fa-object-group"></i></div>
+  <h3>Custom Desain</h3>
+  <p>Desain menyesuaikan kebutuhan klien.</p>
+  <p class="harga">Menyesuaikan</p>
+  <a href="https://wa.me/6285143080554?text=Halo%20Prasetya%20Studio,%20konsultasi%20Custom%20Desain" class="btn wa-btn">
+    <i class="fab fa-whatsapp"></i> Konsultasi WhatsApp
+  </a>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+#harga .grid-3{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:28px;
+  justify-items:center;
+}
+
+#harga .card{
+  text-align:center;
+  padding:28px 20px;
+  border-radius:16px;
+  border:1px solid #E5E7EB;
+  background:#fff;
+  position:relative;
+  transition:all 0.3s ease;
+}
+
+#harga .card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 16px 28px rgba(0,0,0,0.12);
+}
+
+#harga .icon{
+  font-size:36px;
+  color:#2563EB;
+  margin-bottom:12px;
+}
+
+#harga .harga-coret{
+  font-size:16px;
+  color:#6B7280;
+  text-decoration:line-through;
+  margin:8px 0;
+}
+
+#harga .harga{
+  font-size:22px;
+  font-weight:700;
+  color:#2563EB;
+  margin:8px 0;
+}
+
+#harga .btn{
+  display:block;
+  margin-top:12px;
+  padding:10px 16px;
+  border-radius:8px;
+  font-weight:600;
+  text-decoration:none;
+  color:#fff;
+  transition:all 0.3s ease;
+}
+
+#harga .btn:hover{
+  opacity:0.9;
+}
+
+.order-btn{ background:#2563EB; }
+.wa-btn{ background:#25D366; margin-top:6px; }
+
+@media(max-width:768px){
+  #harga .grid-3{
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+  }
+
+  #harga .card{
+    padding:20px 14px;
+  }
+
+  #harga h3{
+    font-size:15px;
+  }
+
+  #harga .harga{
+    font-size:18px;
+  }
+
+  #harga p{
+    font-size:13px;
+  }
+}
+
+/* ===== FIX TENTANG KAMI MOBILE CENTER ===== */
+@media(max-width:768px){
+
+  .about-grid{
+    display:flex;              /* paksa balik ke flex */
+    justify-content:center;    /* CENTER */
+  }
+
+  .about-card{
+    max-width:320px;           /* card tidak kepanjangan */
+    width:100%;
+  }
+}
+
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- ================= GOOGLE REVIEW SECTION ================= -->
+<section class="g-review">
+  <div class="review-header">
+
+    <div class="review-title">
+      <h2>Ulasan Google Maps</h2>
+
+      <div class="rating-wrap">
+        <div class="stars">★★★★★</div>
+        <span class="rating-text">5.0 · 5 ulasan</span>
+
+        <span class="verified-badge">
+          ✔ Verified Google Review
+        </span>
+      </div>
+    </div>
+
+    <!-- LINK KE GOOGLE MAPS -->
+    <a href="https://maps.app.goo.gl/58uALB23nsojC5ih9"
+       target="_blank"
+       class="google-link"
+       rel="noopener">
+
+      <img src="https://www.gstatic.com/images/branding/product/1x/maps_96in128dp.png" alt="Google Review">
+      <span>Google Reviews</span>
+    </a>
+
+  </div>
+
+
+    <!-- Tombol navigasi (desktop) -->
+    <div class="g-nav">
+      <button class="g-btn" onclick="slideReview(-1)">‹</button>
+      <button class="g-btn" onclick="slideReview(1)">›</button>
+    </div>
+  </div>
+
+  <div class="g-slider" id="reviewSlider">
+    <div class="g-track">
+
+      <!-- 1 -->
+      <div class="g-card">
+        <div class="g-user">
+          <img class="avatar" src="https://lh3.googleusercontent.com/a-/ALV-UjUH0DtWPjS2zGqCupWfRd2DWC6wR-QRB3OpMIQqb7HTQbBiYytD=w108-h108-p-rp-mo-br100" alt="Alena">
+          <div>
+            <strong>Bryand Dani Saputra</strong>
+            <span>1 ulasan • 8 bulan lalu</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p>
+          Saya bikin logo disini hasilnya mantap, file yang dikirim lengkap,
+          harganya terjangkau untuk UMKM, fiks jadi langganan desain deh 🤩🤩🤩🤩
+        </p>
+        <div class="like">❤️ 2</div>
+      </div>
+
+      <!-- 2 -->
+      <div class="g-card">
+        <div class="g-user">
+          <div class="avatar text">N</div>
+          <div>
+            <strong>Najwa Aisyah</strong>
+            <span>1 ulasan • 8 bulan lalu</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p>
+          Hasilnya baguss bangettt, ngga mengecewakan, harganya juga terjangkau
+        </p>
+      </div>
+
+      <!-- 3 -->
+      <div class="g-card">
+        <div class="g-user">
+          <img class="avatar" src="https://lh3.googleusercontent.com/a-/ALV-UjWcp3YMBexd8Hh1-QnzaoChWMG-l8YbsfcEIm1tIaOE5XQKsAijuA=w108-h108-p-rp-mo-br100" alt="Alena">
+          <div>
+            <strong>Alena Ismaya Faid</strong>
+            <span>2 ulasan • 8 bulan lalu</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p>
+          Keren banget si, dengan harga yang terjangkau tapi hasilnya cakep polll
+        </p>
+      </div>
+
+      <!-- 4 -->
+      <div class="g-card">
+        <div class="g-user">
+          <div class="avatar text">H</div>
+          <div>
+            <strong>Hilda 1011</strong>
+            <span>1 ulasan • 8 bulan lalu</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p>bagus bgt min, makasih yaa😍</p>
+      </div>
+
+      <!-- 5 -->
+      <div class="g-card">
+        <div class="g-user">
+          <div class="avatar text">A</div>
+          <div>
+            <strong>Amelia 10</strong>
+            <span>8 bulan lalu</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p>Pelayanan cepat dan hasil sesuai ekspektasi.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="g-foot">
+    <span>#UrusanDesainJadiLebihMudah</span>
+  </div>
+</section>
+
+<!-- ================= STYLE ================= -->
+<style>
+/* ================= GOOGLE REVIEW (FIX MOBILE) ================= */
+
+.g-review{
+  max-width:1100px;
+  margin:10px auto;
+  padding:0 16px;
+}
+
+/* HEADER */
+.review-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.review-title h2{
+  font-size:28px;
+  margin:0 0 6px;
+}
+
+.rating-wrap{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.rating-text{
+  font-size:14px;
+  color:#6b7280;
+}
+
+.verified-badge{
+  font-size:12px;
+  background:#e8f0fe;
+  color:#1a73e8;
+  padding:4px 10px;
+  border-radius:999px;
+  font-weight:500;
+}
+
+/* GOOGLE LINK */
+.google-link{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  font-size:14px;
+}
+.google-link img{width:18px}
+
+/* SLIDER */
+.g-slider{
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+
+.g-track{
+  display:flex;
+  gap:16px;
+  padding-bottom:10px;
+}
+
+/* CARD */
+.g-card{
+  flex:0 0 340px;
+  scroll-snap-align:start;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:18px;
+}
+
+.g-user{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+}
+
+.avatar.text{
+  background:#1a73e8;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+}
+
+.g-user span{
+  font-size:12px;
+  color:#6b7280;
+}
+
+.stars{
+  color:#fbbc04;
+  margin:6px 0;
+  font-size:16px;
+}
+
+.like{
+  font-size:13px;
+  color:#6b7280;
+}
+
+/* NAV DESKTOP */
+.g-nav{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.g-btn{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* FOOT */
+.g-foot{
+  font-size:12px;
+  color:#6b7280;
+  margin-top:10px;
+}
+
+/* ========== MOBILE FIX TOTAL ========== */
+@media(max-width:768px){
+
+  .review-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+  .review-title h2{
+    font-size:22px;
+  }
+
+  .google-link{
+    width:100%;
+    justify-content:center;
+  }
+
+  .g-card{
+    flex:0 0 85%;
+  }
+
+  .g-nav{
+    display:none; /* HP swipe aja */
+  }
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .g-card{min-width:280px}
+  .g-nav{display:none}
+}
+
+.review-section{
+  padding:60px 20px;
+  background:#f9fafb;
+}
+
+.review-header{
+  max-width:1100px;
+  margin:0 auto 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* JUDUL */
+.review-title h2{
+  font-size:28px;
+  font-weight:700;
+  color:#111827;
+  margin-bottom:6px;
+}
+
+.rating-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* BINTANG */
+.stars{
+  color:#fbbc04;
+  font-size:20px;
+  letter-spacing:2px;
+}
+
+.rating-text{
+  font-size:14px;
+  color:#6b7280;
+}
+
+/* VERIFIED BADGE */
+.verified-badge{
+  font-size:12px;
+  background:#e8f0fe;
+  color:#1a73e8;
+  padding:4px 8px;
+  border-radius:999px;
+  font-weight:500;
+}
+
+/* GOOGLE LINK */
+.google-link{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  font-size:14px;
+  color:#374151;
+  padding:8px 12px;
+  border-radius:8px;
+  transition:all .2s ease;
+}
+
+.google-link img{
+  width:20px;
+  height:auto;
+}
+
+.google-link:hover{
+  background:#eef2ff;
+  color:#1a73e8;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  .review-header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .review-title h2{
+    font-size:24px;
+  }
+}
+
+</style>
+
+<!-- ================= SCRIPT ================= -->
 <script>
-  const audio = document.getElementById("bg-music");
-  const toggleBtn = document.getElementById("music-toggle");
+const track = document.querySelector(".g-track");
+const cardWidth = 360; // lebar card + gap
+let position = 0;
 
-  let isPlaying = false;
+function slideReview(dir){
+  const maxScroll = track.scrollWidth - document.querySelector(".g-slider").clientWidth;
+  position += dir * cardWidth;
 
-  // Ganti ikon sesuai status
-  function updateIcon() {
-    toggleBtn.className = isPlaying ? "bx bx-volume-full" : "bx bx-volume-mute";
-  }
+  if(position < 0) position = 0;
+  if(position > maxScroll) position = maxScroll;
 
-  // Toggle musik saat diklik
-  function toggleAudio() {
-  const audio = document.getElementById("musik");
-  const icon = document.getElementById("music-icon");
-
-  if (audio.paused) {
-    audio.play();
-    icon.className = "bx bx-music";
-  } else {
-    audio.pause();
-    icon.className = "bx bx-pause";
-  }
+  track.style.transform = `translateX(-${position}px)`;
 }
 </script>
 
+<section class="order-flow-section">
+  <div class="order-flow-container">
+
+    <!-- HEADER -->
+    <div class="order-flow-header">
+      <h2>Cara Order di Prasetya Studio</h2>
+      <p>Alur pemesanan jasa desain yang mudah dan cepat.</p>
+    </div>
+
+    <!-- PLATFORM -->
+    <div class="order-platforms">
+      <div class="platform-item">
+        <i class="fas fa-globe"></i>
+        <div>
+          <span>Website</span>
+          <a href="https://www.prasetyastudio.my.id" target="_blank">
+            www.prasetyastudio.my.id
+          </a>
+        </div>
+      </div>
+
+      <div class="platform-item">
+        <i class="fab fa-whatsapp"></i>
+        <div>
+          <span>WhatsApp</span>
+          <a href="https://wa.me/6285143080554" target="_blank">
+            +62 851-4308-0554
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOW -->
+    <div class="order-steps">
+
+      <div class="step-card">
+        <div class="step-icon">
+          <i class="fas fa-file-signature"></i>
+        </div>
+        <h4>Order</h4>
+        <p>Kirim detail pesanan desain yang Anda butuhkan.</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step-card">
+        <div class="step-icon">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <h4>Review</h4>
+        <p>Tim kami mengecek kebutuhan dan konsep desain Anda.</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step-card">
+        <div class="step-icon">
+          <i class="fas fa-handshake"></i>
+        </div>
+        <h4>Deal</h4>
+        <p>Kesepakatan harga dan metode pembayaran.</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step-card">
+        <div class="step-icon">
+          <i class="fas fa-pen-nib"></i>
+        </div>
+        <h4>Execute</h4>
+        <p>Pengerjaan desain memaksimalkan revisi dan finishing.</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step-card">
+        <div class="step-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h4>Result</h4>
+        <p>Desain telah di finishing dan dikirim ke pelanggan.</p>
+      </div>
+
+    </div>
+
+    <div class="order-advantages premium">
+  
+  <div class="adv-card">
+    <div class="adv-icon">
+      <i class="fas fa-bolt"></i>
+    </div>
+    <div class="adv-text">
+      <h5>Proses Cepat & Responsif</h5>
+      <p>Respon cepat, pengerjaan tepat waktu, tanpa ribet.</p>
+    </div>
+  </div>
+
+  <div class="adv-card">
+    <div class="adv-icon">
+      <i class="fas fa-wallet"></i>
+    </div>
+    <div class="adv-text">
+      <h5>Sistem Pembayaran Jelas</h5>
+      <p>Transparan, fleksibel DP atau full sesuai kesepakatan.</p>
+    </div>
+  </div>
+
+  <div class="adv-card">
+    <div class="adv-icon">
+      <i class="fas fa-percent"></i>
+    </div>
+    <div class="adv-text">
+      <h5>Promo & Diskon Berkala</h5>
+      <p>Penawaran khusus untuk klien baru maupun langganan.</p>
+    </div>
+  </div>
+
+</div>
+
+    <!-- CTA -->
+    <div class="order-flow-cta">
+      <h3>Ayo diskusikan kebutuhan desain Anda sekarang</h3>
+      <p>
+        Prasetya Studio membantu Anda mewujudkan desain profesional.
+        <strong>#UrusanDesainJadiLebihMudah</strong>
+      </p>
+
+      <a href="https://wa.me/6285143080554" target="_blank" class="order-flow-btn">
+        Konsultasi Sekarang
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section class="payment-section">
+  <div class="payment-container">
+
+    <!-- HEADER -->
+    <div class="payment-header">
+      <h2>Sistem Pembayaran</h2>
+      <p>
+        Prasetya Studio mendukung berbagai metode pembayaran yang aman,
+        fleksibel, dan mudah digunakan.
+      </p>
+    </div>
+
+    <!-- PAYMENT LOGOS -->
+    <div class="payment-grid">
+
+      <div class="payment-item">
+        <img src="images/payment/BRI_2020.svg" alt="Bank BRI">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/pngegg (1).png" alt="Bank Transfer">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/qris.png" alt="QRIS">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/dana.webp" alt="DANA">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/gopay.png" alt="GoPay">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/ovo.png" alt="OVO">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/shpay.png" alt="ShopeePay">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/SeaBank.svg.png" alt="SeaBank">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/Logo-jago.svg.png" alt="Bank Jago">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/paypal.png" alt="PayPal">
+      </div>
+
+      <div class="payment-item">
+        <img src="images/payment/vai.png" alt="Vai">
+      </div>
+
+      <div class="payment-item">
+        <img src="https://cdn.vectorstock.com/i/500p/15/43/business-acounting-money-mobile-cash-logo-vector-31031543.jpg" alt="Cash">
+      </div>
+    </div>
+
+    <!-- NOTE -->
+    <div class="payment-note">
+      <i class="fas fa-shield-alt"></i>
+      <span>
+        Semua transaksi diproses secara aman sesuai kesepakatan yang disetujui bersama.
+      </span>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="container footer-grid">
+      <!-- Logo & Deskripsi -->
+      <div class="footer-logo">
+        <img src="images/logo ps.png" alt="Logo Prasetya Studio">
+        <p style="color:var(--muted);font-size:14px">
+          Prasetya Studio – Jasa desain grafis freelance/ paruh waktu yang membantu bisnis dan organisasi tampil lebih profesional.
+        </p>
+      </div>
+
+      <!-- Layanan -->
+      <div>
+        <h4>Layanan</h4>
+        <a>Desain Grafis</a>
+        <a>Curriculum Vitae</a>
+        <a>Video Animasi</a>
+        <a>Edit Dokumen</a>
+        <a>Jasa Digital Lainnya</a>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="invoice.html">Garansi & Invoice</a>
+        <a href="priv.html">Kebijakan & Privasi</a>
+      </div>
+
+<div>
+  <h4>Kontak & Sosial Media</h4>
+  <p style="font-size:14px;color:var(--muted);margin:0 0 6px;">
+    <b>Alamat:</b> Banjarnegara, Jawa Tengah, Indonesia
+  </p>
+    <p style="font-size:14px;color:var(--muted);margin:0 0 6px;">
+    <b>Jam Kerja:</b> Pk. 09:00-22:00 WIB Setiap Hari
+  </p>
+  <a href="tel:+6285143080554"><b>WhatsApp:</b> +62 851-4308-0554</a>
+  <a href="mailto:prasetyastudioservicehub@gmail.com"><b>Email:</b> prasetyastudioservicehub@gmail.com</a>
+  
+  <!-- Icon medsos sejajar -->
+  <div class="social-icons" style="margin-top:10px;">
+    <a href="https://instagram.com/prasetyastudio"><i class="fab fa-instagram"></i></a>
+    <a href="https://instagram.com/cvmurahbanjarnegara"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/6285143080554"><i class="fab fa-whatsapp"></i></a>
+    <a href="mailto:prasetyastudioservicehub@gmail.com"><i class="fas fa-envelope"></i></a>
+    <a href="https://id.linkedin.com/in/aryo-yulio-prasetya-9653682a1"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Prasetya Studio. All rights reserved.
+  </div>
+</footer>
+
+<style>
+.footer-top{
+  padding:50px 0;
+  border-top:1px solid var(--border);
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:30px;
+}
+.footer-logo img{
+  height:42px;
+  margin-bottom:12px;
+}
+footer h4{
+  font-size:15px;
+  margin-bottom:10px;
+}
+footer a{
+  display:block;
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:6px;
+  transition:color 0.3s;
+}
+footer a:hover{
+  color:var(--primary);
+}
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding:16px 0;
+  font-size:13px;
+  color:var(--muted);
+  text-align:center;
+}
+.footer-grid a i{
+  color:var(--primary);
+  font-size:16px;
+}
+@media(max-width:900px){
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+}
+
+.social-icons{
+  display:flex;
+  gap:12px; /* jarak antar icon */
+}
+
+.social-icons a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  color:#fff;
+  border-radius:50%;
+  transition:all 0.3s;
+}
+
+.social-icons a:hover{
+  transform:scale(1.1);
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.social-icons i{
+  font-size:16px;
+}
+
+.payment-section{
+  padding:10px 20px;
+  background:#ffffff;
+  border-top:1px solid #e5e7eb;
+}
+
+.payment-container{
+  max-width:1100px;
+  margin:0 auto;
+}
+
+/* HEADER */
+.payment-header{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.payment-header h2{
+  font-size:30px;
+  font-weight:700;
+  margin-bottom:8px;
+  color:#111827;
+}
+
+.payment-header p{
+  font-size:15px;
+  color:#6b7280;
+}
+
+/* GRID */
+.payment-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:26px;
+  align-items:center;
+  margin-bottom:40px;
+}
+
+/* ITEM */
+.payment-item{
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.25s ease;
+}
+
+.payment-item img{
+  max-height:42px;
+  max-width:100%;
+  filter:grayscale(100%);
+  opacity:.85;
+}
+
+.payment-item:hover{
+  background:#ffffff;
+  border-color:#2563eb;
+  box-shadow:0 10px 28px rgba(37,99,235,.12);
+}
+
+.payment-item:hover img{
+  filter:none;
+  opacity:1;
+}
+
+/* NOTE */
+.payment-note{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  color:#6b7280;
+}
+
+.payment-note i{
+  color:#2563eb;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .payment-header h2{
+    font-size:24px;
+  }
+
+  .payment-item img{
+    max-height:36px;
+  }
+}
+
+</style>
+
+<!-- Font Awesome untuk icon medsos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script>
+function toggleMenu(){
+  const nav = document.getElementById("mobileNav");
+  nav.style.display = nav.style.display === "block" ? "none" : "block";
+}
+</script>
+<script>
+// Semua link navigasi
+const menuLinks = document.querySelectorAll("nav a");
+const mobileLinks = document.querySelectorAll(".mobile-nav a");
+const allLinks = [...menuLinks, ...mobileLinks];
+
+// Semua section sesuai link
+const sections = Array.from(allLinks)
+  .map(link => document.getElementById(link.getAttribute("href").replace("#","")))
+  .filter(sec => sec !== null);
+
+function activateMenu(){
+  const scrollPos = window.scrollY + 80; // offset 80px untuk sticky header
+  let currentSection = sections[0]; // default Beranda
+
+  sections.forEach(section => {
+    if(section.offsetTop <= scrollPos){
+      currentSection = section;
+    }
+  });
+
+  allLinks.forEach(link => {
+    const targetId = link.getAttribute("href").replace("#","");
+    if(currentSection.id === targetId){
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+}
+
+// Event scroll
+window.addEventListener("scroll", activateMenu);
+
+// Event load, dengan delay supaya browser sudah scroll ke posisi benar
+window.addEventListener("load", () => {
+  setTimeout(activateMenu, 50); // delay 50ms
+});
+
+// Smooth scroll ketika klik menu
+allLinks.forEach(link => {
+  link.addEventListener("click", function(e){
+    e.preventDefault();
+    const targetId = this.getAttribute("href").replace("#","");
+    const target = document.getElementById(targetId);
+    const headerOffset = 70; // tinggi header
+    const elementPosition = target.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
+    });
+
+    // Tutup mobile nav jika terbuka
+    const mobileNav = document.getElementById("mobileNav");
+    if(mobileNav.style.display === "block"){
+      mobileNav.style.display = "none";
+    }
+  });
+});
+</script>
+
+<a href="#beranda" id="backToTop" title="Kembali ke atas">
+  <svg class="progress-circle" width="40" height="40">
+    <circle cx="20" cy="20" r="18"></circle>
+    <circle cx="20" cy="20" r="18"></circle>
+  </svg>
+  <i class="fas fa-arrow-up"></i>
+</a>
+
+<style>
+#backToTop {
+  position: fixed;
+  background-color: var(--primary);
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+#backToTop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#backToTop i {
+  position: absolute;
+  font-size: 14px; /* lebih kecil dari sebelumnya */
+  color: #fff;
+  z-index: 2;
+}
+
+.progress-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  transform: rotate(-90deg);
+  z-index: 1;
+}
+
+.progress-circle circle {
+  fill: none;
+  stroke-width: 3; /* sedikit lebih tipis */
+  r: 18;           /* radius lebih kecil */
+  cx: 20;
+  cy: 20;
+}
+
+.progress-circle circle:first-child {
+  stroke: rgba(255,255,255,0.2); /* background circle */
+}
+
+.progress-circle circle:last-child {
+  stroke: var(--white); /* progress stroke */
+  stroke-dasharray: 113.097; /* 2*PI*18 */
+  stroke-dashoffset: 113.097;
+  transition: stroke-dashoffset 0.2s linear;
+}
+</style>
+
+<script>
+const backToTopBtn = document.getElementById('backToTop');
+const progressCircle = backToTopBtn.querySelectorAll('circle')[1];
+const radius = progressCircle.r.baseVal.value;
+const circumference = 2 * Math.PI * radius;
+progressCircle.style.strokeDasharray = circumference;
+
+function setProgress(percent){
+  const offset = circumference - percent * circumference;
+  progressCircle.style.strokeDashoffset = offset;
+}
+
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+
+  setProgress(scrollPercent);
+
+  if(scrollTop > 200){
+    backToTopBtn.classList.add('show');
+  } else {
+    backToTopBtn.classList.remove('show');
+  }
+});
+</script>
+
+<script>
+function resizeMasonry(){
+  const grid = document.querySelector(".portfolio-masonry");
+  if(!grid) return;
+
+  const rowHeight = parseInt(getComputedStyle(grid).gridAutoRows);
+  const gap = parseInt(getComputedStyle(grid).rowGap);
+
+  grid.querySelectorAll(".masonry-item").forEach(item => {
+    const img = item.querySelector("img");
+    const height = img.getBoundingClientRect().height;
+    const span = Math.ceil((height + gap) / (rowHeight + gap));
+    item.style.gridRowEnd = `span ${span}`;
+  });
+}
+
+/* Jalankan setelah SEMUA gambar siap */
+window.addEventListener("load", () => {
+  resizeMasonry();
+});
+
+/* Responsif saat resize */
+window.addEventListener("resize", () => {
+  resizeMasonry();
+});
+</script>
+
+</body>
 </html>
