@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cek Invoice & Garansi | Prasetya Studio</title>
+<link rel="icon" href="images/logo duwa.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root{
+  --success:#16a34a;
+  --danger:#dc2626;
+  --gray:#6b7280;
+  --primary:#3B83F6;
+  --bg:#F6F8FB;
+  --white:#FFFFFF;
+  --text:#1F2937;
+  --muted:#6B7280;
+  --border:#E5E7EB;
+}
+
+a{
+  text-decoration:none !important;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Manrope, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px 20px;
+}
+
+
+/* ===== HEADER ===== */
+header{
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:70px;
+  padding:10px 0; /* ⬅️ INI KUNCI */
+}
+
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:600;
+}
+
+.logo img{
+  height:40px;
+}
+
+nav{
+  display:flex;
+  gap:28px;
+}
+
+nav a{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:500;
+  position:relative;
+  padding:8px 0;
+  transition:color 0.3s;
+}
+
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+}
+
+.menu-toggle span{
+  width:24px;
+  height:2px;
+  background:#333;
+}
+
+/* MOBILE NAV */
+.mobile-nav{
+  display:none;
+  background:var(--white);
+  border-top:1px solid var(--border);
+}
+
+.mobile-nav a{
+  display:block;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+}
+
+/* RESPONSIVE HEADER */
+@media(max-width:900px){
+  nav{display:none;}
+  .menu-toggle{display:flex;}
+  .logo img{height:32px;}
+}
+
+.ini-header{
+  text-align:center;
+  margin-bottom:40px;
+  margin-top: 20px;
+}
+
+.ini-header h1{
+  font-size:32px;
+  margin:0;
+}
+
+.ini-header p{
+  color:var(--gray);
+  margin-top:8px;
+}
+
+.search-box{
+  background:#fff;
+  border-radius:18px;
+  padding:30px;
+  box-shadow:0 20px 10px rgba(0,0,0,.06);
+}
+
+.search-box input{
+  width:100%;
+  padding:16px 18px;
+  font-size:16px;
+  border-radius:12px;
+  border:1px solid #e5e7eb;
+  outline:none;
+}
+
+.search-box button{
+  margin-top:14px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.result{
+  display:none;
+  margin-top:40px;
+  background:#fff;
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 20px 40px rgba(0,0,0,.06);
+}
+
+.result h2{
+  margin-top:0;
+  margin-bottom:20px;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table td{
+  padding:10px 0;
+  border-bottom:1px solid #f1f5f9;
+}
+
+.label{
+  color:var(--gray);
+  width:220px;
+}
+
+.badge{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.active{
+  background:#dcfce7;
+  color:var(--success);
+}
+
+.expired{
+  background:#fee2e2;
+  color:var(--danger);
+}
+
+.notfound{
+  text-align:center;
+  color:var(--danger);
+  margin-top:20px;
+  font-weight:600;
+}
+
+/* === MODAL === */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.modal-box{
+  background:#fff;
+  width:100%;
+  max-width:520px;
+  border-radius:18px;
+  padding:26px;
+}
+
+.modal-box h3{
+  margin-top:0;
+}
+
+.modal-box input,
+.modal-box select,
+.modal-box textarea{
+  width:100%;
+  margin-top:10px;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  font-family:Manrope;
+}
+
+.modal-actions{
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+}
+
+.modal-actions button{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:'Manrope',sans-serif
+}
+
+.btn-primary{background:#2563eb;color:#fff}
+.btn-cancel{background:#e5e7eb}
+
+.notice{
+  font-size:13px;
+  color:#dc2626;
+  margin-top:8px;
+  display:none;
+}
+</style>
+
+<style>
+.footer-top{
+  padding:50px 0;
+  border-top:1px solid var(--border);
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:30px;
+}
+.footer-logo img{
+  height:42px;
+  margin-bottom:12px;
+}
+footer h4{
+  font-size:15px;
+  margin-bottom:10px;
+}
+footer a{
+  display:block;
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:6px;
+  transition:color 0.3s;
+}
+footer a:hover{
+  color:var(--primary);
+}
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding:16px 0;
+  font-size:13px;
+  color:var(--muted);
+  text-align:center;
+}
+.footer-grid a i{
+  color:var(--primary);
+  font-size:16px;
+}
+@media(max-width:900px){
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+}
+
+.social-icons{
+  display:flex;
+  gap:12px; /* jarak antar icon */
+}
+
+.social-icons a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  color:#fff;
+  border-radius:50%;
+  transition:all 0.3s;
+}
+
+.social-icons a:hover{
+  transform:scale(1.1);
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.social-icons i{
+  font-size:16px;
+}
+
+.page-hero{
+  background: linear-gradient(135deg, #1E3A8A, #3B83F6);
+  color: #fff;
+  padding: 10px 0 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-hero h1{
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.page-hero p{
+  font-size: 16px;
+  font-weight: 400;
+  max-width: 700px;
+  margin: 0 auto;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ===== FORCE MATIIN LINK BIRU (MOBILE SAFE) ===== */
+a,
+a:visited,
+a:active,
+a:focus{
+  color:inherit;
+  text-decoration:none;
+}
+
+.mobile-nav a{
+  color:#1F2937 !important; /* PAKSA */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav a:visited{
+  color:#1F2937 !important;
+}
+
+/* ===== FIX HEADER MOBILE ===== */
+@media(max-width:900px){
+  header{
+    padding:6px 0; /* kasih napas atas bawah */
+  }
+
+  .header-inner{
+    height:auto;              /* JANGAN DIKUNCI */
+    padding:8px 0;            /* jarak dalam */
+  }
+
+  .container{
+    padding-left:16px;
+    padding-right:16px;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="container header-inner">
+    <div class="logo">
+      <img src="images/logo ps.png" alt="Logo Prasetya Studio">
+    </div>
+
+    <nav>
+      <a href="index.html#beranda">Beranda</a>
+      <a href="index.html#tentang">Tentang</a>
+      <a href="index.html#layanan">Layanan</a>
+      <a href="index.html#portofolio">Portofolio</a>
+      <a href="index.html#harga">Pricelist</a>
+    </nav>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html#beranda">Beranda</a>
+    <a href="index.html#tentang">Tentang</a>
+    <a href="index.html#layanan">Layanan</a>
+    <a href="index.html#portofolio">Portofolio</a>
+    <a href="index.html#harga">Biaya Layanan</a>
+  </div>
+</header>
+
+<script>
+  function toggleMenu() {
+    const mobileNav = document.getElementById("mobileNav");
+    mobileNav.style.display = mobileNav.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+<div class="container">
+
+  <div class="ini-header">
+    <h1>Cek Invoice & Garansi</h1>
+    <p>Masukkan nomor invoice untuk melihat detail pesanan dan status garansi</p>
+  </div>
+
+  <div class="search-box">
+<input 
+  id="invoiceInput"
+  placeholder="Contoh: INV-PRS-001"
+  oninput="this.value = this.value.toUpperCase()"
+/>
+    <button onclick="cekInvoice()">Cek Invoice</button>
+    <div id="emptyNotice" class="notfound" style="display:none;">
+  Harap masukkan invoice
+</div>
+    <div id="loading" style="display:none;margin-top:14px;text-align:center;color:#2563eb;font-weight:600">
+  Memeriksa invoice...
+</div>
+    <div id="notfound" class="notfound"></div>
+  </div>
+
+  <div id="result" class="result">
+    <h2>Detail Invoice</h2>
+<table class="table">
+  <tr>
+    <td class="label"><i class='bx bx-receipt' style="margin-right:6px;color:var(--primary)"></i> Nomor Invoice</td>
+    <td id="no_invoice"></td>
+  </tr>
+  <tr>
+    <td class="label"><i class='bx bx-user' style="margin-right:6px;color:var(--primary)"></i> Nama Pelanggan</td>
+    <td id="nama"></td>
+  </tr>
+  <tr>
+    <td class="label"><i class='bx bx-phone' style="margin-right:6px;color:var(--primary)"></i> Kontak</td>
+    <td id="kontak"></td>
+  </tr>
+  <tr>
+    <td class="label"><i class='bx bx-palette' style="margin-right:6px;color:var(--primary)"></i> Jenis Desain</td>
+    <td id="jenis"></td>
+  </tr>
+  <tr>
+    <td class="label"><i class='bx bx-box' style="margin-right:6px;color:var(--primary)"></i> Nama Produk</td>
+    <td id="produk"></td>
+  </tr>
+  <tr>
+    <td class="label"><i class='bx bx-hash' style="margin-right:6px;color:var(--primary)"></i> Jumlah</td>
+    <td id="jumlah"></td>
+  </tr>
+  <tr>
+    <td class="label"><i class='bx bx-calendar' style="margin-right:6px;color:var(--primary)"></i> Tanggal Order</td>
+    <td id="tgl_order"></td>
+  </tr>
+  <tr>
+    <td class="label"><i class='bx bx-calendar-check' style="margin-right:6px;color:var(--primary)"></i> Garansi Berlaku Sampai</td>
+    <td id="tgl_garansi"></td>
+  </tr>
+  <tr>
+    <td class="label"><i class='bx bx-shield' style="margin-right:6px;color:var(--primary)"></i> Status Garansi</td>
+    <td id="status"></td>
+  </tr>
+</table>
+  </div>
+<button
+  id="claimBtn"
+  onclick="openClaim()"
+  style="display:none;margin-top:12px;padding:14px 18px;border:none;border-radius:12px;background:#16a34a;color:#fff;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif">
+  Klaim Garansi
+</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){
+  emailjs.init("YriGj6ltxmKl1SXqg");
+})();
+</script>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxL4irvAueSBM2ZOGLiE0tZGqYxvgO5HsU2otdS3JBdKih97-3tG8J24xG-wUhrTUan/exec";
+
+let currentInvoice = "";
+let currentData = {};
+
+async function cekInvoice() {
+  const input = document.getElementById("invoiceInput").value.trim();
+  const resultBox = document.getElementById("result");
+  const notfound = document.getElementById("notfound");
+  const loading = document.getElementById("loading");
+
+const emptyNotice = document.getElementById("emptyNotice");
+
+if (!input) {
+  emptyNotice.style.display = "block";
+  emptyNotice.textContent = "Harap masukkan invoice";
+  resultBox.style.display = "none";
+  loading.style.display = "none";
+  return;
+} else {
+  emptyNotice.style.display = "none";
+}
+
+  loading.style.display = "block";
+  resultBox.style.display = "none";
+  notfound.textContent = "";
+
+  try {
+    const res = await fetch(API_URL + "?ip=client");
+    const data = await res.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error("Invalid response");
+    }
+
+    const row = data.find(d => d.no_invoice === input);
+
+    if (!row) {
+      notfound.textContent = "Invoice tidak ditemukan.";
+      return;
+    }
+
+    currentInvoice = row.no_invoice;
+
+    document.getElementById("no_invoice").textContent = row.no_invoice;
+    document.getElementById("nama").textContent = row.nama_pelanggan;
+    document.getElementById("kontak").textContent = row.kontak;
+    document.getElementById("jenis").textContent = row.jenis_desain;
+    document.getElementById("produk").textContent = row.nama_produk;
+    document.getElementById("jumlah").textContent = row.jumlah;
+    document.getElementById("tgl_order").textContent = row.tanggal_order;
+    document.getElementById("tgl_garansi").textContent = row.tanggal_berakhir_garansi;
+
+    document.getElementById("status").innerHTML =
+      `<span class="badge ${row.status_garansi === 'aktif' ? 'active' : 'expired'}">
+        ${row.status_garansi === 'aktif' ? 'Aktif' : 'Berakhir'}
+      </span>`;
+
+    resultBox.style.display = "block";
+
+    currentData = row;
+
+const claimBtn = document.getElementById("claimBtn");
+if (row.status_garansi === "aktif") {
+  claimBtn.style.display = "block";
+} else {
+  claimBtn.style.display = "none";
+}
+
+  } catch (err) {
+    console.error(err);
+    notfound.textContent = "Gagal mengambil data invoice.";
+  } finally {
+    loading.style.display = "none";
+  }
+
+}
+
+function openClaim(){
+  document.getElementById("claimModal").style.display = "flex";
+
+  document.getElementById("c_invoice").value = currentData.no_invoice;
+  document.getElementById("c_nama").value = currentData.nama_pelanggan;
+  document.getElementById("c_kontak").value = currentData.kontak;
+  document.getElementById("c_produk").value = currentData.nama_produk;
+}
+
+function closeClaim(){
+  document.getElementById("claimModal").style.display = "none";
+}
+
+function toggleNotice(){
+  const metode = document.getElementById("c_metode").value;
+  document.getElementById("returNotice").style.display =
+    metode === "Retur" ? "block" : "none";
+}
+
+function submitClaim(){
+  const params = {
+    invoice: document.getElementById("c_invoice").value,
+    nama: document.getElementById("c_nama").value,
+    kontak: document.getElementById("c_kontak").value,
+    produk: document.getElementById("c_produk").value,
+    metode: document.getElementById("c_metode").value,
+    kendala: document.getElementById("c_kendala").value
+  };
+
+  if (!params.metode || !params.kendala) {
+    alert("Lengkapi semua data.");
+    return;
+  }
+
+  emailjs.send(
+    "service_6hr6jio",
+    "template_zfa3873",
+    params
+  ).then(() => {
+    alert("Klaim garansi berhasil dikirim.");
+    closeClaim();
+  }).catch(err => {
+    alert("Gagal mengirim claim.");
+    console.error(err);
+  });
+}
+
+</script>
+
+<div id="claimModal" class="modal">
+  <div class="modal-box">
+    <h3>Form Klaim Garansi</h3>
+
+    <input id="c_invoice" readonly>
+    <input id="c_nama" readonly>
+    <input id="c_kontak" readonly>
+    <input id="c_produk" readonly>
+
+    <select id="c_metode" onchange="toggleNotice()">
+      <option value="">Pilih Metode Garansi</option>
+      <option value="Revisi">Revisi</option>
+      <option value="Retur">Retur (50%)</option>
+    </select>
+
+    <div id="returNotice" class="notice">
+      ⚠️ Jika memilih retur, file desain yang telah dikirim
+      <b>dilarang digunakan atau dipublikasikan</b>.
+    </div>
+
+    <textarea
+      id="c_kendala"
+      rows="4"
+      placeholder="Sampaikan kendala Anda"
+    ></textarea>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeClaim()">Batal</button>
+      <button class="btn-primary" onclick="submitClaim()">Kirim Klaim</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="container footer-grid">
+      <!-- Logo & Deskripsi -->
+      <div class="footer-logo">
+        <img src="images/logo ps.png" alt="Logo Prasetya Studio">
+        <p style="color:var(--muted);font-size:14px">
+          Prasetya Studio – Jasa desain grafis freelance/ paruh waktu yang membantu bisnis dan organisasi tampil lebih profesional.
+        </p>
+      </div>
+
+      <!-- Layanan -->
+      <div>
+        <h4>Layanan</h4>
+        <a>Desain Grafis</a>
+        <a>Curriculum Vitae</a>
+        <a>Video Animasi</a>
+        <a>Edit Dokumen</a>
+        <a>Jasa Digital Lainnya</a>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="invoice.html">Garansi & Invoice</a>
+        <a href="priv.html">Kebijakan & Privasi</a>
+      </div>
+
+<div>
+  <h4>Kontak & Sosial Media</h4>
+  <p style="font-size:14px;color:var(--muted);margin:0 0 6px;">
+    <b>Alamat:</b> Banjarnegara, Jawa Tengah, Indonesia
+  </p>
+    <p style="font-size:14px;color:var(--muted);margin:0 0 6px;">
+    <b>Jam Kerja:</b> Pk. 09:00-22:00 WIB Setiap Hari
+  </p>
+  <a href="tel:+6285143080554"><b>WhatsApp:</b> +62 851-4308-0554</a>
+  <a href="mailto:prasetyastudioservicehub@gmail.com"><b>Email:</b> prasetyastudioservicehub@gmail.com</a>
+  
+  <!-- Icon medsos sejajar -->
+  <div class="social-icons" style="margin-top:10px;">
+    <a href="https://instagram.com/prasetyastudio"><i class="fab fa-instagram"></i></a>
+    <a href="https://instagram.com/cvmurahbanjarnegara"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/6285143080554"><i class="fab fa-whatsapp"></i></a>
+    <a href="mailto:prasetyastudioservicehub@gmail.com"><i class="fas fa-envelope"></i></a>
+    <a href="https://id.linkedin.com/in/aryo-yulio-prasetya-9653682a1"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Prasetya Studio. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>
