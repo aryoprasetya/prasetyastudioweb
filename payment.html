@@ -1,217 +1,152 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Metode Pembayaran</title>
-  <link rel="icon" href="images/logo duwa.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: 'Manrope', sans-serif;
-      background: linear-gradient(135deg, #c2d9ff, #e0eaff);
-    }
-  </style>
-  <script>
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Disalin: ' + text);
-      });
-    }
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment | Prasetya Studio</title>
+<link rel="icon" href="images/logo duwa.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--primary:#3B83F6;--primary-dark:#1E3A8A;--bg:#F6F8FB;--white:#fff;--text:#1F2937;--muted:#6B7280;--border:#E5E7EB;--success:#16a34a;--danger:#dc2626}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Manrope,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}a{text-decoration:none!important;color:inherit}.container{max-width:1200px;margin:auto;padding:0 20px}
+header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}.header-inner{display:flex;align-items:center;justify-content:space-between;height:70px;padding:10px 0}.logo img{height:40px;display:block}nav{display:flex;gap:28px}nav a{font-size:14px;color:var(--muted);font-weight:500;padding:8px 0}.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}.menu-toggle span{width:24px;height:2px;background:#333}.mobile-nav{display:none;background:#fff;border-top:1px solid var(--border)}.mobile-nav a{display:block;padding:14px 20px;border-bottom:1px solid var(--border);font-size:14px;color:#1F2937!important}
+.hero{background:linear-gradient(135deg,#1E3A8A,#3B83F6);color:#fff;padding:52px 0 58px;text-align:center}.hero h1{font-size:clamp(28px,4vw,42px);margin:0 0 10px;font-weight:800}.hero p{max-width:700px;margin:auto;color:rgba(255,255,255,.86)}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;margin:34px auto 60px}.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:0 18px 45px rgba(0,0,0,.05)}.card h2{margin:0 0 6px;font-size:22px}.sub{color:var(--muted);font-size:14px;margin:0 0 22px}
+label{display:block;font-size:13px;font-weight:700;margin:16px 0 7px}input,textarea,select{width:100%;border:1px solid var(--border);border-radius:12px;padding:13px 14px;font:inherit;outline:none;background:#fff}input:focus,textarea:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,131,246,.12)}textarea{min-height:92px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.btn{width:100%;border:0;border-radius:12px;padding:14px 18px;font:inherit;font-weight:800;cursor:pointer;transition:.2s}.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:#2563eb;transform:translateY(-1px)}.btn-secondary{background:#eef2f7;color:var(--text)}.btn:disabled{opacity:.6;cursor:not-allowed}
+.summary{position:sticky;top:94px}.summary-box{background:#f8fafc;border:1px solid var(--border);border-radius:16px;padding:18px}.summary-line{display:flex;justify-content:space-between;gap:15px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}.summary-line:last-child{border-bottom:0}.total{font-size:22px;font-weight:800;color:var(--primary)}.hint{font-size:12px;color:var(--muted);margin-top:8px}.notice{display:none;padding:12px 14px;border-radius:12px;margin-top:14px;font-size:13px}.notice.error{background:#fee2e2;color:#991b1b}.notice.success{background:#dcfce7;color:#166534}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.feature{padding:16px;border:1px solid var(--border);border-radius:14px;background:#fff}.feature i{font-size:24px;color:var(--primary)}.feature strong{display:block;font-size:14px;margin-top:5px}.feature span{font-size:12px;color:var(--muted)}
+.footer-top{padding:50px 0;border-top:1px solid var(--border)}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}.footer-logo img{height:42px;margin-bottom:12px}footer h4{font-size:15px;margin:0 0 10px}footer a{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}footer a:hover{color:var(--primary)}.footer-bottom{border-top:1px solid var(--border);padding:16px 0;font-size:13px;color:var(--muted);text-align:center}.social-icons{display:flex;gap:12px;margin-top:10px}.social-icons a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;color:#fff;border-radius:50%;background:var(--primary)}.social-icons a:hover{transform:scale(1.1)}
+.spinner{display:none;width:18px;height:18px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){nav{display:none}.menu-toggle{display:flex}.logo img{height:32px}.grid{grid-template-columns:1fr}.summary{position:static}.footer-grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}.row{grid-template-columns:1fr}.container{padding-left:16px;padding-right:16px}}
+</style>
 </head>
+<body>
+<header>
+<div class="container header-inner">
+<div class="logo"><img src="images/logo ps.png" alt="Logo Prasetya Studio"></div>
+<nav>
+<a href="index.html#beranda">Beranda</a><a href="index.html#tentang">Tentang</a><a href="index.html#layanan">Layanan</a><a href="index.html#portofolio">Portofolio</a><a href="index.html#harga">Pricelist</a>
+</nav>
+<div class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</div>
+<div class="mobile-nav" id="mobileNav">
+<a href="index.html#beranda">Beranda</a><a href="index.html#tentang">Tentang</a><a href="index.html#layanan">Layanan</a><a href="index.html#portofolio">Portofolio</a><a href="index.html#harga">Biaya Layanan</a>
+</div>
+</header>
 
-<body class="min-h-screen flex flex-col">
+<section class="hero">
+<div class="container">
+<h1>Pembayaran Layanan</h1>
+<p>Selesaikan pembayaran layanan Prasetya Studio dengan mudah, aman, dan dapatkan invoice digital otomatis setelah pembayaran berhasil.</p>
+</div>
+</section>
 
-  <!-- Header -->
-  <header class="backdrop-blur-md bg-white/30 border-b border-white/20 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="home" class="flex items-center gap-3">
-        <img src="images/logo duwa.png" alt="Logo" class="h-10">
-        <span class="text-xl font-bold text-gray-800">Prasetya Studio</span>
-      </a>
-    </div>
-  </header>
+<main class="container">
+<div class="grid">
+<section class="card">
+<h2>Buat Pembayaran</h2>
+<p class="sub">Masukkan detail pesanan dan nominal yang ingin dibayarkan.</p>
+<form id="paymentForm">
+<label for="name">Nama Pelanggan *</label>
+<input id="name" required maxlength="80" placeholder="Nama lengkap">
 
-  <!-- Main Content -->
-  <main class="flex-grow">
-    <div class="max-w-4xl mx-auto mt-10 p-6 bg-white/30 backdrop-blur-md rounded-2xl shadow-xl">
-      <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Metode Pembayaran</h1>
+<div class="row">
+<div><label for="phone">WhatsApp *</label><input id="phone" required maxlength="20" placeholder="08xxxxxxxxxx"></div>
+<div><label for="email">Email *</label><input id="email" type="email" required maxlength="120" placeholder="email@contoh.com"></div>
+</div>
 
-      <!-- Section 1: Transfer Bank -->
-      <h2 class="text-xl font-semibold text-gray-700 mb-4">1. Transfer Bank</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- BRI -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/BRI_2020.svg" alt="BRI" class="h-8" />
-            <div>
-              <p class="font-semibold">Bank BRI</p>
-              <p>No. Rek: <span class="font-mono">6622 0106 4230 532</span>
-                <button onclick="copyToClipboard('6622 0106 4230 532')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
-              </p>
-              <p>a.n: ARYO YULIO PRASETYA</p>
-            </div>
-          </div>
-          <a href="bri" class="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via BRI</a>
-        </div>
+<label for="product">Nama Produk / Layanan *</label>
+<input id="product" required maxlength="120" placeholder="Contoh: Desain Logo">
 
-        <!-- SeaBank -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/SeaBank.svg.png" alt="SeaBank" class="h-8" />
-            <div>
-              <p class="font-semibold">SeaBank</p>
-              <p>No. Rek: <span class="font-mono">9016 1565 2166</span>
-                <button onclick="copyToClipboard('9016 1565 2166')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
-              </p>
-                <p>a.n: ARYO YULIO PRASETYA</p>
-            </div>
-          </div>
-          <a href="seabank" class="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via SeaBank</a>
-        </div>
+<div class="row">
+<div><label for="category">Jenis Desain</label><input id="category" maxlength="80" placeholder="Contoh: Graphic Design"></div>
+<div><label for="qty">Jumlah</label><input id="qty" type="number" min="1" value="1"></div>
+</div>
 
-        <!-- Jago -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/Logo-jago.svg.png" alt="Bank Jago" class="h-8" />
-            <div>
-              <p class="font-semibold">Bank Jago</p>
-              <p>No. Rek: <span class="font-mono">COMING SOON</span></p>
-              <p>a.n: Prasetya Studio</p>
-            </div>
-          </div>
-          <a href="bankjago" class="mt-2 inline-block bg-orange-500 text-white px-3 py-1 rounded text-sm">Bayar via Jago</a>
-        </div>
+<label for="amount">Nominal Pembayaran *</label>
+<input id="amount" type="number" min="1000" step="1" required placeholder="150000">
+<div class="hint">Minimal pembayaran Rp1.000. Nominal harus dalam Rupiah.</div>
 
-        <!-- Bank Lain -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/pngegg (1).png" alt="Bank Lain" class="h-8" />
-            <div>
-              <p class="font-semibold">Bank Lain</p>
-              <p>No. Rek: <span class="font-mono">COMING SOON</span></p>
-              <p>a.n: Prasetya Studio</p>
-            </div>
-          </div>
-          <a href="bankjago" class="mt-2 inline-block bg-gray-700 text-white px-3 py-1 rounded text-sm">Bayar via Bank Lain</a>
-        </div>
-      </div>
+<label for="note">Catatan Pesanan</label>
+<textarea id="note" maxlength="500" placeholder="Tambahkan detail atau catatan pesanan (opsional)"></textarea>
 
-      <!-- Section 2: e-Wallet -->
-      <h2 class="text-xl font-semibold text-gray-700 mt-8 mb-4">2. e-Wallet</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- DANA -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/dana.webp" alt="DANA" class="h-8" />
-            <div>
-              <p class="font-semibold">DANA</p>
-              <p>No. HP: <span class="font-mono">082136065407</span>
-                <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
-              </p>
-              <p>a.n: ARYO YULIO PRASETYA</p>
-            </div>
-          </div>
-          <a href="dana" class="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm">Bayar via DANA</a>
-        </div>
+<div id="notice" class="notice"></div>
+<button class="btn btn-primary" id="submitBtn" type="submit"><span class="spinner" id="spinner"></span><span id="btnText">Lanjut ke Pembayaran</span></button>
+</form>
+</section>
 
-        <!-- OVO -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/ovo.png" alt="OVO" class="h-8" />
-            <div>
-              <p class="font-semibold">OVO</p>
-              <p>No. HP: <span class="font-mono">082136065407</span>
-                <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
-              </p>
-              <p>a.n: ARYO YULIO PRASETYA</p>
-            </div>
-          </div>
-          <a href="ovo" class="mt-2 inline-block bg-purple-600 text-white px-3 py-1 rounded text-sm">Bayar via OVO</a>
-        </div>
+<aside class="card summary">
+<h2>Ringkasan</h2>
+<p class="sub">Data transaksi yang akan dibuat.</p>
+<div class="summary-box">
+<div class="summary-line"><span>Produk</span><strong id="sumProduct">-</strong></div>
+<div class="summary-line"><span>Pelanggan</span><strong id="sumName">-</strong></div>
+<div class="summary-line"><span>Jumlah</span><strong id="sumQty">1</strong></div>
+<div class="summary-line"><span>Total</span><strong class="total" id="sumAmount">Rp0</strong></div>
+</div>
+<div class="features">
+<div class="feature"><i class='bx bx-shield-quarter'></i><strong>Aman</strong><span>Diproses melalui Duitku.</span></div>
+<div class="feature"><i class='bx bx-receipt'></i><strong>Invoice Otomatis</strong><span>Invoice dibuat setelah pembayaran berhasil.</span></div>
+<div class="feature"><i class='bx bx-download'></i><strong>PDF Invoice</strong><span>Bisa diunduh kapan saja.</span></div>
+</div>
+</aside>
+</div>
+</main>
 
-        <!-- GoPay -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/gopay.png" alt="GoPay" class="h-8" />
-            <div>
-              <p class="font-semibold">GoPay</p>
-              <p>No. HP: <span class="font-mono">082136065407</span>
-                <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
-              </p>
-              <p>a.n: ARYO YULIO PRASETYA</p>
-            </div>
-          </div>
-          <a href="gopay" class="mt-2 inline-block bg-teal-500 text-white px-3 py-1 rounded text-sm">Bayar via GoPay</a>
-        </div>
+<footer>
+<div class="footer-top"><div class="container footer-grid">
+<div class="footer-logo"><img src="images/logo ps.png" alt="Logo Prasetya Studio"><p style="color:var(--muted);font-size:14px">Prasetya Studio – Jasa desain grafis freelance/paruh waktu yang membantu bisnis dan organisasi tampil lebih profesional.</p></div>
+<div><h4>Layanan</h4><a>Desain Grafis</a><a>Curriculum Vitae</a><a>Video Animasi</a><a>Edit Dokumen</a><a>Jasa Digital Lainnya</a></div>
+<div><h4>Quick Links</h4><a href="invoice.html">Garansi & Invoice</a><a href="payment.html">Pembayaran</a><a href="priv.html">Kebijakan & Privasi</a></div>
+<div><h4>Kontak & Sosial Media</h4><p style="font-size:14px;color:var(--muted);margin:0 0 6px"><b>Alamat:</b> Banjarnegara, Jawa Tengah, Indonesia</p><p style="font-size:14px;color:var(--muted);margin:0 0 6px"><b>Jam Kerja:</b> Pk. 09:00-22:00 WIB Setiap Hari</p><a href="tel:+6285143080554"><b>WhatsApp:</b> +62 851-4308-0554</a><a href="mailto:prasetyastudioservicehub@gmail.com"><b>Email:</b> prasetyastudioservicehub@gmail.com</a><div class="social-icons"><a href="https://instagram.com/prasetyastudio"><i class="fab fa-instagram"></i></a><a href="https://instagram.com/cvmurahbanjarnegara"><i class="fab fa-instagram"></i></a><a href="https://wa.me/6285143080554"><i class="fab fa-whatsapp"></i></a><a href="mailto:prasetyastudioservicehub@gmail.com"><i class="fas fa-envelope"></i></a><a href="https://id.linkedin.com/in/aryo-yulio-prasetya-9653682a1"><i class="fab fa-linkedin-in"></i></a></div></div>
+</div></div>
+<div class="footer-bottom">© 2026 Prasetya Studio. All rights reserved.</div>
+</footer>
 
-        <!-- ShopeePay -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/shpay.png" alt="ShopeePay" class="h-8" />
-            <div>
-              <p class="font-semibold">ShopeePay</p>
-              <p>No. HP: <span class="font-mono">082136065407</span>
-                <button onclick="copyToClipboard('082136065407')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
-              </p>
-              <p>a.n: ARYO YULIO PRASETYA</p>
-            </div>
-          </div>
-          <a href="shopeepay" class="mt-2 inline-block bg-orange-500 text-white px-3 py-1 rounded text-sm">Bayar via ShopeePay</a>
-        </div>
-      </div>
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxMO1e4QQPchcfRYiOpc7_2PdikWkbxTP8FvvP_ynqIfKngT0aBUZBRJPcDJrpe5gJC/exec";
 
-      <!-- Section 3: QRIS -->
-      <h2 class="text-xl font-semibold text-gray-700 mt-8 mb-4">3. QRIS</h2>
-      <div class="flex flex-col items-center">
-        <img src="images/Kode QRIS Prasetya Qris Pay_1.png" alt="QRIS" class="w-64 border p-2 rounded-lg bg-white/50 shadow" />
-        <a href="images/Kode QRIS Prasetya Qris Pay.png" class="mt-3 bg-pink-500 text-white px-4 py-2 rounded text-sm shadow hover:bg-pink-600 transition">Scan dengan QRIS</a>
-      </div>
+function toggleMenu(){const n=document.getElementById("mobileNav");n.style.display=n.style.display==="block"?"none":"block"}
+const rupiah=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(Number(n)||0);
+const $=id=>document.getElementById(id);
 
-      <!-- Section 4: USD Payment -->
-      <h2 class="text-xl font-semibold text-gray-700 mt-8 mb-4">4. USD (PayPal / Wallet)</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- PayPal -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-8" />
-            <div>
-              <p class="font-semibold">PayPal</p>
-              <p>Email: <span class="font-mono">aryoyulio22@gmail.com</span>
-                <button onclick="copyToClipboard('aryoyulio22@gmail.com')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
-              </p>
-            </div>
-          </div>
-          <a href="paypal" class="mt-2 inline-block bg-blue-600 text-white px-3 py-1 rounded text-sm">Bayar via PayPal</a>
-        </div>
+function refreshSummary(){
+  $("sumProduct").textContent=$("product").value||"-";
+  $("sumName").textContent=$("name").value||"-";
+  $("sumQty").textContent=$("qty").value||"1";
+  $("sumAmount").textContent=rupiah($("amount").value);
+}
+["product","name","qty","amount"].forEach(id=>$(id).addEventListener("input",refreshSummary));
 
-        <!-- Vai Wallet -->
-        <div class="bg-white/60 p-4 rounded-lg shadow">
-          <div class="flex items-center space-x-4">
-            <img src="images/vai.png" alt="Wallet" class="h-8" />
-            <div>
-              <p class="font-semibold">Vai Wallet</p>
-              <p>ID Wallet: <span class="font-mono">2795502272</span>
-                <button onclick="copyToClipboard('2795502272')" class="ml-2 text-sm text-blue-600 hover:underline">Salin</button>
-              </p>
-            </div>
-          </div>
-          <a href="vaiwallet" class="mt-2 inline-block bg-gray-800 text-white px-3 py-1 rounded text-sm">Bayar via Vai Wallet</a>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="mt-12 backdrop-blur-md bg-white/30 border-t border-white/20">
-    <div class="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center text-sm text-gray-600">
-      <p>&copy; 2025 Prasetya Studio. All Rights Reserved.</p>
-      <a href="#" class="hover:text-blue-600 transition">↑ Kembali ke atas</a>
-    </div>
-  </footer>
-
+$("paymentForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const amount=Math.floor(Number($("amount").value));
+  if(!amount||amount<1000)return showNotice("Nominal pembayaran minimal Rp1.000.","error");
+  if(API_URL.includes("GANTI_DENGAN"))return showNotice("error.","error");
+  const btn=$("submitBtn");btn.disabled=true;$("spinner").style.display="inline-block";$("btnText").textContent="Membuat transaksi...";
+  try{
+    const payload={
+      action:"create_payment",
+      nama_pelanggan:$("name").value.trim(),
+      kontak:$("phone").value.trim(),
+      email:$("email").value.trim(),
+      product:$("product").value.trim(),
+      jenis_desain:$("category").value.trim(),
+      jumlah:Math.max(1,Number($("qty").value)||1),
+      amount,
+      note:$("note").value.trim()
+    };
+    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+    const data=await r.json();
+    if(!data.ok)throw new Error(data.error||"Gagal membuat pembayaran");
+    sessionStorage.setItem("prs_payment_order",data.order_id);
+    window.location.href=data.payment_url;
+  }catch(err){showNotice(err.message||"Gagal membuat transaksi.","error");btn.disabled=false;$("spinner").style.display="none";$("btnText").textContent="Lanjut ke Pembayaran"}
+});
+function showNotice(msg,type){const n=$("notice");n.className="notice "+type;n.textContent=msg;n.style.display="block"}
+refreshSummary();
+</script>
 </body>
 </html>
