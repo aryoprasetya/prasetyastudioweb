@@ -17,6 +17,17 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .result{display:none;background:#fff;border-radius:20px;padding:28px;margin:0 auto 60px;box-shadow:0 18px 45px rgba(0,0,0,.06);max-width:1000px}.result-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;border-bottom:1px solid var(--border);padding-bottom:18px;margin-bottom:18px}.result h2{margin:0}.badge{display:inline-block;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:800}.paid{background:#dcfce7;color:#166534}.pending{background:#fef3c7;color:#92400e}.failed,.canceled{background:#fee2e2;color:#991b1b}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 35px}.detail{padding:11px 0;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;gap:15px;font-size:14px}.detail span:first-child{color:var(--muted)}.items{margin-top:24px;border:1px solid var(--border);border-radius:14px;overflow:hidden}.item{display:grid;grid-template-columns:1fr 80px 140px;gap:10px;padding:13px 16px;border-bottom:1px solid var(--border);font-size:14px}.item:last-child{border-bottom:0}.item.head{font-weight:800;background:#f8fafc}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.actions .btn{flex:1;min-width:180px}
 .footer-top{padding:50px 0;border-top:1px solid var(--border)}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}.footer-logo img{height:42px;margin-bottom:12px}footer h4{font-size:15px;margin:0 0 10px}footer a{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}footer a:hover{color:var(--primary)}.footer-bottom{border-top:1px solid var(--border);padding:16px 0;font-size:13px;color:var(--muted);text-align:center}.social-icons{display:flex;gap:12px;margin-top:10px}.social-icons a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;color:#fff;border-radius:50%;background:var(--primary)}
 @media(max-width:900px){nav{display:none}.menu-toggle{display:flex}.logo img{height:32px}.search-row{flex-direction:column}.detail-grid{grid-template-columns:1fr}.item{grid-template-columns:1fr 50px 110px}.footer-grid{grid-template-columns:1fr}.container{padding-left:16px;padding-right:16px}}
+.invoice-note{
+    width:100%;
+    margin-top:10px;
+    padding:10px 14px;
+    border-radius:10px;
+    background:#f8fafc;
+    color:var(--muted);
+    font-size:12px;
+    text-align:center;
+    border:1px solid var(--border);
+}
 </style>
 </head>
 <body>
@@ -32,14 +43,55 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 <div class="detail"><span>Metode Pembayaran</span><strong id="method">-</strong></div><div class="detail"><span>Nominal</span><strong id="amount">-</strong></div>
 <div class="detail"><span>Dibuat</span><strong id="created">-</strong></div><div class="detail"><span>Dibayar</span><strong id="paid">-</strong></div>
 </div>
-<div class="items"><div class="item head"><div>Produk / Layanan</div><div>Qty</div><div>Total</div></div><div class="item"><div id="itemProduct">-</div><div id="itemQty">1</div><div id="itemTotal">-</div></div></div>
-<div class="actions"><button class="btn btn-secondary" onclick="searchOrder()"><i class='bx bx-refresh'></i> Refresh Status</button><button class="btn btn-primary" id="downloadBtn" style="display:none"><i class='bx bx-download'></i> Download Invoice PDF</button></div>
+<div class="items">
+
+    <div class="item head">
+        <div>Produk / Layanan</div>
+        <div>Qty</div>
+        <div>Total</div>
+    </div>
+
+    <div id="itemsContainer"></div>
+
+</div>
+<div class="actions">
+
+    <button
+        class="btn btn-secondary"
+        onclick="searchOrder()"
+    >
+        <i class='bx bx-refresh'></i>
+        Refresh Status
+    </button>
+
+    <div style="flex:1;min-width:180px">
+
+        <button
+            class="btn btn-primary"
+            id="downloadBtn"
+            style="display:none;width:100%"
+        >
+            <i class='bx bx-download'></i>
+            Download Invoice PDF
+        </button>
+
+        <div
+            class="invoice-note"
+            id="invoiceNote"
+            style="display:none"
+        >
+            Unduh invoice untuk melihat detail pesanan.
+        </div>
+
+    </div>
+
+</div>
 </section>
 </main>
 <footer><div class="footer-top"><div class="container footer-grid"><div class="footer-logo"><img src="images/logo ps.png" alt="Logo Prasetya Studio"><p style="color:var(--muted);font-size:14px">Prasetya Studio – Jasa desain grafis freelance/paruh waktu yang membantu bisnis dan organisasi tampil lebih profesional.</p></div><div><h4>Layanan</h4><a>Desain Grafis</a><a>Curriculum Vitae</a><a>Video Animasi</a><a>Edit Dokumen</a><a>Jasa Digital Lainnya</a></div><div><h4>Quick Links</h4><a href="invoice.html">Garansi & Invoice</a><a href="payment.html">Pembayaran</a><a href="priv.html">Kebijakan & Privasi</a></div><div><h4>Kontak & Sosial Media</h4><p style="font-size:14px;color:var(--muted);margin:0 0 6px"><b>Alamat:</b> Banjarnegara, Jawa Tengah, Indonesia</p><p style="font-size:14px;color:var(--muted);margin:0 0 6px"><b>Jam Kerja:</b> Pk. 09:00-22:00 WIB Setiap Hari</p><a href="tel:+6285143080554"><b>WhatsApp:</b> +62 851-4308-0554</a><a href="mailto:prasetyastudioservicehub@gmail.com"><b>Email:</b> prasetyastudioservicehub@gmail.com</a><div class="social-icons"><a href="https://instagram.com/prasetyastudio"><i class="fab fa-instagram"></i></a><a href="https://instagram.com/cvmurahbanjarnegara"><i class="fab fa-instagram"></i></a><a href="https://wa.me/6285143080554"><i class="fab fa-whatsapp"></i></a><a href="mailto:prasetyastudioservicehub@gmail.com"><i class="fas fa-envelope"></i></a><a href="https://id.linkedin.com/in/aryo-yulio-prasetya-9653682a1"><i class="fab fa-linkedin-in"></i></a></div></div></div></div><div class="footer-bottom">© 2026 Prasetya Studio. All rights reserved.</div></footer>
 <script>
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxMO1e4QQPchcfRYiOpc7_2PdikWkbxTP8FvvP_ynqIfKngT0aBUZBRJPcDJrpe5gJC/exec";
+"https://script.google.com/macros/s/AKfycbziCZRNQDpu-L1x_rsH4PZbfPhzqzl9_WpDMQxudcFeuib9GofcLi52P6Y3-9yrA33N/exec";
 
 const $ = id => document.getElementById(id);
 
@@ -242,20 +294,184 @@ async function searchOrder(){
             );
 
 
-        $("itemProduct").textContent =
-            data.product ||
-            "-";
+/*
+============================================================
+MULTI PRODUCT ITEMS
+============================================================
+*/
+
+const itemsContainer = $("itemsContainer");
+
+itemsContainer.innerHTML = "";
+
+let items = [];
+
+/*
+    Data produk dari payment.html dikirim
+    sebagai array products.
+
+    Backend idealnya mengembalikan:
+    data.products = [
+        {
+            product: "Desain Logo",
+            category: "Graphic Design",
+            qty: 1,
+            price: 3000,
+            subtotal: 3000
+        }
+    ];
+*/
 
 
-        $("itemQty").textContent =
-            data.jumlah ||
-            1;
+if (
+    Array.isArray(data.products) &&
+    data.products.length
+){
+
+    items = data.products;
+
+}
 
 
-        $("itemTotal").textContent =
-            rupiah(data.amount);
+/*
+    Alternatif jika Apps Script
+    mengembalikan nama field sebagai items
+*/
+
+else if (
+    Array.isArray(data.items) &&
+    data.items.length
+){
+
+    items = data.items;
+
+}
 
 
+/*
+    Jika belum ada detail produk,
+    tampilkan total saja tanpa mengalikan
+*/
+
+else {
+
+    items = [
+
+        {
+
+            product:
+                data.product ||
+                "Produk / Layanan",
+
+            category:
+                "",
+
+            qty:
+                1,
+
+            price:
+                Number(
+                    data.amount
+                ) || 0,
+
+            subtotal:
+                Number(
+                    data.amount
+                ) || 0
+
+        }
+
+    ];
+
+}
+
+
+items.forEach(item => {
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "item";
+
+
+    const productName =
+        item.product ||
+        item.name ||
+        "Produk / Layanan";
+
+
+    const category =
+        item.category ||
+        item.jenis_desain ||
+        "";
+
+
+    const qty =
+        Number(
+            item.qty ??
+            item.quantity ??
+            1
+        ) || 1;
+
+
+    const subtotal =
+        Number(
+            item.subtotal
+        ) || (
+
+            Number(
+                item.price
+            ) || 0
+
+        ) * qty;
+
+
+    row.innerHTML = `
+
+        <div>
+
+            <strong>
+                ${productName}
+            </strong>
+
+            ${
+                category
+                    ? `
+                        <small style="
+                            display:block;
+                            color:var(--muted);
+                            font-size:12px;
+                        ">
+                            ${category}
+                        </small>
+                      `
+                    : ""
+            }
+
+        </div>
+
+
+        <div>
+            ${qty}
+        </div>
+
+
+        <div>
+            ${rupiah(subtotal)}
+        </div>
+
+    `;
+
+
+    itemsContainer.appendChild(
+        row
+    );
+
+});
         const status =
             (data.status || "PENDING")
             .toUpperCase();
@@ -274,22 +490,27 @@ async function searchOrder(){
 
         if(status === "PAID"){
 
-            downloadButton.style.display =
-                "block";
+    downloadButton.style.display =
+        "block";
 
+    $("invoiceNote").style.display =
+        "block";
 
-            downloadButton.onclick =
-                () => downloadInvoice(
-                    data.invoice ||
-                    data.order_id
-                );
+    downloadButton.onclick =
+        () => downloadInvoice(
+            data.invoice ||
+            data.order_id
+        );
 
-        }else{
+}else{
 
-            downloadButton.style.display =
-                "none";
+    downloadButton.style.display =
+        "none";
 
-        }
+    $("invoiceNote").style.display =
+        "none";
+
+}
 
 
         $("result").style.display =
